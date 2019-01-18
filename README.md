@@ -1,1 +1,1 @@
-Basant loves Notepad
+Notepad
