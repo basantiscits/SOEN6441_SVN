@@ -1,7 +1,7 @@
 package com.proj.App;
-import com.proj.Controller.Controller;
-import com.proj.Model.Model;
-import com.proj.Views.View;
+import com.proj.controller.Controller;
+import com.proj.model.Model;
+import com.proj.views.View;
 
 public class App {
 	public static void main(String[] args) {

@@ -1,8 +1,8 @@
-package com.proj.Controller;
+package com.proj.controller;
 import javax.swing.JOptionPane;
 
-import com.proj.Model.Model;
-import com.proj.Views.View;
+import com.proj.model.Model;
+import com.proj.views.View;
 
 public class Controller {
 	

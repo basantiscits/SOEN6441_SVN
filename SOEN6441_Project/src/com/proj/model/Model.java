@@ -1,4 +1,4 @@
-package com.proj.Model;
+package com.proj.model;
 
 public class Model {
 	

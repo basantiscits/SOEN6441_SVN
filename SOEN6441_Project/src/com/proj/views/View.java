@@ -1,4 +1,4 @@
-package com.proj.Views;
+package com.proj.views;
 import java.awt.BorderLayout;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
