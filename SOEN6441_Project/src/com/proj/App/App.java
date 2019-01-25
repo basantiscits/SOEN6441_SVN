@@ -1,0 +1,13 @@
+package com.proj.App;
+import com.proj.Controller.Controller;
+import com.proj.Model.Model;
+import com.proj.Views.View;
+
+public class App {
+	public static void main(String[] args) {
+		  Model m = new Model("Basant", "Gera",26);
+		  View v = new View("SOEN 6441");
+		  Controller c = new Controller(m, v);
+		  c.initController();
+	}
+}
