@@ -24,16 +24,19 @@ import javax.swing.text.View;
 import utilites.Constants;
 
 
-
+//Creating Map Editor for new Game
 public class CreateaMapEditor extends JFrame  {
 
 	public  CreateaMapEditor() {
 		// TODO Auto-generated method stub
 		
-		setTitle("New Screen");
-	    setSize(800, 700);
-	    setLocationRelativeTo(null);
-	    setDefaultCloseOperation(EXIT_ON_CLOSE);
+	
+	    
+	    setTitle("Start a New Game");
+		setResizable(false);
+		setSize(Constants.WIDTH, Constants.HEIGHT);
+		setLayout(null);
+		setLocationRelativeTo(null);
 	    
 	    
 	   

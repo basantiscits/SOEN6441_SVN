@@ -2,7 +2,7 @@ package utilites;
 
 
 
-
+// Frame size is given
 public class Constants {
 
 	/** The Constant WIDTH. */
