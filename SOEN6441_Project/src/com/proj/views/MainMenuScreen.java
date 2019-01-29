@@ -7,12 +7,16 @@ import java.awt.PopupMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
+import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -20,7 +24,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.text.View;
 
-
+import utilites.Constants;
 
 import javax.swing.JOptionPane;
 
@@ -28,6 +32,7 @@ import javax.swing.JOptionPane;
 public class MainMenuScreen extends JFrame {
 
 	private JButton btnLoadExisitingMaps;
+
 	
 public MainMenuScreen(){
 	CreateMenuBar();
@@ -35,12 +40,17 @@ public MainMenuScreen(){
     setSize(900, 800);
     setLocationRelativeTo(null);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
+    JLabel jLabelObject = new JLabel();
+    jLabelObject.setIcon(new ImageIcon("C:\\Users\\Basant Gera\\Documents\\Java\\SOEN6441_Project\\Images\\Risk.jpg"));
+    jLabelObject.setBounds(Constants.WIDTH / 2 - 150, 50, 100, 30);
+    add(jLabelObject);
 }
 
 private void CreateMenuBar() {
 	// TODO Auto-generated method stub
 
     JMenuBar menubar = new JMenuBar();
+	JLabel ImgLabel= new JLabel();
 
 
     JMenu fileMenu1 = new JMenu("File");
@@ -48,12 +58,7 @@ private void CreateMenuBar() {
     JMenu helpMenu = new JMenu("Help");
     JMenu SubSubMenu = new JMenu("Play Game");
     
-    
-    
-    
-    
 
-    
     JMenuItem singlePlayer = new JMenuItem("Single Player");
     singlePlayer.setToolTipText("Single Player");
     
@@ -77,7 +82,7 @@ private void CreateMenuBar() {
             // Button pressed logic goes here
         	CreateaMapEditor LoadExisitingMaps = new CreateaMapEditor();
     		LoadExisitingMaps.setVisible(true);
-    		dispose();
+    		//dispose();
         }
     });
     LoadExisitingMap.setToolTipText("Load Existing Map");
@@ -112,11 +117,7 @@ private void CreateMenuBar() {
 		
     });
     
-    
-    
-       
-    
-    
+
     
     fileMenu1.add(SubSubMenu);
     fileMenu1.addSeparator();
