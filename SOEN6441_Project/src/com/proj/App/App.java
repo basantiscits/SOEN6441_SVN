@@ -1,4 +1,4 @@
-package com.proj.App;
+package com.proj.app;
 //import com.proj.controller.Controller;
 //import com.proj.model.Model;
 //import com.proj.views.View;
