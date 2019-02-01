@@ -11,7 +11,6 @@ public class CreateaMapEditor extends JFrame {
 		setSize(900, 800);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-
 	}
 
 }

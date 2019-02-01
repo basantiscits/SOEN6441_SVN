@@ -1,26 +1,24 @@
 package com.proj.views;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.PopupMenu;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
+
 
 import javax.swing.AbstractAction;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPopupMenu;
-import javax.swing.text.View;
 
-import javax.swing.JOptionPane;
+
+import com.proj.utilites.Constants;
+
+
 
 public class MainMenuScreen extends JFrame {
 
@@ -32,6 +30,15 @@ public class MainMenuScreen extends JFrame {
 		setSize(900, 800);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+	
+		JLabel jLabelObject = new JLabel();
+		jLabelObject
+				.setIcon(new ImageIcon("E:\\SOEN_6441\\SOEN6441_Project\\Images\\Risk.jpg"));
+	
+		
+		jLabelObject.setBounds(Constants.WIDTH / 2 - 150, 50, 100, 30);
+		add(jLabelObject);
 	}
 
 	private void CreateMenuBar() {
@@ -62,7 +69,7 @@ public class MainMenuScreen extends JFrame {
 		JMenuItem LoadExisitingMap = new JMenuItem(new AbstractAction("Load Existing Map") {
 			public void actionPerformed(ActionEvent e) {
 				// Button pressed logic goes here
-				CreateaMapEditor LoadExisitingMaps = new CreateaMapEditor();
+				LoadMapEditor LoadExisitingMaps = new LoadMapEditor();
 				LoadExisitingMaps.setVisible(true);
 				dispose();
 			}
