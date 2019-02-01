@@ -1,17 +1,20 @@
 package com.proj.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Continent {
 	
 	private String continentName;
-	private List <Country> countriesPresent;
+	private List<Country> countriesPresent;
 	private  int controlValue;
 	
 	
 
 	public Continent(){
 		controlValue=0;
+		countriesPresent=new ArrayList<Country>();
+		
 	}
 	
 	public String getContinentName() {

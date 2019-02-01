@@ -1,19 +1,27 @@
 package com.proj.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Map {
 	
 	private String Name;
+	private String authorName;
 	private String Path;
+	private List<Continent> Continents;
+	public Map(){
+		Continents=new ArrayList<Continent>();
+		Path="";
+		Name="";
+	}
+	
 	public String getPath() {
 		return Path;
 	}
 	public void setPath(String path) {
 		Path = path;
 	}
-	private List<Continent> Continents;
-	private List<Country> Countries;
+	
 	public String getName() {
 		return Name;
 	}
@@ -26,14 +34,11 @@ public class Map {
 	public void setContinents(List<Continent> continents) {
 		Continents = continents;
 	}
-	public List<Country> getCountries() {
-		return Countries;
+	public String getAuthorName() {
+		return authorName;
 	}
-	public void setCountries(List<Country> countries) {
-		Countries = countries;
-	}
-	
-	
-	
 
+	public void setAuthorName(String authorName) {
+		this.authorName = authorName;
+	}
 }

@@ -1,14 +1,18 @@
 package com.proj.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Country {
 	private String countryName;
 	private String ownedBy;
-	private String liesInContinent;
 	private int noOfArmiesPresent;
-	private List<Country> listOfNeighbours;
-	
+	private List <String> listOfNeighbours;
+	private int Longitude;
+	private int Latitude;
+	public Country(){
+		listOfNeighbours=new ArrayList<String>();
+	}
 	
 	public String getCountryName() {
 		return countryName;
@@ -22,23 +26,30 @@ public class Country {
 	public void setOwnedBy(String ownedBy) {
 		this.ownedBy = ownedBy;
 	}
-	public String getLiesInContinent() {
-		return liesInContinent;
-	}
-	public void setLiesInContinent(String liesInContinent) {
-		this.liesInContinent = liesInContinent;
-	}
 	public int getNoOfArmiesPresent() {
 		return noOfArmiesPresent;
 	}
 	public void setNoOfArmiesPresent(int noOfArmiesPresent) {
 		this.noOfArmiesPresent = noOfArmiesPresent;
 	}
-	public List<Country> getListOfNeighbours() {
+	public List<String> getListOfNeighbours() {
 		return listOfNeighbours;
 	}
-	public void setListOfNeighbours(List<Country> listOfNeighbours) {
+	public void setListOfNeighbours(List<String> listOfNeighbours) {
 		this.listOfNeighbours = listOfNeighbours;
 	}
+	public int getLongitude() {
+		return Longitude;
+	}
+	public void setLongitude(int longitude) {
+		Longitude = longitude;
+	}
+	public int getLatitude() {
+		return Latitude;
+	}
+	public void setLatitude(int latitude) {
+		Latitude = latitude;
+	}
+	
 
 }
