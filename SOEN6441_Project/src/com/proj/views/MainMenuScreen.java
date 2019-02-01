@@ -69,9 +69,7 @@ public class MainMenuScreen extends JFrame {
 		JMenuItem LoadExisitingMap = new JMenuItem(new AbstractAction("Load Existing Map") {
 			public void actionPerformed(ActionEvent e) {
 				// Button pressed logic goes here
-				LoadMapEditor LoadExisitingMaps = new LoadMapEditor();
-				LoadExisitingMaps.setVisible(true);
-				dispose();
+				String name = JOptionPane.showInputDialog("What is your name?", null);
 			}
 		});
 		LoadExisitingMap.setToolTipText("Load Existing Map");
@@ -85,7 +83,10 @@ public class MainMenuScreen extends JFrame {
 		CreateEditor.addActionListener(new java.awt.event.ActionListener() {
 			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				String name = JOptionPane.showInputDialog("What is your name?", null);
+				CreateaMapEditor createMap = new CreateaMapEditor();
+				createMap.setVisible(true);
+				dispose();
+				
 			}
 		});
 
