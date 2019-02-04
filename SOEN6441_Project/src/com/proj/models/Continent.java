@@ -37,5 +37,12 @@ public class Continent {
 		this.controlValue = controlValue;
 	}
 	
+	/*
+	 * @author Ofreish
+	 */
+	public void addCountry(Country name){
+		countriesPresent.add(name);
+	}
 	
+
 }

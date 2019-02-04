@@ -3,7 +3,6 @@ package com.proj.views;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 
-
 import javax.swing.AbstractAction;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
@@ -15,7 +14,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
-
+import com.proj.models.Map;
 import com.proj.utilites.Constants;
 
 
@@ -83,7 +82,8 @@ public class MainMenuScreen extends JFrame {
 		CreateEditor.addActionListener(new java.awt.event.ActionListener() {
 			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				CreateaMapEditor createMap = new CreateaMapEditor();
+				Map map = new Map();
+				CreateaMapEditor createMap = new CreateaMapEditor(map);
 				createMap.setVisible(true);
 				dispose();
 				
@@ -127,12 +127,12 @@ public class MainMenuScreen extends JFrame {
 
 	}
 
-	public void SubSubMenu(ActionEvent e) {
+/*	public void SubSubMenu(ActionEvent e) {
 		if (e.getSource() == btnLoadExisitingMaps) {
 			CreateaMapEditor LoadExisitingMaps = new CreateaMapEditor();
 			LoadExisitingMaps.setVisible(true);
 			dispose();
 		}
 
-	}
+	}*/
 }

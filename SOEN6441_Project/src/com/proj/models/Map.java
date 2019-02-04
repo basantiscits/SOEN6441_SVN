@@ -8,9 +8,11 @@ public class Map {
 	private String Name;
 	private String authorName;
 	private String Path;
-	private List<Continent> Continents;
+	private List<Continent> continents;	//o
+	//private List<Country> countries;	//o
 	public Map(){
-		Continents=new ArrayList<Continent>();
+		continents=new ArrayList<Continent>();	//o
+		//countries=new ArrayList<Country>();	//o
 		Path="";
 		Name="";
 	}
@@ -29,10 +31,10 @@ public class Map {
 		Name = name;
 	}
 	public List<Continent> getContinents() {
-		return Continents;
+		return continents;
 	}
 	public void setContinents(List<Continent> continents) {
-		Continents = continents;
+		this.continents = continents;
 	}
 	public String getAuthorName() {
 		return authorName;
@@ -41,4 +43,64 @@ public class Map {
 	public void setAuthorName(String authorName) {
 		this.authorName = authorName;
 	}
+	
+	/*
+	 * @author Ofreish
+	 */
+/*	public List<Country> getCountries(){
+		return countries;
+	}*/
+	
+	/**
+	 * @author ofreish
+	 */
+	public String searchContinent(String continentName) {
+		
+		for(Continent name : getContinents()) {
+			if(name.getContinentName().equalsIgnoreCase(continentName)) {
+				return name.getContinentName();
+			}
+		}
+		return "";
+		
+	}
+	
+	/**
+	 * @author ofreish
+	 */
+	public void addContinent(Continent continent) {
+		
+		if(searchContinent(continent.getContinentName())=="") {
+			getContinents().add(continent);
+		}
+		
+	}
+	
+	/*
+	 * @author ofreish
+	 */
+	public String searchCountry(String countryName, String continentName) {
+		
+		System.out.println("1");
+		for(Continent name : getContinents()) {
+			if(name.getContinentName().equalsIgnoreCase(continentName)) {
+				for(Country cName : name.getCountriesPresent() ) {
+					if(cName.getCountryName().equalsIgnoreCase(countryName)) {
+						System.out.println("2");
+						return countryName;
+					}
+				}
+			}
+		}
+		return "";
+		
+	}
 }
+
+
+
+
+
+
+
+

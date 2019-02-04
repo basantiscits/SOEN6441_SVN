@@ -8,8 +8,8 @@ public class Country {
 	private String ownedBy;
 	private int noOfArmiesPresent;
 	private List <String> listOfNeighbours;
-	private int Longitude;
-	private int Latitude;
+	private float Longitude;
+	private float Latitude;
 	public Country(){
 		listOfNeighbours=new ArrayList<String>();
 	}
@@ -38,13 +38,13 @@ public class Country {
 	public void setListOfNeighbours(List<String> listOfNeighbours) {
 		this.listOfNeighbours = listOfNeighbours;
 	}
-	public int getLongitude() {
+	public float getLongitude() {
 		return Longitude;
 	}
 	public void setLongitude(int longitude) {
 		Longitude = longitude;
 	}
-	public int getLatitude() {
+	public float getLatitude() {
 		return Latitude;
 	}
 	public void setLatitude(int latitude) {

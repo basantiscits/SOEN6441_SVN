@@ -2,21 +2,17 @@ package com.proj.views;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTree;
 import javax.swing.ScrollPaneConstants;
 
+import com.proj.controllers.CreateMapContoller;
+import com.proj.models.Map;
 import com.proj.utilites.Constants;
 
 
@@ -27,23 +23,37 @@ public class CreateaMapEditor extends JFrame {
 	private CountriesArea countriesArea;
 	private ContinentArea continentArea;
 	private ToolBar toolBar;
+	public Map map;
+	private CreateaMapEditor createaMapEditor;
 	
-	public CreateaMapEditor() {
+	public CreateaMapEditor(Map map) {
 		// TODO Auto-generated method stub
 		
+		
 		super("Map Editor");
+		this.map = map;
+		
+		
 		
 		setSize(Constants.MAP_EDITOR_HEIGHT, Constants.MAP_EDITOR_WIDTH);
 		setMinimumSize(new Dimension(Constants.MAP_EDITOR_HEIGHT, Constants.MAP_EDITOR_WIDTH));
 		//setResizable(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+		CreateMapContoller createMapController = new CreateMapContoller(this);
 
-		addComponents();
+		createMapController.addMap(map);
+
+		addComponents(createMapController);
 
 	}
 	
-	public void addComponents() {
+	public Map getMap() {
+		return map;
+	}
+	
+	public void addComponents(CreateMapContoller createMapController) {
 		//setLayout(new BorderLayout());
 		setLayout(null);
 		
@@ -67,9 +77,10 @@ public class CreateaMapEditor extends JFrame {
 	    
 	    countriesArea = new CountriesArea();
 	    countriesArea.setBounds(continentArea.getBounds().x + (int) (continentArea.getBounds().getWidth()),70,frameSize.width-350,frameSize.height-700);
-		
-		toolBar = new ToolBar();
+
+		toolBar = new ToolBar(createMapController);
 		toolBar.setBounds(0, 0, frameSize.width, 40);
+		
 		
 		add(countriesLabel);
 		add(continentLabel);
@@ -98,11 +109,13 @@ class CountriesArea extends JTextArea {
 }
 
 class ContinentArea extends JTextArea {
-	
+	private JTree tree;
 	private JTextArea textArea;
 	public ContinentArea() {
 		textArea = new JTextArea();
 		setLayout(new BorderLayout());
+		
+		//Stree = new JTree(createTree());
 		
 		
 		JScrollPane scrollPane = new JScrollPane(textArea);
@@ -111,37 +124,22 @@ class ContinentArea extends JTextArea {
 		add(scrollPane,BorderLayout.CENTER);
 
 	}
-}
-
-
-class ToolBar extends JPanel{
 	
-	private JButton addContinent;
-	private JButton addCountries;
-	private JButton save;
-	
-	public ToolBar() {
+/*	public DefaultMutableTreeNode createTree() {
 		
-		setLayout(new FlowLayout());
-		addContinent = new JButton("Add Continent");
-		addCountries = new JButton("Add Countries");
-		save = new JButton("Save");
+		DefaultMutableTreeNode top = new DefaultMutableTreeNode("Map - "+map.getName()+"");
 		
-		setBorder(BorderFactory.createEtchedBorder());
-		
-		add(addContinent);
-		add(addCountries);
-		add(save);
-		
-		addContinent.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				
-				JOptionPane.showInputDialog(new CreateaMapEditor(), "Enter the Continent name: ","Add Continent",JOptionPane.OK_CANCEL_OPTION|JOptionPane.QUESTION_MESSAGE);
-			}
+		for(Continent continent : map.getContinents()) {
 			
-		});
+		}
 		
-	
-	}
+		
+		
+		
+		
+		return null;
+		
+	}*/
 }
+
+
