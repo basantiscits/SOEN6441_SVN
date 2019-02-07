@@ -3,6 +3,9 @@ package com.proj.views;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.ScrollPane;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -10,8 +13,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTree;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreePath;
 
 import com.proj.controllers.CreateMapContoller;
+import com.proj.models.Continent;
+import com.proj.models.ContinentArea;
+import com.proj.models.Country;
 import com.proj.models.Map;
 import com.proj.utilites.Constants;
 
@@ -25,19 +33,21 @@ public class CreateaMapEditor extends JFrame {
 	private ToolBar toolBar;
 	public Map map;
 	private CreateaMapEditor createaMapEditor;
+	private JTree mapTree;
+	private JScrollPane treeScrollPane;
+	private String userSelTreeNode;
+	
 	
 	public CreateaMapEditor(Map map) {
 		// TODO Auto-generated method stub
 		
 		
-		super("Map Editor");
+		super("Game Window");
 		this.map = map;
 		
-		
-		
-		setSize(Constants.MAP_EDITOR_HEIGHT, Constants.MAP_EDITOR_WIDTH);
-		setMinimumSize(new Dimension(Constants.MAP_EDITOR_HEIGHT, Constants.MAP_EDITOR_WIDTH));
-		//setResizable(false);
+		setSize(Constants.MAP_EDITOR_WIDTH,Constants.MAP_EDITOR_HEIGHT);
+		setMinimumSize(new Dimension(Constants.MAP_EDITOR_WIDTH,Constants.MAP_EDITOR_HEIGHT));
+		setResizable(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
@@ -64,19 +74,20 @@ public class CreateaMapEditor extends JFrame {
 	    continentLabel.setFont(new Font("TimesRoman", Font.BOLD, 20));
 	    continentLabel.setBounds(10, 50, continentSize.width+300, continentSize.height);
 	    
-	    continentArea = new ContinentArea();
-		continentArea.setBounds(10, 70,frameSize.width-600,frameSize.height-700);
-		//add(continentArea);
+
+
+		treeScrollPane = new JScrollPane(mapTree);
+	    treeScrollPane.setBounds(10, 70,frameSize.width-600,frameSize.height-400);
 	   
 		
 		countriesLabel = new JLabel("Countries Matrix");
 	    Dimension countriesSize = countriesLabel.getPreferredSize();
 	    countriesLabel.setFont(new Font("TimesRoman", Font.BOLD, 20));
-	    countriesLabel.setBounds(continentArea.getBounds().x + (int) (continentArea.getBounds().getWidth()), 50, countriesSize.width+300, countriesSize.height);
+	    countriesLabel.setBounds(treeScrollPane.getBounds().x + (int) (treeScrollPane.getBounds().getWidth()), 50, countriesSize.width+300, countriesSize.height);
 
 	    
 	    countriesArea = new CountriesArea();
-	    countriesArea.setBounds(continentArea.getBounds().x + (int) (continentArea.getBounds().getWidth()),70,frameSize.width-350,frameSize.height-700);
+	    countriesArea.setBounds(treeScrollPane.getBounds().x + (int) (treeScrollPane.getBounds().getWidth()),70,frameSize.width-350,frameSize.height-400);
 
 		toolBar = new ToolBar(createMapController);
 		toolBar.setBounds(0, 0, frameSize.width, 40);
@@ -85,8 +96,26 @@ public class CreateaMapEditor extends JFrame {
 		add(countriesLabel);
 		add(continentLabel);
 		add(countriesArea);
-		add(continentArea);
+		add(treeScrollPane);
 		add(toolBar);
+		
+	}
+
+	public void createTree() {
+		
+		DefaultMutableTreeNode top = new DefaultMutableTreeNode("Map - "+map.getName()+"");
+		
+		for(Continent continent : map.getContinents()) {
+			DefaultMutableTreeNode branch = new DefaultMutableTreeNode(continent.getContinentName());
+			for(Country country : continent.getCountriesPresent()) {
+				DefaultMutableTreeNode subBranch = new DefaultMutableTreeNode(country.getCountryName()); 
+				branch.add(subBranch);
+			}
+			top.add(branch);
+		}
+		mapTree = new JTree(top);
+		treeScrollPane.getViewport().add(mapTree);
+		
 		
 	}
 
@@ -106,40 +135,9 @@ class CountriesArea extends JTextArea {
 		add(scrollPane,BorderLayout.CENTER);
 
 	}
+
 }
 
-class ContinentArea extends JTextArea {
-	private JTree tree;
-	private JTextArea textArea;
-	public ContinentArea() {
-		textArea = new JTextArea();
-		setLayout(new BorderLayout());
-		
-		//Stree = new JTree(createTree());
-		
-		
-		JScrollPane scrollPane = new JScrollPane(textArea);
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-		add(scrollPane,BorderLayout.CENTER);
-
-	}
-	
-/*	public DefaultMutableTreeNode createTree() {
-		
-		DefaultMutableTreeNode top = new DefaultMutableTreeNode("Map - "+map.getName()+"");
-		
-		for(Continent continent : map.getContinents()) {
-			
-		}
-		
-		
-		
-		
-		
-		return null;
-		
-	}*/
-}
 
 

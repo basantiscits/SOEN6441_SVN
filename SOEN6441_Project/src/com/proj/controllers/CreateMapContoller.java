@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import com.proj.models.Continent;
+import com.proj.models.ContinentArea;
 import com.proj.models.Country;
 import com.proj.models.Map;
 import com.proj.views.CreateaMapEditor;
@@ -20,12 +21,14 @@ public class CreateMapContoller implements ActionListener {
 	
 	private Map map;
 	
+	private ContinentArea continentArea;
+	
 	public CreateMapContoller(CreateaMapEditor createMapEditor) {
 		this.createMapEditor = createMapEditor;
 	}
 	
 	public void addMap(Map map) {
-		this.map = map;
+		this.map = map;	
 	}
 	
 	@Override
@@ -33,7 +36,7 @@ public class CreateMapContoller implements ActionListener {
 		// TODO Auto-generated method stub
 		String button = e.getActionCommand();
 		switch(button) {
-			case "Add Continent": 
+			case "Add Continent":
 			addContinent();
 			break;
 			case "Add Countries": 
@@ -55,6 +58,7 @@ public class CreateMapContoller implements ActionListener {
 							JOptionPane.showMessageDialog(null, "Please specify the name!");
 						}
 						
+						
 						else if(continentName.trim().isEmpty()) {
 							JOptionPane.showMessageDialog(null, "Name cannot be empty!");
 						}
@@ -68,9 +72,10 @@ public class CreateMapContoller implements ActionListener {
 						}
 						
 						else if ((continentName != null) && (createMapEditor.getMap().searchContinent(continentName)=="")) {
-							
+							continentArea = new ContinentArea(map);
 							continent.setContinentName(continentName);
 							createMapEditor.getMap().addContinent(continent);
+							createMapEditor.createTree();
 							loop = false;
 						}
 					}
@@ -113,7 +118,7 @@ public class CreateMapContoller implements ActionListener {
 					JOptionPane.showMessageDialog(null, "Please enter continent first");
 				}
 				
-				else if((map.searchCountry(inputCountry.getText(), (String) continentBox.getItemAt(continentBox.getSelectedIndex())).equalsIgnoreCase(inputCountry.getText()))){
+				else if((map.searchCountry(inputCountry.getText(), (String) continentBox.getSelectedItem()).equalsIgnoreCase(inputCountry.getText()))){
 					JOptionPane.showMessageDialog(null, "Country already exists!");
 				}
 				
@@ -128,6 +133,7 @@ public class CreateMapContoller implements ActionListener {
 					Country newCountry = new Country();
 					newCountry.setCountryName(inputCountry.getText());
 					tempContinent.addCountry(newCountry);
+					createMapEditor.createTree();
 					for(Country country : tempContinent.getCountriesPresent()) {
 						country.getListOfNeighbours().add(inputCountry.getText());
 					}
