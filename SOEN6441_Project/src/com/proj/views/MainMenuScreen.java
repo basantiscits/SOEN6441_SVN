@@ -68,7 +68,9 @@ public class MainMenuScreen extends JFrame {
 		JMenuItem LoadExisitingMap = new JMenuItem(new AbstractAction("Load Existing Map") {
 			public void actionPerformed(ActionEvent e) {
 				// Button pressed logic goes here
-				String name = JOptionPane.showInputDialog("What is your name?", null);
+				//String name = JOptionPane.showInputDialog("What is your name?", null);
+				LoadMapEditor LoadMapEditor = new LoadMapEditor();
+				LoadMapEditor.setVisible(true);
 			}
 		});
 		LoadExisitingMap.setToolTipText("Load Existing Map");
