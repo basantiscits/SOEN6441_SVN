@@ -28,7 +28,7 @@ import com.proj.models.Country;
 import com.proj.models.Map;
 import com.proj.utilites.Constants;
 
-public class CreateaMapEditor extends JFrame {
+public class CreateMapEditor extends JFrame {
 
 	private JLabel countriesLabel;
 	private JLabel continentLabel;
@@ -36,7 +36,7 @@ public class CreateaMapEditor extends JFrame {
 	private ContinentArea continentArea;
 	private ToolBar toolBar;
 	public Map map;
-	private CreateaMapEditor createaMapEditor;
+	private CreateMapEditor createaMapEditor;
 	private JTree mapTree;
 	private JScrollPane treeScrollPane;
 	private String userSelTreeNode;
@@ -51,7 +51,7 @@ public class CreateaMapEditor extends JFrame {
 	private JPanel ContientLabelViewPanel;
 	private JPanel CountryLabelViewPanel;
 
-	public CreateaMapEditor(Map map) {
+	public CreateMapEditor(Map map) {
 		// TODO Auto-generated method stub
 
 		super("Game Window");
@@ -208,5 +208,13 @@ class CountriesArea extends JTextArea {
 		add(scrollPane, BorderLayout.CENTER);
 
 	}
+	
+	public void countriesMatrix()
+	{
+		
+		
+	}
+	
 
 }
+
