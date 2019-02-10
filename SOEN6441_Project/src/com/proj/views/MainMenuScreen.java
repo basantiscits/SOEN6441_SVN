@@ -85,7 +85,7 @@ public class MainMenuScreen extends JFrame {
 			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				Map map = new Map();
-				CreateaMapEditor createMap = new CreateaMapEditor(map);
+				CreateMapEditor createMap = new CreateMapEditor(map);
 				createMap.setVisible(true);
 				dispose();
 				
