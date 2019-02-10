@@ -11,19 +11,20 @@ import com.proj.models.Continent;
 import com.proj.models.ContinentArea;
 import com.proj.models.Country;
 import com.proj.models.Map;
-import com.proj.views.CreateaMapEditor;
+import com.proj.views.CreateMapEditor;
+
 
 public class CreateMapContoller implements ActionListener {
 	
 	private Continent continent;
 	
-	private CreateaMapEditor createMapEditor;
+	private CreateMapEditor createMapEditor;
 	
 	private Map map;
 	
 	private ContinentArea continentArea;
 	
-	public CreateMapContoller(CreateaMapEditor createMapEditor) {
+	public CreateMapContoller(CreateMapEditor createMapEditor) {
 		this.createMapEditor = createMapEditor;
 	}
 	
