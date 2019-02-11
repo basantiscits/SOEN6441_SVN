@@ -2,6 +2,8 @@ package com.proj.controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -11,7 +13,12 @@ import com.proj.models.Continent;
 import com.proj.models.ContinentArea;
 import com.proj.models.Country;
 import com.proj.models.Map;
+import com.proj.views.CountriesArea;
 import com.proj.views.CreateMapEditor;
+
+
+
+
 
 
 public class CreateMapContoller implements ActionListener {
@@ -24,6 +31,10 @@ public class CreateMapContoller implements ActionListener {
 	
 	private ContinentArea continentArea;
 	
+	private CountriesArea countriesArea;
+	
+	private ArrayList<Country> addCountry = new ArrayList<Country>();
+	
 	public CreateMapContoller(CreateMapEditor createMapEditor) {
 		this.createMapEditor = createMapEditor;
 	}
@@ -31,6 +42,7 @@ public class CreateMapContoller implements ActionListener {
 	public void addMap(Map map) {
 		this.map = map;	
 	}
+	
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -129,15 +141,43 @@ public class CreateMapContoller implements ActionListener {
 					for(Continent name : map.getContinents()) {
 						if(name.getContinentName().equalsIgnoreCase(selectedContinent)) {
 							tempContinent = name;
+							map.removeContinent(name);
+							break;
 						}
 					}
+					
 					Country newCountry = new Country();
 					newCountry.setCountryName(inputCountry.getText());
 					tempContinent.addCountry(newCountry);
+					map.addContinent(tempContinent);
+					
+					addCountry.add(newCountry);
+					map.setAllExistingCountries(addCountry);
 					createMapEditor.createTree();
-					for(Country country : tempContinent.getCountriesPresent()) {
-						country.getListOfNeighbours().add(inputCountry.getText());
+					createMapEditor.countriesMatrix();
+					
+					/*
+					 * for(Country country : tempContinent.getCountriesPresent()) {
+					 * country.getListOfNeighbours().add(inputCountry.getText()); }
+					 */
+					
+					ArrayList<String> listOfNeighbour = new ArrayList<String>(); 
+					
+					for(Country country:map.getAllExistingCountries()){
+						if(!country.getCountryName().trim().equalsIgnoreCase(newCountry.getCountryName())){
+							listOfNeighbour.add(country.getCountryName());
+
+						}
+						newCountry.setListOfNeighbours(listOfNeighbour);
+						}
+					listOfNeighbour = null;
+					
+					for(String c:newCountry.getListOfNeighbours())
+					{
+						System.out.println(c);
 					}
+					System.out.println();
+					
 					
 					loop = false;
 				}
