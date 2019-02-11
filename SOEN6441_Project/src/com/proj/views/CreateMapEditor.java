@@ -264,7 +264,46 @@ public class CreateMapEditor extends JFrame {
 	        String source = data[row][0];
 	        String neighbour = countryColumn[col];
 	        
-	       // if(source)
+	       if(tablematrix.getValueAt(row, col) == "Y"){
+	    	   for(Continent continent:map.getContinents()){
+	    		   for(Country country:continent.getCountriesPresent()){
+	    			   if(country.getCountryName().trim().equalsIgnoreCase(source.trim())){
+	    				   country.getListOfNeighbours().remove(neighbour);
+	    				   tablematrix.setValueAt("N", row, col);
+	    				   for(String s:country.getListOfNeighbours()){
+	    					   System.out.println("country " + s);
+	    				   }
+	    				   System.out.println();
+	    				   System.out.println();
+	    			   }
+	    		   }
+	    	   }
+	    	   
+	       }
+	       else{
+	    	   if(!source.trim().equalsIgnoreCase(neighbour)){
+	    		   if(tablematrix.getValueAt(row, col) == "N"){
+	    			   for(Continent continent:map.getContinents()){
+	    	    		   for(Country country:continent.getCountriesPresent()){
+	    	    			   if(country.getCountryName().trim().equalsIgnoreCase(source.trim())){
+	    	    				   country.getListOfNeighbours().add(neighbour);
+	    	    				   tablematrix.setValueAt("Y", row, col);
+	    	    				   for(String s:country.getListOfNeighbours())
+	    	    				   {
+	    	    					   System.out.println("country" + s);
+	    	    				   }
+	    	    				   System.out.println();
+	    	    				   System.out.println();
+	    	    			   }
+	    	    		   }
+	    	    	   }
+	    			   
+	    			   
+	    			   
+	    		   }
+	    	   }
+	    	   
+	       }
 	        
 	    }
 	});
