@@ -5,21 +5,21 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.ScrollPane;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTree;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.Border;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreePath;
 
 import com.proj.controllers.CreateMapContoller;
 import com.proj.models.Continent;
@@ -50,6 +50,19 @@ public class CreateMapEditor extends JFrame {
 	
 	private JPanel ContientLabelViewPanel;
 	private JPanel CountryLabelViewPanel;
+	
+	
+	// countries area
+	private JTextArea textArea;
+	List<Country> countries = new ArrayList<Country>();
+	
+	String data[][];
+	String countryColumn[];
+	JTable tablematrix;
+	JScrollPane scrollPane;
+	
+	
+	
 
 	public CreateMapEditor(Map map) {
 		// TODO Auto-generated method stub
@@ -117,6 +130,19 @@ public class CreateMapEditor extends JFrame {
 		
 		countriesArea.setBounds(treeScrollPane.getBounds().x + (int) (treeScrollPane.getBounds().getWidth()), 70,
 				frameSize.width - 450, frameSize.height - 600);
+		setLayout(new BorderLayout());
+
+		scrollPane = new JScrollPane(tablematrix);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		countriesArea.add(scrollPane);
+		
+		
+		
+		
+		
+		
+		
 
 		toolBar = new ToolBar(createMapController);
 		toolBar.setBounds(0, 0, frameSize.width, 40);
@@ -171,9 +197,79 @@ public class CreateMapEditor extends JFrame {
 		add(countriesArea);
 		add(treeScrollPane);
 		add(toolBar);
+		
+		
+		//countries area
+		
+		
+
+		//add(scrollPane, BorderLayout.CENTER);
 
 	}
-
+	
+	public void countriesMatrix()
+	{
+		System.out.println("inside countriesMAtrix");
+		countries = map.getAllExistingCountries();
+		// Country country = new Country();
+		
+		
+		int noOfCountries = countries.size();
+		
+		DefaultTableModel dtm = new DefaultTableModel(noOfCountries,noOfCountries);
+		
+		data = new String[noOfCountries][noOfCountries + 1];
+		countryColumn = new String[noOfCountries + 1];
+		countryColumn[0] = "**";
+		int i = 0;int j = 0;
+		
+		
+		for(Country country:countries){
+			
+			data[i++][0] = country.getCountryName();
+			countryColumn[++j] =  country.getCountryName();	
+		}
+		dtm.setDataVector(data, countryColumn);
+		tablematrix = new JTable(dtm);
+		
+		scrollPane.getViewport().removeAll();
+		scrollPane.getViewport().add(tablematrix);
+		
+		int row_length = data.length;
+		int column_length = data[0].length;
+		for(i = 0;i<row_length;i++){
+			String source = data[i][0];
+			for(j = 1;j<column_length;j++){
+				String neighbour = countryColumn[j];
+				if(source.equalsIgnoreCase(neighbour)){	
+				tablematrix.setValueAt("N", i, j);
+				}
+				else {
+				tablematrix.setValueAt("Y", i, j);	
+				}
+				
+				
+			}
+		}
+		
+		
+		
+		
+	
+	tablematrix.addMouseListener(new java.awt.event.MouseAdapter() {
+	    @Override
+	    public void mouseClicked(java.awt.event.MouseEvent ev) {
+	        int row = tablematrix.rowAtPoint(ev.getPoint());
+	        int col = tablematrix.columnAtPoint(ev.getPoint());
+	        String source = data[row][0];
+	        String neighbour = countryColumn[col];
+	        
+	       // if(source)
+	        
+	    }
+	});
+	}
+	
 	public void createTree() {
 
 		DefaultMutableTreeNode top = new DefaultMutableTreeNode("Map - " + map.getName() + "");
@@ -190,31 +286,11 @@ public class CreateMapEditor extends JFrame {
 		treeScrollPane.getViewport().add(mapTree);
 
 	}
-
-}
-
-class CountriesArea extends JTextArea {
-
-	private JTextArea textArea;
-
-	public CountriesArea() {
-		textArea = new JTextArea();
-		setLayout(new BorderLayout());
-
-		JScrollPane scrollPane = new JScrollPane(textArea);
-		// scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-
-		add(scrollPane, BorderLayout.CENTER);
+	
 
 	}
 	
-	public void countriesMatrix()
-	{
-		
-		
-	}
-	
 
-}
+
+
 
