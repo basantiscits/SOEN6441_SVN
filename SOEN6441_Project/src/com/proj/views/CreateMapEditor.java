@@ -32,7 +32,6 @@ public class CreateMapEditor extends JFrame {
 
 	private JLabel countriesLabel;
 	private JLabel continentLabel;
-	private CountriesArea countriesArea;
 	private ContinentArea continentArea;
 	private ToolBar toolBar;
 	public Map map;
@@ -89,18 +88,20 @@ public class CreateMapEditor extends JFrame {
 	}
 
 	public void addComponents(CreateMapContoller createMapController) {
-		// setLayout(new BorderLayout());
 		setLayout(null);
 		Border blackline = BorderFactory.createLineBorder(Color.black);
 
 		Dimension frameSize = this.getSize();
 		//---------------------------------------------------------------
+		
+		toolBar = new ToolBar(createMapController);
+		toolBar.setBounds(0, 0, frameSize.width, 40);
 		ContientLabelViewPanel = new JPanel();
 		continentLabel = new JLabel("Continent Tree");
 		Dimension continentSize = continentLabel.getPreferredSize();
 		continentLabel.setFont(new Font("TimesRoman", Font.BOLD, 20));
 		continentLabel.setBounds(140, 50, continentSize.width + 500, continentSize.height);
-		ContientLabelViewPanel.setBounds(10, 35, 400, 35);
+		ContientLabelViewPanel.setBounds(10, 35, frameSize.width - 950, 35);
 		add(ContientLabelViewPanel);
 		ContientLabelViewPanel.setBackground(Color.lightGray);
 		ContientLabelViewPanel.setLayout(new FlowLayout());
@@ -110,15 +111,16 @@ public class CreateMapEditor extends JFrame {
 		
 
 		treeScrollPane = new JScrollPane(mapTree);
-		treeScrollPane.setBounds(10, 70, frameSize.width - 800, frameSize.height - 600);
+		treeScrollPane.setBounds(10, 70, frameSize.width - 950, frameSize.height - 600);
 		//---------------------------------------------------------------
 		CountryLabelViewPanel = new JPanel();
 		countriesLabel = new JLabel("Countries Matrix");
 		Dimension countriesSize = countriesLabel.getPreferredSize();
 		countriesLabel.setFont(new Font("TimesRoman", Font.BOLD, 20));
-		countriesLabel.setBounds(treeScrollPane.getBounds().x + (int) (treeScrollPane.getBounds().getWidth()+285), 50,
-				countriesSize.width + 300, countriesSize.height);
-		CountryLabelViewPanel.setBounds(410, 35, 750, 35);
+		//System.out.println("yes : "+treeScrollPane.getBounds().x );
+		countriesLabel.setBounds(240, 50, countriesSize.width + 500, countriesSize.height);
+		CountryLabelViewPanel.setBounds(ContientLabelViewPanel.getBounds().x + (int) (ContientLabelViewPanel.getBounds().getWidth()), 35,
+				frameSize.width - 300, 35);
 		add(CountryLabelViewPanel);
 		CountryLabelViewPanel.setBackground(Color.lightGray);
 		CountryLabelViewPanel.setLayout(new FlowLayout());
@@ -126,26 +128,12 @@ public class CreateMapEditor extends JFrame {
 		CountryLabelViewPanel.setBorder(blackline);
 		CountryLabelViewPanel.add(countriesLabel);
 
-		countriesArea = new CountriesArea();
-		
-		countriesArea.setBounds(treeScrollPane.getBounds().x + (int) (treeScrollPane.getBounds().getWidth()), 70,
-				frameSize.width - 450, frameSize.height - 600);
-		setLayout(new BorderLayout());
 
 		scrollPane = new JScrollPane(tablematrix);
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		countriesArea.add(scrollPane);
 		
+		scrollPane.setBounds(treeScrollPane.getBounds().x + (int) (treeScrollPane.getBounds().getWidth()), 70,
+				frameSize.width - 300, frameSize.height - 600);
 		
-		
-		
-		
-		
-		
-
-		toolBar = new ToolBar(createMapController);
-		toolBar.setBounds(0, 0, frameSize.width, 40);
 
 		// ---------------------------------------------------------------
 
@@ -194,7 +182,8 @@ public class CreateMapEditor extends JFrame {
 		// ---------------------------------------------------------------
 
 		//add(countriesLabel);
-		add(countriesArea);
+	//	add(countriesArea);
+		add(scrollPane);
 		add(treeScrollPane);
 		add(toolBar);
 		
@@ -216,7 +205,19 @@ public class CreateMapEditor extends JFrame {
 		
 		int noOfCountries = countries.size();
 		
-		DefaultTableModel dtm = new DefaultTableModel(noOfCountries,noOfCountries);
+		DefaultTableModel dtm = new DefaultTableModel(noOfCountries,noOfCountries) {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+			
+		};
+		
+		
 		
 		data = new String[noOfCountries][noOfCountries + 1];
 		countryColumn = new String[noOfCountries + 1];
@@ -231,6 +232,7 @@ public class CreateMapEditor extends JFrame {
 		}
 		dtm.setDataVector(data, countryColumn);
 		tablematrix = new JTable(dtm);
+		tablematrix.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		
 		scrollPane.getViewport().removeAll();
 		scrollPane.getViewport().add(tablematrix);
