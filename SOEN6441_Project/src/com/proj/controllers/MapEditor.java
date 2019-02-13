@@ -1,104 +1,168 @@
 package com.proj.controllers;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.awt.event.ActionEvent;
+
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 import com.proj.models.Continent;
+import com.proj.models.ContinentArea;
 import com.proj.models.Country;
 import com.proj.models.Map;
 
-public class MapEditor {
+
+
+public class MapEditor implements ActionListener {
+	
+	private Continent continent;
+	
+	//private CreateMapEditor createMapEditor;
+	private com.proj.views.MapEditor mapEditorView;
 	
 	private Map gameMap;
-	void validatePreExistingMap(){	
-	}
-	void validateNewMap(){
-		
-	}
-	void validateAndParseDataFromMap(){
-		try{
-			// TODO Auto-generated method stub
-			//FileReader mapFile=new FileReader(gameMap.getPath()+"\\"+gameMap.getName();
-			gameMap=new Map();
-			FileReader mapFile;
-			String line=null;
-				mapFile = new FileReader("F:\\Master's\\Advance_Programming\\SOENPRoject\\SOENPRoject\\TheConquest\\resources\\maps\\World\\World.map");
-			String Data="";
-			
-			BufferedReader mapReader=new BufferedReader(mapFile);
-			 while((line=mapReader.readLine())!=null){
-				 if(line!="\n"){
-					 Data+=line+"\n"; 
-				 }
-			 }
-			 String authorData=Data.substring(Data.toLowerCase().indexOf("[map]"),Data.toLowerCase().indexOf("[continents]"));
-			 String continentData=Data.substring(Data.toLowerCase().indexOf("[continents]"),Data.toLowerCase().indexOf("[territories]"));
-			 String countryData=Data.substring(Data.toLowerCase().indexOf("[territories]"));
-			 
-			 String []countryDataArray=countryData.split("\n");
-			 String []continentDataArray=continentData.split("\n");
-			 
-			 for(String stringManipulation:continentDataArray){
-				 if(!stringManipulation.equalsIgnoreCase("[continents]") && stringManipulation.length()>5){
-					 Continent newContinent=new Continent();
-					
-					 
-					 newContinent.setContinentName(stringManipulation.substring(0,stringManipulation.indexOf("=")));
-					 newContinent.setControlValue(Integer.parseInt(stringManipulation.substring(stringManipulation.indexOf("=")+1)));
-					 gameMap.getContinents().add(newContinent);
-				 }
-			 }
-			 for(String stringManipulation:countryDataArray){
-				 if((!stringManipulation.equalsIgnoreCase("[territories]") && stringManipulation.length()>5)){
-					 if(stringManipulation.replaceAll("[^,]","").length()>=4){
-						 Country newCountry=new Country();
-						 String[] stringManipulationArray=stringManipulation.split(",");
-						 newCountry.setCountryName(stringManipulationArray[0]);
-						 newCountry.setLatitude(Integer.parseInt(stringManipulationArray[1].trim()));
-						 newCountry.setLongitude(Integer.parseInt(stringManipulationArray[2].trim()));
-						 
-						 for(int i=4;i<stringManipulationArray.length;i++){
-							 newCountry.getListOfNeighbours().add(stringManipulationArray[i]);
-						 }
-						 for(Continent currentContinent:gameMap.getContinents()){
-							 if(currentContinent.getContinentName().toLowerCase().indexOf(stringManipulationArray[3].trim().toLowerCase())>=0){
-//								 System.out.println(newCountry.getCountryName());
-//								 System.out.println(C.getContinentName());
-								 currentContinent.getCountriesPresent().add(newCountry);
-							 }
-						 }
-					 }
-					 else{
-						 	break;
-					 }
-				 } 
-			 }
-			 
-			 for(Continent currentContinent:gameMap.getContinents()){
-				 System.out.println(currentContinent.getContinentName());
-				 System.out.println(currentContinent.getControlValue());
-				 for(Country currentCountry:currentContinent.getCountriesPresent()){
-					 System.out.println(currentCountry.getCountryName());
-					 System.out.println(currentCountry.getLatitude());
-					 System.out.println(currentCountry.getLongitude());
-					 for(String Neighbours:currentCountry.getListOfNeighbours()){
-						 System.out.print(Neighbours+",");
-					 }
-					 System.out.println();
-				 }
-				 System.out.println();
-			}
-		}catch (IOException e) {
-		// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	
+	public MapEditor(com.proj.views.MapEditor mapEditorView){
+		this.gameMap=mapEditorView.gameMap;
+		this.mapEditorView= mapEditorView;
 	}
 	
-	public static void main(String args[]){
-		MapEditor m=new MapEditor();
-		m.validateAndParseDataFromMap();
+	private ContinentArea continentArea;
+	
+	
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		String button = e.getActionCommand();
+		
+		
+		switch(button) {
+			case "Add Continent":
+			addContinent();
+			break;
+			case "Add Countries": 
+			addCountries();
+			break;
+			default:
+			break;
+		}
+		
 	}
+	
+	public void addContinent() {
+				boolean loop = true;
+				continent = new Continent();
+				while(loop) {
+					String continentName = JOptionPane.showInputDialog(null, "Enter the Continent name: ","Add Continent",JOptionPane.OK_CANCEL_OPTION|JOptionPane.QUESTION_MESSAGE);
+					if(continentName !=null) {
+						if(continentName.isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Please specify the name!");
+						}
+						
+						
+						else if(continentName.trim().isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Name cannot be empty!");
+						}
+						
+						else if(gameMap.searchContinent(continentName).equalsIgnoreCase(continentName)) {
+							JOptionPane.showMessageDialog(null, "Continent name already exists!");
+						}
+						
+						else if(gameMap.searchContinent(continentName.trim()).equalsIgnoreCase(continentName.trim())) {
+							JOptionPane.showMessageDialog(null, "Continent name already exists!");
+						}
+						
+						else if ((continentName != null) && (gameMap.searchContinent(continentName)=="")) {
+							continentArea = new ContinentArea(gameMap);
+							continent.setContinentName(continentName);
+							gameMap.addContinent(continent);
+							mapEditorView.createTree();
+							loop = false;
+						}
+					}
+					else {
+						loop = false;
+					}
+
+				}
+				
+	}
+	
+	public void addCountries() {
+		JTextField inputCountry = new JTextField();
+		String lastContinent = "";
+		if(gameMap.getContinents().size()==0) {
+			JOptionPane.showMessageDialog(null, "Please specify continent first!");
+		}
+		String continents[] = new String[gameMap.getContinents().size()];
+		int count = 0;
+		
+		for(Continent name : gameMap.getContinents()) {
+			continents[count++] = name.getContinentName();
+		}
+		
+		JComboBox<Object> continentBox = new JComboBox<Object>(continents);
+		Object[] message = {"Select continent name : ", continentBox, "Enter the Country name : ",inputCountry}; 
+		continentBox.setSelectedIndex(0);	
+		boolean loop = true;
+		
+		while(loop) {
+			
+			int countryName = JOptionPane.showConfirmDialog(null, message, "Country Name", JOptionPane.OK_CANCEL_OPTION);
+			
+			if(countryName == JOptionPane.OK_OPTION) {
+				if(inputCountry.getText()==null||inputCountry.getText().trim().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Please specify the name!");
+				}
+				
+				else if(gameMap.getContinents().size()==0) {
+					JOptionPane.showMessageDialog(null, "Please enter continent first");
+				}
+				
+				else if((gameMap.searchCountry(inputCountry.getText(), (String) continentBox.getSelectedItem()).equalsIgnoreCase(inputCountry.getText()))){
+					JOptionPane.showMessageDialog(null, "Country already exists!");
+				}
+				
+				else {
+					Continent tempContinent = null;
+					String selectedContinent = (String) continentBox.getItemAt(continentBox.getSelectedIndex());
+					for(Continent name : gameMap.getContinents()) {
+						if(name.getContinentName().equalsIgnoreCase(selectedContinent)) {
+							tempContinent = name;
+						}
+					}
+					List<String> countryNames=new ArrayList<String>();
+					countryNames=gameMap.listOfCountryNames();
+					
+					Country newCountry = new Country();
+					newCountry.setCountryName(inputCountry.getText());
+					if(countryNames.size()>0){
+						newCountry.setListOfNeighbours(countryNames);
+					}
+					for(Country country : tempContinent.getCountriesPresent()) {
+						country.getListOfNeighbours().add(inputCountry.getText());
+					}
+					tempContinent.addCountry(newCountry);
+					mapEditorView.createTree();
+					
+					
+					
+					
+					
+					mapEditorView.countriesMatrix();
+					loop = false;
+				}
+			}
+			else {
+				loop = false;
+			}
+		}
+		
+	}
+
 }
-
-

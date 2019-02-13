@@ -2,11 +2,12 @@ package com.proj.views;
 
 import java.awt.FlowLayout;
 
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import com.proj.controllers.CreateMapContoller;
+
 import com.proj.models.Continent;
 import com.proj.models.Country;
 
@@ -18,7 +19,7 @@ public class ToolBar extends JPanel{
 	private Country newCountry;
 	
 	
-	public ToolBar(CreateMapContoller createMapController) {
+	public ToolBar(com.proj.controllers.MapEditor mapEditorController) {
 		
 		
 		setLayout(new FlowLayout());
@@ -26,9 +27,9 @@ public class ToolBar extends JPanel{
 		continent =  new Continent();
 		newCountry = new Country();
 		addContinent = new JButton("Add Continent");
-		addContinent.addActionListener(createMapController);
+		addContinent.addActionListener(mapEditorController);
 		addCountries = new JButton("Add Countries");
-		addCountries.addActionListener(createMapController);
+		addCountries.addActionListener(mapEditorController);
 		save = new JButton("Save");
 		
 		setBorder(BorderFactory.createEtchedBorder());

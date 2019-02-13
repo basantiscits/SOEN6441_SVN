@@ -59,6 +59,8 @@ public class LoadMapEditor extends JFrame {
 						sFileName = f.getName();
 						sLocationWhereFileisKept = ImportFileName;
 						sAppendParam = sFileName + "^" + sLocationWhereFileisKept;
+						
+						
 						JOptionPane.showMessageDialog(null, "File in Correct format");
 					}
 					else
@@ -71,7 +73,7 @@ public class LoadMapEditor extends JFrame {
 					
 				}
 			}
-
+				System.out.println(sAppendParam);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

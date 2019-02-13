@@ -8,6 +8,8 @@ public class Map {
 	private String Name;
 	private String authorName;
 	private String Path;
+	private boolean errorOccurred;
+	private String errorMessage;
 	private List<Continent> continents;	//o
 	//private List<Country> countries;	//o
 	public Map(){
@@ -15,6 +17,7 @@ public class Map {
 		//countries=new ArrayList<Country>();	//o
 		Path="";
 		Name="";
+		errorOccurred=false;
 	}
 	
 	public String getPath() {
@@ -51,6 +54,22 @@ public class Map {
 		return countries;
 	}*/
 	
+	public boolean getErrorOccurred() {
+		return errorOccurred;
+	}
+
+	public void setErrorOccurred(boolean errorOccurred) {
+		this.errorOccurred = errorOccurred;
+	}
+
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
+	}
+
 	/**
 	 * @author ofreish
 	 */
@@ -74,6 +93,15 @@ public class Map {
 			getContinents().add(continent);
 		}
 		
+	}
+	public List<String> listOfCountryNames(){
+		List<String> countryNames=new ArrayList<String>();
+		for(Continent Continent:getContinents()){
+			for(Country Country:Continent.getCountriesPresent()){
+				countryNames.add(Country.getCountryName());
+			}
+		}
+		return countryNames;
 	}
 	
 	/*

@@ -16,11 +16,12 @@ import javax.swing.JOptionPane;
 
 import com.proj.models.Map;
 import com.proj.utilites.Constants;
+import com.proj.utilites.MapTools;
 
 
 
 public class MainMenuScreen extends JFrame {
-
+	private MapTools mapTool;
 	private JButton btnLoadExisitingMaps;
 
 	public MainMenuScreen() {
@@ -29,7 +30,7 @@ public class MainMenuScreen extends JFrame {
 		setSize(900, 800);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
+		mapTool=new MapTools();
 	
 		JLabel jLabelObject = new JLabel();
 		jLabelObject
@@ -62,18 +63,35 @@ public class MainMenuScreen extends JFrame {
 		SubSubMenu.add(singlePlayer);
 		SubSubMenu.add(MultiPlayer);
 
-		JMenuItem CreateEditor = new JMenuItem("Create Map Editor");
-		CreateEditor.setToolTipText("Create Map Editor");
-
-		JMenuItem LoadExisitingMap = new JMenuItem(new AbstractAction("Load Existing Map") {
+		JMenuItem newMap = new JMenuItem(new AbstractAction("Create New Map") {
 			public void actionPerformed(ActionEvent e) {
+				Map newMap=new Map();
+				MapEditor mapEditorView=new MapEditor(newMap);
+				mapEditorView.setVisible(true);
 				// Button pressed logic goes here
 				//String name = JOptionPane.showInputDialog("What is your name?", null);
-				LoadMapEditor LoadMapEditor = new LoadMapEditor();
-				LoadMapEditor.setVisible(true);
+				//LoadMapEditor LoadMapEditor = new LoadMapEditor();
+				//LoadMapEditor.setVisible(true);
 			}
 		});
-		LoadExisitingMap.setToolTipText("Load Existing Map");
+		newMap.setToolTipText("Create New Map");
+
+		JMenuItem editExistingMap = new JMenuItem(new AbstractAction("Edit Existing Map") {
+			public void actionPerformed(ActionEvent e) {
+				Map existingMap=new Map();
+				
+				mapTool.pickMapFile(existingMap);
+				mapTool.parseAndValidateMap(existingMap);
+				
+				MapEditor mapEditorView=new MapEditor(existingMap);
+				mapEditorView.setVisible(true);
+				// Button pressed logic goes here
+				//String name = JOptionPane.showInputDialog("What is your name?", null);
+				//LoadMapEditor LoadMapEditor = new LoadMapEditor();
+				//LoadMapEditor.setVisible(true);
+			}
+		});
+		editExistingMap.setToolTipText("Edit Existing Map");
 
 		JMenuItem RulesOfGames = new JMenuItem("Rules of Games");
 		RulesOfGames.setToolTipText("Rules of Games");
@@ -81,16 +99,16 @@ public class MainMenuScreen extends JFrame {
 		menubar.add(helpMenu);
 		exitMenuItem.addActionListener((event) -> System.exit(0));
 
-		CreateEditor.addActionListener(new java.awt.event.ActionListener() {
-			@Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				Map map = new Map();
-				CreateMapEditor createMap = new CreateMapEditor(map);
-				createMap.setVisible(true);
-				dispose();
-				
-			}
-		});
+//		CreateEditor.addActionListener(new java.awt.event.ActionListener() {
+//			@Override
+//			public void actionPerformed(java.awt.event.ActionEvent evt) {
+//				Map map = new Map();
+//				CreateMapEditor createMap = new CreateMapEditor(map);
+//				createMap.setVisible(true);
+//				dispose();
+//				
+//			}
+//		});
 
 		SubSubMenu.addActionListener(new java.awt.event.ActionListener() {
 			@Override
@@ -104,9 +122,9 @@ public class MainMenuScreen extends JFrame {
 		fileMenu1.add(SubSubMenu);
 		fileMenu1.addSeparator();
 		fileMenu1.add(exitMenuItem);
-		fileMenu2.add(CreateEditor);
+		fileMenu2.add(newMap);
 		fileMenu2.addSeparator();
-		fileMenu2.add(LoadExisitingMap);
+		fileMenu2.add(editExistingMap);
 		helpMenu.add(RulesOfGames);
 
 		menubar.add(fileMenu1);
