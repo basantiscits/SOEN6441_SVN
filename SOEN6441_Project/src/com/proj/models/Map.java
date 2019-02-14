@@ -11,7 +11,7 @@ public class Map {
 	private boolean errorOccurred;
 	private String errorMessage;
 	private List<Continent> continents;	//o
-	//private List<Country> countries;	//o
+	private List<Country> allExistingCountries;
 	public Map(){
 		continents=new ArrayList<Continent>();	//o
 		//countries=new ArrayList<Country>();	//o
@@ -85,6 +85,16 @@ public class Map {
 	}
 	
 	/**
+	 * @author arpit
+	 */
+	
+	public void removeContinent(Continent continent)
+	{
+		getContinents().remove(continent);
+		
+	}
+	
+	/**
 	 * @author ofreish
 	 */
 	public void addContinent(Continent continent) {
@@ -123,6 +133,22 @@ public class Map {
 		return "";
 		
 	}
+
+	/**
+	 * @return the allExistingCountries Getter Method
+	 */
+	public List<Country> getAllExistingCountries() {
+		return allExistingCountries;
+	}
+
+	/**
+	 * @param allExistingCountries Setter Method
+	 */
+	public void setAllExistingCountries(List<Country> allExistingCountries) {
+		this.allExistingCountries = allExistingCountries;
+	}
+	
+	
 }
 
 
