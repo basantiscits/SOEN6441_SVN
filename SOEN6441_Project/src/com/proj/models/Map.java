@@ -11,7 +11,7 @@ public class Map {
 	private boolean errorOccurred;
 	private String errorMessage;
 	private List<Continent> continents;	//o
-	private List<Country> allExistingCountries;
+	//private List<Country> allExistingCountries;
 	public Map(){
 		continents=new ArrayList<Continent>();	//o
 		//countries=new ArrayList<Country>();	//o
@@ -106,12 +106,20 @@ public class Map {
 	}
 	public List<String> listOfCountryNames(){
 		List<String> countryNames=new ArrayList<String>();
-		for(Continent Continent:getContinents()){
-			for(Country Country:Continent.getCountriesPresent()){
-				countryNames.add(Country.getCountryName());
+		for(Continent continent:getContinents()){
+			for(Country country:continent.getCountriesPresent()){
+				countryNames.add(country.getCountryName());
 			}
 		}
 		return countryNames;
+	}
+	
+	public List<String> listOfContinentNames(){
+		List<String> continentNames=new ArrayList<String>();
+		for(Continent continent:getContinents()){
+			continentNames.add(continent.getContinentName());
+		}
+		return continentNames;
 	}
 	
 	/*
@@ -133,21 +141,21 @@ public class Map {
 		return "";
 		
 	}
-
-	/**
-	 * @return the allExistingCountries Getter Method
-	 */
-	public List<Country> getAllExistingCountries() {
-		return allExistingCountries;
-	}
-
-	/**
-	 * @param allExistingCountries Setter Method
-	 */
-	public void setAllExistingCountries(List<Country> allExistingCountries) {
-		this.allExistingCountries = allExistingCountries;
-	}
-	
+///*
+//	/**
+//	 * @return the allExistingCountries Getter Method
+//	 */
+//	public List<Country> getAllExistingCountries() {
+//		return allExistingCountries;
+//	}
+//
+//	/**
+//	 * @param allExistingCountries Setter Method
+//	 */
+//	public void setAllExistingCountries(List<Country> allExistingCountries) {
+//		this.allExistingCountries = allExistingCountries;
+//	}
+//	*/
 	
 }
 

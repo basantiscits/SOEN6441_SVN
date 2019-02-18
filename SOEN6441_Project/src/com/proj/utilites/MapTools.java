@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -62,10 +65,12 @@ public class MapTools {
 
 		
 	
-	public void parseAndValidateMap(Map gameMap){
+	public boolean parseAndValidateMap(Map gameMap){
+		boolean isMapValid=false;
 		try{
+			
 			// TODO Auto-generated method stub
-			//FileReader mapFile=new FileReader(gameMap.getPath()+"\\"+gameMap.getName();
+			//FileReader mapFile=newu FileReader(gameMap.getPath()+"\\"+gameMap.getName();
 			
 			FileReader mapFile;
 			String line=null;
@@ -81,12 +86,15 @@ public class MapTools {
 			 
 			 if(Data.toLowerCase().indexOf("continents")>=0 && Data.toLowerCase().indexOf("territories")>=0 && Data.toLowerCase().indexOf("author")>=0
 					 && Data.toLowerCase().indexOf("map")>=0){
+				 isMapValid=true;
 				 gameMap.setErrorOccurred(false);
 				 gameMap.setErrorMessage("No Errors");
 			 }
 			 else{
+				 isMapValid=false;
 				 gameMap.setErrorOccurred(true);
 				 gameMap.setErrorMessage("Information missing");
+				 return isMapValid;
 			 }
 			 
 			 
@@ -113,7 +121,6 @@ public class MapTools {
 						 newCountry.setCountryName(stringManipulationArray[0]);
 						 newCountry.setLatitude(Integer.parseInt(stringManipulationArray[1].trim()));
 						 newCountry.setLongitude(Integer.parseInt(stringManipulationArray[2].trim()));
-						 
 						 for(int i=4;i<stringManipulationArray.length;i++){
 							 newCountry.getListOfNeighbours().add(stringManipulationArray[i]);
 						 }
@@ -132,6 +139,11 @@ public class MapTools {
 					 }
 				 } 
 			 }
+			 isMapValid=checkDuplicateContinents(gameMap);
+			 isMapValid=checkDuplicateCountries(gameMap);
+			 isMapValid=checkDuplicateNeighbours(gameMap);
+			 
+			 
 			 
 			 for(Continent currentContinent:gameMap.getContinents()){
 				 System.out.println(currentContinent.getContinentName());
@@ -146,12 +158,68 @@ public class MapTools {
 					 System.out.println();
 				 }
 				 System.out.println();
+				 
 			}
+			 
+			 
 		}catch (IOException e) {
 		// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return isMapValid;
 	}
+	
+	public boolean checkDuplicateContinents(Map gameMap){
+		
+		List<String> continentNames = gameMap.listOfContinentNames();
+		HashSet<String> set = new HashSet<>(continentNames);
+		ArrayList<String> result = new ArrayList<>(set);
+		if(result.size()==continentNames.size()){
+			return true;
+		}
+		else{
+			gameMap.setErrorMessage("Duplicate Continents present");
+			return false;
+		}
+		
 	}
+	
+	public boolean checkDuplicateCountries(Map gameMap){
+		
+		List<String> countryNames = gameMap.listOfCountryNames();
+		HashSet<String> set = new HashSet<>(countryNames);
+		ArrayList<String> result = new ArrayList<>(set);
+		if(result.size()==countryNames.size()){
+			return true;
+		}
+		else{
+			gameMap.setErrorMessage("Duplicate Countries present");
+			return false;
+		}
+		
+	}
+	
+	public boolean checkDuplicateNeighbours(Map gameMap){
+		
+		for(Continent continent:gameMap.getContinents()){
+			for(Country country:continent.getCountriesPresent()){
+				List<String> neighbours=country.getListOfNeighbours();
+				HashSet<String> set = new HashSet<>(neighbours);
+				ArrayList<String> result = new ArrayList<>(set);
+				if(result.size()==neighbours.size()){
+					int a=1;
+				}
+				else{
+					gameMap.setErrorMessage("Duplicate Countries present");
+					return false;
+				}
+				
+			}
+		}
+		
+		return true;
+		
+	}
+}
 
 

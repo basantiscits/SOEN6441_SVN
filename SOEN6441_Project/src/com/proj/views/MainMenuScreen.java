@@ -81,10 +81,16 @@ public class MainMenuScreen extends JFrame {
 				Map existingMap=new Map();
 				
 				mapTool.pickMapFile(existingMap);
-				mapTool.parseAndValidateMap(existingMap);
+				if(mapTool.parseAndValidateMap(existingMap)){
+					MapEditor mapEditorView=new MapEditor(existingMap);
+					mapEditorView.setVisible(true);
+				}
+				else{
+					//pop up invalid map
+					
+				}
 				
-				MapEditor mapEditorView=new MapEditor(existingMap);
-				mapEditorView.setVisible(true);
+				
 				// Button pressed logic goes here
 				//String name = JOptionPane.showInputDialog("What is your name?", null);
 				//LoadMapEditor LoadMapEditor = new LoadMapEditor();
