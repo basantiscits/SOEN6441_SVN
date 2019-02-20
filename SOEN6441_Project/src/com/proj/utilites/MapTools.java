@@ -21,16 +21,17 @@ import com.proj.models.Country;
 import com.proj.models.Map;
 
 public class MapTools {
-
+/*
 	MapTools(Map gameMap) {
 		gameMap.setPath("C:\\Users\\Aman\\Desktop\\SOEN6441_Project\\SOEN6441_SVN\\Maps");
 		gameMap.setName("UnConnectedMap.map");
 	}
-
-	public void pickMapFile(Map gameMap) {
-
+*/
+	public String pickMapFile(Map gameMap) {
+		String sAppendFileName = null;
+		
 		try {
-
+			
 			String ImportFileName;
 			JFileChooser chooser;
 			chooser = new JFileChooser();
@@ -55,6 +56,7 @@ public class MapTools {
 						JOptionPane.showMessageDialog(null, "File in Correct format");
 						System.out.println(gameMap.getPath());
 						System.out.println(gameMap.getName());
+						sAppendFileName=gameMap.getPath();
 					} else {
 						JOptionPane.showMessageDialog(null, "File name invalid");
 						String sPrint = ImportFileName.trim().substring(ImportFileName.length() - 4);
@@ -66,6 +68,8 @@ public class MapTools {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		return sAppendFileName;
 	}
 
 	public boolean parseAndValidateMap(Map gameMap) {
@@ -389,7 +393,7 @@ public class MapTools {
 			System.out.println(e.getMessage());
 		}
 	}
-
+/*
 	public static void main(String args[]) {
 		Map gameMap = new Map();
 		MapTools M = new MapTools(gameMap);
@@ -398,5 +402,5 @@ public class MapTools {
 		// M.saveDataIntoFile(gameMap, "", "");
 
 	}
-
+*/
 }
