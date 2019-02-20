@@ -1,0 +1,23 @@
+[Map]
+author=Sean O'Connor
+image=world.bmp
+wrap=no
+scroll=horizontal
+warn=yes
+
+[Continents]
+North America=5
+
+
+[Territories]
+Alaska,70,126,North America,Alberta,Northwest Territory
+Northwest Territory,148,127,North America,Alaska
+Alberta,147,163,North America,Alaska
+
+
+
+
+
+
+
+
