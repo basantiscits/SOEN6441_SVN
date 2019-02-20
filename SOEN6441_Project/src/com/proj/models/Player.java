@@ -1,5 +1,6 @@
 package com.proj.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
@@ -10,8 +11,13 @@ public class Player {
 	private int noOfArmiesOwned;
 	private int noOfCardsOwned;
 	private List<Card> cardsOwned;
+	private int noOfArmyInPlayer;
 	
-	
+	public Player(String string) {
+		// TODO Auto-generated constructor stub
+		countriesOwned = new ArrayList<>();
+	}
+
 	public List<Country> getCountriesOwned() {
 		return countriesOwned;
 	}
@@ -51,5 +57,18 @@ public class Player {
 	String getPlayerName(){
 		return playerName;
 	}
+public void addCountry(Country countryName) {
+		countriesOwned.add(countryName);
+		
+	}
+public void reduceArmyInPlayer() {
+	this.noOfArmyInPlayer--;
+	
+}
+public void addArmyInPlayer() {
+	this.noOfArmyInPlayer++;
+	
+}
+
 
 }

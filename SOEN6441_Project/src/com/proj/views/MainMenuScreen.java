@@ -50,28 +50,34 @@ public class MainMenuScreen extends JFrame {
 		JMenu fileMenu2 = new JMenu("Map Editor");
 		JMenu helpMenu = new JMenu("Help");
 		JMenu SubSubMenu = new JMenu("Play Game");
+		
+		JMenuItem PlayGame =  new JMenuItem(new AbstractAction("New Game") {
+			public void actionPerformed(ActionEvent e) {
+				PlayNewGame PlayGame = new PlayNewGame();
+				PlayGame.setVisible(true);
+				//dispose();
+			}
+		});
 
-		JMenuItem singlePlayer = new JMenuItem("Single Player");
-		singlePlayer.setToolTipText("Single Player");
+		PlayGame.setToolTipText("New Game");
+		JMenuItem singlePlayer = new JMenuItem("Play Game");
+		singlePlayer.setToolTipText("Play Game");
 
-		JMenuItem MultiPlayer = new JMenuItem("Multi-Player");
-		MultiPlayer.setToolTipText("Multi-Player");
+		//JMenuItem MultiPlayer = new JMenuItem("Multi-Player");
+		//MultiPlayer.setToolTipText("Multi-Player");
 
 		JMenuItem exitMenuItem = new JMenuItem("Exit");
 		exitMenuItem.setToolTipText("Exit application");
 
-		SubSubMenu.add(singlePlayer);
-		SubSubMenu.add(MultiPlayer);
+		SubSubMenu.add(PlayGame);
+		//SubSubMenu.add(MultiPlayer);
 
 		JMenuItem newMap = new JMenuItem(new AbstractAction("Create New Map") {
 			public void actionPerformed(ActionEvent e) {
 				Map newMap=new Map();
 				MapEditor mapEditorView=new MapEditor(newMap);
 				mapEditorView.setVisible(true);
-				// Button pressed logic goes here
-				//String name = JOptionPane.showInputDialog("What is your name?", null);
-				//LoadMapEditor LoadMapEditor = new LoadMapEditor();
-				//LoadMapEditor.setVisible(true);
+			
 			}
 		});
 		newMap.setToolTipText("Create New Map");

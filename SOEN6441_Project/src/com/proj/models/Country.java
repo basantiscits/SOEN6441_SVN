@@ -10,8 +10,17 @@ public class Country {
 	private List <String> listOfNeighbours;
 	private float Longitude;
 	private float Latitude;
+	private boolean isVisited;
+	private int noOfArmiesCountry;
 	public Country(){
 		listOfNeighbours=new ArrayList<String>();
+	}
+	public Country(String countryName, Continent continent) {
+		this.setCountryName(countryName);
+		//this.setBelongsTo(continent);
+		this.listOfNeighbours = new ArrayList<>();
+		isVisited = false;
+
 	}
 	
 	public String getCountryName() {
@@ -50,6 +59,20 @@ public class Country {
 	public void setLatitude(int latitude) {
 		Latitude = latitude;
 	}
+
+	public void setOwnedBy(Player owner) {
+		this.ownedBy = ownedBy;
+		//updateChanges();
+	}
+
+	public void addNoOfArmiesCountry() {
+		noOfArmiesCountry++;
+	}
+	
+	public void removeNoOfArmiesCountry() {
+		noOfArmiesCountry--;
+	}
+
 	
 
 }
