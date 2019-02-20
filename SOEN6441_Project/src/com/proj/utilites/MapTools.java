@@ -23,12 +23,12 @@ import com.proj.models.Map;
 public class MapTools {
 	
 	
-	/*
+	
 	MapTools(Map gameMap){
 		gameMap.setPath("C:\\Users\\Aman\\Desktop\\SOEN6441_Project\\SOEN6441_SVN");
-		gameMap.setName("World.map");
+		gameMap.setName("UnConnectedMap.map");
 	}
-*/
+
 	public void pickMapFile(Map gameMap){
 		
 		try {
@@ -156,7 +156,7 @@ public class MapTools {
 				 if(isMapValid){
 					 isMapValid=checkDuplicateNeighbours(gameMap);
 					 if(isMapValid){
-						 isMapValid=checkDuplicateNeighbours(gameMap);
+						 isMapValid=checkMapConnectivity(gameMap);
 					 }
 					 else{
 						 return false;
@@ -399,15 +399,15 @@ public class MapTools {
 									System.out.println(e.getMessage());
 								}
 				}
-				/*
+				
 				public static void main(String args[]){
 					Map gameMap=new Map();
 					MapTools M=new MapTools(gameMap);
 					M.parseAndValidateMap(gameMap);
-					M.saveDataIntoFile(gameMap, "", "");
+					//M.saveDataIntoFile(gameMap, "", "");
 					
 				}
-				*/
+				
 				
 }
 
