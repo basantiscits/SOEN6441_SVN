@@ -23,14 +23,14 @@ import com.proj.models.Map;
 public class MapTools {
 	
 	
-	
+	/*
 	MapTools(Map gameMap){
 		gameMap.setPath("C:\\Users\\Aman\\Desktop\\SOEN6441_Project\\SOEN6441_SVN");
 		gameMap.setName("UnConnectedMap.map");
 	}
-
-	public void pickMapFile(Map gameMap){
-		
+*/
+	public  String pickMapFile(Map gameMap){
+		String sAppendParam="";
 		try {
 			
 			String ImportFileName;
@@ -58,6 +58,7 @@ public class MapTools {
 						JOptionPane.showMessageDialog(null, "File in Correct format");
 						System.out.println(gameMap.getPath());
 						System.out.println(gameMap.getName());
+						sAppendParam=gameMap.getPath();
 					}
 					else
 					{
@@ -71,12 +72,14 @@ public class MapTools {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		} 
+		}
+		
+		return sAppendParam;
 	}
 
 		
 	
-	public boolean parseAndValidateMap(Map gameMap){
+	public  boolean parseAndValidateMap(Map gameMap){
 		boolean isMapValid=false;
 		try{
 			
@@ -197,7 +200,7 @@ public class MapTools {
 		return isMapValid;
 	}
 	
-	public boolean checkDuplicateContinents(Map gameMap){
+	public  boolean checkDuplicateContinents(Map gameMap){
 		
 		List<String> continentNames = gameMap.listOfContinentNames();
 		HashSet<String> set = new HashSet<>(continentNames);
@@ -212,7 +215,7 @@ public class MapTools {
 		
 	}
 	
-	public boolean checkDuplicateCountries(Map gameMap){
+	public  boolean checkDuplicateCountries(Map gameMap){
 		
 		List<String> countryNames = gameMap.listOfCountryNames();
 		HashSet<String> set = new HashSet<>(countryNames);
@@ -227,7 +230,7 @@ public class MapTools {
 		
 	}
 	
-	public boolean checkDuplicateNeighbours(Map gameMap){
+	public  boolean checkDuplicateNeighbours(Map gameMap){
 		
 		for(Continent continent:gameMap.getContinents()){
 			for(Country country:continent.getCountriesPresent()){
@@ -342,7 +345,7 @@ public class MapTools {
 				    } 
 				}
 				
-				private boolean checkMapConnectivity(Map gameMap) {
+				private  boolean checkMapConnectivity(Map gameMap) {
 					// TODO Auto-generated method stub			   
 					        // Create graphs given in the above diagrams 
 					    	int noOfVertices=gameMap.listOfCountryNames().size();
@@ -399,7 +402,7 @@ public class MapTools {
 									System.out.println(e.getMessage());
 								}
 				}
-				
+				/*
 				public static void main(String args[]){
 					Map gameMap=new Map();
 					MapTools M=new MapTools(gameMap);
@@ -407,6 +410,7 @@ public class MapTools {
 					//M.saveDataIntoFile(gameMap, "", "");
 					
 				}
+				*/
 				
 				
 }
