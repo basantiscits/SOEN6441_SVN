@@ -19,7 +19,7 @@ Boomerang Island=1
 Barren Rocks=0
 
 [Territories]
-Round North,447,92,Round Island,Round West, Round East
+Round North,447,92,Round Island,Round West,Round East
 Round East,485,120,Round Island,Round North,Round South,North Barren Rock
 Round West,415,128,Round Island,Round North,Round South,Cone End
 Round South,455,153,Round Island,Round West,Round East,Beech Beach
