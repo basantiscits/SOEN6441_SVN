@@ -1,10 +1,5 @@
 package com.proj.models;
 
-
-
-
-
-
 public class GameModelCreation {
 	private Player[] player;
 	private Player currPlayer;

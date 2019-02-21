@@ -217,8 +217,9 @@ public class PlayNewGame extends JFrame implements ActionListener {
 		List<Country> countryModelList = new ArrayList<>();
 		List<Continent> continentModelList = new ArrayList<>();
 		continentModelList.addAll(sCarryMapForward.getContinents());
-		for(Continent continent:continentModelList)
+		for(Continent continent:continentModelList) {
 			countryModelList.addAll(continent.getCountriesPresent());
+		}
 		while (!(countryModelList.isEmpty())) {
 			for (int count1 = 0; count1 < noOfPlayers; count1++) {
 				if (!(countryModelList.isEmpty())) {

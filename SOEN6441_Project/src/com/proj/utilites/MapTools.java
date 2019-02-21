@@ -1,11 +1,11 @@
 package com.proj.utilites;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -35,7 +35,6 @@ public class MapTools {
 			String ImportFileName;
 			JFileChooser chooser;
 			chooser = new JFileChooser();
-			chooser.setCurrentDirectory(new java.io.File("./save"));
 			chooser.setDialogTitle("Choose Map file");
 			chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 			chooser.setAcceptAllFileFilterUsed(false);
@@ -44,6 +43,7 @@ public class MapTools {
 			if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 				// get the path of the file.
 				ImportFileName = chooser.getSelectedFile().getAbsolutePath();
+				//System.out.println("Ofreish File  : "+chooser.getSelectedFile().getAbsolutePath());
 				// if the path of the selected file is empty.
 				if (ImportFileName.trim().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "File name invalid");
@@ -68,7 +68,6 @@ public class MapTools {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		return sAppendFileName;
 	}
 
@@ -82,7 +81,10 @@ public class MapTools {
 
 			FileReader mapFile;
 			String line = null;
+			System.out.println("Ofreish File 3 : "+gameMap.getPath());
+			System.out.println("kl: "+gameMap.getPath() + "\\" + gameMap.getName());
 			mapFile = new FileReader(gameMap.getPath() + "\\" + gameMap.getName());
+			
 			String Data = "";
 
 			BufferedReader mapReader = new BufferedReader(mapFile);
@@ -369,38 +371,58 @@ public class MapTools {
 		}
 	}
 
-	private void saveDataIntoFile(Map gameMap, String name, String path) {
+	public void saveDataIntoFile(Map gameMap, String name) {
 		// TODO Auto-generated method stub
-		String data = "[Map]\nauthor=Anonymous\n[Continents]\n";
-		for (Continent c : gameMap.getContinents()) {
-			data = data + c.getContinentName();
-			data = data + "=" + c.getControlValue();
-			data += "\n";
-		}
-		data += "[Territories]\n";
-		for (Continent c : gameMap.getContinents()) {
-			for (Country country : c.getCountriesPresent()) {
-				data += country.getCountryName() + "," + country.getLatitude() + "," + country.getLongitude() + ","
-						+ c.getContinentName() + "," + String.join(",", country.getListOfNeighbours()) + "\n";
-			}
-		}
-		BufferedWriter writer;
+		PrintWriter writer = null;
 		try {
-			writer = new BufferedWriter(new FileWriter("E:\\NewMap.map"));
-			writer.write(data);
-			writer.close();
-		} catch (IOException e) {
+			File savedFile;
+			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.setDialogTitle("Save Map");
+			fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+			fileChooser.setAcceptAllFileFilterUsed(false);
+			fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("*.map", "map"));
+			int box = fileChooser.showSaveDialog(null);
+			
+			if(box==JFileChooser.APPROVE_OPTION) {
+				savedFile = fileChooser.getSelectedFile();
+				gameMap.setPath(savedFile.getAbsolutePath());
+			}
+
+			String data = "[Map]\nauthor=Anonymous\n[Continents]\n";
+			for (Continent c : gameMap.getContinents()) {
+				data = data + c.getContinentName();
+				data = data + "=" + c.getControlValue();
+				data += "\n";
+			}
+			data += "[Territories]\n";
+			for (Continent c : gameMap.getContinents()) {
+				for (Country country : c.getCountriesPresent()) {
+					data += country.getCountryName() + "," + country.getLatitude() + "," + country.getLongitude() + ","
+							+ c.getContinentName() + "," + String.join(",", country.getListOfNeighbours()) + "\n";
+				}
+			}
+			if (!(data == null || data.isEmpty() || data.trim().equalsIgnoreCase(""))) {
+				writer = new PrintWriter(new FileWriter("C:\\Users\\COMPAQ\\Desktop\\SOEN6441_SVN\\SOEN6441_SVN\\Maps\\pj.map"));
+				writer.write(data);
+				
+				
+				boolean validation = parseAndValidateMap(gameMap);
+				if(!validation) {
+					File F = new File(gameMap.getPath()+"\\"+gameMap.getName()+".map");
+					F.delete();
+					JOptionPane.showMessageDialog(null, "Map is not valid");
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Map is valid");
+				}
+			}
+			
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-	}
-/*
-	public static void main(String args[]) {
-		Map gameMap = new Map();
-		MapTools M = new MapTools(gameMap);
-		M.parseAndValidateMap(gameMap);
-		System.out.println(gameMap.getErrorMessage());
-		// M.saveDataIntoFile(gameMap, "", "");
 
-	}
-*/
+		}
+
+
 }
+

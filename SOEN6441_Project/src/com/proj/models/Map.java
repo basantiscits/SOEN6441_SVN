@@ -127,12 +127,10 @@ public class Map {
 	 */
 	public String searchCountry(String countryName, String continentName) {
 		
-		System.out.println("1");
 		for(Continent name : getContinents()) {
 			if(name.getContinentName().equalsIgnoreCase(continentName)) {
 				for(Country cName : name.getCountriesPresent() ) {
 					if(cName.getCountryName().equalsIgnoreCase(countryName)) {
-						System.out.println("2");
 						return countryName;
 					}
 				}

@@ -57,18 +57,18 @@ public class Player {
 	String getPlayerName(){
 		return playerName;
 	}
-public void addCountry(Country countryName) {
+	public void addCountry(Country countryName) {
 		countriesOwned.add(countryName);
 		
 	}
-public void reduceArmyInPlayer() {
-	this.noOfArmyInPlayer--;
+	public void reduceArmyInPlayer() {
+		this.noOfArmyInPlayer--;
 	
-}
-public void addArmyInPlayer() {
-	this.noOfArmyInPlayer++;
+	}
+	public void addArmyInPlayer() {
+		this.noOfArmyInPlayer++;
 	
-}
+	}
 
 
 }

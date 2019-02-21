@@ -1,12 +1,16 @@
 package com.proj.controllers;
 
 import java.awt.event.ActionEvent;
-
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -14,6 +18,7 @@ import com.proj.models.Continent;
 import com.proj.models.ContinentArea;
 import com.proj.models.Country;
 import com.proj.models.Map;
+import com.proj.utilites.MapTools;
 
 
 
@@ -43,13 +48,16 @@ public class MapEditor implements ActionListener {
 		
 		switch(button) {
 			case "Add Continent":
-			addContinent();
-			break;
+				addContinent();
+				break;
 			case "Add Countries": 
-			addCountries();
-			break;
+				addCountries();
+				break;
+			case "Save":
+				save();
+				break;
 			default:
-			break;
+				break;
 		}
 		
 	}
@@ -164,5 +172,37 @@ public class MapEditor implements ActionListener {
 		}
 		
 	}
+	
+	public void save() {
+		System.out.println("DONe");
+		boolean bool = true;
+		MapTools mapTool = new MapTools();
+		
+		while(bool) {
+			String mapName = JOptionPane.showInputDialog(null,"Please enter the map name to save");
+			if(mapName!=null) {
+				if(mapName.trim().isEmpty()) {
+					JOptionPane.showConfirmDialog(null, "Please enter some name!");
+				}
+				else {
+					gameMap.setName(mapName);
+					
+					mapTool.saveDataIntoFile(gameMap,mapName);
+					bool = false;
+				}
+			}
+			else {
+				bool = false;
+			}
+		}
+	}
 
 }
+
+
+
+
+
+
+
+

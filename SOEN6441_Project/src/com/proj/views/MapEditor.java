@@ -71,7 +71,7 @@ public class MapEditor extends JFrame {
 
 		setSize(Constants.MAP_EDITOR_WIDTH, Constants.MAP_EDITOR_HEIGHT);
 		setMinimumSize(new Dimension(Constants.MAP_EDITOR_WIDTH, Constants.MAP_EDITOR_HEIGHT));
-		//setResizable(false);
+		setResizable(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -126,67 +126,16 @@ public class MapEditor extends JFrame {
 		
 		scrollPane.setBounds(treeScrollPane.getBounds().x + (int) (treeScrollPane.getBounds().getWidth()), 70,
 				frameSize.width - 300, frameSize.height - 600);
-		
+	
 
 		// ---------------------------------------------------------------
 
-		startPhaseViewPanel = new JPanel();
-		startPhaseViewPanel.setBounds(15, 275 + (int) (300), 635 + (int) (200), 35);
-		add(startPhaseViewPanel);
-		startPhaseViewPanel.setBackground(Color.lightGray);
-		startPhaseViewPanel.setLayout(new FlowLayout());
-
-		StartPhaseDefinedLabel = new JLabel("StartUp Phase");
-		StartPhaseDefinedLabel.setFont(new Font("dialog", 1, 15));
-		startPhaseViewPanel.setBorder(blackline);
-		startPhaseViewPanel.add(StartPhaseDefinedLabel);
-
-		// ---------------------------------------------------------------
-
-		dynamicAreastartPhasePanel = new JPanel();
-		dynamicAreastartPhasePanel.setBounds(15, 275 + (int) (300), 635 + (int) (200), 380);
-		add(dynamicAreastartPhasePanel);
-		dynamicAreastartPhasePanel.setBackground(Color.white);
-		dynamicAreastartPhasePanel.setBorder(blackline);
-		dynamicAreastartPhasePanel.setLayout(new FlowLayout());
-
-		// ---------------------------------------------------------------
-		randomPlayerPhaseViewPanel = new JPanel();
-		randomPlayerPhaseViewPanel.setBounds(850, 575, (305), 35);
-
-		add(randomPlayerPhaseViewPanel);
-		randomPlayerPhaseViewPanel.setBackground(Color.lightGray);
-		randomPlayerPhaseViewPanel.setBorder(blackline);
-		randomPlayerPhaseViewPanel.setLayout(new FlowLayout());
-
-		PlayerAllocatedLabel = new JLabel("Players - Country Percantage Allocated");
-		PlayerAllocatedLabel.setFont(new Font("dialog", 1, 15));
-		randomPlayerPhaseViewPanel.add(PlayerAllocatedLabel);
-
-		// ---------------------------------------------------------------
-		dynamicAreaPlayerPhasePanel = new JPanel();
-		dynamicAreaPlayerPhasePanel.setBounds(595, 10 + (int) (580), 360 + (int) (200), 365);
-
-		add(dynamicAreaPlayerPhasePanel);
-		dynamicAreaPlayerPhasePanel.setBackground(Color.white);
-		dynamicAreaPlayerPhasePanel.setBorder(blackline);
-		dynamicAreaPlayerPhasePanel.setLayout(new FlowLayout());
-
-		// ---------------------------------------------------------------
-
-		//add(countriesLabel);
-	//	add(countriesArea);
 		add(scrollPane);
 		add(treeScrollPane);
 		add(toolBar);
 		
 		countriesMatrix();
 		createTree();
-		//countries area
-		
-		
-
-		//add(scrollPane, BorderLayout.CENTER);
 
 	}
 	
