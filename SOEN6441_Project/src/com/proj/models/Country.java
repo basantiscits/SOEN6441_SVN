@@ -11,7 +11,7 @@ public class Country {
 	private float Longitude;
 	private float Latitude;
 	private boolean isVisited;
-	private int noOfArmiesCountry;
+	//private int noOfArmiesCountry; 	//Why ? removed by ofreish
 	public Country(){
 		listOfNeighbours=new ArrayList<String>();
 	}
@@ -36,7 +36,7 @@ public class Country {
 		this.ownedBy = ownedBy;
 	}
 	public int getNoOfArmiesPresent() {
-		return noOfArmiesPresent;
+		return this.noOfArmiesPresent;
 	}
 	public void setNoOfArmiesPresent(int noOfArmiesPresent) {
 		this.noOfArmiesPresent = noOfArmiesPresent;
@@ -66,11 +66,11 @@ public class Country {
 	}
 
 	public void addNoOfArmiesCountry() {
-		noOfArmiesCountry++;
+		this.noOfArmiesPresent++;	//o
 	}
 	
 	public void removeNoOfArmiesCountry() {
-		noOfArmiesCountry--;
+		this.noOfArmiesPresent--;	//o
 	}
 
 	

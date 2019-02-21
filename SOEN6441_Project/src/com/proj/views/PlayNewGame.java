@@ -19,7 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
+import javax.swing.tree.DefaultMutableTreeNode;
 
 import com.proj.models.Continent;
 import com.proj.models.Country;
@@ -31,6 +31,7 @@ import com.proj.utilites.MapTools;
 
 public class PlayNewGame extends JFrame implements ActionListener {
 	String sFileName = "";
+	Player[] player ;
 	String sLocationWhereFileisKept = "";
 	String sAppendParam = "";
 	private JButton buttonbrowse;
@@ -181,13 +182,11 @@ public class PlayNewGame extends JFrame implements ActionListener {
 			}
 			//
 			String[] comboSelectedPlayers = new String[Integer.parseInt(noOfPlayers)];
-			Player[] player = initializingPlayerModels(Integer.parseInt(noOfPlayers), sCarryMapForward,
+			player = initializingPlayerModels(Integer.parseInt(noOfPlayers), sCarryMapForward,
 					comboSelectedPlayers);
 		
 			
 			GameModelWindowMade(sCarryMapForward,player);
-			GameWindowScreen GameWindowScreen = new GameWindowScreen(sCarryMapForward,player);
-			GameWindowScreen.setVisible(true);
 
 		}
 
@@ -229,8 +228,10 @@ public class PlayNewGame extends JFrame implements ActionListener {
 						players[count1].addCountry(countryModelTest);
 						countryModelTest.setOwnedBy(players[count1]);
 						countryModelTest.addNoOfArmiesCountry();
+						
 						players[count1].reduceArmyInPlayer();
-						System.out.println("Random Allocated to Players "+ count1 +countryModelList.get(pickedNumber).getCountryName());
+						System.out.println("Random Allocated to Players "+ count1 +countryModelList.get(pickedNumber).getCountryName()+" ->"+countryModelTest.getNoOfArmiesPresent());
+						//System.out.println();
 					}
 				    //System.out.println("Country Count"+countryModelList.get(pickedNumber).getCountryName());
 					countryModelList.remove(pickedNumber);
@@ -243,5 +244,6 @@ public class PlayNewGame extends JFrame implements ActionListener {
 		return players;
 
 	}
+	
 
 }

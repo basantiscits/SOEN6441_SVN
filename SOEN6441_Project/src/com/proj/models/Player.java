@@ -14,7 +14,7 @@ public class Player {
 	private int noOfArmyInPlayer;
 	
 	public Player(String string) {
-		// TODO Auto-generated constructor stub
+		this.playerName = string;	//o
 		countriesOwned = new ArrayList<>();
 	}
 
@@ -50,11 +50,11 @@ public class Player {
 		this.noOfCardsOwned = noOfCardsOwned;
 	}
 
-	void setPlayerName(String playerName){
+	public void setPlayerName(String playerName){
 		this.playerName=playerName;
 	}
 	
-	String getPlayerName(){
+	public String getPlayerName(){
 		return playerName;
 	}
 	public void addCountry(Country countryName) {

@@ -29,15 +29,16 @@ import com.proj.models.Player;
 import com.proj.utilites.Constants;
 
 public class GameWindowScreen extends JFrame {
+	public Player[] player;
 	private JLabel countriesLabel;
 	private JLabel continentLabel;
 	private ContinentArea continentArea;
 	// private ToolBar toolBar;
 	public Map gameMap;
 	// public com.proj.controllers.MapEditor mapEditorController;
-	private JTree mapTree;
+	private JTree mapTree,startUpTree;
 	private JTree playerAllocationCountry;
-	private JScrollPane treeScrollPane;
+	private JScrollPane treeScrollPane,StartUpScrollPane;
 	private String userSelTreeNode;
 	private JPanel startPhaseViewPanel;
 	public JLabel StartPhaseDefinedLabel;
@@ -63,10 +64,11 @@ public class GameWindowScreen extends JFrame {
 
 		super("Game Window");
 		this.gameMap = gameMap;
+		this.player = player;
 
 		setSize(Constants.MAP_EDITOR_WIDTH, Constants.MAP_EDITOR_HEIGHT);
-		setMinimumSize(new Dimension(Constants.MAP_EDITOR_WIDTH, Constants.MAP_EDITOR_HEIGHT));
-		// setResizable(false);
+		//setMinimumSize(new Dimension(Constants.MAP_EDITOR_WIDTH, Constants.MAP_EDITOR_HEIGHT));
+		//setResizable(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -98,7 +100,7 @@ public class GameWindowScreen extends JFrame {
 		ContientLabelViewPanel.add(continentLabel);
 
 		treeScrollPane = new JScrollPane(mapTree);
-		treeScrollPane.setBounds(10, 70, frameSize.width - 950, frameSize.height - 600);
+		treeScrollPane.setBounds(10, 70, frameSize.width - 950, frameSize.height - 800);
 		// ---------------------------------------------------------------
 		CountryLabelViewPanel = new JPanel();
 		countriesLabel = new JLabel("Countries Matrix");
@@ -119,12 +121,12 @@ public class GameWindowScreen extends JFrame {
 		scrollPane = new JScrollPane(tablematrix);
 
 		scrollPane.setBounds(treeScrollPane.getBounds().x + (int) (treeScrollPane.getBounds().getWidth()), 70,
-				frameSize.width - 300, frameSize.height - 600);
+				frameSize.width - 300, frameSize.height - 800);
 
 		// ---------------------------------------------------------------
 
 		startPhaseViewPanel = new JPanel();
-		startPhaseViewPanel.setBounds(15, 275 + (int) (300), 635 + (int) (200), 35);
+		startPhaseViewPanel.setBounds(10,treeScrollPane.getBounds().y + (int) (treeScrollPane.getBounds().getHeight()+10), frameSize.width-50,35);
 		add(startPhaseViewPanel);
 		startPhaseViewPanel.setBackground(Color.lightGray);
 		startPhaseViewPanel.setLayout(new FlowLayout());
@@ -134,37 +136,19 @@ public class GameWindowScreen extends JFrame {
 		startPhaseViewPanel.setBorder(blackline);
 		startPhaseViewPanel.add(StartPhaseDefinedLabel);
 
-		//treeScrollPane = new JScrollPane(playerAllocationCountry);
-		//treeScrollPane.setBounds(200, 200, frameSize.width - 1150, frameSize.height - 600);
 
 		// ---------------------------------------------------------------
 
-		dynamicAreastartPhasePanel = new JPanel();
-		dynamicAreastartPhasePanel.setBounds(15, 275 + (int) (300), 635 + (int) (200), 380);
-		add(dynamicAreastartPhasePanel);
-		dynamicAreastartPhasePanel.setBackground(Color.white);
-		dynamicAreastartPhasePanel.setBorder(blackline);
-		dynamicAreastartPhasePanel.setLayout(new FlowLayout());
-
-		// ---------------------------------------------------------------
-		randomPlayerPhaseViewPanel = new JPanel();
-		randomPlayerPhaseViewPanel.setBounds(850, 575, (305), 35);
-
-		add(randomPlayerPhaseViewPanel);
-		randomPlayerPhaseViewPanel.setBackground(Color.lightGray);
-		randomPlayerPhaseViewPanel.setBorder(blackline);
-		randomPlayerPhaseViewPanel.setLayout(new FlowLayout());
-
-		PlayerAllocatedLabel = new JLabel("Players - Country Percantage Allocated");
-		PlayerAllocatedLabel.setFont(new Font("dialog", 1, 15));
-		randomPlayerPhaseViewPanel.add(PlayerAllocatedLabel);
+		StartUpScrollPane = new JScrollPane(startUpTree);
+		StartUpScrollPane.setBounds(10, startPhaseViewPanel.getBounds().y + (int) (startPhaseViewPanel.getBounds().getHeight())+5, 635 + (int) (200), frameSize.height - 900);
+		
 
 		// ---------------------------------------------------------------
 		dynamicAreaPlayerPhasePanel = new JPanel();
-		dynamicAreaPlayerPhasePanel.setBounds(595, 10 + (int) (580), 360 + (int) (200), 365);
+		dynamicAreaPlayerPhasePanel.setBounds(StartUpScrollPane.getBounds().x + (int) (StartUpScrollPane.getBounds().getWidth()),startPhaseViewPanel.getBounds().y + (int) (startPhaseViewPanel.getBounds().getHeight())+5 ,(int) (300), frameSize.height - 900);
 
 		add(dynamicAreaPlayerPhasePanel);
-		dynamicAreaPlayerPhasePanel.setBackground(Color.white);
+		dynamicAreaPlayerPhasePanel.setBackground(Color.lightGray);
 		dynamicAreaPlayerPhasePanel.setBorder(blackline);
 		dynamicAreaPlayerPhasePanel.setLayout(new FlowLayout());
 
@@ -174,11 +158,13 @@ public class GameWindowScreen extends JFrame {
 		// add(countriesArea);
 		add(scrollPane);
 		add(treeScrollPane);
+		add(StartUpScrollPane);
 		// add(toolBar);
 
 		countriesMatrix();
 		createTree();
-		AllocateCountryToPlayersTree();
+		createStartUpTree();
+		//AllocateCountryToPlayersTree();
 		// countries area
 
 		// add(scrollPane, BorderLayout.CENTER);
@@ -305,20 +291,22 @@ public class GameWindowScreen extends JFrame {
 		treeScrollPane.getViewport().add(mapTree);
 
 	}
+	
 
-	public void AllocateCountryToPlayersTree() {
-		DefaultMutableTreeNode top = new DefaultMutableTreeNode("Map - " + gameMap.getName() + "");
-
-		for (Continent continent : gameMap.getContinents()) {
-			DefaultMutableTreeNode branch = new DefaultMutableTreeNode(continent.getContinentName());
-			for (Country country : continent.getCountriesPresent()) {
-				DefaultMutableTreeNode subBranch = new DefaultMutableTreeNode(country.getCountryName());
+	public void createStartUpTree() {
+		DefaultMutableTreeNode top = new DefaultMutableTreeNode("Initial Allocation");
+		
+		for(Player P : player) {
+			DefaultMutableTreeNode branch = new DefaultMutableTreeNode(P.getPlayerName());
+			for(Country C : P.getCountriesOwned()) {
+				DefaultMutableTreeNode subBranch = new DefaultMutableTreeNode(C.getCountryName()+"["+C.getNoOfArmiesPresent()+"] current armies");
 				branch.add(subBranch);
 			}
 			top.add(branch);
 		}
-		playerAllocationCountry = new JTree(top);
-		treeScrollPane.getViewport().add(playerAllocationCountry);
+		startUpTree = new JTree(top);
+		StartUpScrollPane.getViewport().add(startUpTree);
+		
 		
 	}
 }
