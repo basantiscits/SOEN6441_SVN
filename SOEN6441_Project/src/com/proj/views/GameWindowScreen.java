@@ -38,7 +38,7 @@ public class GameWindowScreen extends JFrame {
 	// public com.proj.controllers.MapEditor mapEditorController;
 	private JTree mapTree,startUpTree;
 	private JTree playerAllocationCountry;
-	private JScrollPane treeScrollPane,StartUpScrollPane;
+	private JScrollPane treeScrollPane,startUpScrollPane,strengthPane;
 	private String userSelTreeNode;
 	private JPanel startPhaseViewPanel;
 	public JLabel StartPhaseDefinedLabel;
@@ -50,14 +50,19 @@ public class GameWindowScreen extends JFrame {
 
 	private JPanel ContientLabelViewPanel;
 	private JPanel CountryLabelViewPanel;
+	
+	private JPanel tableHeader;
+	private JLabel tableHeaderLabel;
 
 	private JTextArea textArea;
-	List<String> countries = new ArrayList<String>();
-
-	String data[][];
-	String countryColumn[];
-	JTable tablematrix;
-	JScrollPane scrollPane;
+	private List<String> countries = new ArrayList<String>();
+	
+	private JTable playerStrength;
+	
+	private String data[][];
+	private String countryColumn[];
+	private JTable tablematrix;
+	private JScrollPane scrollPane;
 
 	public GameWindowScreen(Map gameMap, Player[] player) {
 		// TODO Auto-generated method stub
@@ -139,18 +144,26 @@ public class GameWindowScreen extends JFrame {
 
 		// ---------------------------------------------------------------
 
-		StartUpScrollPane = new JScrollPane(startUpTree);
-		StartUpScrollPane.setBounds(10, startPhaseViewPanel.getBounds().y + (int) (startPhaseViewPanel.getBounds().getHeight())+5, 635 + (int) (200), frameSize.height - 900);
+		startUpScrollPane = new JScrollPane(startUpTree);
+		startUpScrollPane.setBounds(10, startPhaseViewPanel.getBounds().y + (int) (startPhaseViewPanel.getBounds().getHeight())+5, 635 + (int) (200), frameSize.height - 900);
 		
 
 		// ---------------------------------------------------------------
-		dynamicAreaPlayerPhasePanel = new JPanel();
-		dynamicAreaPlayerPhasePanel.setBounds(StartUpScrollPane.getBounds().x + (int) (StartUpScrollPane.getBounds().getWidth()),startPhaseViewPanel.getBounds().y + (int) (startPhaseViewPanel.getBounds().getHeight())+5 ,(int) (300), frameSize.height - 900);
+		tableHeader = new JPanel();
+		tableHeader.setBounds(startUpScrollPane.getBounds().x + (int) (startUpScrollPane.getBounds().getWidth()), startPhaseViewPanel.getBounds().y + (int) (startPhaseViewPanel.getBounds().getHeight())+5, 320, 25);
+		
+		tableHeaderLabel = new JLabel("Total Countries "+gameMap.listOfCountryNames().size());
+		tableHeaderLabel.setFont(new Font("dialog", 1, 15));
+		tableHeaderLabel.setBorder(blackline);
+		tableHeader.add(tableHeaderLabel);
+		// -----------------------------------------------------------------
+		strengthPane = new JScrollPane(playerStrength);
+		strengthPane.setBounds(startUpScrollPane.getBounds().x + (int) (startUpScrollPane.getBounds().getWidth()),tableHeader.getBounds().y + (int) (tableHeader.getBounds().getHeight()) ,(int) (320), frameSize.height - 925);
 
-		add(dynamicAreaPlayerPhasePanel);
+/*		add(dynamicAreaPlayerPhasePanel);
 		dynamicAreaPlayerPhasePanel.setBackground(Color.lightGray);
 		dynamicAreaPlayerPhasePanel.setBorder(blackline);
-		dynamicAreaPlayerPhasePanel.setLayout(new FlowLayout());
+		dynamicAreaPlayerPhasePanel.setLayout(new FlowLayout());*/
 
 		// ---------------------------------------------------------------
 
@@ -158,16 +171,16 @@ public class GameWindowScreen extends JFrame {
 		// add(countriesArea);
 		add(scrollPane);
 		add(treeScrollPane);
-		add(StartUpScrollPane);
-		// add(toolBar);
+		add(startUpScrollPane);
+		add(tableHeader);
+		add(strengthPane);
+		
 
 		countriesMatrix();
 		createTree();
 		createStartUpTree();
-		//AllocateCountryToPlayersTree();
-		// countries area
+		playerStrengthTable();
 
-		// add(scrollPane, BorderLayout.CENTER);
 
 	}
 
@@ -292,7 +305,9 @@ public class GameWindowScreen extends JFrame {
 
 	}
 	
-
+	/*
+	 * @author Ofreish
+	 */
 	public void createStartUpTree() {
 		DefaultMutableTreeNode top = new DefaultMutableTreeNode("Initial Allocation");
 		
@@ -305,7 +320,36 @@ public class GameWindowScreen extends JFrame {
 			top.add(branch);
 		}
 		startUpTree = new JTree(top);
-		StartUpScrollPane.getViewport().add(startUpTree);
+		startUpScrollPane.getViewport().add(startUpTree);
+		
+		
+	}
+	/*
+	 * @author Ofreish
+	 */
+	public void playerStrengthTable() {
+		
+		String countrySize = "Number of Countries";
+		
+		String[] column = {"Players",countrySize};
+		String[][] data = new String[player.length][column.length];
+		
+		
+		for(int i=0;i<player.length;i++) {
+			for(int j=0;j<column.length;j++) {
+				if(j==0) {
+					data[i][j] = player[i].getPlayerName();
+				}
+				else {
+					data[i][j] =String.valueOf(player[i].getCountriesOwned().size());
+				}
+			}
+		}
+		
+		playerStrength = new JTable(data,column);
+		strengthPane.getViewport().add(playerStrength);
+		
+
 		
 		
 	}
