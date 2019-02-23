@@ -211,6 +211,17 @@ public class PlayNewGame extends JFrame implements ActionListener {
 		for (int j = 0; j < noOfPlayers; j++) {
 			int value = j + 1;
 			players[j] = new Player("Player" + String.valueOf(value));
+			
+			// By ofreish for adding initial armies per player
+			if(noOfPlayers==3) {
+				players[j].setNoOfArmiesOwned(25);
+			}
+			else if(noOfPlayers==4) {
+				players[j].setNoOfArmiesOwned(20);
+			}
+			else if(noOfPlayers==5) {
+				players[j].setNoOfArmiesOwned(15);
+			}
 		}
 		Random RandomAllocationCountries = new Random();
 		List<Country> countryModelList = new ArrayList<>();
@@ -219,6 +230,7 @@ public class PlayNewGame extends JFrame implements ActionListener {
 		for(Continent continent:continentModelList) {
 			countryModelList.addAll(continent.getCountriesPresent());
 		}
+		
 		while (!(countryModelList.isEmpty())) {
 			for (int count1 = 0; count1 < noOfPlayers; count1++) {
 				if (!(countryModelList.isEmpty())) {
@@ -233,13 +245,14 @@ public class PlayNewGame extends JFrame implements ActionListener {
 						System.out.println("Random Allocated to Players "+ count1 +countryModelList.get(pickedNumber).getCountryName()+" ->"+countryModelTest.getNoOfArmiesPresent());
 						//System.out.println();
 					}
-				    //System.out.println("Country Count"+countryModelList.get(pickedNumber).getCountryName());
+				   
 					countryModelList.remove(pickedNumber);
 
 
 				}
 			}
 		}
+		
 		System.out.println(players);
 		return players;
 

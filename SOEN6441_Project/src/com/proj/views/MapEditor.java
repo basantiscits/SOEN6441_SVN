@@ -80,6 +80,7 @@ public class MapEditor extends JFrame {
 
 		addComponents(mapEditorController);
 	}
+	
 	public void addComponents(com.proj.controllers.MapEditor mapEditorController) {
 		setLayout(null);
 		Border blackline = BorderFactory.createLineBorder(Color.black);

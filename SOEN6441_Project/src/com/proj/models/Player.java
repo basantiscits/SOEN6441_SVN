@@ -11,7 +11,7 @@ public class Player {
 	private int noOfArmiesOwned;
 	private int noOfCardsOwned;
 	private List<Card> cardsOwned;
-	private int noOfArmyInPlayer;
+	//private int noOfArmyInPlayer;	// Why ?
 	
 	public Player(String string) {
 		this.playerName = string;	//o
@@ -41,6 +41,10 @@ public class Player {
 	public void setNoOfArmiesOwned(int noOfArmiesOwned) {
 		this.noOfArmiesOwned = noOfArmiesOwned;
 	}
+	
+	public void incrementNoOfArmiesOwned(int noOfnewArmies) {
+		this.noOfArmiesOwned = this.noOfArmiesOwned + noOfnewArmies;
+	}
 
 	public int getNoOfCardsOwned() {
 		return noOfCardsOwned;
@@ -62,11 +66,11 @@ public class Player {
 		
 	}
 	public void reduceArmyInPlayer() {
-		this.noOfArmyInPlayer--;
+		this.noOfArmiesOwned--;
 	
 	}
 	public void addArmyInPlayer() {
-		this.noOfArmyInPlayer++;
+		this.noOfArmiesOwned++;
 	
 	}
 

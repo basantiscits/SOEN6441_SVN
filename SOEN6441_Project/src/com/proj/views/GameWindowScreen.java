@@ -1,14 +1,18 @@
 package com.proj.views;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -16,7 +20,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTree;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -28,7 +31,8 @@ import com.proj.models.Map;
 import com.proj.models.Player;
 import com.proj.utilites.Constants;
 
-public class GameWindowScreen extends JFrame {
+public class GameWindowScreen extends JFrame implements ActionListener{
+	private int currentPlayer = 0;
 	public Player[] player;
 	private JLabel countriesLabel;
 	private JLabel continentLabel;
@@ -53,6 +57,9 @@ public class GameWindowScreen extends JFrame {
 	
 	private JPanel tableHeader;
 	private JLabel tableHeaderLabel;
+	
+	private JPanel allocationPanel;
+	
 
 	private JTextArea textArea;
 	private List<String> countries = new ArrayList<String>();
@@ -63,6 +70,11 @@ public class GameWindowScreen extends JFrame {
 	private String countryColumn[];
 	private JTable tablematrix;
 	private JScrollPane scrollPane;
+	
+	private JLabel currentPlayerName;
+	private JComboBox countriesComboBox;
+	private JButton armyAllocation;
+	private JLabel armiesAvailable;
 
 	public GameWindowScreen(Map gameMap, Player[] player) {
 		// TODO Auto-generated method stub
@@ -160,15 +172,31 @@ public class GameWindowScreen extends JFrame {
 		strengthPane = new JScrollPane(playerStrength);
 		strengthPane.setBounds(startUpScrollPane.getBounds().x + (int) (startUpScrollPane.getBounds().getWidth()),tableHeader.getBounds().y + (int) (tableHeader.getBounds().getHeight()) ,(int) (320), frameSize.height - 925);
 
-/*		add(dynamicAreaPlayerPhasePanel);
-		dynamicAreaPlayerPhasePanel.setBackground(Color.lightGray);
-		dynamicAreaPlayerPhasePanel.setBorder(blackline);
-		dynamicAreaPlayerPhasePanel.setLayout(new FlowLayout());*/
-
+		
+		
+		// ---------------------------------------------------------------
+		
+		currentPlayerName = new JLabel();
+		currentPlayerName.setBounds(150, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight())+20, 100, 30);
+		add(currentPlayerName);
+		
+		countriesComboBox = new JComboBox();
+		countriesComboBox.setBounds(350, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight())+20, 150, 30);
+		add(countriesComboBox);
+		
+		armyAllocation = new JButton("Place Army");
+		armyAllocation.setBounds(650, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight())+20, 100, 30);
+		armyAllocation.addActionListener(this);
+		add(armyAllocation);
+		
+		armiesAvailable = new JLabel();
+		armiesAvailable.setBounds(850, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight())+20, 200, 30);
+		add(armiesAvailable);
+		
+		
 		// ---------------------------------------------------------------
 
-		// add(countriesLabel);
-		// add(countriesArea);
+
 		add(scrollPane);
 		add(treeScrollPane);
 		add(startUpScrollPane);
@@ -180,8 +208,37 @@ public class GameWindowScreen extends JFrame {
 		createTree();
 		createStartUpTree();
 		playerStrengthTable();
+		startInitialPhase();
 
 
+	}
+	/*
+	 * @author Ofreish
+	 */
+	public void start() {
+		if(currentPlayer==(player.length-1)) {
+			currentPlayer = 0;
+		}
+		else {
+			currentPlayer++;
+		}
+	}
+	
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		String button = e.getActionCommand();
+		switch(button) {
+		case "Place Army":
+			updateGame((String)countriesComboBox.getSelectedItem());
+			start();
+			startInitialPhase();
+			
+			break;
+		}
+		
+		
 	}
 
 	public void countriesMatrix() {
@@ -238,56 +295,10 @@ public class GameWindowScreen extends JFrame {
 			}
 		}
 
-		/*
-		 * 
-		 * int row_length = data.length; int column_length = data[0].length;
-		 * for(i = 0;i<row_length;i++){ String source = data[i][0]; for(j =
-		 * 1;j<column_length;j++){ String neighbour = countryColumn[j];
-		 * if(source.equalsIgnoreCase(neighbour)){ tablematrix.setValueAt("N",
-		 * i, j); } else { tablematrix.setValueAt("Y", i, j); }
-		 * 
-		 * 
-		 * } }
-		 * 
-		 */
-
-		/*
-		 * tablematrix.addMouseListener(new java.awt.event.MouseAdapter() {
-		 * 
-		 * @Override public void mouseClicked(java.awt.event.MouseEvent ev) {
-		 * int row = tablematrix.rowAtPoint(ev.getPoint()); int col =
-		 * tablematrix.columnAtPoint(ev.getPoint()); String source =
-		 * data[row][0]; String neighbour = countryColumn[col];
-		 * 
-		 * if(tablematrix.getValueAt(row, col) == "Y"){ for(Continent
-		 * continent:gameMap.getContinents()){ for(Country
-		 * country:continent.getCountriesPresent()){
-		 * if(country.getCountryName().trim().equalsIgnoreCase(source.trim())){
-		 * country.getListOfNeighbours().remove(neighbour);
-		 * tablematrix.setValueAt("N", row, col); for(String
-		 * s:country.getListOfNeighbours()){ System.out.println("country " + s);
-		 * } System.out.println(); System.out.println(); } } }
-		 * 
-		 * } else{ if(!source.trim().equalsIgnoreCase(neighbour)){
-		 * if(tablematrix.getValueAt(row, col) == "N"){ for(Continent
-		 * continent:gameMap.getContinents()){ for(Country
-		 * country:continent.getCountriesPresent()){
-		 * if(country.getCountryName().trim().equalsIgnoreCase(source.trim())){
-		 * country.getListOfNeighbours().add(neighbour);
-		 * tablematrix.setValueAt("Y", row, col); for(String
-		 * s:country.getListOfNeighbours()) { System.out.println("country" + s);
-		 * } System.out.println(); System.out.println(); } } }
-		 * 
-		 * 
-		 * 
-		 * } }
-		 * 
-		 * }
-		 * 
-		 * } });
-		 */
 	}
-
+	/*
+	 * @author Ofreish 
+	 */
 	public void createTree() {
 
 		DefaultMutableTreeNode top = new DefaultMutableTreeNode("Map - " + gameMap.getName() + "");
@@ -348,9 +359,60 @@ public class GameWindowScreen extends JFrame {
 		
 		playerStrength = new JTable(data,column);
 		strengthPane.getViewport().add(playerStrength);
-		
-
-		
-		
+	
 	}
+	
+	/*
+	 * @author Ofreish
+	 */
+	public void addPlayerName(String name) {
+		currentPlayerName.setText(name);
+	}
+	
+	/*
+	 * @author Ofreish
+	 */
+	public void addCountriesToBox(Player p) {
+		countriesComboBox.removeAllItems();
+		for(Country c : p.getCountriesOwned()) {
+			countriesComboBox.addItem(c.getCountryName());
+		}
+	}
+	/*
+	 * @author Ofreish
+	 */
+	public void startInitialPhase() {
+		
+		addPlayerName(player[currentPlayer].getPlayerName());
+		addCountriesToBox(player[currentPlayer]);
+		armiesAvailable.setText("Number of Armies Available:"+String.valueOf(player[currentPlayer].getNoOfArmiesOwned()));
+	}
+	
+	public void updateGame(String country) {
+		
+		if(player[currentPlayer].getNoOfArmiesOwned()>0) {
+			player[currentPlayer].reduceArmyInPlayer();
+			for(Country c : player[currentPlayer].getCountriesOwned()) {
+				if(c.getCountryName().equals(country)) {
+					c.addNoOfArmiesCountry();
+				}
+			}
+			createStartUpTree();
+		}
+
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
