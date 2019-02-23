@@ -53,12 +53,12 @@ public class MapEditor extends JFrame {
 	
 	// countries area
 	private JTextArea textArea;
-	List<String> countries = new ArrayList<String>();
+	private List<String> countries = new ArrayList<String>();
 	
-	String data[][];
-	String countryColumn[];
-	JTable tablematrix;
-	JScrollPane scrollPane;
+	private String data[][];
+	private String countryColumn[];
+	private JTable tablematrix;
+	private JScrollPane scrollPane;
 	
 	
 	
@@ -144,8 +144,6 @@ public class MapEditor extends JFrame {
 	{
 		System.out.println("inside countriesMAtrix");
 		countries = gameMap.listOfCountryNames();
-		// Country country = new Country();
-		
 		
 		int noOfCountries = countries.size();
 		
@@ -159,7 +157,6 @@ public class MapEditor extends JFrame {
 			}
 			
 		};
-		
 		
 		
 		data = new String[noOfCountries][noOfCountries + 1];
@@ -202,30 +199,7 @@ public class MapEditor extends JFrame {
 			}
 		}
 		
-		/*
-		
-		int row_length = data.length;
-		int column_length = data[0].length;
-		for(i = 0;i<row_length;i++){
-			String source = data[i][0];
-			for(j = 1;j<column_length;j++){
-				String neighbour = countryColumn[j];
-				if(source.equalsIgnoreCase(neighbour)){	
-				tablematrix.setValueAt("N", i, j);
-				}
-				else {
-				tablematrix.setValueAt("Y", i, j);	
-				}
-				
-				
-			}
-		}
-		
-		*/
-		
-		
-	
-	tablematrix.addMouseListener(new java.awt.event.MouseAdapter() {
+		tablematrix.addMouseListener(new java.awt.event.MouseAdapter() {
 	    @Override
 	    public void mouseClicked(java.awt.event.MouseEvent ev) {
 	        int row = tablematrix.rowAtPoint(ev.getPoint());
@@ -294,7 +268,6 @@ public class MapEditor extends JFrame {
 		treeScrollPane.getViewport().add(mapTree);
 
 	}
-	
 
-	}
+}
 	

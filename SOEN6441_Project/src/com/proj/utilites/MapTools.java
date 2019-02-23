@@ -21,12 +21,7 @@ import com.proj.models.Country;
 import com.proj.models.Map;
 
 public class MapTools {
-/*
-	MapTools(Map gameMap) {
-		gameMap.setPath("C:\\Users\\Aman\\Desktop\\SOEN6441_Project\\SOEN6441_SVN\\Maps");
-		gameMap.setName("UnConnectedMap.map");
-	}
-*/
+
 	public String pickMapFile(Map gameMap) {
 		String sAppendFileName = null;
 		
