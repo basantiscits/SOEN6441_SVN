@@ -231,6 +231,8 @@ public class GameWindowScreen extends JFrame implements ActionListener{
 	 */
 	public void reinforce() {
 		if(player[currentPlayer].getNoOfArmiesOwned()==0) {
+			FortificationView FV = new FortificationView(gameMap, player,currentPlayer);
+			FV.setVisible(true);
 			currentPlayer++;
 			if(currentPlayer == player.length) {
 				currentPlayer--;
@@ -259,7 +261,7 @@ public class GameWindowScreen extends JFrame implements ActionListener{
 				
 				startReinforcementPhase();
 				break;
-			case "Reiforcement Phase":
+			case "Reinforcement Phase":
 				updateGame((String)countriesComboBox.getSelectedItem());
 				reinforce();
 				initializeReinforcementPhase();
@@ -465,10 +467,8 @@ public class GameWindowScreen extends JFrame implements ActionListener{
 		if(player[currentPlayer].getNoOfArmiesOwned()==0) {
 			StartPhaseDefinedLabel.setText("Reinforcement Phase");
 			intializeReinforcementArmies();
-			String message = "Reinforcement Phase started for "+player[currentPlayer].getPlayerName();
-			JOptionPane.showMessageDialog(null, message);
 			
-			armyAllocation.setText("Reiforcement Phase");
+			armyAllocation.setText("Reinforcement Phase");
 		}
 	}
 	
@@ -497,7 +497,6 @@ public class GameWindowScreen extends JFrame implements ActionListener{
 		addPlayerName(player[currentPlayer].getPlayerName());
 		addCountriesToBox(player[currentPlayer]);
 		armiesAvailable.setText("Number of Armies Available:"+String.valueOf(player[currentPlayer].getNoOfArmiesOwned()));
-
 	}
 
 }
