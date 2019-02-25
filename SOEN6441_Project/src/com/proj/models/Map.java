@@ -140,6 +140,22 @@ public class Map {
 		return "";
 		
 	}
+	
+	/*
+	 * @author ofreish
+	 */
+	public Country searchCountry(String countryName) {
+		
+		for(Continent name : getContinents()) {
+			for(Country cName : name.getCountriesPresent() ) {
+				if(cName.getCountryName().equalsIgnoreCase(countryName)) {
+					return cName;
+				}
+			}
+		}
+		return null;
+		
+	}
 ///*
 //	/**
 //	 * @return the allExistingCountries Getter Method
