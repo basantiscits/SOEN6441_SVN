@@ -2,6 +2,7 @@ package com.proj.views;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -19,6 +20,7 @@ import javax.swing.JTree;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 
@@ -144,6 +146,7 @@ public class MapEditor extends JFrame {
 	{
 		System.out.println("inside countriesMAtrix");
 		countries = gameMap.listOfCountryNames();
+		Color color = new Color(200,240,240);
 		
 		int noOfCountries = countries.size();
 		
@@ -156,6 +159,7 @@ public class MapEditor extends JFrame {
 				return false;
 			}
 			
+		
 		};
 		
 		
@@ -172,7 +176,29 @@ public class MapEditor extends JFrame {
 			countryColumn[++j] =  countryName;	
 		}
 		dtm.setDataVector(data, countryColumn);
-		tablematrix = new JTable(dtm);
+		tablematrix = new JTable(dtm) {
+			
+			// Set color of cell to Grey If the value is "N"
+			@Override
+			public Component prepareRenderer(TableCellRenderer renderer, int row, int col) {
+			        Component component = super.prepareRenderer(renderer, row, col);
+			       
+			        String value = (String) dtm.getValueAt(row, col);
+			       
+			            if (value.equals("N")) {
+			                component.setBackground(Color.pink);
+			            }
+			            else
+			            {
+			            	component.setBackground(Color.WHITE);
+			            }
+			        return component;
+			    }
+			
+			
+			
+			
+		};
 		tablematrix.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		
 		scrollPane.getViewport().removeAll();
@@ -189,6 +215,7 @@ public class MapEditor extends JFrame {
 							String neighbour = countryColumn[j];
 							if(!currentCountry.getListOfNeighbours().contains(countryColumn[j])){	
 							tablematrix.setValueAt("N", i, j);
+							
 							}
 							else {
 							tablematrix.setValueAt("Y", i, j);	
