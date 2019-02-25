@@ -1,6 +1,7 @@
 package com.proj.views;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -23,6 +24,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTree;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import com.proj.models.Continent;
@@ -362,7 +364,27 @@ public class GameWindowScreen extends JFrame implements ActionListener{
 			countryColumn[++j] = countryName;
 		}
 		dtm.setDataVector(data, countryColumn);
-		tablematrix = new JTable(dtm);
+		tablematrix = new JTable(dtm) {
+			
+			// Set color of cell to Grey If the value is "N"
+						@Override
+						public Component prepareRenderer(TableCellRenderer renderer, int row, int col) {
+						        Component component = super.prepareRenderer(renderer, row, col);
+						       
+						        String value = (String) dtm.getValueAt(row, col);
+						       
+						            if (value.equals("N")) {
+						                component.setBackground(Color.pink);
+						            }
+						            else
+						            {
+						            	component.setBackground(Color.WHITE);
+						            }
+						        return component;
+						    }
+			
+			
+		};
 		tablematrix.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
 		scrollPane.getViewport().removeAll();
