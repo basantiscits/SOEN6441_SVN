@@ -150,6 +150,8 @@ public class FortificationView extends JFrame implements ActionListener{
 				armiesInDestination.setText("");
 				selectNoOfArmies.removeAllItems();
 				
+				destCountry = null;
+				
 				String countryName = (String) sourceCountry.getSelectedItem();
 				
 				sourCountry = map.searchCountry(countryName);
@@ -194,8 +196,14 @@ public class FortificationView extends JFrame implements ActionListener{
 				gameWindow.setEnabled(true);
 				dispose();
 			}
-			else {
+			else if(sourCountry.getNoOfArmiesPresent()<=1 && destCountry==null) {
+				JOptionPane.showMessageDialog(null, "Please select destination country and country with armies more than 1 and ");
+			}
+			else if(sourCountry.getNoOfArmiesPresent()<=1){
 				JOptionPane.showMessageDialog(null, "Please select country with armies more than 1");
+			}
+			else if(destCountry==null) {
+				JOptionPane.showMessageDialog(null, "Please select destination country");
 			}
 		}
 		

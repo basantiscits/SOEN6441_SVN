@@ -186,7 +186,7 @@ public class MapEditor extends JFrame {
 			        String value = (String) dtm.getValueAt(row, col);
 			       
 			            if (value.equals("N")) {
-			                component.setBackground(Color.pink);
+			                component.setBackground(Color.LIGHT_GRAY);
 			            }
 			            else
 			            {
