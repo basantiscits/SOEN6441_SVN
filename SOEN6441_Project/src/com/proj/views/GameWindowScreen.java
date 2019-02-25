@@ -76,7 +76,7 @@ public class GameWindowScreen extends JFrame implements ActionListener{
 	private JComboBox countriesComboBox;
 	private JButton armyAllocation;
 	private JLabel armiesAvailable;
-
+	
 	public GameWindowScreen(Map gameMap, Player[] player) {
 		// TODO Auto-generated method stub
 
@@ -177,20 +177,21 @@ public class GameWindowScreen extends JFrame implements ActionListener{
 		
 		// ---------------------------------------------------------------
 		
-		currentPlayerName = new JLabel();
+		currentPlayerName = new JLabel(player[currentPlayer].getPlayerName());
 		currentPlayerName.setBounds(150, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight())+20, 100, 30);
 		add(currentPlayerName);
 		
 		countriesComboBox = new JComboBox();
 		countriesComboBox.setBounds(350, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight())+20, 150, 30);
 		add(countriesComboBox);
+		addCountriesToBox(player[currentPlayer]);
 		
 		armyAllocation = new JButton("Place Army");
 		armyAllocation.setBounds(650, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight())+20, 100, 30);
 		armyAllocation.addActionListener(this);
 		add(armyAllocation);
 		
-		armiesAvailable = new JLabel();
+		armiesAvailable = new JLabel("Number of Armies Available:"+String.valueOf(player[currentPlayer].getNoOfArmiesOwned()));
 		armiesAvailable.setBounds(850, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight())+20, 200, 30);
 		add(armiesAvailable);
 		
@@ -209,7 +210,6 @@ public class GameWindowScreen extends JFrame implements ActionListener{
 		createTree();
 		createStartUpTree();
 		playerStrengthTable();
-		startInitialPhase();
 
 
 	}
@@ -231,16 +231,58 @@ public class GameWindowScreen extends JFrame implements ActionListener{
 	 */
 	public void reinforce() {
 		if(player[currentPlayer].getNoOfArmiesOwned()==0) {
-			FortificationView FV = new FortificationView(gameMap, player,currentPlayer);
+			
+			FortificationView FV = new FortificationView(gameMap, player,currentPlayer,this);
 			FV.setVisible(true);
 			currentPlayer++;
 			if(currentPlayer == player.length) {
 				currentPlayer--;
-				initializeReinforcementPhase();
+				armyAllocation.setEnabled(false);
+			}
+			
+			
+		}
+	}
+	
+	/*
+	 * @author Ofreish
+	 */
+	public void displayPhase() {
+		
+		addPlayerName(player[currentPlayer].getPlayerName());
+		addCountriesToBox(player[currentPlayer]);
+		armiesAvailable.setText("Number of Armies Available:"+String.valueOf(player[currentPlayer].getNoOfArmiesOwned()));
+
+	}
+	
+	
+	/*
+	 * @author Ofreish
+	 */
+	public void startReinforcementPhase() {
+		if(player[currentPlayer].getNoOfArmiesOwned()==0) {
+			StartPhaseDefinedLabel.setText("Reinforcement Phase");
+			intializeReinforcementArmies();
+			
+			armyAllocation.setText("Reinforcement Phase");
+		}
+	}
+	
+	/*
+	 * @author Ofreish
+	 */
+	public void intializeReinforcementArmies() {
+		
+		for(int i=0;i<player.length;i++) {
+			long armies =  Math.round(Math.floor(player[i].getCountriesOwned().size()/3));
+			if(armies>3) {
+				player[i].incrementNoOfArmiesOwned((int)armies);
 			}
 			else {
-				startReinforcementPhase();
+				player[i].incrementNoOfArmiesOwned(3);
 			}
+			
+			updateContinentsOwned(i);
 		}
 	}
 	
@@ -257,16 +299,38 @@ public class GameWindowScreen extends JFrame implements ActionListener{
 			case "Place Army":
 				updateGame((String)countriesComboBox.getSelectedItem());
 				start();
-				startInitialPhase();
-				
-				startReinforcementPhase();
+				displayPhase();
+				if(checkStartUpEnd()) {
+					currentPlayer = 0;
+					armyAllocation.setText("Phase Change");
+					armyAllocation.doClick();
+				}
 				break;
 			case "Reinforcement Phase":
 				updateGame((String)countriesComboBox.getSelectedItem());
 				reinforce();
-				initializeReinforcementPhase();
+				displayPhase();
+				break;
+			case "Phase Change":
+				armyAllocation.setText("Reinforcement Phase");
+				intializeReinforcementArmies();
+				displayPhase();
+				break;
 		}
 
+	}
+	
+	public boolean checkStartUpEnd() {
+		int flag = 0 ;
+		for(Player p: player) {
+			if(p.getNoOfArmiesOwned()==0) {
+				flag++;
+			}
+		}
+		if(flag==player.length) {
+			return true;
+		}
+		return false;
 	}
 
 	public void countriesMatrix() {
@@ -412,17 +476,6 @@ public class GameWindowScreen extends JFrame implements ActionListener{
 	/*
 	 * @author Ofreish
 	 */
-	public void startInitialPhase() {
-		
-		addPlayerName(player[currentPlayer].getPlayerName());
-		addCountriesToBox(player[currentPlayer]);
-		armiesAvailable.setText("Number of Armies Available:"+String.valueOf(player[currentPlayer].getNoOfArmiesOwned()));
-
-	}
-	
-	/*
-	 * @author Ofreish
-	 */
 	public void updateGame(String country) {
 		
 		if(player[currentPlayer].getNoOfArmiesOwned()>0) {
@@ -439,12 +492,12 @@ public class GameWindowScreen extends JFrame implements ActionListener{
 	/*
 	 * @author Ofreish
 	 */
-	public void updateContinentsOwned() {
+	public void updateContinentsOwned(int number) {
 		boolean flag = false;
 		for(Continent continent : gameMap.getContinents()) {
 			for(Country country : continent.getCountriesPresent()) {
 				System.out.println("CNT: "+country.getCountryName());
-				if(player[currentPlayer].getCountriesOwned().contains(country)) {
+				if(player[number].getCountriesOwned().contains(country)) {
 					flag = true;
 				}
 				else {
@@ -458,45 +511,6 @@ public class GameWindowScreen extends JFrame implements ActionListener{
 			}
 		}
 		
-	}
-	
-	/*
-	 * @author Ofreish
-	 */
-	public void startReinforcementPhase() {
-		if(player[currentPlayer].getNoOfArmiesOwned()==0) {
-			StartPhaseDefinedLabel.setText("Reinforcement Phase");
-			intializeReinforcementArmies();
-			
-			armyAllocation.setText("Reinforcement Phase");
-		}
-	}
-	
-	/*
-	 * @author Ofreish
-	 */
-	public void intializeReinforcementArmies() {
-		long armies =  Math.round(Math.floor(player[currentPlayer].getCountriesOwned().size()/3));
-		if(armies>3) {
-			player[currentPlayer].incrementNoOfArmiesOwned((int)armies);
-		}
-		else {
-			player[currentPlayer].incrementNoOfArmiesOwned(3);
-		}
-		
-		updateContinentsOwned();
-		addPlayerName(player[currentPlayer].getPlayerName());
-		addCountriesToBox(player[currentPlayer]);
-		armiesAvailable.setText("Number of Armies Available:"+String.valueOf(player[currentPlayer].getNoOfArmiesOwned()));
-	}
-	
-	/*
-	 * @author Ofreish
-	 */
-	public void initializeReinforcementPhase() {
-		addPlayerName(player[currentPlayer].getPlayerName());
-		addCountriesToBox(player[currentPlayer]);
-		armiesAvailable.setText("Number of Armies Available:"+String.valueOf(player[currentPlayer].getNoOfArmiesOwned()));
 	}
 
 }

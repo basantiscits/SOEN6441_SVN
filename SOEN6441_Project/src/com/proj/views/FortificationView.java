@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import com.proj.models.Country;
 import com.proj.models.Map;
@@ -43,11 +44,21 @@ public class FortificationView extends JFrame implements ActionListener{
 	
 	private Map map;
 	
-	private Country sourCountry,destinationSelected;
+	private Country sourCountry,destCountry;
 	
-	public FortificationView(Map map, Player[] player, int currentPlayer){
+	private Player[] player;
+	
+	private int currentPlayer;
+	
+	private GameWindowScreen gameWindow;
+	
+	public FortificationView(Map map, Player[] player, int currentPlayer, GameWindowScreen gameWindow){
 		
 		this.map = map;
+		this.player = player;
+		this.currentPlayer = currentPlayer;
+		this.gameWindow = gameWindow;
+		gameWindow.setEnabled(false);
 		setTitle("Fortification Phase");
 		setResizable(false);
 		setSize(Constants.WIDTH + 300, Constants.HEIGHT);
@@ -80,7 +91,7 @@ public class FortificationView extends JFrame implements ActionListener{
 		
 		sourceCountry = new JComboBox();
 		sourceCountry.setBounds(165, 150, 120, 35);
-		addCountryToBox(player,currentPlayer);
+		addCountryToBox(sourceCountry);
 		sourceCountry.setSelectedIndex(-1);
 		sourceCountry.addActionListener(this);
 		add(sourceCountry);
@@ -89,7 +100,6 @@ public class FortificationView extends JFrame implements ActionListener{
 		destinationCountry.setBounds(315, 150, 100, 35);
 		add(destinationCountry);
 		destinationCountry.addActionListener(this);
-		//destinationCountry.setVisible(true);
 		
 		selectNoOfArmies = new JComboBox();
 		selectNoOfArmies.setBounds(465, 150, 100, 35);
@@ -97,18 +107,36 @@ public class FortificationView extends JFrame implements ActionListener{
 		
 		send = new JButton("Send");
 		send.setBounds(615, 150, 100, 35);
+		send.addActionListener(this);
 		add(send);
 		
 		finish = new JButton("Finish");
 		finish.setBounds(765, 150, 100, 35);
+		finish.addActionListener(this);
 		add(finish);
 
 	}
 	
-	public void addCountryToBox(Player[] player, int currentPlayer) {
-		sourceCountry.removeAll();
+	public void addCountryToBox(JComboBox country) {
+		country.removeAllItems();
 		for(Country c : player[currentPlayer].getCountriesOwned()) {
-			sourceCountry.addItem(c.getCountryName());
+			country.addItem(c.getCountryName());
+		}
+	}
+	
+	public void addDestCountries(Country sourCountry) {
+		destinationCountry.removeAllItems();
+		for(Country c : player[currentPlayer].getCountriesOwned()) {
+			if(sourCountry.getListOfNeighbours().contains(c.getCountryName())) {
+				destinationCountry.addItem(c.getCountryName());
+			}
+		}
+	}
+	
+	public void AddArmies() {
+		selectNoOfArmies.removeAllItems();
+		for(int i=1;i < Integer.valueOf(armiesInSource.getText());i++) {
+			selectNoOfArmies.addItem(String.valueOf(i));
 		}
 	}
 	
@@ -119,32 +147,62 @@ public class FortificationView extends JFrame implements ActionListener{
 		if(e.getSource()==sourceCountry) {
 			
 			if(sourceCountry.getItemCount()!=0) {
+				armiesInDestination.setText("");
+				selectNoOfArmies.removeAllItems();
+				
 				String countryName = (String) sourceCountry.getSelectedItem();
 				
-				Country sourCountry = map.searchCountry(countryName);
+				sourCountry = map.searchCountry(countryName);
 				
 				armiesInSource.setText(String.valueOf(sourCountry.getNoOfArmiesPresent()));
 				
-				destinationCountry.removeAll();
-				for(String str : sourCountry.getListOfNeighbours()) {
-					destinationCountry.addItem(str);
-				}
+				addDestCountries(sourCountry);
 				
-				selectNoOfArmies.removeAll();
-				for(int i=1;i < Integer.valueOf(armiesInSource.getText());i++) {
-					selectNoOfArmies.addItem(String.valueOf(i));
+				if(sourCountry.getNoOfArmiesPresent()<=1) {
+					JOptionPane.showMessageDialog(null, "Country should contain atleast 2 armies to move 1");
+				}
+				else {
+					selectNoOfArmies.removeAllItems();
+					AddArmies();
 				}
 			}
 		}
 		
 		else if(e.getSource()==destinationCountry) {
+
 			if(destinationCountry.getItemCount()!=0) {
 				String destinationSelected = (String) destinationCountry.getSelectedItem();
-				Country destCountry = map.searchCountry(destinationSelected);
+				destCountry = map.searchCountry(destinationSelected);
 				
 				armiesInDestination.setText(String.valueOf(destCountry.getNoOfArmiesPresent()));
 				
 			}
+		}
+		
+		else if(e.getSource()==send) {
+			if(sourCountry.getNoOfArmiesPresent()>1 && destCountry!=null) {
+				String arm = (String)  selectNoOfArmies.getSelectedItem();
+				int army = Integer.valueOf(arm);
+				
+				for(int i=0;i<army;i++) {
+					sourCountry.removeNoOfArmiesCountry();
+					destCountry.addNoOfArmiesCountry();
+				}
+				
+				gameWindow.createStartUpTree();
+				setVisible(false);
+				gameWindow.setEnabled(true);
+				dispose();
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Please select country with armies more than 1");
+			}
+		}
+		
+		else if(e.getSource()==finish) {
+			setVisible(false);
+			gameWindow.setEnabled(true);
+			dispose();
 		}
 		
 	}
