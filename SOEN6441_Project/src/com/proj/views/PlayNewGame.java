@@ -168,6 +168,7 @@ public class PlayNewGame extends JFrame implements ActionListener {
 			}
 			else
 			{
+				
 				//String sErrorMessage
 			}
 			sCarryMapForward = existingMap;

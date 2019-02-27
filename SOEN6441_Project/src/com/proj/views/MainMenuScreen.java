@@ -92,7 +92,7 @@ public class MainMenuScreen extends JFrame {
 					mapEditorView.setVisible(true);
 				}
 				else{
-					//pop up invalid map
+					JOptionPane.showMessageDialog(null, "Can not load, invalid map.");
 					
 				}
 				
