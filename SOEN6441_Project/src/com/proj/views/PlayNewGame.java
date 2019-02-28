@@ -36,11 +36,12 @@ public class PlayNewGame extends JFrame implements ActionListener {
 	String sAppendParam = "";
 	private JButton buttonbrowse;
 	private JComboBox<String> comboBoxSelectPlayer;
-	private String[] playersList = new String[] { "3", "4", "5" };
+	private String[] playersList = new String[] { "  --Select--  ","3", "4", "5" };
 	String sPathFileName = "";
 	private JTextField textFieldMap;
 	private JButton buttonPlayGame;
 	String noOfPlayers;
+	String CopynoOfPlayers;
 	Map sCarryMapForward = new Map();
 	private JTree mapTree;
 	private JScrollPane treeScrollPane;
@@ -52,34 +53,35 @@ public class PlayNewGame extends JFrame implements ActionListener {
 		labelHeading.setBounds(Constants.WIDTH / 2 + 120, 0, 100, 30);
 		add(labelHeading);
 
+		JLabel labelSelectPlayer = new JLabel();
+		labelSelectPlayer.setText("Select no of Players :");
+		// labelSelectPlayer.setBounds(40, 80, 400, 180);
+		labelSelectPlayer.setBounds(40, 20, 400, 180);
+		add(labelSelectPlayer);
+
+		comboBoxSelectPlayer = new JComboBox<>(playersList);
+		comboBoxSelectPlayer.setBounds(380, 90, 90, 30);
+		comboBoxSelectPlayer.addActionListener(this);
+		add(comboBoxSelectPlayer);
+
 		JLabel labelSelectMap = new JLabel();
 		labelSelectMap.setText("Please select the Map file to upload on browse Button :");
-		labelSelectMap.setBounds(40, 10, 400, 180);
+		labelSelectMap.setBounds(40, 120, 400, 180);
 		add(labelSelectMap);
 
 		textFieldMap = new JTextField();
-		textFieldMap.setBounds(380, 85, 180, 30);
+		textFieldMap.setBounds(380, 195, 180, 30);
 		add(textFieldMap);
 
 		buttonbrowse = new JButton();
 		buttonbrowse.setText("Press button to select file");
-		buttonbrowse.setBounds(600, 85, 210, 30);
+		buttonbrowse.setBounds(600, 195, 210, 30);
 		buttonbrowse.addActionListener(this);
 		add(buttonbrowse);
 
-		JLabel labelSelectPlayer = new JLabel();
-		labelSelectPlayer.setText("Select no of Players :");
-		labelSelectPlayer.setBounds(40, 80, 400, 180);
-		add(labelSelectPlayer);
-
-		comboBoxSelectPlayer = new JComboBox<>(playersList);
-		comboBoxSelectPlayer.setBounds(380, 150, 40, 30);
-		comboBoxSelectPlayer.addActionListener(this);
-		add(comboBoxSelectPlayer);
-
 		buttonPlayGame = new JButton();
 		buttonPlayGame.setText("Play Now");
-		buttonPlayGame.setBounds(380, 350, 210, 30);
+		buttonPlayGame.setBounds(380, 400, 210, 30);
 		buttonPlayGame.addActionListener(this);
 		add(buttonPlayGame);
 
@@ -102,6 +104,7 @@ public class PlayNewGame extends JFrame implements ActionListener {
 
 	}
 
+
 	// TODO Auto-generated method stub
 	/*
 	 * sPathFileName = ImportFileName(""); textFieldMap.setText(sPathFileName);
@@ -109,7 +112,9 @@ public class PlayNewGame extends JFrame implements ActionListener {
 
 	private String ImportFileName(String sReturnFileAndLoc) {
 
+		
 		try {
+			
 
 			String ImportFileName;
 			JFileChooser chooser;
@@ -156,38 +161,70 @@ public class PlayNewGame extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent event) {
 		// TODO Auto-generated method stub
 		boolean isMapValid=true;
+		noOfPlayers = (String) comboBoxSelectPlayer.getSelectedItem();
+		
 		if (event.getSource().equals(buttonbrowse)) {
-
-			Map existingMap = new Map();
-			MapTools sFunctions= new MapTools();
-			sPathFileName = sFunctions.pickMapFile(existingMap);
-			isMapValid=sFunctions.parseAndValidateMap(existingMap);
-			if(isMapValid)
+			if(noOfPlayers.equals("  --Select--  "))
 			{
-				
+				System.out.println("Select is pressed");
+				JOptionPane.showMessageDialog(null, "Please select no. of Players to play game");
 			}
 			else
 			{
+				Map existingMap = new Map();
+				MapTools sFunctions= new MapTools();
+				sPathFileName = sFunctions.pickMapFile(existingMap);
+				if (sPathFileName == null) {
+					
+
+				} else {
+					isMapValid = sFunctions.parseAndValidateMap(existingMap,Integer.parseInt(noOfPlayers));
+				}
+				isMapValid=sFunctions.parseAndValidateMap(existingMap,Integer.parseInt(noOfPlayers));
 				
-				//String sErrorMessage
+				
+				if(isMapValid)
+				{
+					
+				}
+				else
+				{
+					
+					//String sErrorMessage
+				}
+				sCarryMapForward = existingMap;
+				textFieldMap.setText(sPathFileName);
 			}
-			sCarryMapForward = existingMap;
-			textFieldMap.setText(sPathFileName);
+
+		
 
 		} else if ((event.getSource()).equals(buttonPlayGame)) {
 			System.out.println("Play Game Button");
 			noOfPlayers = (String) comboBoxSelectPlayer.getSelectedItem();
 			// System.out.println(noOfPlayers);
-			if (sPathFileName.equals(null) || (sPathFileName).equals("")) {
-				JOptionPane.showMessageDialog(null, "Please upload the . map file");
+			if(noOfPlayers.equals("  --Select--  "))
+			{
+				System.out.println("Select is pressed");
+				JOptionPane.showMessageDialog(null, "Please select no. of Players to play game");
 			}
-			//
-			String[] comboSelectedPlayers = new String[Integer.parseInt(noOfPlayers)];
-			player = initializingPlayerModels(Integer.parseInt(noOfPlayers), sCarryMapForward,
-					comboSelectedPlayers);
-		
+			else
+			{
+				if (sPathFileName.equals(null) || (sPathFileName).equals("")) {
+					JOptionPane.showMessageDialog(null, "Please upload the . map file");
+				}
+				else
+				{
+					String[] comboSelectedPlayers = new String[Integer.parseInt(noOfPlayers)];
+					player = initializingPlayerModels(Integer.parseInt(noOfPlayers), sCarryMapForward,
+							comboSelectedPlayers);
+				
+					
+					GameModelWindowMade(sCarryMapForward,player);
+				}
+				
+				
+			}
 			
-			GameModelWindowMade(sCarryMapForward,player);
 
 		}
 
