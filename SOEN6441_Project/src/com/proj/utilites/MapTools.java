@@ -36,15 +36,11 @@ public class MapTools {
 			chooser.addChoosableFileFilter(new FileNameExtensionFilter("*.map", "map"));
 
 			if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-				// get the path of the file.
 				ImportFileName = chooser.getSelectedFile().getAbsolutePath();
-				//System.out.println("Ofreish File  : "+chooser.getSelectedFile().getAbsolutePath());
-				// if the path of the selected file is empty.
 				if (ImportFileName.trim().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "File name invalid");
 				} else {
 					if (ImportFileName.trim().substring(ImportFileName.length() - 4).equals(".map")) {
-						// hand over to Aman
 						File f = new File(ImportFileName);
 						gameMap.setName(f.getName());
 						gameMap.setPath(ImportFileName.substring(0, ImportFileName.lastIndexOf("\\")));
@@ -70,14 +66,8 @@ public class MapTools {
 		boolean isMapValid = false;
 		try {
 
-			// TODO Auto-generated method stub
-			// FileReader mapFile=newu
-			// FileReader(gameMap.getPath()+"\\"+gameMap.getName();
-
 			FileReader mapFile;
 			String line = null;
-			System.out.println("Ofreish File 3 : "+gameMap.getPath());
-			System.out.println("kl: "+gameMap.getPath() + "\\" + gameMap.getName());
 			mapFile = new FileReader(gameMap.getPath() + "\\" + gameMap.getName());
 			
 			String Data = "";
@@ -134,8 +124,6 @@ public class MapTools {
 						for (Continent currentContinent : gameMap.getContinents()) {
 							if (currentContinent.getContinentName().toLowerCase()
 									.indexOf(stringManipulationArray[3].trim().toLowerCase()) >= 0) {
-								// System.out.println(newCountry.getCountryName());
-								// System.out.println(C.getContinentName());
 								currentContinent.getCountriesPresent().add(newCountry);
 							}
 						}
@@ -167,25 +155,7 @@ public class MapTools {
 			else
 				return false;
 
-			/*
-			for (Continent currentContinent : gameMap.getContinents()) {
-				System.out.println(currentContinent.getContinentName());
-				System.out.println(currentContinent.getControlValue());
-				for (Country currentCountry : currentContinent.getCountriesPresent()) {
-					System.out.println(currentCountry.getCountryName());
-					System.out.println(currentCountry.getLatitude());
-					System.out.println(currentCountry.getLongitude());
-					for (String Neighbours : currentCountry.getListOfNeighbours()) {
-						System.out.print(Neighbours + ",");
-					}
-					System.out.println();
-				}
-				System.out.println();
-
-			}
-*/
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return isMapValid;
@@ -294,13 +264,10 @@ public class MapTools {
 
 	}
 
-	// This class represents a directed graph using adjacency
-	// list representation
 	class Graph {
-		private int V; // No. of vertices
-		private ArrayList<Integer> adj[]; // Adjacency List
+		private int V; 
+		private ArrayList<Integer> adj[]; 
 
-		// Constructor
 		Graph(int v) {
 			V = v;
 			adj = new ArrayList[v];
@@ -308,17 +275,13 @@ public class MapTools {
 				adj[i] = new ArrayList();
 		}
 
-		// Function to add an edge into the graph
 		void addEdge(int v, int w) {
 			adj[v].add(w);
 		}
 
-		// A recursive function to print DFS starting from v
 		void DFSUtil(int v, Boolean visited[]) {
-			// Mark the current node as visited and print it
 			visited[v] = true;
 
-			// Recur for all the vertices adjacent to this vertex
 			Iterator<Integer> i = adj[v].listIterator();
 			while (i.hasNext()) {
 				int n;
@@ -328,11 +291,9 @@ public class MapTools {
 			}
 		}
 
-		// Function that returns transpose of this graph
 		Graph getTranspose() {
 			Graph g = new Graph(V);
 			for (int v = 0; v < V; v++) {
-				// Recur for all the vertices adjacent to this vertex
 				Iterator<Integer> i = adj[v].listIterator();
 				while (i.hasNext())
 					g.adj[i.next()].add(v);
@@ -340,39 +301,24 @@ public class MapTools {
 			return g;
 		}
 
-		// The main function that returns true if graph is strongly
-		// connected
 		Boolean isSC() {
-			// Step 1: Mark all the vertices as not visited
-			// (For first DFS)
 			Boolean visited[] = new Boolean[V];
 			for (int i = 0; i < V; i++)
 				visited[i] = false;
 
-			// Step 2: Do DFS traversal starting from first vertex.
 			DFSUtil(0, visited);
 
-			// If DFS traversal doesn't visit all vertices, then
-			// return false.
 			for (int i = 0; i < V; i++)
 				if (visited[i] == false)
 					return false;
 
-			// Step 3: Create a reversed graph
 			Graph gr = getTranspose();
 
-			// Step 4: Mark all the vertices as not visited (For
-			// second DFS)
 			for (int i = 0; i < V; i++)
 				visited[i] = false;
 
-			// Step 5: Do DFS for reversed graph starting from
-			// first vertex. Staring Vertex must be same starting
-			// point of first DFS
 			gr.DFSUtil(0, visited);
 
-			// If all vertices are not visited in second DFS, then
-			// return false
 			for (int i = 0; i < V; i++)
 				if (visited[i] == false)
 					return false;
@@ -382,8 +328,6 @@ public class MapTools {
 	}
 
 	private boolean checkMapConnectivity(Map gameMap) {
-		// TODO Auto-generated method stub
-		// Create graphs given in the above diagrams
 
 		List<String> listOfCountries = gameMap.listOfCountryNames().stream().map(String::toLowerCase)
 				.collect(Collectors.toList());
@@ -414,7 +358,6 @@ public class MapTools {
 		}
 	}
 	public boolean saveDataIntoFile(Map gameMap, String name) {
-		// TODO Auto-generated method stub
 				String data = "[Map]\nauthor=Anonymous\n[Continents]\n";
 				for (Continent c : gameMap.getContinents()) {
 					data = data + c.getContinentName();

@@ -10,11 +10,9 @@ public class Map {
 	private String Path;
 	private boolean errorOccurred;
 	private String errorMessage;
-	private List<Continent> continents;	//o
-	//private List<Country> allExistingCountries;
+	private List<Continent> continents;	
 	public Map(){
-		continents=new ArrayList<Continent>();	//o
-		//countries=new ArrayList<Country>();	//o
+		continents=new ArrayList<Continent>();
 		Path="";
 		Name="";
 		errorOccurred=false;
@@ -47,12 +45,6 @@ public class Map {
 		this.authorName = authorName;
 	}
 	
-	/*
-	 * @author Ofreish
-	 */
-/*	public List<Country> getCountries(){
-		return countries;
-	}*/
 	
 	public boolean getErrorOccurred() {
 		return errorOccurred;
@@ -70,9 +62,6 @@ public class Map {
 		this.errorMessage = errorMessage;
 	}
 
-	/**
-	 * @author ofreish
-	 */
 	public String searchContinent(String continentName) {
 		
 		for(Continent name : getContinents()) {
@@ -84,9 +73,6 @@ public class Map {
 		
 	}
 	
-	/**
-	 * @author arpit
-	 */
 	
 	public void removeContinent(Continent continent)
 	{
@@ -94,9 +80,6 @@ public class Map {
 		
 	}
 	
-	/**
-	 * @author ofreish
-	 */
 	public void addContinent(Continent continent) {
 		
 		if(searchContinent(continent.getContinentName())=="") {
@@ -123,9 +106,6 @@ public class Map {
 		return continentNames;
 	}
 	
-	/*
-	 * @author ofreish
-	 */
 	public String searchCountry(String countryName, String continentName) {
 		
 		for(Continent name : getContinents()) {
@@ -141,9 +121,6 @@ public class Map {
 		
 	}
 	
-	/*
-	 * @author ofreish
-	 */
 	public Country searchCountry(String countryName) {
 		
 		for(Continent name : getContinents()) {
@@ -156,21 +133,6 @@ public class Map {
 		return null;
 		
 	}
-///*
-//	/**
-//	 * @return the allExistingCountries Getter Method
-//	 */
-//	public List<Country> getAllExistingCountries() {
-//		return allExistingCountries;
-//	}
-//
-//	/**
-//	 * @param allExistingCountries Setter Method
-//	 */
-//	public void setAllExistingCountries(List<Country> allExistingCountries) {
-//		this.allExistingCountries = allExistingCountries;
-//	}
-//	*/
 	
 }
 

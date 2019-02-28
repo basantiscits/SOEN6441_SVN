@@ -11,13 +11,11 @@ public class Country {
 	private float Longitude;
 	private float Latitude;
 	private boolean isVisited;
-	//private int noOfArmiesCountry; 	//Why ? removed by ofreish
 	public Country(){
 		listOfNeighbours=new ArrayList<String>();
 	}
 	public Country(String countryName, Continent continent) {
 		this.setCountryName(countryName);
-		//this.setBelongsTo(continent);
 		this.listOfNeighbours = new ArrayList<>();
 		isVisited = false;
 
@@ -62,15 +60,14 @@ public class Country {
 
 	public void setOwnedBy(Player owner) {
 		this.ownedBy = ownedBy;
-		//updateChanges();
 	}
 
 	public void addNoOfArmiesCountry() {
-		this.noOfArmiesPresent++;	//o
+		this.noOfArmiesPresent++;	
 	}
 	
 	public void removeNoOfArmiesCountry() {
-		this.noOfArmiesPresent--;	//o
+		this.noOfArmiesPresent--;	
 	}
 
 	
