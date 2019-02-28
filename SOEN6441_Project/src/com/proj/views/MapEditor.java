@@ -1,6 +1,5 @@
 package com.proj.views;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -17,13 +16,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTree;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-
+import com.proj.controllers.MapEditorController;
 import com.proj.models.Continent;
 import com.proj.models.ContinentArea;
 import com.proj.models.Country;
@@ -37,7 +35,7 @@ public class MapEditor extends JFrame {
 	private ContinentArea continentArea;
 	private ToolBar toolBar;
 	public Map gameMap;
-	private com.proj.controllers.MapEditor mapEditorController;
+	private MapEditorController mapEditorController;
 	private JTree mapTree;
 	private JScrollPane treeScrollPane;
 	private String userSelTreeNode;
@@ -77,13 +75,13 @@ public class MapEditor extends JFrame {
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		mapEditorController= new com.proj.controllers.MapEditor(this);
+		mapEditorController= new MapEditorController(this);
 
 
 		addComponents(mapEditorController);
 	}
 	
-	public void addComponents(com.proj.controllers.MapEditor mapEditorController) {
+	public void addComponents(MapEditorController mapEditorController) {
 		setLayout(null);
 		Border blackline = BorderFactory.createLineBorder(Color.black);
 

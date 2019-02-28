@@ -19,8 +19,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.tree.DefaultMutableTreeNode;
 
+import com.proj.controllers.NewGameController;
 import com.proj.models.Continent;
 import com.proj.models.Country;
 import com.proj.models.GameModelCreation;
@@ -30,29 +30,33 @@ import com.proj.utilites.Constants;
 import com.proj.utilites.MapTools;
 
 public class PlayNewGame extends JFrame implements ActionListener {
-	String sFileName = "";
-	Player[] player ;
-	String sLocationWhereFileisKept = "";
-	String sAppendParam = "";
+	private String sFileName = "";
+	private Player[] player ;
+	private String sLocationWhereFileisKept = "";
+	private String sAppendParam = "";
 	private JButton buttonbrowse;
 	private JComboBox<String> comboBoxSelectPlayer;
 	private String[] playersList = new String[] { "  --Select--  ","3", "4", "5" };
-	String sPathFileName = "";
+//	String sPathFileName = "";
 	private JTextField textFieldMap;
 	private JButton buttonPlayGame;
-	String noOfPlayers;
-	String CopynoOfPlayers;
-	Map sCarryMapForward = new Map();
+	//String noOfPlayers;
+	private String CopynoOfPlayers;
+	private Map sCarryMapForward = new Map();
 	private JTree mapTree;
 	private JScrollPane treeScrollPane;
+	private NewGameController newGameController;
 
 	public PlayNewGame() {
+		
+		newGameController = new NewGameController(this);
 
 		JLabel labelHeading = new JLabel();
 		labelHeading.setText("THE RISK GAME");
 		labelHeading.setBounds(Constants.WIDTH / 2 + 120, 0, 100, 30);
 		add(labelHeading);
 
+		
 		JLabel labelSelectPlayer = new JLabel();
 		labelSelectPlayer.setText("Select no of Players :");
 		// labelSelectPlayer.setBounds(40, 80, 400, 180);
@@ -61,7 +65,7 @@ public class PlayNewGame extends JFrame implements ActionListener {
 
 		comboBoxSelectPlayer = new JComboBox<>(playersList);
 		comboBoxSelectPlayer.setBounds(380, 90, 90, 30);
-		comboBoxSelectPlayer.addActionListener(this);
+		comboBoxSelectPlayer.addActionListener(newGameController);
 		add(comboBoxSelectPlayer);
 
 		JLabel labelSelectMap = new JLabel();
@@ -76,13 +80,13 @@ public class PlayNewGame extends JFrame implements ActionListener {
 		buttonbrowse = new JButton();
 		buttonbrowse.setText("Press button to select file");
 		buttonbrowse.setBounds(600, 195, 210, 30);
-		buttonbrowse.addActionListener(this);
+		buttonbrowse.addActionListener(newGameController);
 		add(buttonbrowse);
 
 		buttonPlayGame = new JButton();
 		buttonPlayGame.setText("Play Now");
 		buttonPlayGame.setBounds(380, 400, 210, 30);
-		buttonPlayGame.addActionListener(this);
+		buttonPlayGame.addActionListener(newGameController);
 		add(buttonPlayGame);
 
 		setTitle("New Game Menu");
@@ -108,7 +112,149 @@ public class PlayNewGame extends JFrame implements ActionListener {
 	 * sPathFileName = ImportFileName(""); textFieldMap.setText(sPathFileName);
 	 */
 
-	private String ImportFileName(String sReturnFileAndLoc) {
+	public String getsFileName() {
+		return sFileName;
+	}
+
+
+	public void setsFileName(String sFileName) {
+		this.sFileName = sFileName;
+	}
+
+
+	public Player[] getPlayer() {
+		return player;
+	}
+
+
+	public void setPlayer(Player[] player) {
+		this.player = player;
+	}
+
+
+	public String getsLocationWhereFileisKept() {
+		return sLocationWhereFileisKept;
+	}
+
+
+	public void setsLocationWhereFileisKept(String sLocationWhereFileisKept) {
+		this.sLocationWhereFileisKept = sLocationWhereFileisKept;
+	}
+
+
+	public String getsAppendParam() {
+		return sAppendParam;
+	}
+
+
+	public void setsAppendParam(String sAppendParam) {
+		this.sAppendParam = sAppendParam;
+	}
+
+
+	public JButton getButtonbrowse() {
+		return buttonbrowse;
+	}
+
+
+	public void setButtonbrowse(JButton buttonbrowse) {
+		this.buttonbrowse = buttonbrowse;
+	}
+
+
+	public JComboBox<String> getComboBoxSelectPlayer() {
+		return comboBoxSelectPlayer;
+	}
+
+
+	public void setComboBoxSelectPlayer(JComboBox<String> comboBoxSelectPlayer) {
+		this.comboBoxSelectPlayer = comboBoxSelectPlayer;
+	}
+
+
+	public String[] getPlayersList() {
+		return playersList;
+	}
+
+
+	public void setPlayersList(String[] playersList) {
+		this.playersList = playersList;
+	}
+
+
+	
+
+	public JTextField getTextFieldMap() {
+		return textFieldMap;
+	}
+
+
+	public void setTextFieldMap(JTextField textFieldMap) {
+		this.textFieldMap = textFieldMap;
+	}
+
+
+	public JButton getButtonPlayGame() {
+		return buttonPlayGame;
+	}
+
+
+	public void setButtonPlayGame(JButton buttonPlayGame) {
+		this.buttonPlayGame = buttonPlayGame;
+	}
+
+
+	public String getCopynoOfPlayers() {
+		return CopynoOfPlayers;
+	}
+
+
+	public void setCopynoOfPlayers(String copynoOfPlayers) {
+		CopynoOfPlayers = copynoOfPlayers;
+	}
+
+
+	public Map getsCarryMapForward() {
+		return sCarryMapForward;
+	}
+
+
+	public void setsCarryMapForward(Map sCarryMapForward) {
+		this.sCarryMapForward = sCarryMapForward;
+	}
+
+
+	public JTree getMapTree() {
+		return mapTree;
+	}
+
+
+	public void setMapTree(JTree mapTree) {
+		this.mapTree = mapTree;
+	}
+
+
+	public JScrollPane getTreeScrollPane() {
+		return treeScrollPane;
+	}
+
+
+	public void setTreeScrollPane(JScrollPane treeScrollPane) {
+		this.treeScrollPane = treeScrollPane;
+	}
+
+
+	public NewGameController getNewGameController() {
+		return newGameController;
+	}
+
+
+	public void setNewGameController(NewGameController newGameController) {
+		this.newGameController = newGameController;
+	}
+
+
+	public String ImportFileName(String sReturnFileAndLoc) {
 
 		
 		try {
@@ -155,82 +301,82 @@ public class PlayNewGame extends JFrame implements ActionListener {
 
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent event) {
-		// TODO Auto-generated method stub
-		boolean isMapValid=true;
-		noOfPlayers = (String) comboBoxSelectPlayer.getSelectedItem();
-		
-		if (event.getSource().equals(buttonbrowse)) {
-			if(noOfPlayers.equals("  --Select--  "))
-			{
-				System.out.println("Select is pressed");
-				JOptionPane.showMessageDialog(null, "Please select no. of Players to play game");
-			}
-			else
-			{
-				Map existingMap = new Map();
-				MapTools sFunctions= new MapTools();
-				sPathFileName = sFunctions.pickMapFile(existingMap);
-				if (sPathFileName == null) {
-					
+//	@Override
+//	public void actionPerformed(ActionEvent event) {
+//		// TODO Auto-generated method stub
+//		boolean isMapValid=true;
+//		noOfPlayers = (String) comboBoxSelectPlayer.getSelectedItem();
+//		
+//		if (event.getSource().equals(buttonbrowse)) {
+//			if(noOfPlayers.equals("  --Select--  "))
+//			{
+//				System.out.println("Select is pressed");
+//				JOptionPane.showMessageDialog(null, "Please select no. of Players to play game");
+//			}
+//			else
+//			{
+//				Map existingMap = new Map();
+//				MapTools sFunctions= new MapTools();
+//				sPathFileName = sFunctions.pickMapFile(existingMap);
+//				if (sPathFileName == null) {
+//					
+//
+//				} else {
+//					isMapValid = sFunctions.parseAndValidateMap(existingMap,Integer.parseInt(noOfPlayers));
+//					
+//
+//					if(isMapValid)
+//					{
+//						JOptionPane.showMessageDialog(null, "Map successfully loaded");
+//					}
+//					else
+//					{
+//						JOptionPane.showMessageDialog(null, "Invalid Map selected");
+//				
+//					}
+//					sCarryMapForward = existingMap;
+//					textFieldMap.setText(sPathFileName);
+//				}
+//				//isMapValid=sFunctions.parseAndValidateMap(existingMap,Integer.parseInt(noOfPlayers));
+//				
+//				
+//			}
+//
+//		
+//
+//		} else if ((event.getSource()).equals(buttonPlayGame)) {
+//			System.out.println("Play Game Button");
+//			noOfPlayers = (String) comboBoxSelectPlayer.getSelectedItem();
+//			// System.out.println(noOfPlayers);
+//			if(noOfPlayers.equals("  --Select--  "))
+//			{
+//				System.out.println("Select is pressed");
+//				JOptionPane.showMessageDialog(null, "Please select no. of Players to play game");
+//			}
+//			else
+//			{
+//				if (sPathFileName.equals(null) || (sPathFileName).equals("")) {
+//					JOptionPane.showMessageDialog(null, "Please upload the . map file");
+//				}
+//				else
+//				{
+//					String[] comboSelectedPlayers = new String[Integer.parseInt(noOfPlayers)];
+//					player = initializingPlayerModels(Integer.parseInt(noOfPlayers), sCarryMapForward,
+//							comboSelectedPlayers);
+//				
+//					
+//					GameModelWindowMade(sCarryMapForward,player);
+//				}
+//				
+//				
+//			}
+//			
+//
+//		}
+//
+//	}
 
-				} else {
-					isMapValid = sFunctions.parseAndValidateMap(existingMap,Integer.parseInt(noOfPlayers));
-					
-
-					if(isMapValid)
-					{
-						JOptionPane.showMessageDialog(null, "Map successfully loaded");
-					}
-					else
-					{
-						JOptionPane.showMessageDialog(null, "Invalid Map selected");
-				
-					}
-					sCarryMapForward = existingMap;
-					textFieldMap.setText(sPathFileName);
-				}
-				//isMapValid=sFunctions.parseAndValidateMap(existingMap,Integer.parseInt(noOfPlayers));
-				
-				
-			}
-
-		
-
-		} else if ((event.getSource()).equals(buttonPlayGame)) {
-			System.out.println("Play Game Button");
-			noOfPlayers = (String) comboBoxSelectPlayer.getSelectedItem();
-			// System.out.println(noOfPlayers);
-			if(noOfPlayers.equals("  --Select--  "))
-			{
-				System.out.println("Select is pressed");
-				JOptionPane.showMessageDialog(null, "Please select no. of Players to play game");
-			}
-			else
-			{
-				if (sPathFileName.equals(null) || (sPathFileName).equals("")) {
-					JOptionPane.showMessageDialog(null, "Please upload the . map file");
-				}
-				else
-				{
-					String[] comboSelectedPlayers = new String[Integer.parseInt(noOfPlayers)];
-					player = initializingPlayerModels(Integer.parseInt(noOfPlayers), sCarryMapForward,
-							comboSelectedPlayers);
-				
-					
-					GameModelWindowMade(sCarryMapForward,player);
-				}
-				
-				
-			}
-			
-
-		}
-
-	}
-
-	private void GameModelWindowMade(Map sCarryMapForward, Player[] player) {
+	public void GameModelWindowMade(Map sCarryMapForward, Player[] player) {
 		// TODO Auto-generated method stub
 		dispose();
 		GameModelCreation gameModel = new GameModelCreation(sCarryMapForward, player);
@@ -238,63 +384,70 @@ public class PlayNewGame extends JFrame implements ActionListener {
 		GameWindowScreen.setVisible(true);
 	}
 
-	// Assigning Player model Player No. with setting owner of Counties with 1
-	// Army
-	public Player[] initializingPlayerModels(int noOfPlayers, Map sCarryMapForward, String[] comboSelectedPlayers) {
-		Player[] players = new Player[noOfPlayers];
-		int pickedNumber = 0;
-		Continent[] continents = new Continent[sCarryMapForward.getContinents().size()];
-		// PlayerType[] playerTypes =
-		// Utility.getPlayerTypeFromDropDown(noOfPlayers, comboSelectedPlayers);
-		for (int j = 0; j < noOfPlayers; j++) {
-			int value = j + 1;
-			players[j] = new Player("Player" + String.valueOf(value));
-			
-			// By ofreish for adding initial armies per player
-			if(noOfPlayers==3) {
-				players[j].setNoOfArmiesOwned(25);
-			}
-			else if(noOfPlayers==4) {
-				players[j].setNoOfArmiesOwned(20);
-			}
-			else if(noOfPlayers==5) {
-				players[j].setNoOfArmiesOwned(15);
-			}
-		}
-		Random RandomAllocationCountries = new Random();
-		List<Country> countryModelList = new ArrayList<>();
-		List<Continent> continentModelList = new ArrayList<>();
-		continentModelList.addAll(sCarryMapForward.getContinents());
-		for(Continent continent:continentModelList) {
-			countryModelList.addAll(continent.getCountriesPresent());
-		}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
 		
-		while (!(countryModelList.isEmpty())) {
-			for (int count1 = 0; count1 < noOfPlayers; count1++) {
-				if (!(countryModelList.isEmpty())) {
-					pickedNumber = RandomAllocationCountries.nextInt(countryModelList.size());
-					Country countryModelTest = countryModelList.get(pickedNumber);
-					if (countryModelTest != null) {
-						players[count1].addCountry(countryModelTest);
-						countryModelTest.setOwnedBy(players[count1]);
-						countryModelTest.addNoOfArmiesCountry();
-						
-						players[count1].reduceArmyInPlayer();
-						System.out.println("Random Allocated to Players "+ count1 +countryModelList.get(pickedNumber).getCountryName()+" ->"+countryModelTest.getNoOfArmiesPresent());
-						//System.out.println();
-					}
-				   
-					countryModelList.remove(pickedNumber);
-
-
-				}
-			}
-		}
-		
-		System.out.println(players);
-		return players;
-
 	}
+
+//	// Assigning Player model Player No. with setting owner of Counties with 1
+//	// Army
+//	public Player[] initializingPlayerModels(int noOfPlayers, Map sCarryMapForward, String[] comboSelectedPlayers) {
+//		Player[] players = new Player[noOfPlayers];
+//		int pickedNumber = 0;
+//		Continent[] continents = new Continent[sCarryMapForward.getContinents().size()];
+//		// PlayerType[] playerTypes =
+//		// Utility.getPlayerTypeFromDropDown(noOfPlayers, comboSelectedPlayers);
+//		for (int j = 0; j < noOfPlayers; j++) {
+//			int value = j + 1;
+//			players[j] = new Player("Player" + String.valueOf(value));
+//			
+//			// By ofreish for adding initial armies per player
+//			if(noOfPlayers==3) {
+//				players[j].setNoOfArmiesOwned(25);
+//			}
+//			else if(noOfPlayers==4) {
+//				players[j].setNoOfArmiesOwned(20);
+//			}
+//			else if(noOfPlayers==5) {
+//				players[j].setNoOfArmiesOwned(15);
+//			}
+//		}
+//		Random RandomAllocationCountries = new Random();
+//		List<Country> countryModelList = new ArrayList<>();
+//		List<Continent> continentModelList = new ArrayList<>();
+//		continentModelList.addAll(sCarryMapForward.getContinents());
+//		for(Continent continent:continentModelList) {
+//			countryModelList.addAll(continent.getCountriesPresent());
+//		}
+//		
+//		while (!(countryModelList.isEmpty())) {
+//			for (int count1 = 0; count1 < noOfPlayers; count1++) {
+//				if (!(countryModelList.isEmpty())) {
+//					pickedNumber = RandomAllocationCountries.nextInt(countryModelList.size());
+//					Country countryModelTest = countryModelList.get(pickedNumber);
+//					if (countryModelTest != null) {
+//						players[count1].addCountry(countryModelTest);
+//						countryModelTest.setOwnedBy(players[count1]);
+//						countryModelTest.addNoOfArmiesCountry();
+//						
+//						players[count1].reduceArmyInPlayer();
+//						System.out.println("Random Allocated to Players "+ count1 +countryModelList.get(pickedNumber).getCountryName()+" ->"+countryModelTest.getNoOfArmiesPresent());
+//						//System.out.println();
+//					}
+//				   
+//					countryModelList.remove(pickedNumber);
+//
+//
+//				}
+//			}
+//		}
+//		
+//		System.out.println(players);
+//		return players;
+//
+//	}
 	
 
 }

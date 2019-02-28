@@ -7,7 +7,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-
+import com.proj.controllers.MapEditorController;
 import com.proj.models.Continent;
 import com.proj.models.Country;
 
@@ -19,7 +19,7 @@ public class ToolBar extends JPanel{
 	private Country newCountry;
 	
 	
-	public ToolBar(com.proj.controllers.MapEditor mapEditorController) {
+	public ToolBar(MapEditorController mapEditorController) {
 		
 		
 		setLayout(new FlowLayout());

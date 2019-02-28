@@ -24,6 +24,7 @@ public class MainMenuScreen extends JFrame {
 	private MapTools mapTool;
 	private JButton btnLoadExisitingMaps;
 	private JLabel RiskImage;
+	private MapEditor mapEditorView;
 	public MainMenuScreen() {
 		CreateMenuBar();
 		setTitle("Simple menu");
@@ -82,7 +83,8 @@ public class MainMenuScreen extends JFrame {
 		JMenuItem newMap = new JMenuItem(new AbstractAction("Create New Map") {
 			public void actionPerformed(ActionEvent e) {
 				Map newMap=new Map();
-				MapEditor mapEditorView=new MapEditor(newMap);
+				//MapEditor mapEditorView=new MapEditor(newMap);
+				mapEditorView=new MapEditor(newMap);
 				mapEditorView.setVisible(true);
 			
 			}
@@ -91,18 +93,40 @@ public class MainMenuScreen extends JFrame {
 
 		JMenuItem editExistingMap = new JMenuItem(new AbstractAction("Edit Existing Map") {
 			public void actionPerformed(ActionEvent e) {
-				Map existingMap=new Map();
+			
+			Map existingMap=new Map();
+			
+			//mapTool.pickMapFile(existingMap);
+			String sFinal=mapTool.pickMapFile(existingMap);
+			System.out.println(sFinal);
+			if(sFinal == null || (sFinal.isEmpty()))
+			{
 				
-				mapTool.pickMapFile(existingMap);
+			}
+			else
+			{
+				boolean isMapValid=mapTool.parseAndValidateMap(existingMap,3);
 				if(mapTool.parseAndValidateMap(existingMap,3)){
-					MapEditor mapEditorView=new MapEditor(existingMap);
-					mapEditorView.setVisible(true);
+					if(isMapValid)
+					{
+						JOptionPane.showMessageDialog(null, "Map successfully loaded");
+						MapEditor mapEditorView=new MapEditor(existingMap);
+						mapEditorView.setVisible(true);
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(null, "Invalid Map selected");
+					}
+					
 				}
 				else{
 					JOptionPane.showMessageDialog(null, "Can not load, invalid map.");		
 					System.out.println(existingMap.getErrorMessage());
 				}
 			}
+			
+			}
+			
 		});
 		editExistingMap.setToolTipText("Edit Existing Map");
 
