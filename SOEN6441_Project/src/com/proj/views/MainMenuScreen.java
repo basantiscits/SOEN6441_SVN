@@ -40,17 +40,9 @@ public class MainMenuScreen extends JFrame {
 		add(RiskImage);
 
 	
-//		JLabel jLabelObject = new JLabel();
-//		jLabelObject
-//				.setIcon(new ImageIcon("E:\\SOEN_6441\\SOEN6441_Project\\Images\\Risk.jpg"));
-//	
-//		
-//		jLabelObject.setBounds(Constants.WIDTH / 2 - 150, 50, 100, 30);
-//		add(jLabelObject);
 	}
 
 	private void CreateMenuBar() {
-		// TODO Auto-generated method stub
 
 		JMenuBar menubar = new JMenuBar();
 
@@ -71,19 +63,15 @@ public class MainMenuScreen extends JFrame {
 		JMenuItem singlePlayer = new JMenuItem("Play Game");
 		singlePlayer.setToolTipText("Play Game");
 
-		//JMenuItem MultiPlayer = new JMenuItem("Multi-Player");
-		//MultiPlayer.setToolTipText("Multi-Player");
 
 		JMenuItem exitMenuItem = new JMenuItem("Exit");
 		exitMenuItem.setToolTipText("Exit application");
 
 		SubSubMenu.add(PlayGame);
-		//SubSubMenu.add(MultiPlayer);
 
 		JMenuItem newMap = new JMenuItem(new AbstractAction("Create New Map") {
 			public void actionPerformed(ActionEvent e) {
 				Map newMap=new Map();
-				//MapEditor mapEditorView=new MapEditor(newMap);
 				mapEditorView=new MapEditor(newMap);
 				mapEditorView.setVisible(true);
 			
@@ -96,7 +84,6 @@ public class MainMenuScreen extends JFrame {
 			
 			Map existingMap=new Map();
 			
-			//mapTool.pickMapFile(existingMap);
 			String sFinal=mapTool.pickMapFile(existingMap);
 			System.out.println(sFinal);
 			if(sFinal == null || (sFinal.isEmpty()))
@@ -136,16 +123,6 @@ public class MainMenuScreen extends JFrame {
 		menubar.add(helpMenu);
 		exitMenuItem.addActionListener((event) -> System.exit(0));
 
-//		CreateEditor.addActionListener(new java.awt.event.ActionListener() {
-//			@Override
-//			public void actionPerformed(java.awt.event.ActionEvent evt) {
-//				Map map = new Map();
-//				CreateMapEditor createMap = new CreateMapEditor(map);
-//				createMap.setVisible(true);
-//				dispose();
-//				
-//			}
-//		});
 
 		SubSubMenu.addActionListener(new java.awt.event.ActionListener() {
 			@Override
@@ -184,12 +161,4 @@ public class MainMenuScreen extends JFrame {
 
 	}
 
-/*	public void SubSubMenu(ActionEvent e) {
-		if (e.getSource() == btnLoadExisitingMaps) {
-			CreateaMapEditor LoadExisitingMaps = new CreateaMapEditor();
-			LoadExisitingMaps.setVisible(true);
-			dispose();
-		}
-
-	}*/
 }

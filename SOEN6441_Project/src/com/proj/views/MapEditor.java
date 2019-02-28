@@ -49,7 +49,6 @@ public class MapEditor extends JFrame {
 	private JPanel CountryLabelViewPanel;
 	
 	
-	// countries area
 	private JTextArea textArea;
 	private List<String> countries = new ArrayList<String>();
 	
@@ -62,7 +61,6 @@ public class MapEditor extends JFrame {
 	
 
 	public MapEditor(Map gameMap) {
-		// TODO Auto-generated method stub
 
 		super("Game Window");
 		this.gameMap = gameMap;
@@ -84,7 +82,6 @@ public class MapEditor extends JFrame {
 		Border blackline = BorderFactory.createLineBorder(Color.black);
 
 		Dimension frameSize = this.getSize();
-		//---------------------------------------------------------------
 		
 		toolBar = new ToolBar(mapEditorController);
 		toolBar.setBounds(0, 0, frameSize.width, 40);
@@ -104,12 +101,10 @@ public class MapEditor extends JFrame {
 
 		treeScrollPane = new JScrollPane(mapTree);
 		treeScrollPane.setBounds(10, 70, frameSize.width - 950, frameSize.height - 600);
-		//---------------------------------------------------------------
 		CountryLabelViewPanel = new JPanel();
 		countriesLabel = new JLabel("Countries Matrix");
 		Dimension countriesSize = countriesLabel.getPreferredSize();
 		countriesLabel.setFont(new Font("TimesRoman", Font.BOLD, 20));
-		//System.out.println("yes : "+treeScrollPane.getBounds().x );
 		countriesLabel.setBounds(240, 50, countriesSize.width + 500, countriesSize.height);
 		CountryLabelViewPanel.setBounds(ContientLabelViewPanel.getBounds().x + (int) (ContientLabelViewPanel.getBounds().getWidth()), 35,
 				frameSize.width - 300, 35);
@@ -127,7 +122,6 @@ public class MapEditor extends JFrame {
 				frameSize.width - 300, frameSize.height - 600);
 	
 
-		// ---------------------------------------------------------------
 
 		add(scrollPane);
 		add(treeScrollPane);
@@ -174,7 +168,6 @@ public class MapEditor extends JFrame {
 		dtm.setDataVector(data, countryColumn);
 		tablematrix = new JTable(dtm) {
 			
-			// Set color of cell to Grey If the value is "N"
 			@Override
 			public Component prepareRenderer(TableCellRenderer renderer, int row, int col) {
 			        Component component = super.prepareRenderer(renderer, row, col);

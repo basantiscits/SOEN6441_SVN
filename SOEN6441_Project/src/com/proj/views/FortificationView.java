@@ -15,9 +15,6 @@ import com.proj.models.Map;
 import com.proj.models.Player;
 import com.proj.utilites.Constants;
 
-/*
- * @author Ofreish
- */
 public class FortificationView extends JFrame implements ActionListener{
 	
 	private JLabel source;
@@ -259,73 +256,6 @@ public class FortificationView extends JFrame implements ActionListener{
 		}
 	}
 	
-//
-//	@Override
-//	public void actionPerformed(ActionEvent e) {
-//		
-//		if(e.getSource()==sourceCountry) {
-//			
-//			if(sourceCountry.getItemCount()!=0) {
-//				armiesInDestination.setText("");
-//				selectNoOfArmies.removeAllItems();
-//				
-//				String countryName = (String) sourceCountry.getSelectedItem();
-//				
-//				sourCountry = map.searchCountry(countryName);
-//				
-//				armiesInSource.setText(String.valueOf(sourCountry.getNoOfArmiesPresent()));
-//				
-//				addDestCountries(sourCountry);
-//				
-//				if(sourCountry.getNoOfArmiesPresent()<=1) {
-//					JOptionPane.showMessageDialog(null, "Country should contain atleast 2 armies to move 1");
-//				}
-//				else {
-//					selectNoOfArmies.removeAllItems();
-//					AddArmies();
-//				}
-//			}
-//		}
-//		
-//		else if(e.getSource()==destinationCountry) {
-//
-//			if(destinationCountry.getItemCount()!=0) {
-//				String destinationSelected = (String) destinationCountry.getSelectedItem();
-//				destCountry = map.searchCountry(destinationSelected);
-//				
-//				armiesInDestination.setText(String.valueOf(destCountry.getNoOfArmiesPresent()));
-//				
-//			}
-//		}
-//		
-//		else if(e.getSource()==send) {
-//			if(sourCountry.getNoOfArmiesPresent()>1 && destCountry!=null) {
-//				String arm = (String)  selectNoOfArmies.getSelectedItem();
-//				int army = Integer.valueOf(arm);
-//				
-//				for(int i=0;i<army;i++) {
-//					sourCountry.removeNoOfArmiesCountry();
-//					destCountry.addNoOfArmiesCountry();
-//				}
-//				
-//				gameWindow.createStartUpTree();
-//				setVisible(false);
-//				gameWindow.setEnabled(true);
-//				dispose();
-//			}
-//			else {
-//				JOptionPane.showMessageDialog(null, "Please select country with armies more than 1");
-//			}
-//		}
-//		
-//		else if(e.getSource()==finish) {
-//			setVisible(false);
-//			gameWindow.setEnabled(true);
-//			dispose();
-//		}
-//		
-//	}
-//
 	public JLabel getArmiesInSource() {
 		return armiesInSource;
 	}
@@ -344,7 +274,6 @@ public class FortificationView extends JFrame implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
