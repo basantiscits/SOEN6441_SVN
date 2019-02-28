@@ -23,7 +23,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import com.proj.controllers.MapEditorController;
 import com.proj.models.Continent;
-import com.proj.models.ContinentArea;
 import com.proj.models.Country;
 import com.proj.models.Map;
 import com.proj.utilites.Constants;
@@ -32,7 +31,6 @@ public class MapEditor extends JFrame {
 
 	private JLabel countriesLabel;
 	private JLabel continentLabel;
-	private ContinentArea continentArea;
 	private ToolBar toolBar;
 	public Map gameMap;
 	private MapEditorController mapEditorController;

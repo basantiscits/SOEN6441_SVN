@@ -27,7 +27,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import com.proj.controllers.GameController;
 import com.proj.models.Continent;
-import com.proj.models.ContinentArea;
 import com.proj.models.Country;
 import com.proj.models.Map;
 import com.proj.models.Player;
@@ -38,10 +37,7 @@ public class GameWindowScreen extends JFrame implements ActionListener{
 	public Player[] player;
 	private JLabel countriesLabel;
 	private JLabel continentLabel;
-	private ContinentArea continentArea;
-	// private ToolBar toolBar;
 	public Map gameMap;
-	// public com.proj.controllers.MapEditor mapEditorController;
 	private JTree mapTree,startUpTree;
 	private JTree playerAllocationCountry;
 	private JScrollPane treeScrollPane,startUpScrollPane,strengthPane;
@@ -478,24 +474,6 @@ public class GameWindowScreen extends JFrame implements ActionListener{
 	public void setContinentLabel(JLabel continentLabel) {
 		this.continentLabel = continentLabel;
 	}
-
-
-
-
-
-	public ContinentArea getContinentArea() {
-		return continentArea;
-	}
-
-
-
-
-
-	public void setContinentArea(ContinentArea continentArea) {
-		this.continentArea = continentArea;
-	}
-
-
 
 
 

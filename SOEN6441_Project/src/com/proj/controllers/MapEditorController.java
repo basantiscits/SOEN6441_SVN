@@ -10,7 +10,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import com.proj.models.Continent;
-import com.proj.models.ContinentArea;
 import com.proj.models.Country;
 import com.proj.models.Map;
 import com.proj.utilites.MapTools;
@@ -31,9 +30,6 @@ public class MapEditorController implements ActionListener {
 		this.gameMap=mapEditorView.gameMap;
 		this.mapEditorView= mapEditorView;
 	}
-	
-	private ContinentArea continentArea;
-	
 	
 	
 	@Override
@@ -88,7 +84,6 @@ public class MapEditorController implements ActionListener {
 						}
 						
 						else if ((continentName != null) && (gameMap.searchContinent(continentName)=="")) {
-							continentArea = new ContinentArea(gameMap);
 							continent.setContinentName(continentName);
 							gameMap.addContinent(continent);
 							mapEditorView.createTree();
