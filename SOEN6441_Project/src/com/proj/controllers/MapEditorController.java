@@ -21,7 +21,6 @@ public class MapEditorController implements ActionListener {
 	
 	private Continent continent;
 	
-	//private CreateMapEditor createMapEditor;
 	private com.proj.views.MapEditor mapEditorView;
 	
 	private Map gameMap;
@@ -34,7 +33,6 @@ public class MapEditorController implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		String button = e.getActionCommand();
 		
 		
@@ -230,7 +228,6 @@ public class MapEditorController implements ActionListener {
 		
 		else {
 			ArrayList<String> continentsList = new ArrayList<String>();
-			//String continents[] = new String[gameMap.getContinents().size()];
 			int count = 0;
 			
 			for(Continent contName : gameMap.getContinents()) {
@@ -252,7 +249,6 @@ public class MapEditorController implements ActionListener {
 					JOptionPane.showMessageDialog(null, "Please select continent");
 				}
 				else {
-					System.out.println("country andr 2");
 					String continentNameString = (String) continentBox.getSelectedItem();
 					Continent continentName = null;
 					for(Continent name : gameMap.getContinents()) {

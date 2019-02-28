@@ -31,7 +31,6 @@ public class NewGameController implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		// TODO Auto-generated method stub
 		boolean isMapValid=true;
 		noOfPlayers = (String) playNewGame.getComboBoxSelectPlayer().getSelectedItem();
 		
@@ -65,7 +64,6 @@ public class NewGameController implements ActionListener {
 					sCarryMapForward = existingMap;
 					playNewGame.getTextFieldMap().setText(sPathFileName);
 				}
-				//isMapValid=sFunctions.parseAndValidateMap(existingMap,Integer.parseInt(noOfPlayers));
 				
 				
 			}
@@ -75,7 +73,6 @@ public class NewGameController implements ActionListener {
 		} else if ((event.getSource()).equals(playNewGame.getButtonPlayGame())) {
 			System.out.println("Play Game Button");
 			noOfPlayers = (String) playNewGame.getComboBoxSelectPlayer().getSelectedItem();
-			// System.out.println(noOfPlayers);
 			if(noOfPlayers.equals("  --Select--  "))
 			{
 				System.out.println("Select is pressed");
@@ -105,19 +102,14 @@ public class NewGameController implements ActionListener {
 	}
 
 	
-	// Assigning Player model Player No. with setting owner of Counties with 1
-	// Army
 	public Player[] initializingPlayerModels(int noOfPlayers, Map sCarryMapForward, String[] comboSelectedPlayers) {
 		Player[] players = new Player[noOfPlayers];
 		int pickedNumber = 0;
 		Continent[] continents = new Continent[sCarryMapForward.getContinents().size()];
-		// PlayerType[] playerTypes =
-		// Utility.getPlayerTypeFromDropDown(noOfPlayers, comboSelectedPlayers);
 		for (int j = 0; j < noOfPlayers; j++) {
 			int value = j + 1;
 			players[j] = new Player("Player" + String.valueOf(value));
 			
-			// By ofreish for adding initial armies per player
 			if(noOfPlayers==3) {
 				players[j].setNoOfArmiesOwned(25);
 			}
@@ -148,7 +140,6 @@ public class NewGameController implements ActionListener {
 						
 						players[count1].reduceArmyInPlayer();
 						System.out.println("Random Allocated to Players "+ count1 +countryModelList.get(pickedNumber).getCountryName()+" ->"+countryModelTest.getNoOfArmiesPresent());
-						//System.out.println();
 					}
 				   
 					countryModelList.remove(pickedNumber);
