@@ -1,6 +1,7 @@
-package com.proj.utilites;
+ package com.proj.utilites;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -26,7 +27,6 @@ public class MapTools {
 		String sAppendFileName = null;
 		
 		try {
-			
 			String ImportFileName;
 			JFileChooser chooser;
 			chooser = new JFileChooser();
@@ -66,7 +66,7 @@ public class MapTools {
 		return sAppendFileName;
 	}
 
-	public boolean parseAndValidateMap(Map gameMap) {
+	public boolean parseAndValidateMap(Map gameMap, int size) {
 		boolean isMapValid = false;
 		try {
 
@@ -146,12 +146,18 @@ public class MapTools {
 					}
 				}
 			}
-
-			if (checkDuplicateContinents(gameMap))
-				if (checkDuplicateCountries(gameMap))
-					if (checkIfNeigbourExist(gameMap))
-						if (checkMapConnectivity(gameMap))
-							isMapValid = true;
+			
+			if (!checkDuplicateContinents(gameMap))
+				if (!checkDuplicateCountries(gameMap))
+					if (!checkEmptyContinent(gameMap))
+						if (checkIfNeigbourExist(gameMap))
+							if (checkMapConnectivity(gameMap))
+								if (checkCountryCount(gameMap, size))
+									return true;
+								else
+									return false;
+							else
+								return false;
 						else
 							return false;
 					else
@@ -161,6 +167,7 @@ public class MapTools {
 			else
 				return false;
 
+			/*
 			for (Continent currentContinent : gameMap.getContinents()) {
 				System.out.println(currentContinent.getContinentName());
 				System.out.println(currentContinent.getControlValue());
@@ -176,14 +183,55 @@ public class MapTools {
 				System.out.println();
 
 			}
-
+*/
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return isMapValid;
 	}
+	public boolean validateMap(Map gameMap,int size){
+		
+		if (!checkDuplicateContinents(gameMap))
+			if (!checkDuplicateCountries(gameMap))
+				if (!checkEmptyContinent(gameMap))
+					if (checkIfNeigbourExist(gameMap))
+						if (checkMapConnectivity(gameMap))
+							if (checkCountryCount(gameMap, 3))
+								return true;
+							else
+								return false;
+						else
+							return false;
+					else
+						return false;
+				else
+					return false;
+			else
+				return false;
+		else
+			return false;
+	}
 
+	public boolean checkEmptyContinent(Map gameMap){
+		for(Continent c:gameMap.getContinents()){
+			if(c.getCountriesPresent().isEmpty()){
+				gameMap.setErrorMessage("Continent "+c.getContinentName()+" has no country.");
+				return true;
+			}
+		}
+		return false;
+	}
+	public boolean checkCountryCount(Map gameMap,int size){
+		
+		if(gameMap.listOfCountryNames().size()>=size){
+			return true;
+		}
+		else{ 
+			gameMap.setErrorMessage("No of countries less than "+size+" hence invalid.");
+			return false;
+		}
+	}
 	public boolean checkDuplicateContinents(Map gameMap) {
 
 		List<String> continentNames = gameMap.listOfContinentNames();
@@ -191,10 +239,10 @@ public class MapTools {
 		ArrayList<String> result = new ArrayList<>(set);
 		if (!(result.size() == continentNames.size())) {
 			gameMap.setErrorMessage("Duplicate Continents present");
-			return false;
+			return true;
 		}
 
-		return true;
+		return false;
 
 	}
 
@@ -205,9 +253,9 @@ public class MapTools {
 		ArrayList<String> result = new ArrayList<>(set);
 		if (!(result.size() == countryNames.size())) {
 			gameMap.setErrorMessage("Duplicate Countries present");
-			return false;
+			return true;
 		}
-		return true;
+		return false;
 	}
 
 	public boolean checkDuplicateNeighbours(Map gameMap) {
@@ -219,12 +267,12 @@ public class MapTools {
 				ArrayList<String> result = new ArrayList<>(set);
 				if (!(result.size() == neighbours.size())) {
 					gameMap.setErrorMessage("Duplicate Neighbours present");
-					return false;
+					return true;
 				}
 			}
 		}
 
-		return true;
+		return false;
 	}
 
 	public boolean checkIfNeigbourExist(Map gameMap) {
@@ -365,57 +413,35 @@ public class MapTools {
 			return false;
 		}
 	}
-
-	public void saveDataIntoFile(Map gameMap, String name) {
+	public boolean saveDataIntoFile(Map gameMap, String name) {
 		// TODO Auto-generated method stub
-		PrintWriter writer = null;
-		try {
-			File savedFile;
-			JFileChooser fileChooser = new JFileChooser();
-			fileChooser.setDialogTitle("Save Map");
-			fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-			fileChooser.setAcceptAllFileFilterUsed(false);
-			fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("*.map", "map"));
-			int box = fileChooser.showSaveDialog(null);
-			
-			if(box==JFileChooser.APPROVE_OPTION) {
-				savedFile = fileChooser.getSelectedFile();
-				gameMap.setPath(savedFile.getAbsolutePath());
-			}
-
-			String data = "[Map]\nauthor=Anonymous\n[Continents]\n";
-			for (Continent c : gameMap.getContinents()) {
-				data = data + c.getContinentName();
-				data = data + "=" + c.getControlValue();
-				data += "\n";
-			}
-			data += "[Territories]\n";
-			for (Continent c : gameMap.getContinents()) {
-				for (Country country : c.getCountriesPresent()) {
-					data += country.getCountryName() + "," + country.getLatitude() + "," + country.getLongitude() + ","
-							+ c.getContinentName() + "," + String.join(",", country.getListOfNeighbours()) + "\n";
+				String data = "[Map]\nauthor=Anonymous\n[Continents]\n";
+				for (Continent c : gameMap.getContinents()) {
+					data = data + c.getContinentName();
+					if(c.getControlValue()==0){
+					c.setControlValue(c.getCountriesPresent().size());	
+					}
+					data = data + "=" + c.getControlValue();
+					data += "\n";
 				}
-			}
-			if (!(data == null || data.isEmpty() || data.trim().equalsIgnoreCase(""))) {
-				writer = new PrintWriter(new FileWriter("C:\\Users\\COMPAQ\\Desktop\\SOEN6441_SVN\\SOEN6441_SVN\\Maps\\pj.map"));
-				writer.write(data);
-				
-				
-				boolean validation = parseAndValidateMap(gameMap);
-				if(!validation) {
-					File F = new File(gameMap.getPath()+"\\"+gameMap.getName()+".map");
-					F.delete();
-					JOptionPane.showMessageDialog(null, "Map is not valid");
+				data += "[Territories]\n";
+				for (Continent c : gameMap.getContinents()) {
+					for (Country country : c.getCountriesPresent()) {
+						data += country.getCountryName() + "," + country.getLatitude() + "," + country.getLongitude() + ","
+								+ c.getContinentName() + "," + String.join(",", country.getListOfNeighbours()) + "\n";
+					}
 				}
-				else {
-					JOptionPane.showMessageDialog(null, "Map is valid");
+				PrintWriter writeData = null;
+				try {
+					writeData = new PrintWriter(name+".map");
+					writeData.println(data);
+					return true;
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					return false;
+				}finally{
+					writeData.close();
 				}
-			}
-			
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-
 		}
 
 
