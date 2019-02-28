@@ -1,17 +1,11 @@
 package com.proj.controllers;
 
 import java.awt.event.ActionEvent;
-
 import java.awt.event.ActionListener;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -20,19 +14,20 @@ import com.proj.models.ContinentArea;
 import com.proj.models.Country;
 import com.proj.models.Map;
 import com.proj.utilites.MapTools;
+import com.proj.views.MapEditor;
 
 
 
-public class MapEditor implements ActionListener {
+public class MapEditorController implements ActionListener {
 	
 	private Continent continent;
 	
 	//private CreateMapEditor createMapEditor;
-	private com.proj.views.MapEditor mapEditorView;
+	private MapEditor mapEditorView;
 	
 	private Map gameMap;
 	
-	public MapEditor(com.proj.views.MapEditor mapEditorView){
+	public MapEditorController(MapEditor mapEditorView){
 		this.gameMap=mapEditorView.gameMap;
 		this.mapEditorView= mapEditorView;
 	}
