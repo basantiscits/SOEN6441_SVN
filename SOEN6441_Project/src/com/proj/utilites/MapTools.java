@@ -66,7 +66,7 @@ public class MapTools {
 		return sAppendFileName;
 	}
 
-	public boolean parseAndValidateMap(Map gameMap) {
+	public boolean parseAndValidateMap(Map gameMap, int size) {
 		boolean isMapValid = false;
 		try {
 
@@ -152,7 +152,7 @@ public class MapTools {
 					if (!checkEmptyContinent(gameMap))
 						if (checkIfNeigbourExist(gameMap))
 							if (checkMapConnectivity(gameMap))
-								if (checkCountryCount(gameMap, 3))
+								if (checkCountryCount(gameMap, size))
 									return true;
 								else
 									return false;

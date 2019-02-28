@@ -87,7 +87,7 @@ public class MainMenuScreen extends JFrame {
 				Map existingMap=new Map();
 				
 				mapTool.pickMapFile(existingMap);
-				if(mapTool.parseAndValidateMap(existingMap)){
+				if(mapTool.parseAndValidateMap(existingMap,3)){
 					MapEditor mapEditorView=new MapEditor(existingMap);
 					mapEditorView.setVisible(true);
 				}
