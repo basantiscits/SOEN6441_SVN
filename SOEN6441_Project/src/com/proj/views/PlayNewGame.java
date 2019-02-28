@@ -180,7 +180,7 @@ public class PlayNewGame extends JFrame implements ActionListener {
 				} else {
 					isMapValid = sFunctions.parseAndValidateMap(existingMap,Integer.parseInt(noOfPlayers));
 				}
-				isMapValid=sFunctions.parseAndValidateMap(existingMap,Integer.parseInt(noOfPlayers));
+				//isMapValid=sFunctions.parseAndValidateMap(existingMap,Integer.parseInt(noOfPlayers));
 				
 				
 				if(isMapValid)
