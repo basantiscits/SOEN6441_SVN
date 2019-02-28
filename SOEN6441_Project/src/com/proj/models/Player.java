@@ -10,8 +10,6 @@ public class Player {
 	private List<Continent> continentsOwned;
 	private int noOfArmiesOwned;
 	private int noOfCardsOwned;
-	private List<Card> cardsOwned;
-	//private int noOfArmyInPlayer;	// Why ?
 	
 	public Player(String string) {
 		this.playerName = string;	//o
