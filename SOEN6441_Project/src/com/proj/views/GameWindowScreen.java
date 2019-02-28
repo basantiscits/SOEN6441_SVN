@@ -11,12 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -27,6 +25,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import com.proj.controllers.GameController;
 import com.proj.models.Continent;
 import com.proj.models.ContinentArea;
 import com.proj.models.Country;
@@ -78,6 +77,8 @@ public class GameWindowScreen extends JFrame implements ActionListener{
 	private JComboBox countriesComboBox;
 	private JButton armyAllocation;
 	private JLabel armiesAvailable;
+	private GameController gameController;
+	
 	
 	public GameWindowScreen(Map gameMap, Player[] player) {
 		// TODO Auto-generated method stub
@@ -85,6 +86,8 @@ public class GameWindowScreen extends JFrame implements ActionListener{
 		super("Game Window");
 		this.gameMap = gameMap;
 		this.player = player;
+		
+		gameController = new GameController(this, gameMap);
 
 		setSize(Constants.MAP_EDITOR_WIDTH, Constants.MAP_EDITOR_HEIGHT);
 		//setMinimumSize(new Dimension(Constants.MAP_EDITOR_WIDTH, Constants.MAP_EDITOR_HEIGHT));
@@ -96,6 +99,10 @@ public class GameWindowScreen extends JFrame implements ActionListener{
 
 		addComponents();
 	}
+	
+	
+	
+	
 
 	public void addComponents() {
 		setLayout(null);
@@ -190,7 +197,7 @@ public class GameWindowScreen extends JFrame implements ActionListener{
 		
 		armyAllocation = new JButton("Place Army");
 		armyAllocation.setBounds(650, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight())+20, 100, 30);
-		armyAllocation.addActionListener(this);
+		armyAllocation.addActionListener(gameController);
 		add(armyAllocation);
 		
 		armiesAvailable = new JLabel("Number of Armies Available:"+String.valueOf(player[currentPlayer].getNoOfArmiesOwned()));
@@ -219,15 +226,15 @@ public class GameWindowScreen extends JFrame implements ActionListener{
 	/*
 	 * @author Ofreish
 	 */
-	public void start() {
-		if(currentPlayer==(player.length-1)) {
-			currentPlayer = 0;
-		}
-		else {
-			currentPlayer++;
-		}
-	}
-	
+//	public void start() {
+//		if(currentPlayer==(player.length-1)) {
+//			currentPlayer = 0;
+//		}
+//		else {
+//			currentPlayer++;
+//		}
+//	}
+//	
 	/*
 	 * @author Ofreish
 	 */
@@ -259,80 +266,80 @@ public class GameWindowScreen extends JFrame implements ActionListener{
 	/*
 	 * @author Ofreish
 	 */
-	public void startReinforcementPhase() {
-		if(player[currentPlayer].getNoOfArmiesOwned()==0) {
-			StartPhaseDefinedLabel.setText("Reinforcement Phase");
-			intializeReinforcementArmies();
-			
-			armyAllocation.setText("Reinforcement Phase");
-		}
-	}
-	
+//	public void startReinforcementPhase() {
+//		if(player[currentPlayer].getNoOfArmiesOwned()==0) {
+//			StartPhaseDefinedLabel.setText("Reinforcement Phase");
+//			intializeReinforcementArmies();
+//			
+//			armyAllocation.setText("Reinforcement Phase");
+//		}
+//	}
+//	
 	/*
 	 * @author Ofreish
 	 */
-	public void intializeReinforcementArmies() {
-		
-		for(int i=0;i<player.length;i++) {
-			long armies =  Math.round(Math.floor(player[i].getCountriesOwned().size()/3));
-			if(armies>3) {
-				player[i].incrementNoOfArmiesOwned((int)armies);
-			}
-			else {
-				player[i].incrementNoOfArmiesOwned(3);
-			}
-			
-			updateContinentsOwned(i);
-		}
-	}
+//	public void intializeReinforcementArmies() {
+//		
+//		for(int i=0;i<player.length;i++) {
+//			long armies =  Math.round(Math.floor(player[i].getCountriesOwned().size()/3));
+//			if(armies>3) {
+//				player[i].incrementNoOfArmiesOwned((int)armies);
+//			}
+//			else {
+//				player[i].incrementNoOfArmiesOwned(3);
+//			}
+//			
+//			updateContinentsOwned(i);
+//		}
+//	}
 	
 	/*
 	 * (non-Javadoc)
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 * @author Ofreish
 	 */
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		
-		String button = e.getActionCommand();
-		switch(button) {
-			case "Place Army":
-				updateGame((String)countriesComboBox.getSelectedItem());
-				start();
-				displayPhase();
-				if(checkStartUpEnd()) {
-					currentPlayer = 0;
-					armyAllocation.setText("Phase Change");
-					armyAllocation.doClick();
-				}
-				break;
-			case "Reinforcement Phase":
-				updateGame((String)countriesComboBox.getSelectedItem());
-				reinforce();
-				displayPhase();
-				break;
-			case "Phase Change":
-				StartPhaseDefinedLabel.setText("Reinforcement Phase");
-				armyAllocation.setText("Reinforcement Phase");
-				intializeReinforcementArmies();
-				displayPhase();
-				break;
-		}
-
-	}
+//	@Override
+//	public void actionPerformed(ActionEvent e) {
+//		
+//		String button = e.getActionCommand();
+//		switch(button) {
+//			case "Place Army":
+//				updateGame((String)countriesComboBox.getSelectedItem());
+//				start();
+//				displayPhase();
+//				if(checkStartUpEnd()) {
+//					currentPlayer = 0;
+//					armyAllocation.setText("Phase Change");
+//					armyAllocation.doClick();
+//				}
+//				break;
+//			case "Reinforcement Phase":
+//				updateGame((String)countriesComboBox.getSelectedItem());
+//				reinforce();
+//				displayPhase();
+//				break;
+//			case "Phase Change":
+//				StartPhaseDefinedLabel.setText("Reinforcement Phase");
+//				armyAllocation.setText("Reinforcement Phase");
+//				intializeReinforcementArmies();
+//				displayPhase();
+//				break;
+//		}
+//
+//	}
 	
-	public boolean checkStartUpEnd() {
-		int flag = 0 ;
-		for(Player p: player) {
-			if(p.getNoOfArmiesOwned()==0) {
-				flag++;
-			}
-		}
-		if(flag==player.length) {
-			return true;
-		}
-		return false;
-	}
+//	public boolean checkStartUpEnd() {
+//		int flag = 0 ;
+//		for(Player p: player) {
+//			if(p.getNoOfArmiesOwned()==0) {
+//				flag++;
+//			}
+//		}
+//		if(flag==player.length) {
+//			return true;
+//		}
+//		return false;
+//	}
 
 	public void countriesMatrix() {
 		System.out.println("inside countriesMAtrix");
@@ -409,6 +416,585 @@ public class GameWindowScreen extends JFrame implements ActionListener{
 
 	}
 	
+	public int getCurrentPlayer() {
+		return currentPlayer;
+	}
+
+
+
+
+
+	public void setCurrentPlayer(int currentPlayer) {
+		this.currentPlayer = currentPlayer;
+	}
+
+
+
+
+
+	public Player[] getPlayer() {
+		return player;
+	}
+	
+	public Player getPlayerAtIndex(int index) {
+	    return player[index];
+	}
+
+
+
+
+	public void setPlayer(Player[] player) {
+		this.player = player;
+	}
+
+
+
+
+
+	public JLabel getCountriesLabel() {
+		return countriesLabel;
+	}
+
+
+
+
+
+	public void setCountriesLabel(JLabel countriesLabel) {
+		this.countriesLabel = countriesLabel;
+	}
+
+
+
+
+
+	public JLabel getContinentLabel() {
+		return continentLabel;
+	}
+
+
+
+
+
+	public void setContinentLabel(JLabel continentLabel) {
+		this.continentLabel = continentLabel;
+	}
+
+
+
+
+
+	public ContinentArea getContinentArea() {
+		return continentArea;
+	}
+
+
+
+
+
+	public void setContinentArea(ContinentArea continentArea) {
+		this.continentArea = continentArea;
+	}
+
+
+
+
+
+	public Map getGameMap() {
+		return gameMap;
+	}
+
+
+
+
+
+	public void setGameMap(Map gameMap) {
+		this.gameMap = gameMap;
+	}
+
+
+
+
+
+	public JTree getMapTree() {
+		return mapTree;
+	}
+
+
+
+
+
+	public void setMapTree(JTree mapTree) {
+		this.mapTree = mapTree;
+	}
+
+
+
+
+
+	public JTree getStartUpTree() {
+		return startUpTree;
+	}
+
+
+
+
+
+	public void setStartUpTree(JTree startUpTree) {
+		this.startUpTree = startUpTree;
+	}
+
+
+
+
+
+	public JTree getPlayerAllocationCountry() {
+		return playerAllocationCountry;
+	}
+
+
+
+
+
+	public void setPlayerAllocationCountry(JTree playerAllocationCountry) {
+		this.playerAllocationCountry = playerAllocationCountry;
+	}
+
+
+
+
+
+	public JScrollPane getTreeScrollPane() {
+		return treeScrollPane;
+	}
+
+
+
+
+
+	public void setTreeScrollPane(JScrollPane treeScrollPane) {
+		this.treeScrollPane = treeScrollPane;
+	}
+
+
+
+
+
+	public JScrollPane getStartUpScrollPane() {
+		return startUpScrollPane;
+	}
+
+
+
+
+
+	public void setStartUpScrollPane(JScrollPane startUpScrollPane) {
+		this.startUpScrollPane = startUpScrollPane;
+	}
+
+
+
+
+
+	public JScrollPane getStrengthPane() {
+		return strengthPane;
+	}
+
+
+
+
+
+	public void setStrengthPane(JScrollPane strengthPane) {
+		this.strengthPane = strengthPane;
+	}
+
+
+
+
+
+	public String getUserSelTreeNode() {
+		return userSelTreeNode;
+	}
+
+
+
+
+
+	public void setUserSelTreeNode(String userSelTreeNode) {
+		this.userSelTreeNode = userSelTreeNode;
+	}
+
+
+
+
+
+	public JPanel getStartPhaseViewPanel() {
+		return startPhaseViewPanel;
+	}
+
+
+
+
+
+	public void setStartPhaseViewPanel(JPanel startPhaseViewPanel) {
+		this.startPhaseViewPanel = startPhaseViewPanel;
+	}
+
+
+
+
+
+	public JLabel getStartPhaseDefinedLabel() {
+		return StartPhaseDefinedLabel;
+	}
+
+
+
+
+
+	public void setStartPhaseDefinedLabel(JLabel startPhaseDefinedLabel) {
+		StartPhaseDefinedLabel = startPhaseDefinedLabel;
+	}
+
+
+
+
+
+	public JLabel getPlayerAllocatedLabel() {
+		return PlayerAllocatedLabel;
+	}
+
+
+
+
+
+	public void setPlayerAllocatedLabel(JLabel playerAllocatedLabel) {
+		PlayerAllocatedLabel = playerAllocatedLabel;
+	}
+
+
+
+
+
+	public JPanel getDynamicAreastartPhasePanel() {
+		return dynamicAreastartPhasePanel;
+	}
+
+
+
+
+
+	public void setDynamicAreastartPhasePanel(JPanel dynamicAreastartPhasePanel) {
+		this.dynamicAreastartPhasePanel = dynamicAreastartPhasePanel;
+	}
+
+
+
+
+
+	public JPanel getRandomPlayerPhaseViewPanel() {
+		return randomPlayerPhaseViewPanel;
+	}
+
+
+
+
+
+	public void setRandomPlayerPhaseViewPanel(JPanel randomPlayerPhaseViewPanel) {
+		this.randomPlayerPhaseViewPanel = randomPlayerPhaseViewPanel;
+	}
+
+
+
+
+
+	public JPanel getDynamicAreaPlayerPhasePanel() {
+		return dynamicAreaPlayerPhasePanel;
+	}
+
+
+
+
+
+	public void setDynamicAreaPlayerPhasePanel(JPanel dynamicAreaPlayerPhasePanel) {
+		this.dynamicAreaPlayerPhasePanel = dynamicAreaPlayerPhasePanel;
+	}
+
+
+
+
+
+	public JPanel getContientLabelViewPanel() {
+		return ContientLabelViewPanel;
+	}
+
+
+
+
+
+	public void setContientLabelViewPanel(JPanel contientLabelViewPanel) {
+		ContientLabelViewPanel = contientLabelViewPanel;
+	}
+
+
+
+
+
+	public JPanel getCountryLabelViewPanel() {
+		return CountryLabelViewPanel;
+	}
+
+
+
+
+
+	public void setCountryLabelViewPanel(JPanel countryLabelViewPanel) {
+		CountryLabelViewPanel = countryLabelViewPanel;
+	}
+
+
+
+
+
+	public JPanel getTableHeader() {
+		return tableHeader;
+	}
+
+
+
+
+
+	public void setTableHeader(JPanel tableHeader) {
+		this.tableHeader = tableHeader;
+	}
+
+
+
+
+
+	public JLabel getTableHeaderLabel() {
+		return tableHeaderLabel;
+	}
+
+
+
+
+
+	public void setTableHeaderLabel(JLabel tableHeaderLabel) {
+		this.tableHeaderLabel = tableHeaderLabel;
+	}
+
+
+
+
+
+	public JPanel getAllocationPanel() {
+		return allocationPanel;
+	}
+
+
+
+
+
+	public void setAllocationPanel(JPanel allocationPanel) {
+		this.allocationPanel = allocationPanel;
+	}
+
+
+
+
+
+	public JTextArea getTextArea() {
+		return textArea;
+	}
+
+
+
+
+
+	public void setTextArea(JTextArea textArea) {
+		this.textArea = textArea;
+	}
+
+
+
+
+
+	public List<String> getCountries() {
+		return countries;
+	}
+
+
+
+
+
+	public void setCountries(List<String> countries) {
+		this.countries = countries;
+	}
+
+
+
+
+
+	public JTable getPlayerStrength() {
+		return playerStrength;
+	}
+
+
+
+
+
+	public void setPlayerStrength(JTable playerStrength) {
+		this.playerStrength = playerStrength;
+	}
+
+
+
+
+
+	public String[][] getData() {
+		return data;
+	}
+
+
+
+
+
+	public void setData(String[][] data) {
+		this.data = data;
+	}
+
+
+
+
+
+	public String[] getCountryColumn() {
+		return countryColumn;
+	}
+
+
+
+
+
+	public void setCountryColumn(String[] countryColumn) {
+		this.countryColumn = countryColumn;
+	}
+
+
+
+
+
+	public JTable getTablematrix() {
+		return tablematrix;
+	}
+
+
+
+
+
+	public void setTablematrix(JTable tablematrix) {
+		this.tablematrix = tablematrix;
+	}
+
+
+
+
+
+	public JScrollPane getScrollPane() {
+		return scrollPane;
+	}
+
+
+
+
+
+	public void setScrollPane(JScrollPane scrollPane) {
+		this.scrollPane = scrollPane;
+	}
+
+
+
+
+
+	public JLabel getCurrentPlayerName() {
+		return currentPlayerName;
+	}
+
+
+
+
+
+	public void setCurrentPlayerName(JLabel currentPlayerName) {
+		this.currentPlayerName = currentPlayerName;
+	}
+
+
+
+
+
+	public JComboBox getCountriesComboBox() {
+		return countriesComboBox;
+	}
+
+
+
+
+
+	public void setCountriesComboBox(JComboBox countriesComboBox) {
+		this.countriesComboBox = countriesComboBox;
+	}
+
+
+
+
+
+	public JButton getArmyAllocation() {
+		return armyAllocation;
+	}
+
+
+
+
+
+	public void setArmyAllocation(JButton armyAllocation) {
+		this.armyAllocation = armyAllocation;
+	}
+
+
+
+
+
+	public JLabel getArmiesAvailable() {
+		return armiesAvailable;
+	}
+
+
+
+
+
+	public void setArmiesAvailable(JLabel armiesAvailable) {
+		this.armiesAvailable = armiesAvailable;
+	}
+
+
+
+
+
+	public GameController getGameController() {
+		return gameController;
+	}
+
+
+
+
+
+	public void setGameController(GameController gameController) {
+		this.gameController = gameController;
+	}
+
+
+
+
+
 	/*
 	 * @author Ofreish 
 	 */
@@ -492,45 +1078,55 @@ public class GameWindowScreen extends JFrame implements ActionListener{
 			countriesComboBox.addItem(c.getCountryName());
 		}
 	}
-	
-	/*
-	 * @author Ofreish
-	 */
-	public void updateGame(String country) {
+
+
+
+
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
 		
-		if(player[currentPlayer].getNoOfArmiesOwned()>0) {
-			player[currentPlayer].reduceArmyInPlayer();
-			for(Country c : player[currentPlayer].getCountriesOwned()) {
-				if(c.getCountryName().equals(country)) {
-					c.addNoOfArmiesCountry();
-				}
-			}
-			createStartUpTree();
-		}
 	}
 	
 	/*
 	 * @author Ofreish
 	 */
-	public void updateContinentsOwned(int number) {
-		boolean flag = false;
-		for(Continent continent : gameMap.getContinents()) {
-			for(Country country : continent.getCountriesPresent()) {
-				System.out.println("CNT: "+country.getCountryName());
-				if(player[number].getCountriesOwned().contains(country)) {
-					flag = true;
-				}
-				else {
-					flag = false;
-					break;
-				}
-			}
-			if(flag) {
-				System.out.println("UCO: "+player[currentPlayer].getNoOfArmiesOwned());
-				player[currentPlayer].incrementNoOfArmiesOwned(continent.getControlValue());
-			}
-		}
-		
-	}
+//	public void updateGame(String country) {
+//		
+//		if(player[currentPlayer].getNoOfArmiesOwned()>0) {
+//			player[currentPlayer].reduceArmyInPlayer();
+//			for(Country c : player[currentPlayer].getCountriesOwned()) {
+//				if(c.getCountryName().equals(country)) {
+//					c.addNoOfArmiesCountry();
+//				}
+//			}
+//			createStartUpTree();
+//		}
+//	}
+	
+	/*
+	 * @author Ofreish
+	 */
+//	public void updateContinentsOwned(int number) {
+//		boolean flag = false;
+//		for(Continent continent : gameMap.getContinents()) {
+//			for(Country country : continent.getCountriesPresent()) {
+//				System.out.println("CNT: "+country.getCountryName());
+//				if(player[number].getCountriesOwned().contains(country)) {
+//					flag = true;
+//				}
+//				else {
+//					flag = false;
+//					break;
+//				}
+//			}
+//			if(flag) {
+//				System.out.println("UCO: "+player[currentPlayer].getNoOfArmiesOwned());
+//				player[currentPlayer].incrementNoOfArmiesOwned(continent.getControlValue());
+//			}
+//		}
+//		
+//	}
 
 }
