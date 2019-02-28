@@ -2,7 +2,6 @@ package com.proj.views;
 
 import java.awt.FlowLayout;
 
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -13,7 +12,9 @@ import com.proj.models.Country;
 
 public class ToolBar extends JPanel{
 	private JButton addContinent;
+	private JButton removeContinent;
 	private JButton addCountries;
+	private JButton removeCountry;
 	private JButton save;
 	private Continent continent;
 	private Country newCountry;
@@ -28,8 +29,12 @@ public class ToolBar extends JPanel{
 		newCountry = new Country();
 		addContinent = new JButton("Add Continent");
 		addContinent.addActionListener(mapEditorController);
+		removeContinent = new JButton("Remove Continent");
+		removeContinent.addActionListener(mapEditorController);
 		addCountries = new JButton("Add Countries");
 		addCountries.addActionListener(mapEditorController);
+		removeCountry = new JButton("Remove Country");
+		removeCountry.addActionListener(mapEditorController);
 		save = new JButton("Save");
 		save.addActionListener(mapEditorController);
 		
@@ -37,6 +42,8 @@ public class ToolBar extends JPanel{
 		
 		add(addContinent);
 		add(addCountries);
+		add(removeContinent);
+		add(removeCountry);
 		add(save);
 		
 

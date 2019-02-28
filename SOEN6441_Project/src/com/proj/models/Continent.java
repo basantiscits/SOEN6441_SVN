@@ -44,5 +44,9 @@ public class Continent {
 		countriesPresent.add(name);
 	}
 	
+	public void removeCountry(Country name){
+		countriesPresent.remove(name);
+	}
+	
 
 }
