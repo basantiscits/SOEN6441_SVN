@@ -96,12 +96,10 @@ public class PlayNewGame extends JFrame implements ActionListener {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				MainMenuScreen mainMenuScreen = new MainMenuScreen();
-				dispose();
 				mainMenuScreen.setVisible(true);
-
+				dispose();
 			}
 		});
-
 	}
 
 
@@ -179,21 +177,23 @@ public class PlayNewGame extends JFrame implements ActionListener {
 
 				} else {
 					isMapValid = sFunctions.parseAndValidateMap(existingMap,Integer.parseInt(noOfPlayers));
+					
+
+					if(isMapValid)
+					{
+						JOptionPane.showMessageDialog(null, "Map successfully loaded");
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(null, "Invalid Map selected");
+				
+					}
+					sCarryMapForward = existingMap;
+					textFieldMap.setText(sPathFileName);
 				}
 				//isMapValid=sFunctions.parseAndValidateMap(existingMap,Integer.parseInt(noOfPlayers));
 				
 				
-				if(isMapValid)
-				{
-					
-				}
-				else
-				{
-					
-					//String sErrorMessage
-				}
-				sCarryMapForward = existingMap;
-				textFieldMap.setText(sPathFileName);
 			}
 
 		

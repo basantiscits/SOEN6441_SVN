@@ -155,14 +155,10 @@ public class MapEditor implements ActionListener {
 					}
 					for(Country country : tempContinent.getCountriesPresent()) {
 						country.getListOfNeighbours().add(inputCountry.getText());
-					}
+					} 
 					tempContinent.addCountry(newCountry);
+					tempContinent.setControlValue(tempContinent.getCountriesPresent().size());
 					mapEditorView.createTree();
-					
-					
-					
-					
-					
 					mapEditorView.countriesMatrix();
 					loop = false;
 				}

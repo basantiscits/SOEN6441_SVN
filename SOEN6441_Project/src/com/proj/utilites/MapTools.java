@@ -1,4 +1,4 @@
-package com.proj.utilites;
+ package com.proj.utilites;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -216,6 +216,7 @@ public class MapTools {
 	public boolean checkEmptyContinent(Map gameMap){
 		for(Continent c:gameMap.getContinents()){
 			if(c.getCountriesPresent().isEmpty()){
+				gameMap.setErrorMessage("Continent "+c.getContinentName()+" has no country.");
 				return true;
 			}
 		}
@@ -252,9 +253,9 @@ public class MapTools {
 		ArrayList<String> result = new ArrayList<>(set);
 		if (!(result.size() == countryNames.size())) {
 			gameMap.setErrorMessage("Duplicate Countries present");
-			return false;
+			return true;
 		}
-		return true;
+		return false;
 	}
 
 	public boolean checkDuplicateNeighbours(Map gameMap) {
@@ -412,12 +413,14 @@ public class MapTools {
 			return false;
 		}
 	}
-
 	public boolean saveDataIntoFile(Map gameMap, String name) {
 		// TODO Auto-generated method stub
 				String data = "[Map]\nauthor=Anonymous\n[Continents]\n";
 				for (Continent c : gameMap.getContinents()) {
 					data = data + c.getContinentName();
+					if(c.getControlValue()==0){
+					c.setControlValue(c.getCountriesPresent().size());	
+					}
 					data = data + "=" + c.getControlValue();
 					data += "\n";
 				}

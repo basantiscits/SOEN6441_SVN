@@ -23,7 +23,7 @@ import com.proj.utilites.MapTools;
 public class MainMenuScreen extends JFrame {
 	private MapTools mapTool;
 	private JButton btnLoadExisitingMaps;
-
+	private JLabel RiskImage;
 	public MainMenuScreen() {
 		CreateMenuBar();
 		setTitle("Simple menu");
@@ -31,14 +31,21 @@ public class MainMenuScreen extends JFrame {
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		mapTool=new MapTools();
-	
-		JLabel jLabelObject = new JLabel();
-		jLabelObject
-				.setIcon(new ImageIcon("E:\\SOEN_6441\\SOEN6441_Project\\Images\\Risk.jpg"));
-	
 		
-		jLabelObject.setBounds(Constants.WIDTH / 2 - 150, 50, 100, 30);
-		add(jLabelObject);
+		ImageIcon RiskIcon = new ImageIcon("Images/Risk.jpg");
+		RiskImage = new JLabel("");
+		RiskImage.setIcon(RiskIcon);
+		RiskImage.setBounds(Constants.WIDTH / 2 - 150, 50, 100, 30);
+		add(RiskImage);
+
+	
+//		JLabel jLabelObject = new JLabel();
+//		jLabelObject
+//				.setIcon(new ImageIcon("E:\\SOEN_6441\\SOEN6441_Project\\Images\\Risk.jpg"));
+//	
+//		
+//		jLabelObject.setBounds(Constants.WIDTH / 2 - 150, 50, 100, 30);
+//		add(jLabelObject);
 	}
 
 	private void CreateMenuBar() {
@@ -55,7 +62,7 @@ public class MainMenuScreen extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				PlayNewGame PlayGame = new PlayNewGame();
 				PlayGame.setVisible(true);
-				//dispose();
+				dispose();
 			}
 		});
 
@@ -92,15 +99,9 @@ public class MainMenuScreen extends JFrame {
 					mapEditorView.setVisible(true);
 				}
 				else{
-					JOptionPane.showMessageDialog(null, "Can not load, invalid map.");
-					
+					JOptionPane.showMessageDialog(null, "Can not load, invalid map.");		
+					System.out.println(existingMap.getErrorMessage());
 				}
-				
-				
-				// Button pressed logic goes here
-				//String name = JOptionPane.showInputDialog("What is your name?", null);
-				//LoadMapEditor LoadMapEditor = new LoadMapEditor();
-				//LoadMapEditor.setVisible(true);
 			}
 		});
 		editExistingMap.setToolTipText("Edit Existing Map");
