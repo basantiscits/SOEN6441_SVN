@@ -93,7 +93,7 @@ public class MainMenuScreen extends JFrame {
 			else
 			{
 				boolean isMapValid=mapTool.parseAndValidateMap(existingMap,3);
-				if(mapTool.parseAndValidateMap(existingMap,3)){
+				
 					if(isMapValid)
 					{
 						JOptionPane.showMessageDialog(null, "Map successfully loaded");
@@ -103,18 +103,15 @@ public class MainMenuScreen extends JFrame {
 					else
 					{
 						JOptionPane.showMessageDialog(null, "Invalid Map selected");
+						System.out.println(existingMap.getErrorMessage());
 					}
 					
 				}
-				else{
-					JOptionPane.showMessageDialog(null, "Can not load, invalid map.");		
-					System.out.println(existingMap.getErrorMessage());
-				}
+				
 			}
 			
 			}
-			
-		});
+		);
 		editExistingMap.setToolTipText("Edit Existing Map");
 
 		JMenuItem RulesOfGames = new JMenuItem("Rules of Games");

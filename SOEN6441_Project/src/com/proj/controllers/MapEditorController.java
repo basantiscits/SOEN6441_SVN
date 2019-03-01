@@ -152,13 +152,11 @@ public class MapEditorController implements ActionListener {
 						for(Country country : tempContinent.getCountriesPresent()) {
 							country.getListOfNeighbours().add(inputCountry.getText());
 						}
+						
+						
 						tempContinent.addCountry(newCountry);
+						tempContinent.setControlValue(tempContinent.getCountriesPresent().size());
 						mapEditorView.createTree();
-						
-						
-						
-						
-						
 						mapEditorView.countriesMatrix();
 						loop = false;
 					}
@@ -282,12 +280,13 @@ public class MapEditorController implements ActionListener {
 								for(Country name : continentName.getCountriesPresent()) {
 									if(name.getCountryName().equalsIgnoreCase(selectedCountry)) {
 										tempCountry = name;
+										break;
 									}
+								}
 								continentName.removeCountry(tempCountry);
 								gameMap.listOfCountryNames().remove(selectedCountry);
 								mapEditorView.createTree();
 								mapEditorView.countriesMatrix();
-								}
 							}
 							
 						}
@@ -302,29 +301,37 @@ public class MapEditorController implements ActionListener {
 	}
 	
 	public void save() {
-		System.out.println("DONe");
-		boolean bool = true;
 		MapTools mapTool = new MapTools();
-		
-		while(bool) {
-			String mapName = JOptionPane.showInputDialog(null,"Please enter the map name to save");
-			if(mapName!=null) {
-				if(mapName.trim().isEmpty()) {
-					JOptionPane.showConfirmDialog(null, "Please enter some name!");
+		if(mapTool.validateMap(gameMap,3)){
+			System.out.println("Done");
+			boolean bool = true;
+			while(bool) {
+				String mapName = JOptionPane.showInputDialog(null,"Please enter the map name to save");
+				if(mapName!=null) {
+					if(mapName.trim().isEmpty()) {
+						JOptionPane.showConfirmDialog(null, "Please enter some name!");
+					}
+					else {
+						gameMap.setName(mapName);
+						if(mapTool.saveDataIntoFile(gameMap,mapName))
+						{
+							JOptionPane.showMessageDialog(null, "Map has been saved");
+						}
+						else{
+							JOptionPane.showMessageDialog(null, "Not able to save map file, enter different map name.");
+						}
+						bool = false;
+					}
 				}
 				else {
-					gameMap.setName(mapName);
-					
-					mapTool.saveDataIntoFile(gameMap,mapName);
 					bool = false;
 				}
 			}
-			else {
-				bool = false;
-			}
+		}
+		else{
+			JOptionPane.showMessageDialog(null, "Invalid Map, can not save.");
 		}
 	}
-
 }
 
 

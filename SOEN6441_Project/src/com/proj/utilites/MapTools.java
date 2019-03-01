@@ -116,8 +116,8 @@ public class MapTools {
 						Country newCountry = new Country();
 						String[] stringManipulationArray = stringManipulation.split(",");
 						newCountry.setCountryName(stringManipulationArray[0]);
-						newCountry.setLatitude(Integer.parseInt(stringManipulationArray[1].trim()));
-						newCountry.setLongitude(Integer.parseInt(stringManipulationArray[2].trim()));
+						newCountry.setLatitude(Double.parseDouble(stringManipulationArray[1].trim()));
+						newCountry.setLongitude(Double.parseDouble(stringManipulationArray[2].trim()));
 						for (int i = 4; i < stringManipulationArray.length; i++) {
 							newCountry.getListOfNeighbours().add(stringManipulationArray[i]);
 						}
@@ -167,7 +167,7 @@ public class MapTools {
 				if (!checkEmptyContinent(gameMap))
 					if (checkIfNeigbourExist(gameMap))
 						if (checkMapConnectivity(gameMap))
-							if (checkCountryCount(gameMap, 3))
+							if (checkCountryCount(gameMap, size))
 								return true;
 							else
 								return false;
@@ -254,7 +254,7 @@ public class MapTools {
 			for (Country country : c.getCountriesPresent()) {
 				for (String neigbhour : country.getListOfNeighbours()) {
 					if (!listOfCountries.contains(neigbhour.toLowerCase())) {
-						gameMap.setErrorMessage("Neighbour not part of countries list");
+						gameMap.setErrorMessage("Neighbour not part of countries list "+" neighbour");
 						return false;
 					}
 				}
