@@ -8,7 +8,12 @@ import com.proj.models.Country;
 import com.proj.models.Map;
 import com.proj.models.Player;
 import com.proj.views.GameWindowScreen;
-
+/**
+ * Game Controller Class
+ * @author Aman 
+ * @since 23 Feb 2019
+ * @version 1.0
+ */
 public class GameController implements ActionListener{
 	
 	
@@ -16,7 +21,11 @@ public class GameController implements ActionListener{
 	private GameWindowScreen gameWindowScreen;
 	private Map gameMap;
 	
-
+    /**
+     * constructor for Game Controller
+     * @param gameWindowScreen the game window screen
+     * @param gameMap the map of continents and countries
+     */
 	public GameController(GameWindowScreen gameWindowScreen, Map gameMap) {
 		
 		this.gameMap = gameMap;
@@ -24,7 +33,10 @@ public class GameController implements ActionListener{
 		
 	}
 	
-	
+	/**
+	 * action performed when reinforcement phase starts
+	 * @param event action event performed that triggers the response
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
@@ -53,7 +65,9 @@ public class GameController implements ActionListener{
 				break;
 		}
 	}
-
+		/**
+		 * start method for game window screen
+		 */
 		public void start() {
 			if(gameWindowScreen.getCurrentPlayer()==(gameWindowScreen.getPlayer().length-1)) {
 				gameWindowScreen.setCurrentPlayer(0);
@@ -63,7 +77,10 @@ public class GameController implements ActionListener{
 				gameWindowScreen.setCurrentPlayer(gameWindowScreen.getCurrentPlayer()+1);;
 			}
 		}
-	
+	    
+		/**
+	     * initializes reinforcement armies
+	     */
 		public void intializeReinforcementArmies() {
 			
 			for(int i=0;i<gameWindowScreen.getPlayer().length;i++) {
@@ -79,6 +96,9 @@ public class GameController implements ActionListener{
 			}
 		}
 		
+		/**
+		 * reinforcement phase starts
+		 */
 		public void startReinforcementPhase() {
 			if(gameWindowScreen.getPlayerAtIndex(gameWindowScreen.getCurrentPlayer()).getNoOfArmiesOwned()==0) {
 				gameWindowScreen.getStartPhaseDefinedLabel().setText("Reinforcement Phase");
@@ -88,6 +108,11 @@ public class GameController implements ActionListener{
 			}
 		}
 		
+		/**
+		 * checks end of start up phase
+		 * @return true if all armies have been allocated to the player
+		 * @return false if more armies can be allocated to the player
+		 */
 		public boolean checkStartUpEnd() {
 			int flag = 0 ;
 			for(Player p: gameWindowScreen.getPlayer()) {
@@ -101,6 +126,10 @@ public class GameController implements ActionListener{
 			return false;
 		}
 		
+		/**
+		 * creates the start up phase tree showing country and number of armies
+		 * @param country name of country
+		 */
 		public void updateGame(String country) {
 			
 			if(gameWindowScreen.getPlayerAtIndex(gameWindowScreen.getCurrentPlayer()).getNoOfArmiesOwned()>0) {
@@ -114,6 +143,10 @@ public class GameController implements ActionListener{
 			}
 		}
 		
+		/**
+		 * updates continents owned by player
+		 * @param number to indicate control value has to be assigned for which player
+		 */
 		public void updateContinentsOwned(int number) {
 			boolean flag = false;
 			for(Continent continent : gameMap.getContinents()) {

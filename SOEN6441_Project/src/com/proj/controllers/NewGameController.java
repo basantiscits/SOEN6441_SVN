@@ -15,6 +15,12 @@ import com.proj.models.Player;
 import com.proj.utilites.MapTools;
 import com.proj.views.PlayNewGame;
 
+/**
+ * New Game Controller Class
+ * @author Aman
+ * @since 10 Feb 2019
+ * @version 1.0
+ */
 public class NewGameController implements ActionListener {
 	
 	private PlayNewGame playNewGame;
@@ -22,13 +28,20 @@ public class NewGameController implements ActionListener {
 	private String sPathFileName = "";
 	private Map sCarryMapForward = new Map();
 	private Player[] player ;
-
+	
+	/**
+	 * constructor for new game controller
+	 * @param playNewGame play new game object
+	 */
 	public NewGameController(PlayNewGame playNewGame) {
 		
 		this.playNewGame = playNewGame;
 	}
 	
-	
+	/**
+	 * action performed to successfully load map & select number of players
+	 * @param event action event that triggers the response
+	 */
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		boolean isMapValid=true;
@@ -101,7 +114,13 @@ public class NewGameController implements ActionListener {
 
 	}
 
-	
+	/**
+	 * initializes player models and sets total number of armies based on number of players 
+	 * @param noOfPlayers total number of players in the game
+	 * @param sCarryMapForward map constructed so far 
+	 * @param comboSelectedPlayers number of players selected
+	 * @return players array object of type Player
+	 */
 	public Player[] initializingPlayerModels(int noOfPlayers, Map sCarryMapForward, String[] comboSelectedPlayers) {
 		Player[] players = new Player[noOfPlayers];
 		int pickedNumber = 0;

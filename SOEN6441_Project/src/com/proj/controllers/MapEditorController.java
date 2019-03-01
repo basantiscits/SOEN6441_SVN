@@ -15,8 +15,12 @@ import com.proj.models.Map;
 import com.proj.utilites.MapTools;
 import com.proj.views.MapEditor;
 
-
-
+/**
+ * Map Editor Controller Class
+ * @author Aman
+ * @since 4 Feb 2019
+ * @version 1.0
+ */
 public class MapEditorController implements ActionListener {
 	
 	private Continent continent;
@@ -24,13 +28,19 @@ public class MapEditorController implements ActionListener {
 	private com.proj.views.MapEditor mapEditorView;
 	
 	private Map gameMap;
-	
+	/**
+	 * constructor for map editor controller
+	 * @param mapEditorView setter for map editor & game map view 
+	 */
 	public MapEditorController(MapEditor mapEditorView){
 		this.gameMap=mapEditorView.gameMap;
 		this.mapEditorView= mapEditorView;
 	}
 	
-	
+	/**
+	 * action performed on click of button
+	 * @param event action event that triggers the response
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String button = e.getActionCommand();
@@ -58,6 +68,9 @@ public class MapEditorController implements ActionListener {
 		
 	}
 	
+	/**
+	 * adds continent in map
+	 */
 	public void addContinent() {
 				boolean loop = true;
 				continent = new Continent();
@@ -96,6 +109,9 @@ public class MapEditorController implements ActionListener {
 				
 	}
 	
+	/**
+	 * adds countries in map
+	 */
 	public void addCountries() {
 		JTextField inputCountry = new JTextField();
 		String lastContinent = "";
@@ -169,7 +185,9 @@ public class MapEditorController implements ActionListener {
 		
 	}
 	
-	
+	/**
+	 * removes continents in map
+	 */
 	public void removeContinent() {
 		System.out.println("Aya 1");
 		if(gameMap.getContinents().size()==0) {
@@ -215,6 +233,9 @@ public class MapEditorController implements ActionListener {
 		
 	}
 	
+	/**
+	 * removes countries in map
+	 */
 	public void removeCountry() {
 		if(gameMap.getContinents().size()==0) {
 			JOptionPane.showMessageDialog(null, "Map Contains Zero Continent, So no country to remove!");
@@ -300,6 +321,9 @@ public class MapEditorController implements ActionListener {
 		}
 	}
 	
+	/**
+	 * saves the map at given location or says invalid map
+	 */
 	public void save() {
 		MapTools mapTool = new MapTools();
 		if(mapTool.validateMap(gameMap,3)){
