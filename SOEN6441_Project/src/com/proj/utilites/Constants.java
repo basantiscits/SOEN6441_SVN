@@ -1,6 +1,11 @@
 package com.proj.utilites;
 
-
+/**
+ * The class of all constants
+ * @author Arpit
+ * @since 30 Jan 2019
+ * @version 1.0
+ */
 public class Constants {
 
 	/** The Constant WIDTH. */
