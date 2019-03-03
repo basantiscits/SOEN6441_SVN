@@ -7,7 +7,9 @@ import com.proj.views.*;
  * @version 1.0
  */
 public class App {
-	/** Creates main menu screen object. */
+	/** 
+	 * Creates main menu screen object. 
+	 */
 	public static void main(String[] args) {
 		MainMenuScreen v= new MainMenuScreen();
 	

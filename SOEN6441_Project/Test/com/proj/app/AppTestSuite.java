@@ -10,11 +10,7 @@ import com.proj.utilites.*;
 import com.proj.views.*;
 
 @RunWith(Suite.class)
-@SuiteClasses({ FortificationControllerTest.class, GameControllerTest.class, MapEditorControllerTest.class, NewGameControllerTest.class,
-				ContinentTest.class, CountryTest.class, GameModelCreationTest.class, MapTest.class, PlayerTest.class,
-				ConstantsTest.class, MapToolsTest.class,
-				FortificationViewTest.class, GameWindowScreenTest.class, MainMenuScreenTest.class, MapEditorTest.class, 
-				PlayNewGameTest.class, ToolBarTest.class})
+@SuiteClasses({ MapTest.class, MapToolsTest.class})
 public class AppTestSuite {
 	
 

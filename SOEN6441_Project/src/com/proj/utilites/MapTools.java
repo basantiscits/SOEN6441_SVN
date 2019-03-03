@@ -21,18 +21,8 @@ import com.proj.models.Continent;
 import com.proj.models.Country;
 import com.proj.models.Map;
 
-/**
- * Map Tools class
- * @author Arpit
- * @since 25 Feb 2019
- * @version 1.0
- */
 public class MapTools {
-	/**
-	 * Choose map file
-	 * @param gameMap object of Map class
-	 * @return name of map file
-	 */
+
 	public String pickMapFile(Map gameMap) {
 		String sAppendFileName = null;
 		
@@ -71,13 +61,7 @@ public class MapTools {
 		}
 		return sAppendFileName;
 	}
-	
-	/**
-	 * Display reason for invalid map
-	 * @param gameMap object of Map class
-	 * @param size size of list if country names
-	 * @return true or false depending on whether map is valid or invalid
-	 */
+
 	public boolean parseAndValidateMap(Map gameMap, int size) {
 		boolean isMapValid = false;
 		try {
@@ -176,13 +160,6 @@ public class MapTools {
 		}
 		return isMapValid;
 	}
-	
-	/**
-	 * Validate map
-	 * @param gameMap object of Map class
-	 * @param size size of list of countries
-	 * @return true or false depending upon whether map is valid or invalid
-	 */
 	public boolean validateMap(Map gameMap,int size){
 		
 		if (!checkDuplicateContinents(gameMap))
@@ -205,12 +182,7 @@ public class MapTools {
 		else
 			return false;
 	}
-	
-	/**
-	 * Check empty continent
-	 * @param gameMap object of Map class
-	 * @return true or false depending upon whether the continent is empty or not
-	 */
+
 	public boolean checkEmptyContinent(Map gameMap){
 		for(Continent c:gameMap.getContinents()){
 			if(c.getCountriesPresent().isEmpty()){
@@ -220,13 +192,6 @@ public class MapTools {
 		}
 		return false;
 	}
-	
-	/**
-	 * 
-	 * @param gameMap object of Map class
-	 * @param size size of list of countries
-	 * @return true or false depending upon whether number of countries is less than required size
-	 */
 	public boolean checkCountryCount(Map gameMap,int size){
 		
 		if(gameMap.listOfCountryNames().size()>=size){
@@ -237,12 +202,6 @@ public class MapTools {
 			return false;
 		}
 	}
-	
-	/**
-	 * check duplicate continents
-	 * @param gameMap object of Map class
-	 * @return true or false depending upon whether duplicate continents are present or not
-	 */
 	public boolean checkDuplicateContinents(Map gameMap) {
 
 		List<String> continentNames = gameMap.listOfContinentNames();
@@ -256,11 +215,7 @@ public class MapTools {
 		return false;
 
 	}
-	/**
-	 * check duplicate countries
-	 * @param gameMap object of Map class
-	 * @return true or false depending upon whether duplicate countries are present or not
-	 */
+
 	public boolean checkDuplicateCountries(Map gameMap) {
 
 		List<String> countryNames = gameMap.listOfCountryNames();
@@ -272,12 +227,7 @@ public class MapTools {
 		}
 		return false;
 	}
-	
-	/**
-	 * check duplicate neighbors
-	 * @param gameMap object of Map class
-	 * @return true or false depending upon whether duplicate neighbors are present or not
-	 */
+
 	public boolean checkDuplicateNeighbours(Map gameMap) {
 
 		for (Continent continent : gameMap.getContinents()) {
@@ -294,12 +244,7 @@ public class MapTools {
 
 		return false;
 	}
-	
-	/**
-	 * check if neighbor exists
-	 * @param gameMap object of Map class
-	 * @return true or false depending upon whether duplicate neighbor exists or not
-	 */
+
 	public boolean checkIfNeigbourExist(Map gameMap) {
 
 		List<String> listOfCountries = gameMap.listOfCountryNames().stream().map(String::toLowerCase)
@@ -318,42 +263,22 @@ public class MapTools {
 		return true;
 
 	}
-	
-	/**
-	 * Graph class
-	 * @author Arpit
-	 * @since 26 Feb 2019
-	 * @version 1.0
-	 */
+
 	class Graph {
 		private int V; 
 		private ArrayList<Integer> adj[]; 
-		
-		/**
-		 * constructor of Graph class
-		 * @param v size of array list
-		 */
+
 		Graph(int v) {
 			V = v;
 			adj = new ArrayList[v];
 			for (int i = 0; i < v; ++i)
 				adj[i] = new ArrayList();
 		}
-		
-		/**
-		 * Add edge between countries
-		 * @param v index of original country
-		 * @param w index of country to be joined with
-		 */
+
 		void addEdge(int v, int w) {
 			adj[v].add(w);
 		}
-		
-		/**
-		 * Depth First Search
-		 * @param v index of visited array
-		 * @param visited boolean array of whether country has been visited or not
-		 */
+
 		void DFSUtil(int v, Boolean visited[]) {
 			visited[v] = true;
 
@@ -365,11 +290,7 @@ public class MapTools {
 					DFSUtil(n, visited);
 			}
 		}
-		
-		/**
-		 * get transpose of graph
-		 * @return Graph object
-		 */
+
 		Graph getTranspose() {
 			Graph g = new Graph(V);
 			for (int v = 0; v < V; v++) {
@@ -379,11 +300,7 @@ public class MapTools {
 			}
 			return g;
 		}
-		
-		/**
-		 * Is strongly connected or not
-		 * @return true or false depending upon whether graph is strongly connected or not
-		 */
+
 		Boolean isSC() {
 			Boolean visited[] = new Boolean[V];
 			for (int i = 0; i < V; i++)
@@ -409,13 +326,8 @@ public class MapTools {
 			return true;
 		}
 	}
-	
-	/**
-	 * check map connectivity & print it
-	 * @param gameMap object of Map class
-	 * @return true or false depending upon whether graph is strongly connected or not
-	 */
-	private boolean checkMapConnectivity(Map gameMap) {
+
+	boolean checkMapConnectivity(Map gameMap) {
 
 		List<String> listOfCountries = gameMap.listOfCountryNames().stream().map(String::toLowerCase)
 				.collect(Collectors.toList());
@@ -445,13 +357,6 @@ public class MapTools {
 			return false;
 		}
 	}
-	
-	/**
-	 * save map data into map file
-	 * @param gameMap object of Map class
-	 * @param name name of map file
-	 * @return true or false depending upon whether the map can be saved or not
-	 */
 	public boolean saveDataIntoFile(Map gameMap, String name) {
 				String data = "[Map]\nauthor=Anonymous\n[Continents]\n";
 				for (Continent c : gameMap.getContinents()) {

@@ -1,0 +1,14 @@
+
+[Continents]
+North America=4
+Asia=2
+
+[Territories]
+
+Boston,0,0,North America,California,New York,India,Bhutan,Nepal
+California,0,0,North America,Boston,New York,India,Bhutan,Nepal
+New York,0,0,North America,Boston,California,India,Bhutan,Nepal
+Nepal,0,0,North America,Boston,California,New York,India,Bhutan
+India,0,0,Asia,Boston,California,New York,Bhutan,Nepal
+Bhutan,0,0,Asia,Boston,California,New York,India,Nepal
+
