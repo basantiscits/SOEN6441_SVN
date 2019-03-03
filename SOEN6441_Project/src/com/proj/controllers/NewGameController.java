@@ -28,6 +28,7 @@ public class NewGameController implements ActionListener {
 	private String sPathFileName = "";
 	private Map sCarryMapForward = new Map();
 	private Player[] player ;
+	boolean sCopyisMapValid=true;
 	
 	/**
 	 * constructor for new game controller
@@ -56,14 +57,17 @@ public class NewGameController implements ActionListener {
 			else
 			{
 				Map existingMap = new Map();
+				
+				PlayNewGame objPlayNewGame= new PlayNewGame();
 				MapTools sFunctions= new MapTools();
 				sPathFileName = sFunctions.pickMapFile(existingMap);
+				//sPathFileName=objPlayNewGame.ImportFileName("");
 				if (sPathFileName == null) {
 					
 
 				} else {
 					isMapValid = sFunctions.parseAndValidateMap(existingMap,Integer.parseInt(noOfPlayers));
-					
+					sCopyisMapValid=isMapValid;
 
 					if(isMapValid)
 					{
@@ -86,28 +90,40 @@ public class NewGameController implements ActionListener {
 		} else if ((event.getSource()).equals(playNewGame.getButtonPlayGame())) {
 			System.out.println("Play Game Button");
 			noOfPlayers = (String) playNewGame.getComboBoxSelectPlayer().getSelectedItem();
-			if(noOfPlayers.equals("  --Select--  "))
+			if(sCopyisMapValid)
 			{
-				System.out.println("Select is pressed");
-				JOptionPane.showMessageDialog(null, "Please select no. of Players to play game");
-			}
-			else
-			{
-				if (sPathFileName.equals(null) || (sPathFileName).equals("")) {
-					JOptionPane.showMessageDialog(null, "Please upload the . map file");
+				JOptionPane.showMessageDialog(null, "Map successfully loaded");
+				if(noOfPlayers.equals("  --Select--  "))
+				{
+					System.out.println("Select is pressed");
+					JOptionPane.showMessageDialog(null, "Please select no. of Players to play game");
 				}
 				else
 				{
-					String[] comboSelectedPlayers = new String[Integer.parseInt(noOfPlayers)];
-					player = initializingPlayerModels(Integer.parseInt(noOfPlayers), sCarryMapForward,
-							comboSelectedPlayers);
-				
+					if (sPathFileName.equals(null) || (sPathFileName).equals("")) {
+						JOptionPane.showMessageDialog(null, "Please upload the . map file");
+					}
+					else
+					{
+						String[] comboSelectedPlayers = new String[Integer.parseInt(noOfPlayers)];
+						player = initializingPlayerModels(Integer.parseInt(noOfPlayers), sCarryMapForward,
+								comboSelectedPlayers);
 					
-					playNewGame.GameModelWindowMade(sCarryMapForward,player);
+						
+						playNewGame.GameModelWindowMade(sCarryMapForward,player);
+					}
+					
+					
 				}
 				
-				
 			}
+			else
+			{
+				JOptionPane.showMessageDialog(null, "Invalid Map selected");
+		
+			}
+			
+			
 			
 
 		}
