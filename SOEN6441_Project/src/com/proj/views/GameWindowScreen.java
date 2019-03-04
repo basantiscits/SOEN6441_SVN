@@ -32,6 +32,12 @@ import com.proj.models.Map;
 import com.proj.models.Player;
 import com.proj.utilites.Constants;
 
+/**
+ * Game Window Screen class
+ * @author Kirti
+ * @since 10 Feb 2019
+ * @version 1.0
+ */
 public class GameWindowScreen extends JFrame implements ActionListener {
 	private int currentPlayer = 0;
 	public Player[] player;
@@ -74,6 +80,11 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	private JLabel armiesAvailable;
 	private GameController gameController;
 
+	/**
+	 * Game Window Screen constructor
+	 * @param gameMap Object of Map class
+	 * @param player Array object of Player class 
+	 */
 	public GameWindowScreen(Map gameMap, Player[] player) {
 
 		super("Game Window");
@@ -89,6 +100,9 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 		addComponents();
 	}
 
+	/**
+	 * Adding components to Game window screen
+	 */
 	public void addComponents() {
 		setLayout(null);
 		Border blackline = BorderFactory.createLineBorder(Color.black);
@@ -185,6 +199,9 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 
 	}
 
+	/**
+	 * Reinforcement phase
+	 */
 	public void reinforce() {
 		if (player[currentPlayer].getNoOfArmiesOwned() == 0) {
 			FortificationView FV = new FortificationView(gameMap, player, currentPlayer, this);
@@ -198,6 +215,9 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 		}
 	}
 
+	/**
+	 * Displays number of armies available
+	 */
 	public void displayPhase() {
 
 		addPlayerName(player[currentPlayer].getPlayerName());
@@ -206,6 +226,9 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 
 	}
 
+	/**
+	 * The countries matrix
+	 */
 	public void countriesMatrix() {
 		System.out.println("inside countriesMAtrix");
 		countries = gameMap.listOfCountryNames();
@@ -276,118 +299,235 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 
 	}
 
+	/**
+	 * getter for current player
+	 * @return current player
+	 */
 	public int getCurrentPlayer() {
 		return currentPlayer;
 	}
 
+	/**
+	 * setter for current player
+	 * @param currentPlayer current player number
+	 */
 	public void setCurrentPlayer(int currentPlayer) {
 		this.currentPlayer = currentPlayer;
 	}
 
+	/**
+	 * getter for player
+	 * @return player
+	 */
 	public Player[] getPlayer() {
 		return player;
 	}
 
+	/**
+	 * getter for player at given index
+	 * @param index index for player array object
+	 * @return player at given index
+	 */
 	public Player getPlayerAtIndex(int index) {
 		return player[index];
 	}
 
+	/**
+	 * setter for player
+	 * @param player array object of Player class
+	 */
 	public void setPlayer(Player[] player) {
 		this.player = player;
 	}
 
+	/**
+	 * getter for countries label
+	 * @return countries label
+	 */
 	public JLabel getCountriesLabel() {
 		return countriesLabel;
 	}
 
+	/**
+	 * setter for countries label
+	 * @param countriesLabel Object of JLabel class
+	 */
 	public void setCountriesLabel(JLabel countriesLabel) {
 		this.countriesLabel = countriesLabel;
 	}
 
+	/**
+	 * getter for countries label
+	 * @return continent label
+	 */
 	public JLabel getContinentLabel() {
 		return continentLabel;
 	}
 
+	/**
+	 * setter for continent label
+	 * @param continentLabel Object of class JLabel
+	 */
 	public void setContinentLabel(JLabel continentLabel) {
 		this.continentLabel = continentLabel;
 	}
 
+	/**
+	 * getter for game map
+	 * @return
+	 */
 	public Map getGameMap() {
 		return gameMap;
 	}
 
+	/**
+	 * setter for game map
+	 * @param gameMap Object of Map class
+	 */
 	public void setGameMap(Map gameMap) {
 		this.gameMap = gameMap;
 	}
 
+	/**
+	 * getter for map tree
+	 * @return map tree
+	 */
 	public JTree getMapTree() {
 		return mapTree;
 	}
 
+	/**
+	 * setter for map tree
+	 * @param mapTree Object of JTree class
+	 */
 	public void setMapTree(JTree mapTree) {
 		this.mapTree = mapTree;
 	}
 
+	/**
+	 * getter for start up tree
+	 * @return start up tree
+	 */
 	public JTree getStartUpTree() {
 		return startUpTree;
 	}
 
+	/**
+	 * setter for start up tree
+	 * @param startUpTree Object of JTree
+	 */
 	public void setStartUpTree(JTree startUpTree) {
 		this.startUpTree = startUpTree;
 	}
 
+	/**
+	 * getter for player allocation country
+	 * @return player allocation country
+	 */
 	public JTree getPlayerAllocationCountry() {
 		return playerAllocationCountry;
 	}
 
+	/**
+	 * setter for player allocation country
+	 * @param playerAllocationCountry Object of JTree class
+	 */
 	public void setPlayerAllocationCountry(JTree playerAllocationCountry) {
 		this.playerAllocationCountry = playerAllocationCountry;
 	}
 
+	/**
+	 * getter for scroll panel
+	 * @return tree scroll panel
+	 */
 	public JScrollPane getTreeScrollPane() {
 		return treeScrollPane;
 	}
 
+	/**
+	 * setter for scroll panel
+	 * @param treeScrollPane Object of JScrollPane class
+	 */
 	public void setTreeScrollPane(JScrollPane treeScrollPane) {
 		this.treeScrollPane = treeScrollPane;
 	}
 
+	/**
+	 * getter for start up scroll pane
+	 * @return start up scroll pane
+	 */
 	public JScrollPane getStartUpScrollPane() {
 		return startUpScrollPane;
 	}
 
+	/**
+	 * setter for start up scroll pane
+	 * @return Object of JScrollPane class
+	 */
 	public void setStartUpScrollPane(JScrollPane startUpScrollPane) {
 		this.startUpScrollPane = startUpScrollPane;
 	}
 
+	/**
+	 * getter for get strength pane
+	 * @return get strength pane
+	 */
 	public JScrollPane getStrengthPane() {
 		return strengthPane;
 	}
 
+	/**
+	 * setter for strength pane
+	 * @return Object of JScrollPane class
+	 */
 	public void setStrengthPane(JScrollPane strengthPane) {
 		this.strengthPane = strengthPane;
 	}
 
+	/**
+	 * getter for user selected tree node
+	 * @return user selected tree node
+	 */
 	public String getUserSelTreeNode() {
 		return userSelTreeNode;
 	}
 
+	/**
+	 * setter for user selected tree node
+	 * @return user selected tree node name
+	 */
 	public void setUserSelTreeNode(String userSelTreeNode) {
 		this.userSelTreeNode = userSelTreeNode;
 	}
 
+	/**
+	 * getter for start phase view panel
+	 * @return start phase view panel
+	 */
 	public JPanel getStartPhaseViewPanel() {
 		return startPhaseViewPanel;
 	}
 
+	/**
+	 * setter for start phase view panel
+	 * @return Object of JPanel class
+	 */
 	public void setStartPhaseViewPanel(JPanel startPhaseViewPanel) {
 		this.startPhaseViewPanel = startPhaseViewPanel;
 	}
 
+	/**
+	 * getter for start phase defined label
+	 * @return start phase defined label
+	 */
 	public JLabel getStartPhaseDefinedLabel() {
 		return StartPhaseDefinedLabel;
 	}
 
+	/**
+	 * setter for start phase defined label
+	 * @return Object of JLabel class
+	 */
 	public void setStartPhaseDefinedLabel(JLabel startPhaseDefinedLabel) {
 		StartPhaseDefinedLabel = startPhaseDefinedLabel;
 	}

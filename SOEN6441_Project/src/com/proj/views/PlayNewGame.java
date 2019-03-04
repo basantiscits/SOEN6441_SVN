@@ -29,6 +29,12 @@ import com.proj.models.Player;
 import com.proj.utilites.Constants;
 import com.proj.utilites.MapTools;
 
+/**
+ * Play New Game class
+ * @author Kirti
+ * @since 1- Feb 2019
+ * @version 1.0
+ */
 public class PlayNewGame extends JFrame implements ActionListener {
 	private String sFileName = "";
 	private Player[] player ;
@@ -45,6 +51,9 @@ public class PlayNewGame extends JFrame implements ActionListener {
 	private JScrollPane treeScrollPane;
 	private NewGameController newGameController;
 
+	/**
+	 * Play New Game constructor
+	 */
 	public PlayNewGame() {
 		
 		newGameController = new NewGameController(this);
@@ -105,11 +114,19 @@ public class PlayNewGame extends JFrame implements ActionListener {
 
 
 
+	/**
+	 * getter for file name
+	 * @return file name
+	 */
 	public String getsFileName() {
 		return sFileName;
 	}
 
 
+	/**
+	 * setter for file name
+	 * @param sFileName file name
+	 */
 	public void setsFileName(String sFileName) {
 		this.sFileName = sFileName;
 	}
