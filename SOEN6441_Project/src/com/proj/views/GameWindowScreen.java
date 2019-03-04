@@ -117,9 +117,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 		countriesLabel.setFont(new Font("TimesRoman", Font.BOLD, 20));
 
 		countriesLabel.setBounds(240, 50, countriesSize.width + 500, countriesSize.height);
-		CountryLabelViewPanel.setBounds(
-				ContientLabelViewPanel.getBounds().x + (int) (ContientLabelViewPanel.getBounds().getWidth()), 35,
-				frameSize.width - 300, 35);
+		CountryLabelViewPanel.setBounds(ContientLabelViewPanel.getBounds().x + (int) (ContientLabelViewPanel.getBounds().getWidth()), 35,frameSize.width - 300, 35);
 		add(CountryLabelViewPanel);
 		CountryLabelViewPanel.setBackground(Color.lightGray);
 		CountryLabelViewPanel.setLayout(new FlowLayout());
@@ -129,13 +127,10 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 
 		scrollPane = new JScrollPane(tablematrix);
 
-		scrollPane.setBounds(treeScrollPane.getBounds().x + (int) (treeScrollPane.getBounds().getWidth()), 70,
-				frameSize.width - 300, frameSize.height - 800);
+		scrollPane.setBounds(treeScrollPane.getBounds().x + (int) (treeScrollPane.getBounds().getWidth()), 70,frameSize.width - 300, frameSize.height - 800);
 
 		startPhaseViewPanel = new JPanel();
-		startPhaseViewPanel.setBounds(10,
-				treeScrollPane.getBounds().y + (int) (treeScrollPane.getBounds().getHeight() + 10),
-				frameSize.width - 50, 35);
+		startPhaseViewPanel.setBounds(10,treeScrollPane.getBounds().y + (int) (treeScrollPane.getBounds().getHeight() + 10),frameSize.width - 50, 35);
 		add(startPhaseViewPanel);
 		startPhaseViewPanel.setBackground(Color.lightGray);
 		startPhaseViewPanel.setLayout(new FlowLayout());
@@ -146,13 +141,10 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 		startPhaseViewPanel.add(StartPhaseDefinedLabel);
 
 		startUpScrollPane = new JScrollPane(startUpTree);
-		startUpScrollPane.setBounds(10,
-				startPhaseViewPanel.getBounds().y + (int) (startPhaseViewPanel.getBounds().getHeight()) + 5,
-				635 + (int) (200), frameSize.height - 900);
+		startUpScrollPane.setBounds(10,startPhaseViewPanel.getBounds().y + (int) (startPhaseViewPanel.getBounds().getHeight()) + 5,635 + (int) (200), frameSize.height - 900);
 
 		tableHeader = new JPanel();
-		tableHeader.setBounds(startUpScrollPane.getBounds().x + (int) (startUpScrollPane.getBounds().getWidth()),
-				startPhaseViewPanel.getBounds().y + (int) (startPhaseViewPanel.getBounds().getHeight()) + 5, 320, 25);
+		tableHeader.setBounds(startUpScrollPane.getBounds().x + (int) (startUpScrollPane.getBounds().getWidth()),startPhaseViewPanel.getBounds().y + (int) (startPhaseViewPanel.getBounds().getHeight()) + 5, 320, 25);
 
 		tableHeaderLabel = new JLabel("Total Countries " + gameMap.listOfCountryNames().size());
 		tableHeaderLabel.setFont(new Font("dialog", 1, 15));
@@ -160,31 +152,24 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 		tableHeader.add(tableHeaderLabel);
 
 		strengthPane = new JScrollPane(playerStrength);
-		strengthPane.setBounds(startUpScrollPane.getBounds().x + (int) (startUpScrollPane.getBounds().getWidth()),
-				tableHeader.getBounds().y + (int) (tableHeader.getBounds().getHeight()), (int) (320),
-				frameSize.height - 925);
+		strengthPane.setBounds(startUpScrollPane.getBounds().x + (int) (startUpScrollPane.getBounds().getWidth()),tableHeader.getBounds().y + (int) (tableHeader.getBounds().getHeight()), (int) (320),frameSize.height - 925);
 
 		currentPlayerName = new JLabel(player[currentPlayer].getPlayerName());
-		currentPlayerName.setBounds(150, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 20,
-				100, 30);
+		currentPlayerName.setBounds(150, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 20,100, 30);
 		add(currentPlayerName);
 
 		countriesComboBox = new JComboBox();
-		countriesComboBox.setBounds(350, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 20,
-				150, 30);
+		countriesComboBox.setBounds(350, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 20,150, 30);
 		add(countriesComboBox);
 		addCountriesToBox(player[currentPlayer]);
 
 		armyAllocation = new JButton("Place Army");
-		armyAllocation.setBounds(650, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 20,
-				100, 30);
+		armyAllocation.setBounds(650, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 20,100, 30);
 		armyAllocation.addActionListener(gameController);
 		add(armyAllocation);
 
-		armiesAvailable = new JLabel(
-				"Number of Armies Available:" + String.valueOf(player[currentPlayer].getNoOfArmiesOwned()));
-		armiesAvailable.setBounds(850, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 20,
-				200, 30);
+		armiesAvailable = new JLabel("Number of Armies Available:" + String.valueOf(player[currentPlayer].getNoOfArmiesOwned()));
+		armiesAvailable.setBounds(850, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 20,200, 30);
 		add(armiesAvailable);
 
 		add(scrollPane);
@@ -217,8 +202,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 
 		addPlayerName(player[currentPlayer].getPlayerName());
 		addCountriesToBox(player[currentPlayer]);
-		armiesAvailable
-				.setText("Number of Armies Available:" + String.valueOf(player[currentPlayer].getNoOfArmiesOwned()));
+		armiesAvailable.setText("Number of Armies Available:" + String.valueOf(player[currentPlayer].getNoOfArmiesOwned()));
 
 	}
 

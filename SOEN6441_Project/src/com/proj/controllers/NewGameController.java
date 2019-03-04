@@ -92,7 +92,7 @@ public class NewGameController implements ActionListener {
 			noOfPlayers = (String) playNewGame.getComboBoxSelectPlayer().getSelectedItem();
 			if(sCopyisMapValid)
 			{
-				JOptionPane.showMessageDialog(null, "Map successfully loaded");
+				//JOptionPane.showMessageDialog(null, "Map successfully loaded");
 				if(noOfPlayers.equals("  --Select--  "))
 				{
 					System.out.println("Select is pressed");

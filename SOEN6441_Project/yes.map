@@ -1,0 +1,10 @@
+[Map]
+author=Anonymous
+[Continents]
+nent1=3
+nent2=3
+[Territories]
+ry3,0.0,0.0,nent1,ry1,ry2
+ry1,0.0,0.0,nent2,ry1,ry2,ry3,ry2,ry3
+ry2,0.0,0.0,nent2,ry1,ry2,ry3,ry1,ry3
+

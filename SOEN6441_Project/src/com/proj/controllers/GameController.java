@@ -73,7 +73,6 @@ public class GameController implements ActionListener{
 				gameWindowScreen.setCurrentPlayer(0);
 			}
 			else {
-				//currentPlayer++; 
 				gameWindowScreen.setCurrentPlayer(gameWindowScreen.getCurrentPlayer()+1);;
 			}
 		}
@@ -151,7 +150,6 @@ public class GameController implements ActionListener{
 			boolean flag = false;
 			for(Continent continent : gameMap.getContinents()) {
 				for(Country country : continent.getCountriesPresent()) {
-					System.out.println("CNT: "+country.getCountryName());
 					if(gameWindowScreen.getPlayerAtIndex(number).getCountriesOwned().contains(country)) {
 						flag = true;
 					}
@@ -161,10 +159,11 @@ public class GameController implements ActionListener{
 					}
 				}
 				if(flag) {
-					System.out.println("UCO: "+gameWindowScreen.getPlayerAtIndex(gameWindowScreen.getCurrentPlayer()).getNoOfArmiesOwned());
-					gameWindowScreen.getPlayerAtIndex(gameWindowScreen.getCurrentPlayer()).incrementNoOfArmiesOwned(continent.getControlValue());
+					System.out.println("ControlValue: "+continent.getControlValue());
+					gameWindowScreen.getPlayerAtIndex(number).incrementNoOfArmiesOwned(continent.getControlValue());
 				}
 			}
+			System.out.println("Current player : "+gameWindowScreen.getCurrentPlayer()+" number: "+number);
 			
 		}
 		
