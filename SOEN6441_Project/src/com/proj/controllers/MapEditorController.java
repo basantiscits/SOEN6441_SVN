@@ -305,7 +305,7 @@ public class MapEditorController implements ActionListener {
 									}
 								}
 								continentName.removeCountry(tempCountry);
-								gameMap.listOfCountryNames().remove(selectedCountry);
+								continentName.setControlValue(continentName.getCountriesPresent().size());
 								mapEditorView.createTree();
 								mapEditorView.countriesMatrix();
 							}
