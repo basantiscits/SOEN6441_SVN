@@ -162,9 +162,9 @@ public class MapTools {
 	}
 	public boolean validateMap(Map gameMap,int size){
 		
-		if (!checkDuplicateContinents(gameMap))
-			if (!checkDuplicateCountries(gameMap))
-				if (!checkEmptyContinent(gameMap))
+		if (!checkEmptyContinent(gameMap))
+			if (!checkDuplicateContinents(gameMap))
+				if (!checkDuplicateCountries(gameMap))
 					if (checkIfNeigbourExist(gameMap))
 						if (checkMapConnectivity(gameMap))
 							if (checkCountryCount(gameMap, size))
@@ -182,14 +182,20 @@ public class MapTools {
 		else
 			return false;
 	}
+	
 
 	public boolean checkEmptyContinent(Map gameMap){
+		if(gameMap.getContinents().isEmpty()){
+			return true;
+		}
+		else{
 		for(Continent c:gameMap.getContinents()){
 			if(c.getCountriesPresent().isEmpty()){
 				gameMap.setErrorMessage("Continent "+c.getContinentName()+" has no country.");
 				return true;
 			}
 		}
+	}
 		return false;
 	}
 	public boolean checkCountryCount(Map gameMap,int size){
