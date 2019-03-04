@@ -103,7 +103,7 @@ public class MapToolsTest {
 	
 	//checking If duplicate Neighbours Exist in a map, return true If yes otherwise false
 	
-/*	@Test
+	@Test
 	public void checkIfNeigbourExistTest() {
 		
 		
@@ -132,5 +132,5 @@ public class MapToolsTest {
 		boolean isMapValid = sFunctions.checkDuplicateNeighbours(map);
 		System.out.println("Result is: "+isMapValid);
 		assertEquals(true, isMapValid);
-	}*/
+	}
 }
