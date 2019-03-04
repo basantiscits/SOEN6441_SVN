@@ -26,7 +26,12 @@ import com.proj.models.Continent;
 import com.proj.models.Country;
 import com.proj.models.Map;
 import com.proj.utilites.Constants;
-
+/**
+ * Map Editor class
+ * @author Kirti
+ * @since 7 Feb 2019
+ * @version 1.0
+ */
 public class MapEditor extends JFrame {
 
 	private JLabel countriesLabel;
@@ -59,7 +64,10 @@ public class MapEditor extends JFrame {
 	
 	
 	
-
+	/**
+	 * map editor constructor
+	 * @param gameMap object of Map class
+	 */
 	public MapEditor(Map gameMap) {
 
 		super("Game Window");
@@ -77,6 +85,10 @@ public class MapEditor extends JFrame {
 		addComponents(mapEditorController);
 	}
 	
+	/**
+	 * adding components to map editor
+	 * @param mapEditorController object of MapEditorController class
+	 */
 	public void addComponents(MapEditorController mapEditorController) {
 		setLayout(null);
 		Border blackline = BorderFactory.createLineBorder(Color.black);
@@ -132,6 +144,9 @@ public class MapEditor extends JFrame {
 
 	}
 	
+	/**
+	 * countries matrix class
+	 */
 	public void countriesMatrix()
 	{
 		System.out.println("inside countriesMAtrix");
@@ -268,6 +283,9 @@ public class MapEditor extends JFrame {
 	});
 	}
 	
+	/**
+	 * create tree method
+	 */
 	public void createTree() {
 
 		DefaultMutableTreeNode top = new DefaultMutableTreeNode("Map - " + gameMap.getName() + "");
