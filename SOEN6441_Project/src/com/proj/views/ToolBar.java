@@ -9,7 +9,12 @@ import javax.swing.JPanel;
 import com.proj.controllers.MapEditorController;
 import com.proj.models.Continent;
 import com.proj.models.Country;
-
+/**
+ * ToolBar class
+ * @author Kirti
+ * @since 5 Feb 2019
+ * @version 1.0
+ */
 public class ToolBar extends JPanel{
 	private JButton addContinent;
 	private JButton removeContinent;
@@ -19,7 +24,10 @@ public class ToolBar extends JPanel{
 	private Continent continent;
 	private Country newCountry;
 	
-	
+	/**
+	 * constructor of tool bar class
+	 * @param mapEditorController object of MapEditorController class
+	 */
 	public ToolBar(MapEditorController mapEditorController) {
 		
 		

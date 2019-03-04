@@ -19,7 +19,12 @@ import com.proj.utilites.Constants;
 import com.proj.utilites.MapTools;
 
 
-
+/**
+ * Main Menu Screen class
+ * @author Kirti
+ * @since 7 Feb 2019
+ * @version 1.0
+ */
 public class MainMenuScreen extends JFrame {
 	private MapTools mapTool;
 	private JButton btnLoadExisitingMaps;
@@ -41,7 +46,10 @@ public class MainMenuScreen extends JFrame {
 
 	
 	}
-
+	
+	/**
+	 * create menu bar method
+	 */
 	private void CreateMenuBar() {
 
 		JMenuBar menubar = new JMenuBar();
@@ -147,7 +155,11 @@ public class MainMenuScreen extends JFrame {
 
 		setJMenuBar(menubar);
 	}
-
+	
+	/**
+	 * The main method
+	 * @param args command line arguments
+	 */
 	public static void main(String[] args) {
 
 		EventQueue.invokeLater(() -> {
