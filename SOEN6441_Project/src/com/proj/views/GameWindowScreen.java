@@ -7,6 +7,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,8 +51,8 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	private JScrollPane treeScrollPane, startUpScrollPane, strengthPane;
 	private String userSelTreeNode;
 	private JPanel startPhaseViewPanel;
-	public JLabel StartPhaseDefinedLabel;
-	public JLabel PlayerAllocatedLabel;
+	public JLabel startPhaseDefinedLabel;
+	public JLabel playerAllocatedLabel;
 	private JPanel dynamicAreastartPhasePanel;
 
 	private JPanel randomPlayerPhaseViewPanel;
@@ -92,12 +94,22 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 		this.player = player;
 
 		gameController = new GameController(this, gameMap);
-
+		
 		setSize(Constants.MAP_EDITOR_WIDTH, Constants.MAP_EDITOR_HEIGHT);
+		setResizable(false);
 		setLocationRelativeTo(null);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		addComponents();
+		
+		addWindowListener(new WindowAdapter() {
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				MainMenuScreen mainMenuScreen = new MainMenuScreen();
+				mainMenuScreen.setVisible(true);
+				dispose();
+			}
+		});
 	}
 
 	/**
@@ -149,10 +161,10 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 		startPhaseViewPanel.setBackground(Color.lightGray);
 		startPhaseViewPanel.setLayout(new FlowLayout());
 
-		StartPhaseDefinedLabel = new JLabel("StartUp Phase");
-		StartPhaseDefinedLabel.setFont(new Font("dialog", 1, 15));
+		startPhaseDefinedLabel = new JLabel("StartUp Phase");
+		startPhaseDefinedLabel.setFont(new Font("dialog", 1, 15));
 		startPhaseViewPanel.setBorder(blackline);
-		startPhaseViewPanel.add(StartPhaseDefinedLabel);
+		startPhaseViewPanel.add(startPhaseDefinedLabel);
 
 		startUpScrollPane = new JScrollPane(startUpTree);
 		startUpScrollPane.setBounds(10,startPhaseViewPanel.getBounds().y + (int) (startPhaseViewPanel.getBounds().getHeight()) + 5,635 + (int) (200), frameSize.height - 900);
@@ -203,13 +215,13 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	 * Reinforcement phase
 	 */
 	public void reinforce() {
-		if (player[currentPlayer].getNoOfArmiesOwned() == 0) {
+		if (player[currentPlayer].getNoOfArmiesOwned() == 0 && currentPlayer < player.length) {
+			System.out.println("currentPlayer: "+currentPlayer);
 			FortificationView FV = new FortificationView(gameMap, player, currentPlayer, this);
 			FV.setVisible(true);
 			currentPlayer++;
 			if (currentPlayer == player.length) {
 				currentPlayer--;
-				armyAllocation.setEnabled(false);
 			}
 
 		}
@@ -219,7 +231,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	 * Displays number of armies available
 	 */
 	public void displayPhase() {
-
+		
 		addPlayerName(player[currentPlayer].getPlayerName());
 		addCountriesToBox(player[currentPlayer]);
 		armiesAvailable.setText("Number of Armies Available:" + String.valueOf(player[currentPlayer].getNoOfArmiesOwned()));
@@ -267,7 +279,8 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 
 				if (value.equals("N")) {
 					component.setBackground(Color.LIGHT_GRAY);
-				} else {
+				}
+				else {
 					component.setBackground(Color.WHITE);
 				}
 				return component;
@@ -288,7 +301,8 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 							String neighbour = countryColumn[j];
 							if (!currentCountry.getListOfNeighbours().contains(countryColumn[j])) {
 								tablematrix.setValueAt("N", i, j);
-							} else {
+							}
+							else {
 								tablematrix.setValueAt("Y", i, j);
 							}
 						}
@@ -521,7 +535,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	 * @return start phase defined label
 	 */
 	public JLabel getStartPhaseDefinedLabel() {
-		return StartPhaseDefinedLabel;
+		return startPhaseDefinedLabel;
 	}
 
 	/**
@@ -529,15 +543,15 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	 * @return Object of JLabel class
 	 */
 	public void setStartPhaseDefinedLabel(JLabel startPhaseDefinedLabel) {
-		StartPhaseDefinedLabel = startPhaseDefinedLabel;
+		startPhaseDefinedLabel = startPhaseDefinedLabel;
 	}
 
 	public JLabel getPlayerAllocatedLabel() {
-		return PlayerAllocatedLabel;
+		return playerAllocatedLabel;
 	}
 
 	public void setPlayerAllocatedLabel(JLabel playerAllocatedLabel) {
-		PlayerAllocatedLabel = playerAllocatedLabel;
+		this.playerAllocatedLabel = playerAllocatedLabel;
 	}
 
 	public JPanel getDynamicAreastartPhasePanel() {
@@ -699,7 +713,10 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	public void setGameController(GameController gameController) {
 		this.gameController = gameController;
 	}
-
+	
+	/**
+	 * This method create Tree with all the continents and countries
+	 */
 	public void createTree() {
 
 		DefaultMutableTreeNode top = new DefaultMutableTreeNode("Map - " + gameMap.getName() + "");
@@ -716,7 +733,10 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 		treeScrollPane.getViewport().add(mapTree);
 
 	}
-
+	
+	/**
+	 * This method create tree with players and the countries owned by them and corresponding armies in particular country
+	 */
 	public void createStartUpTree() {
 		DefaultMutableTreeNode top = new DefaultMutableTreeNode("Initial Allocation");
 
@@ -733,7 +753,10 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 		startUpScrollPane.getViewport().add(startUpTree);
 
 	}
-
+	
+	/**
+	 * This method create table which displays the number of countries owned by players 
+	 */
 	public void playerStrengthTable() {
 
 		String countrySize = "Number of Countries";
@@ -760,6 +783,10 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 		currentPlayerName.setText(name);
 	}
 
+	/**
+	 * This method add countries to JComboBox according to the player
+	 * @param p player 
+	 */
 	public void addCountriesToBox(Player p) {
 		countriesComboBox.removeAllItems();
 		for (Country c : p.getCountriesOwned()) {

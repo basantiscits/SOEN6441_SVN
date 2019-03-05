@@ -1,0 +1,13 @@
+[Map]
+author=Anonymous
+[Continents]
+Asia=5
+Europe=1
+[Territories]
+India,0.0,0.0,Asia,Pakistan,Nepal,Spain,UK
+Pakistan,0.0,0.0,Asia,India,Nepal,Spain,UK
+Nepal,0.0,0.0,Asia,India,Pakistan,Spain,UK
+Spain,0.0,0.0,Asia,India,Pakistan,Nepal,France,UK
+UK,0.0,0.0,Asia,India,Pakistan,Nepal,Spain,France
+France,0.0,0.0,Europe,India,Pakistan,Nepal
+

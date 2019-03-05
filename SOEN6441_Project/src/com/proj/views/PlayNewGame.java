@@ -45,7 +45,7 @@ public class PlayNewGame extends JFrame implements ActionListener {
 	private String[] playersList = new String[] { "  --Select--  ","3", "4", "5" };
 	private JTextField textFieldMap;
 	private JButton buttonPlayGame;
-	private String CopynoOfPlayers;
+	private String copyNoOfPlayers;
 	private Map sCarryMapForward = new Map();
 	private JTree mapTree;
 	private JScrollPane treeScrollPane;
@@ -69,7 +69,7 @@ public class PlayNewGame extends JFrame implements ActionListener {
 		labelSelectPlayer.setBounds(40, 20, 400, 180);
 		add(labelSelectPlayer);
 
-		comboBoxSelectPlayer = new JComboBox<>(playersList);
+		comboBoxSelectPlayer = new JComboBox<String>(playersList);
 		comboBoxSelectPlayer.setBounds(380, 90, 90, 30);
 		comboBoxSelectPlayer.addActionListener(newGameController);
 		add(comboBoxSelectPlayer);
@@ -215,12 +215,12 @@ public class PlayNewGame extends JFrame implements ActionListener {
 
 
 	public String getCopynoOfPlayers() {
-		return CopynoOfPlayers;
+		return copyNoOfPlayers;
 	}
 
 
 	public void setCopynoOfPlayers(String copynoOfPlayers) {
-		CopynoOfPlayers = copynoOfPlayers;
+		this.copyNoOfPlayers = copynoOfPlayers;
 	}
 
 
@@ -263,7 +263,11 @@ public class PlayNewGame extends JFrame implements ActionListener {
 		this.newGameController = newGameController;
 	}
 
-
+	/**
+	 * This method takes file from user
+	 * @param sReturnFileAndLoc
+	 * @return sLocationWhereFileisKept file path
+	 */
 	public String ImportFileName(String sReturnFileAndLoc) {
 
 		
@@ -285,7 +289,8 @@ public class PlayNewGame extends JFrame implements ActionListener {
 				// if the path of the selected file is empty.
 				if (ImportFileName.trim().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "File name invalid");
-				} else {
+				}
+				else {
 					if (ImportFileName.trim().substring(ImportFileName.length() - 4).equals(".map")) {
 
 						File f = new File(ImportFileName);
@@ -293,7 +298,8 @@ public class PlayNewGame extends JFrame implements ActionListener {
 						sLocationWhereFileisKept = ImportFileName;
 						sAppendParam = sFileName + "^" + sLocationWhereFileisKept;
 						JOptionPane.showMessageDialog(null, "File in Correct format");
-					} else {
+					}
+					else {
 						JOptionPane.showMessageDialog(null, "File name invalid");
 						String sPrint = ImportFileName.trim().substring(ImportFileName.length() - 4);
 						System.out.println(sPrint);
@@ -312,7 +318,6 @@ public class PlayNewGame extends JFrame implements ActionListener {
 
 
 	public void GameModelWindowMade(Map sCarryMapForward, Player[] player) {
-		// TODO Auto-generated method stub
 		dispose();
 		GameModelCreation gameModel = new GameModelCreation(sCarryMapForward, player);
 		GameWindowScreen GameWindowScreen = new GameWindowScreen(sCarryMapForward,player);

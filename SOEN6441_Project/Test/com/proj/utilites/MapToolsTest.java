@@ -8,52 +8,63 @@ import org.junit.Test;
 
 import com.proj.models.Map;
 
-
+/**
+ * MapTest class
+ * @author Basant
+ * @since 02/03/2019
+ * @version 1.0
+ */
 public class MapToolsTest {
 	
 	
 	
-	Map[] gameMap;
+	private Map[] gameMap;
 	
-	String absolute_path[];
+	private String absolutePath[];
+	
+	/**
+	 * This method initializes all the required data to complete the test
+	 */
 	@Before
-	public void setup() {
+	public void before() {
 		gameMap = new Map[6];
-		absolute_path = new String[6];
+		absolutePath = new String[6];
 		for(int i = 0;i<6;i++)
 		{
 			gameMap[i] = new Map();
-			absolute_path[i] = new String();
+			absolutePath[i] = new String();
 			
 		}
 		
-		absolute_path[0] = "MapFiles/World.map";
+		absolutePath[0] = "MapFiles/World.map";
 		gameMap[0].setName("World.map");
-		gameMap[0].setPath(absolute_path[0].substring(0, absolute_path[0].lastIndexOf("/")));
+		gameMap[0].setPath(absolutePath[0].substring(0, absolutePath[0].lastIndexOf("/")));
 		
-		absolute_path[1] = "MapFiles/3D Cliff.map";
+		absolutePath[1] = "MapFiles/3D Cliff.map";
 		gameMap[1].setName("3D Cliff.map");
-		gameMap[1].setPath(absolute_path[1].substring(0, absolute_path[1].lastIndexOf("/")));
+		gameMap[1].setPath(absolutePath[1].substring(0, absolutePath[1].lastIndexOf("/")));
 		
-		absolute_path[2] = "MapFiles/Twin_Volcano.map";
+		absolutePath[2] = "MapFiles/Twin_Volcano.map";
 		gameMap[2].setName("Twin_Volcano.map");
-		gameMap[2].setPath(absolute_path[2].substring(0, absolute_path[2].lastIndexOf("/")));
+		gameMap[2].setPath(absolutePath[2].substring(0, absolutePath[2].lastIndexOf("/")));
 		
-		absolute_path[3] = "MapFiles/noneighbours.map";
+		absolutePath[3] = "MapFiles/noneighbours.map";
 		gameMap[3].setName("noneighbours.map");
-		gameMap[3].setPath(absolute_path[3].substring(0, absolute_path[3].lastIndexOf("/")));
+		gameMap[3].setPath(absolutePath[3].substring(0, absolutePath[3].lastIndexOf("/")));
 		
-		absolute_path[4] = "MapFiles/Asia.map";
+		absolutePath[4] = "MapFiles/Asia.map";
 		gameMap[4].setName("Asia.map");
-		gameMap[4].setPath(absolute_path[4].substring(0, absolute_path[4].lastIndexOf("/")));
+		gameMap[4].setPath(absolutePath[4].substring(0, absolutePath[4].lastIndexOf("/")));
 		
-		absolute_path[5] = "MapFiles/three.map";
+		absolutePath[5] = "MapFiles/three.map";
 		gameMap[5].setName("three.map");
-		gameMap[5].setPath(absolute_path[5].substring(0, absolute_path[5].lastIndexOf("/")));
+		gameMap[5].setPath(absolutePath[5].substring(0, absolutePath[5].lastIndexOf("/")));
 	}
 	
 	
-
+	/**
+	 * This test method checks parseAndValidateMap method to test map is valid or not
+	 */
 	@Test
 	public void parseAndValidateMapCorrectnessTest() {
 		boolean isMapValid[];
@@ -69,8 +80,11 @@ public class MapToolsTest {
 
 	}
 	
+	/**
+	 * This test method checks map with no neighbours present for particular country
+	 */
 	@Test
-	public void ValidateMapNoNeighboursTest() {
+	public void validateMapNoNeighboursTest() {
 		
 		MapTools sFunctions = new MapTools();
 		boolean isMapValid = sFunctions.parseAndValidateMap(gameMap[3],3);
@@ -78,8 +92,12 @@ public class MapToolsTest {
 		
 	}
 	
+	
+	/**
+	 * This test method checks map if it provides valid map information
+	 */
 	@Test
-	public void ValidateMapInformationMissing() {
+	public void validateMapInformationMissing() {
 		
 		MapTools sFunctions = new MapTools();
 		boolean isMapValid = sFunctions.parseAndValidateMap(gameMap[4],3);
@@ -88,7 +106,9 @@ public class MapToolsTest {
 	}
 	
 	
-	//checking If the map is connected, return true if map is connected
+	/**
+	 * This test method checks weather map is connected
+	 */
 	@Test
 	public void checkMapConnectivityTest(){
 		
@@ -101,8 +121,10 @@ public class MapToolsTest {
 
 	}
 	
-	//checking If duplicate Neighbours Exist in a map, return true If yes otherwise false
 	
+	/**
+	 * This test method checks neighbors exist
+	 */
 	@Test
 	public void checkIfNeigbourExistTest() {
 		
@@ -118,7 +140,10 @@ public class MapToolsTest {
 		assertEquals(true, isMapValid);
 	}
 	
-	//returns true If the map has duplicate countries otherwise false
+	/**
+	 * This test method checks if map contains duplicate countries
+	 */
+	@Test
 	public void checkDuplicateCountriesTest() {
 		
 		
@@ -131,6 +156,6 @@ public class MapToolsTest {
 		
 		boolean isMapValid = sFunctions.checkDuplicateNeighbours(map);
 		System.out.println("Result is: "+isMapValid);
-		assertEquals(true, isMapValid);
+		assertEquals(false, isMapValid);
 	}
 }

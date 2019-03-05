@@ -14,7 +14,12 @@ import com.proj.models.Map;
 import com.proj.models.Player;
 import com.proj.views.GameWindowScreen;
 
-
+/**
+ * GameControllerTest class
+ * @author Ofreish
+ * @since 28/02/2019
+ * @version 1.0
+ */
 public class GameControllerTest {
 	
 	private Player[] player;
@@ -25,6 +30,9 @@ public class GameControllerTest {
 	private Country country1,country2,country3,country4,country5,country6,country7,country8,country9,country10;
 	private ArrayList<Continent> continentList;
 	
+	/**
+	 * This method initializes all the required data to complete the test
+	 */
 	@Before
 	public void before() {
 		player = new Player[3];
@@ -92,7 +100,10 @@ public class GameControllerTest {
 	public void after() {
 		
 	}
-
+	
+	/**
+	 * This test method checks the number of Reinforcement Armies after startup phase.
+	 */
 	@Test
 	public void intializeReinforcementArmiesTest() {
 		controller.intializeReinforcementArmies();

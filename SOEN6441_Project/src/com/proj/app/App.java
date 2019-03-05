@@ -11,7 +11,7 @@ public class App {
 	 * Creates main menu screen object. 
 	 */
 	public static void main(String[] args) {
-		MainMenuScreen v= new MainMenuScreen();
-	
+		MainMenuScreen screen = new MainMenuScreen();
+		screen.setVisible(true);
 	}
 }

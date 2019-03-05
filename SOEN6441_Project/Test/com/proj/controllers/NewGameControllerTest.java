@@ -11,32 +11,40 @@ import com.proj.models.Player;
 import com.proj.utilites.MapTools;
 import com.proj.views.PlayNewGame;
 
-
+/**
+ * NewGameControllerTest class
+ * @author Ofreish
+ * @since 28/02/2019
+ * @version 1.0
+ */
 public class NewGameControllerTest {
 
-	static Map gameMap;
+	static Map GAME_MAP;
 
-	static String absolute_path;
-	static PlayNewGame playNewGame;
-	static NewGameController newGameControl;
-
+	static String ABSOULTE_PATH;
+	static PlayNewGame PLAY_NEW_GAME;
+	static NewGameController NEW_GAME_CONTROL;
+	
+	/**
+	 * This method initializes all the required data to complete the test
+	 */
 	@BeforeClass
 	public static void setup() {
-		gameMap = new Map();
-		absolute_path = new String();
+		GAME_MAP = new Map();
+		ABSOULTE_PATH = new String();
 		String[] comboSelectedPlayer;
 		for (int i = 0; i < 6; i++) {
-			gameMap = new Map();
-			absolute_path = new String();
+			GAME_MAP = new Map();
+			ABSOULTE_PATH = new String();
 
 		}
-		absolute_path = "MapFiles/World.map";
-		gameMap.setName("World.map");
-		gameMap.setPath(absolute_path.substring(0, absolute_path.lastIndexOf("/")));
+		ABSOULTE_PATH = "MapFiles/World.map";
+		GAME_MAP.setName("World.map");
+		GAME_MAP.setPath(ABSOULTE_PATH.substring(0, ABSOULTE_PATH.lastIndexOf("/")));
 		MapTools sFunctions = new MapTools();
-		sFunctions.parseAndValidateMap(gameMap, 3);
-		playNewGame = new PlayNewGame();
-		newGameControl = new NewGameController(playNewGame);
+		sFunctions.parseAndValidateMap(GAME_MAP, 3);
+		PLAY_NEW_GAME = new PlayNewGame();
+		NEW_GAME_CONTROL = new NewGameController(PLAY_NEW_GAME);
 
 	}
 
@@ -44,32 +52,42 @@ public class NewGameControllerTest {
 	public void after() {
 
 	}
-
+	
+	/**
+	 * This test method checks number of armies each players has if there are three players
+	 */
 	@Test
-	public void threePlayerArmiestest() {
+	public void threePlayerArmiesTest() {
 
-		Player player[] = newGameControl.initializingPlayerModels(3, gameMap, null);
+		Player player[] = NEW_GAME_CONTROL.initializingPlayerModels(3, GAME_MAP, null);
 		System.out.println(player[0].getNoOfArmiesOwned());
 		assertEquals(11, player[0].getNoOfArmiesOwned());
 		assertEquals(11, player[1].getNoOfArmiesOwned());
 		assertEquals(11, player[2].getNoOfArmiesOwned());
 	}
-
+	
+	/**
+	 * This test method checks number of armies each players has if there are four players
+	 */
 	@Test
-	public void fourPlayerArmiestest() {
+	public void fourPlayerArmiesTest() {
 
-		Player player[] = newGameControl.initializingPlayerModels(4, gameMap, null);
+		Player player[] = NEW_GAME_CONTROL.initializingPlayerModels(4, GAME_MAP, null);
 		System.out.println(player[0].getNoOfArmiesOwned());
 		assertEquals(9, player[0].getNoOfArmiesOwned());
 		assertEquals(9, player[1].getNoOfArmiesOwned());
 		assertEquals(10, player[2].getNoOfArmiesOwned());
 		assertEquals(10, player[3].getNoOfArmiesOwned());
 	}
-
+	
+	
+	/**
+	 * This test method checks number of armies each players has if there are five players
+	 */
 	@Test
-	public void fivePlayerArmiestest() {
+	public void fivePlayerArmiesTest() {
 
-		Player player[] = newGameControl.initializingPlayerModels(5, gameMap, null);
+		Player player[] = NEW_GAME_CONTROL.initializingPlayerModels(5, GAME_MAP, null);
 		System.out.println(player[0].getNoOfArmiesOwned());
 		assertEquals(6, player[0].getNoOfArmiesOwned());
 		assertEquals(6, player[1].getNoOfArmiesOwned());
@@ -78,22 +96,25 @@ public class NewGameControllerTest {
 		assertEquals(7, player[4].getNoOfArmiesOwned());
 	}
 
-	// checking no of countries
-
+	/**
+	 * This test method checks number of countries each players has if there are three players
+	 */
 	@Test
 	public void threePlayerCountriesTest() {
 
-		Player player[] = newGameControl.initializingPlayerModels(3, gameMap, null);
+		Player player[] = NEW_GAME_CONTROL.initializingPlayerModels(3, GAME_MAP, null);
 		System.out.println(player[0].getCountriesOwned().size());
 		assertEquals(14, player[0].getCountriesOwned().size());
 		assertEquals(14, player[1].getCountriesOwned().size());
 		assertEquals(14, player[2].getCountriesOwned().size());
 	}
 
-	
+	/**
+	 * This test method checks number of countries each players has if there are four players
+	 */
 	@Test
 	public void fourPlayerCountriesTest() {
-		Player player[] = newGameControl.initializingPlayerModels(4, gameMap, null);
+		Player player[] = NEW_GAME_CONTROL.initializingPlayerModels(4, GAME_MAP, null);
 		System.out.println(player[0].getCountriesOwned().size());
 		assertEquals(11, player[0].getCountriesOwned().size());
 		assertEquals(11, player[1].getCountriesOwned().size());
@@ -101,11 +122,14 @@ public class NewGameControllerTest {
 		assertEquals(10, player[3].getCountriesOwned().size());
 
 	}
-
 	
+	
+	/**
+	 * This test method checks number of countries each players has if there are five players
+	 */
 	@Test
 	public void fivePlayerCountriesTest() {
-		Player player[] = newGameControl.initializingPlayerModels(5, gameMap, null);
+		Player player[] = NEW_GAME_CONTROL.initializingPlayerModels(5, GAME_MAP, null);
 		System.out.println(player[0].getCountriesOwned().size());
 		assertEquals(9, player[0].getCountriesOwned().size());
 		assertEquals(9, player[1].getCountriesOwned().size());

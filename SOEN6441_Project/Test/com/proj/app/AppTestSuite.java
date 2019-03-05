@@ -9,6 +9,9 @@ import com.proj.models.*;
 import com.proj.utilites.*;
 import com.proj.views.*;
 
+/**
+ * The Class AppTestSuite.
+ */
 @RunWith(Suite.class)
 @SuiteClasses({ MapTest.class, MapToolsTest.class, NewGameControllerTest.class, GameControllerTest.class})
 public class AppTestSuite {
