@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
+ * Continent class
  * @author Ofreish
  * @since 10 Feb 2019
  * @version 1.0

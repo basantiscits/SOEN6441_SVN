@@ -19,45 +19,53 @@ public class FortificationController implements ActionListener {
 
 	private FortificationView fortifyView;
 
-	/** getter for source country */
+	/**
+	 * getter for source country
+	 */
 	public Country getSourCountry() {
 		return sourCountry;
 	}
-	
-	/** setter for source country */
+
+	/**
+	 * setter for source country
+	 */
 	public void setSourCountry(Country sourCountry) {
 		this.sourCountry = sourCountry;
 	}
-	
+
 	/**
-	 * getter for destination country 
-	 * @return destCountry Destination Country 
-     */
+	 * getter for destination country
+	 * 
+	 * @return destCountry Destination Country
+	 */
 	public Country getDestCountry() {
 		return destCountry;
 	}
-	
-	/** setter for destination country */
+
+	/**
+	 * setter for destination country
+	 */
 	public void setDestCountry(Country destCountry) {
 		this.destCountry = destCountry;
 	}
 
 	private Country sourCountry, destCountry;
-	
-	/** 
+
+	/**
 	 * constructor for fortification controller
 	 * @param fortifyView the fortify view
-     */
+	 */
 	public FortificationController(FortificationView fortifyView) {
 
 		this.fortifyView = fortifyView;
 
 	}
-	
-    /**
-     * action performed upon fortification
-     * @param event action event that triggers the response
-     */
+
+	/**
+	 * action performed upon fortification
+	 * 
+	 * @param event action event that triggers the response
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
@@ -66,6 +74,7 @@ public class FortificationController implements ActionListener {
 			if (fortifyView.getSourceCountry().getItemCount() != 0) {
 				fortifyView.getArmiesInDestination().setText("");
 				fortifyView.getSelectNoOfArmies().removeAllItems();
+				destCountry = null;
 
 				String countryName = (String) fortifyView.getSourceCountry().getSelectedItem();
 
@@ -77,7 +86,8 @@ public class FortificationController implements ActionListener {
 
 				if (sourCountry.getNoOfArmiesPresent() <= 1) {
 					JOptionPane.showMessageDialog(null, "Country should contain atleast 2 armies to move 1");
-				} else {
+				} 
+				else {
 					fortifyView.getSelectNoOfArmies().removeAllItems();
 					fortifyView.AddArmies();
 				}
@@ -96,7 +106,7 @@ public class FortificationController implements ActionListener {
 		}
 
 		else if (e.getSource() == fortifyView.getSend()) {
-			if (sourCountry.getNoOfArmiesPresent() > 1 && destCountry != null) {
+			if (sourCountry != null && sourCountry.getNoOfArmiesPresent() > 1 && destCountry != null) {
 				String arm = (String) fortifyView.getSelectNoOfArmies().getSelectedItem();
 				int army = Integer.valueOf(arm);
 
@@ -104,20 +114,40 @@ public class FortificationController implements ActionListener {
 					sourCountry.removeNoOfArmiesCountry();
 					destCountry.addNoOfArmiesCountry();
 				}
-
 				fortifyView.getGameWindow().createStartUpTree();
-				fortifyView.setVisible(false);
-				fortifyView.getGameWindow().setEnabled(true);
-				fortifyView.dispose();
-			} else {
+				if (fortifyView.getCurrentPlayer() == (fortifyView.getPlayer().length - 1)) {
+					fortifyView.setVisible(false);
+					fortifyView.getGameWindow().getArmyAllocation().setEnabled(false);
+					fortifyView.dispose();
+				} 
+				else {
+					fortifyView.setVisible(false);
+					fortifyView.getGameWindow().getArmyAllocation().setEnabled(true);
+					fortifyView.dispose();
+				}
+			} 
+			else if (sourCountry == null) {
+				JOptionPane.showMessageDialog(null, "Please select country with armies more than 1");
+			}
+			else if (destCountry == null) {
+				JOptionPane.showMessageDialog(null, "Please select destination country");
+			}
+			else if (sourCountry.getNoOfArmiesPresent() <= 1) {
 				JOptionPane.showMessageDialog(null, "Please select country with armies more than 1");
 			}
 		}
 
 		else if (e.getSource() == fortifyView.getFinish()) {
-			fortifyView.setVisible(false);
-			fortifyView.getGameWindow().setEnabled(true);
-			fortifyView.dispose();
+			if (fortifyView.getCurrentPlayer() == (fortifyView.getPlayer().length - 1)) {
+				fortifyView.setVisible(false);
+				fortifyView.getGameWindow().getArmyAllocation().setEnabled(false);
+				fortifyView.dispose();
+			}
+			else {
+				fortifyView.setVisible(false);
+				fortifyView.getGameWindow().getArmyAllocation().setEnabled(true);
+				fortifyView.dispose();
+			}
 		}
 
 	}

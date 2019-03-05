@@ -14,8 +14,8 @@ public class Country {
 	private String ownedBy;
 	private int noOfArmiesPresent;
 	private List <String> listOfNeighbours;
-	private double Longitude;
-	private double Latitude;
+	private double longitude;
+	private double latitude;
 	private boolean isVisited;
 	
 	/**
@@ -32,7 +32,7 @@ public class Country {
 	 */
 	public Country(String countryName, Continent continent) {
 		this.setCountryName(countryName);
-		this.listOfNeighbours = new ArrayList<>();
+		this.listOfNeighbours = new ArrayList<String>();
 		isVisited = false;
 
 	}
@@ -105,7 +105,7 @@ public class Country {
 	 * @return longitude
 	 */
 	public double getLongitude() {
-		return Longitude;
+		return longitude;
 	}
 	
 	/**
@@ -113,7 +113,7 @@ public class Country {
 	 * @param longitude
 	 */
 	public void setLongitude(double longitude) {
-		Longitude = longitude;
+		longitude = longitude;
 	}
 	
 	/**
@@ -121,7 +121,7 @@ public class Country {
 	 * @return latitude
 	 */
 	public double getLatitude() {
-		return Latitude;
+		return latitude;
 	}
 	
 	/**
@@ -129,7 +129,7 @@ public class Country {
 	 * @param latitude
 	 */
 	public void setLatitude(double latitude) {
-		Latitude = latitude;
+		latitude = latitude;
 	}
 
 	/**

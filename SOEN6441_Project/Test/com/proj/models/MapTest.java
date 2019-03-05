@@ -10,12 +10,22 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * MapTest class
+ * @author Basant
+ * @since 28/02/2019
+ * @version 1.0
+ */
 public class MapTest {
 	
 	
-	Map map;
-	Country country,country1,country2,country3,country4,country5,country6;
-	List<Continent> continentList;
+	private Map map;
+	private Country country,country1,country2,country3,country4,country5,country6;
+	private List<Continent> continentList;
+	
+	/**
+	 * This method initializes all the required data to complete the test
+	 */
 	@Before
 	public void before() {
 		
@@ -67,7 +77,10 @@ public class MapTest {
 	public void after() {
 		
 	}
-
+	
+	/**
+	 * This test method checks searchContinent method to find continent by name
+	 */
 	@Test
 	public void searchContinentTest() {
 		
@@ -75,7 +88,10 @@ public class MapTest {
 		assertEquals("North America", map.searchContinent("North America") );
 		
 	}
-
+	
+	/**
+	 * This test method checks searchCountry method to find country by name
+	 */
 	@Test
 	public void searchCountryTest() {
 		
@@ -85,6 +101,9 @@ public class MapTest {
 		
 	}
 	
+	/**
+	 * This test method checks all the continents present in map
+	 */
 	@Test
 	public void getListOfContinentNamesTest() {
 		
@@ -99,6 +118,10 @@ public class MapTest {
 		
 	}
 	
+	
+	/**
+	 * This test method checks all the counties present in map
+	 */
 	@Test
 	public void getListOfCountryNamesTest() {
 		

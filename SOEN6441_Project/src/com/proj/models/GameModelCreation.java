@@ -9,16 +9,16 @@ package com.proj.models;
 public class GameModelCreation {
 	private Player[] player;
 	private Player currPlayer;
-	private Map ExisitingMapDetails;
+	private Map exisitingMapDetails;
 
 	/**
 	 * constructor of Game Model Creation
 	 * @param ExisitingMapDetails existing map details
 	 * @param player array object of Player class
 	 */
-	public GameModelCreation(Map ExisitingMapDetails, Player[] player) {
+	public GameModelCreation(Map exisitingMapDetails, Player[] player) {
 		this.player = player;
-		this.ExisitingMapDetails = ExisitingMapDetails;
+		this.exisitingMapDetails = exisitingMapDetails;
 		this.currPlayer = player[0];
 	
 	}

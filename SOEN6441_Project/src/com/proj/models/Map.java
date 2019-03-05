@@ -10,9 +10,9 @@ import java.util.List;
  */
 public class Map {
 	
-	private String Name;
+	private String name;
 	private String authorName;
-	private String Path;
+	private String path;
 	private boolean errorOccurred;
 	private String errorMessage;
 	private List<Continent> continents;	
@@ -21,8 +21,8 @@ public class Map {
 	 */
 	public Map(){
 		continents=new ArrayList<Continent>();
-		Path="";
-		Name="";
+		path="";
+		name="";
 		errorOccurred=false;
 	}
 	
@@ -31,7 +31,7 @@ public class Map {
 	 * @return path
 	 */
 	public String getPath() {
-		return Path;
+		return path;
 	}
 	
 	/**
@@ -39,7 +39,7 @@ public class Map {
 	 * @param path
 	 */
 	public void setPath(String path) {
-		Path = path;
+		this.path = path;
 	}
 	
 	/**
@@ -47,7 +47,7 @@ public class Map {
 	 * @return name
 	 */
 	public String getName() {
-		return Name;
+		return name;
 	}
 	
 	/**
@@ -55,7 +55,7 @@ public class Map {
 	 * @param name name of map
 	 */
 	public void setName(String name) {
-		Name = name;
+		this.name = name;
 	}
 	
 	/**

@@ -288,7 +288,7 @@ public class FortificationView extends JFrame implements ActionListener{
 		this.player = player;
 		this.currentPlayer = currentPlayer;
 		this.gameWindow = gameWindow;
-		gameWindow.setEnabled(false);
+		gameWindow.getArmyAllocation().setEnabled(false);
 		setTitle("Fortification Phase");
 		setResizable(false);
 		setSize(Constants.WIDTH + 300, Constants.HEIGHT);

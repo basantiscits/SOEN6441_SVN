@@ -23,7 +23,7 @@ public class Player {
 	 */
 	public Player(String string) {
 		this.playerName = string;	
-		countriesOwned = new ArrayList<>();
+		countriesOwned = new ArrayList<Country>();
 	}
 	
 	/**
