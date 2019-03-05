@@ -132,137 +132,6 @@ public class PlayNewGame extends JFrame implements ActionListener {
 	}
 
 
-	public Player[] getPlayer() {
-		return player;
-	}
-
-
-	public void setPlayer(Player[] player) {
-		this.player = player;
-	}
-
-
-	public String getsLocationWhereFileisKept() {
-		return sLocationWhereFileisKept;
-	}
-
-
-	public void setsLocationWhereFileisKept(String sLocationWhereFileisKept) {
-		this.sLocationWhereFileisKept = sLocationWhereFileisKept;
-	}
-
-
-	public String getsAppendParam() {
-		return sAppendParam;
-	}
-
-
-	public void setsAppendParam(String sAppendParam) {
-		this.sAppendParam = sAppendParam;
-	}
-
-
-	public JButton getButtonbrowse() {
-		return buttonbrowse;
-	}
-
-
-	public void setButtonbrowse(JButton buttonbrowse) {
-		this.buttonbrowse = buttonbrowse;
-	}
-
-
-	public JComboBox<String> getComboBoxSelectPlayer() {
-		return comboBoxSelectPlayer;
-	}
-
-
-	public void setComboBoxSelectPlayer(JComboBox<String> comboBoxSelectPlayer) {
-		this.comboBoxSelectPlayer = comboBoxSelectPlayer;
-	}
-
-
-	public String[] getPlayersList() {
-		return playersList;
-	}
-
-
-	public void setPlayersList(String[] playersList) {
-		this.playersList = playersList;
-	}
-
-
-	
-
-	public JTextField getTextFieldMap() {
-		return textFieldMap;
-	}
-
-
-	public void setTextFieldMap(JTextField textFieldMap) {
-		this.textFieldMap = textFieldMap;
-	}
-
-
-	public JButton getButtonPlayGame() {
-		return buttonPlayGame;
-	}
-
-
-	public void setButtonPlayGame(JButton buttonPlayGame) {
-		this.buttonPlayGame = buttonPlayGame;
-	}
-
-
-	public String getCopynoOfPlayers() {
-		return copyNoOfPlayers;
-	}
-
-
-	public void setCopynoOfPlayers(String copynoOfPlayers) {
-		this.copyNoOfPlayers = copynoOfPlayers;
-	}
-
-
-	public Map getsCarryMapForward() {
-		return sCarryMapForward;
-	}
-
-
-	public void setsCarryMapForward(Map sCarryMapForward) {
-		this.sCarryMapForward = sCarryMapForward;
-	}
-
-
-	public JTree getMapTree() {
-		return mapTree;
-	}
-
-
-	public void setMapTree(JTree mapTree) {
-		this.mapTree = mapTree;
-	}
-
-
-	public JScrollPane getTreeScrollPane() {
-		return treeScrollPane;
-	}
-
-
-	public void setTreeScrollPane(JScrollPane treeScrollPane) {
-		this.treeScrollPane = treeScrollPane;
-	}
-
-
-	public NewGameController getNewGameController() {
-		return newGameController;
-	}
-
-
-	public void setNewGameController(NewGameController newGameController) {
-		this.newGameController = newGameController;
-	}
-
 	/**
 	 * This method takes file from user
 	 * @param sReturnFileAndLoc
@@ -317,6 +186,244 @@ public class PlayNewGame extends JFrame implements ActionListener {
 	}
 
 
+	/**
+	 * @return the player
+	 */
+	public Player[] getPlayer() {
+		return player;
+	}
+
+
+
+	/**
+	 * @param player the player to set
+	 */
+	public void setPlayer(Player[] player) {
+		this.player = player;
+	}
+
+
+
+	/**
+	 * @return the sLocationWhereFileisKept
+	 */
+	public String getsLocationWhereFileisKept() {
+		return sLocationWhereFileisKept;
+	}
+
+
+
+	/**
+	 * @param sLocationWhereFileisKept the sLocationWhereFileisKept to set
+	 */
+	public void setsLocationWhereFileisKept(String sLocationWhereFileisKept) {
+		this.sLocationWhereFileisKept = sLocationWhereFileisKept;
+	}
+
+
+
+	/**
+	 * @return the sAppendParam
+	 */
+	public String getsAppendParam() {
+		return sAppendParam;
+	}
+
+
+
+	/**
+	 * @param sAppendParam the sAppendParam to set
+	 */
+	public void setsAppendParam(String sAppendParam) {
+		this.sAppendParam = sAppendParam;
+	}
+
+
+
+	/**
+	 * @return the buttonbrowse
+	 */
+	public JButton getButtonbrowse() {
+		return buttonbrowse;
+	}
+
+
+
+	/**
+	 * @param buttonbrowse the buttonbrowse to set
+	 */
+	public void setButtonbrowse(JButton buttonbrowse) {
+		this.buttonbrowse = buttonbrowse;
+	}
+
+
+
+	/**
+	 * @return the comboBoxSelectPlayer
+	 */
+	public JComboBox<String> getComboBoxSelectPlayer() {
+		return comboBoxSelectPlayer;
+	}
+
+
+
+	/**
+	 * @param comboBoxSelectPlayer the comboBoxSelectPlayer to set
+	 */
+	public void setComboBoxSelectPlayer(JComboBox<String> comboBoxSelectPlayer) {
+		this.comboBoxSelectPlayer = comboBoxSelectPlayer;
+	}
+
+
+
+	/**
+	 * @return the playersList
+	 */
+	public String[] getPlayersList() {
+		return playersList;
+	}
+
+
+
+	/**
+	 * @param playersList the playersList to set
+	 */
+	public void setPlayersList(String[] playersList) {
+		this.playersList = playersList;
+	}
+
+
+
+	/**
+	 * @return the textFieldMap
+	 */
+	public JTextField getTextFieldMap() {
+		return textFieldMap;
+	}
+
+
+
+	/**
+	 * @param textFieldMap the textFieldMap to set
+	 */
+	public void setTextFieldMap(JTextField textFieldMap) {
+		this.textFieldMap = textFieldMap;
+	}
+
+
+
+	/**
+	 * @return the buttonPlayGame
+	 */
+	public JButton getButtonPlayGame() {
+		return buttonPlayGame;
+	}
+
+
+
+	/**
+	 * @param buttonPlayGame the buttonPlayGame to set
+	 */
+	public void setButtonPlayGame(JButton buttonPlayGame) {
+		this.buttonPlayGame = buttonPlayGame;
+	}
+
+
+
+	/**
+	 * @return the copyNoOfPlayers
+	 */
+	public String getCopyNoOfPlayers() {
+		return copyNoOfPlayers;
+	}
+
+
+
+	/**
+	 * @param copyNoOfPlayers the copyNoOfPlayers to set
+	 */
+	public void setCopyNoOfPlayers(String copyNoOfPlayers) {
+		this.copyNoOfPlayers = copyNoOfPlayers;
+	}
+
+
+
+	/**
+	 * @return the sCarryMapForward
+	 */
+	public Map getsCarryMapForward() {
+		return sCarryMapForward;
+	}
+
+
+
+	/**
+	 * @param sCarryMapForward the sCarryMapForward to set
+	 */
+	public void setsCarryMapForward(Map sCarryMapForward) {
+		this.sCarryMapForward = sCarryMapForward;
+	}
+
+
+
+	/**
+	 * @return the mapTree
+	 */
+	public JTree getMapTree() {
+		return mapTree;
+	}
+
+
+
+	/**
+	 * @param mapTree the mapTree to set
+	 */
+	public void setMapTree(JTree mapTree) {
+		this.mapTree = mapTree;
+	}
+
+
+
+	/**
+	 * @return the treeScrollPane
+	 */
+	public JScrollPane getTreeScrollPane() {
+		return treeScrollPane;
+	}
+
+
+
+	/**
+	 * @param treeScrollPane the treeScrollPane to set
+	 */
+	public void setTreeScrollPane(JScrollPane treeScrollPane) {
+		this.treeScrollPane = treeScrollPane;
+	}
+
+
+
+	/**
+	 * @return the newGameController
+	 */
+	public NewGameController getNewGameController() {
+		return newGameController;
+	}
+
+
+
+	/**
+	 * @param newGameController the newGameController to set
+	 */
+	public void setNewGameController(NewGameController newGameController) {
+		this.newGameController = newGameController;
+	}
+	
+	
+	/**
+	 * This method displays the game model window
+	 * @param sCarryMapForward Already edited map
+	 * @param player Array of Player objects
+	 */
 	public void GameModelWindowMade(Map sCarryMapForward, Player[] player) {
 		dispose();
 		GameModelCreation gameModel = new GameModelCreation(sCarryMapForward, player);
@@ -324,7 +431,9 @@ public class PlayNewGame extends JFrame implements ActionListener {
 		GameWindowScreen.setVisible(true);
 	}
 
-
+	/**
+	 * Overridden method listening events not used
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
