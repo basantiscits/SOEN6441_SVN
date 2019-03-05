@@ -28,22 +28,21 @@ import com.proj.utilites.MapTools;
 public class MainMenuScreen extends JFrame {
 	private MapTools mapTool;
 	private JButton btnLoadExisitingMaps;
-	private JLabel riskImage;
+	private JLabel RiskImage;
 	private MapEditor mapEditorView;
 	public MainMenuScreen() {
 		CreateMenuBar();
 		setTitle("Simple menu");
 		setSize(900, 800);
-		setResizable(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		mapTool=new MapTools();
 		
 		ImageIcon RiskIcon = new ImageIcon("Images/Risk.jpg");
-		riskImage = new JLabel("");
-		riskImage.setIcon(RiskIcon);
-		riskImage.setBounds(Constants.WIDTH / 2 - 150, 50, 100, 30);
-		add(riskImage);
+		RiskImage = new JLabel("");
+		RiskImage.setIcon(RiskIcon);
+		RiskImage.setBounds(Constants.WIDTH / 2 - 150, 50, 100, 30);
+		add(RiskImage);
 
 	
 	}
@@ -72,11 +71,8 @@ public class MainMenuScreen extends JFrame {
 		JMenuItem singlePlayer = new JMenuItem("Play Game");
 		singlePlayer.setToolTipText("Play Game");
 
-		JMenuItem exitMenuItem = new JMenuItem(new AbstractAction("Exit") {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
+
+		JMenuItem exitMenuItem = new JMenuItem("Exit");
 		exitMenuItem.setToolTipText("Exit application");
 
 		SubSubMenu.add(PlayGame);
@@ -86,7 +82,6 @@ public class MainMenuScreen extends JFrame {
 				Map newMap=new Map();
 				mapEditorView=new MapEditor(newMap);
 				mapEditorView.setVisible(true);
-				dispose();
 			
 			}
 		});
@@ -99,19 +94,22 @@ public class MainMenuScreen extends JFrame {
 			
 			String sFinal=mapTool.pickMapFile(existingMap);
 			System.out.println(sFinal);
-			if(sFinal == null || (sFinal.isEmpty())){
+			if(sFinal == null || (sFinal.isEmpty()))
+			{
 				
 			}
-			else{
+			else
+			{
 				boolean isMapValid=mapTool.parseAndValidateMap(existingMap,3);
 				
-					if(isMapValid){
+					if(isMapValid)
+					{
 						JOptionPane.showMessageDialog(null, "Map successfully loaded");
 						MapEditor mapEditorView=new MapEditor(existingMap);
 						mapEditorView.setVisible(true);
-						dispose();
 					}
-					else{
+					else
+					{
 						JOptionPane.showMessageDialog(null, "Invalid Map selected");
 						System.out.println(existingMap.getErrorMessage());
 					}
@@ -120,14 +118,25 @@ public class MainMenuScreen extends JFrame {
 				
 			}
 			
-		});
-		
+			}
+		);
 		editExistingMap.setToolTipText("Edit Existing Map");
 
 		JMenuItem RulesOfGames = new JMenuItem("Rules of Games");
 		RulesOfGames.setToolTipText("Rules of Games");
 
 		menubar.add(helpMenu);
+		exitMenuItem.addActionListener((event) -> System.exit(0));
+
+
+		SubSubMenu.addActionListener(new java.awt.event.ActionListener() {
+			@Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				SubSubMenu.addActionListener(this);
+				add(btnLoadExisitingMaps);
+			}
+
+		});
 
 		fileMenu1.add(SubSubMenu);
 		fileMenu1.addSeparator();
@@ -146,6 +155,6 @@ public class MainMenuScreen extends JFrame {
 
 		setJMenuBar(menubar);
 	}
-
+	
 
 }

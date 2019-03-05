@@ -40,6 +40,10 @@ import com.proj.utilites.Constants;
  * @since 10 Feb 2019
  * @version 1.0
  */
+/**
+ * @author Arpit
+ *
+ */
 public class GameWindowScreen extends JFrame implements ActionListener {
 	private int currentPlayer = 0;
 	public Player[] player;
@@ -271,6 +275,11 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 		dtm.setDataVector(data, countryColumn);
 
 		tablematrix = new JTable(dtm) {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public Component prepareRenderer(TableCellRenderer renderer, int row, int col) {
 				Component component = super.prepareRenderer(renderer, row, col);
@@ -298,7 +307,6 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 				for (i = 0; i < row_length; i++) {
 					if (currentCountry.getCountryName().equalsIgnoreCase(data[i][0])) {
 						for (j = 1; j < column_length; j++) {
-							String neighbour = countryColumn[j];
 							if (!currentCountry.getListOfNeighbours().contains(countryColumn[j])) {
 								tablematrix.setValueAt("N", i, j);
 							}
@@ -310,6 +318,27 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 				}
 			}
 		}
+
+	}
+	
+	
+	/**
+	 * This method create Tree with all the continents and countries
+	 */
+	public void createTree() {
+
+		DefaultMutableTreeNode top = new DefaultMutableTreeNode("Map - " + gameMap.getName() + "");
+
+		for (Continent continent : gameMap.getContinents()) {
+			DefaultMutableTreeNode branch = new DefaultMutableTreeNode(continent.getContinentName());
+			for (Country country : continent.getCountriesPresent()) {
+				DefaultMutableTreeNode subBranch = new DefaultMutableTreeNode(country.getCountryName());
+				branch.add(subBranch);
+			}
+			top.add(branch);
+		}
+		mapTree = new JTree(top);
+		treeScrollPane.getViewport().add(mapTree);
 
 	}
 
@@ -543,197 +572,305 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	 * @return Object of JLabel class
 	 */
 	public void setStartPhaseDefinedLabel(JLabel startPhaseDefinedLabel) {
-		startPhaseDefinedLabel = startPhaseDefinedLabel;
+		this.startPhaseDefinedLabel = startPhaseDefinedLabel;
 	}
+	
 
+	
+	/**
+	 * @return the playerAllocatedLabel
+	 */
 	public JLabel getPlayerAllocatedLabel() {
 		return playerAllocatedLabel;
 	}
 
+	/**
+	 * @param playerAllocatedLabel the playerAllocatedLabel to set
+	 */
 	public void setPlayerAllocatedLabel(JLabel playerAllocatedLabel) {
 		this.playerAllocatedLabel = playerAllocatedLabel;
 	}
 
+	/**
+	 * @return the dynamicAreastartPhasePanel
+	 */
 	public JPanel getDynamicAreastartPhasePanel() {
 		return dynamicAreastartPhasePanel;
 	}
 
+	/**
+	 * @param dynamicAreastartPhasePanel the dynamicAreastartPhasePanel to set
+	 */
 	public void setDynamicAreastartPhasePanel(JPanel dynamicAreastartPhasePanel) {
 		this.dynamicAreastartPhasePanel = dynamicAreastartPhasePanel;
 	}
 
+	/**
+	 * @return the randomPlayerPhaseViewPanel
+	 */
 	public JPanel getRandomPlayerPhaseViewPanel() {
 		return randomPlayerPhaseViewPanel;
 	}
 
+	/**
+	 * @param randomPlayerPhaseViewPanel the randomPlayerPhaseViewPanel to set
+	 */
 	public void setRandomPlayerPhaseViewPanel(JPanel randomPlayerPhaseViewPanel) {
 		this.randomPlayerPhaseViewPanel = randomPlayerPhaseViewPanel;
 	}
 
+	/**
+	 * @return the dynamicAreaPlayerPhasePanel
+	 */
 	public JPanel getDynamicAreaPlayerPhasePanel() {
 		return dynamicAreaPlayerPhasePanel;
 	}
 
+	/**
+	 * @param dynamicAreaPlayerPhasePanel the dynamicAreaPlayerPhasePanel to set
+	 */
 	public void setDynamicAreaPlayerPhasePanel(JPanel dynamicAreaPlayerPhasePanel) {
 		this.dynamicAreaPlayerPhasePanel = dynamicAreaPlayerPhasePanel;
 	}
 
+	/**
+	 * @return the contientLabelViewPanel
+	 */
 	public JPanel getContientLabelViewPanel() {
 		return ContientLabelViewPanel;
 	}
 
+	/**
+	 * @param contientLabelViewPanel the contientLabelViewPanel to set
+	 */
 	public void setContientLabelViewPanel(JPanel contientLabelViewPanel) {
 		ContientLabelViewPanel = contientLabelViewPanel;
 	}
 
+	/**
+	 * @return the countryLabelViewPanel
+	 */
 	public JPanel getCountryLabelViewPanel() {
 		return CountryLabelViewPanel;
 	}
 
+	/**
+	 * @param countryLabelViewPanel the countryLabelViewPanel to set
+	 */
 	public void setCountryLabelViewPanel(JPanel countryLabelViewPanel) {
 		CountryLabelViewPanel = countryLabelViewPanel;
 	}
 
+	/**
+	 * @return the tableHeader
+	 */
 	public JPanel getTableHeader() {
 		return tableHeader;
 	}
 
+	/**
+	 * @param tableHeader the tableHeader to set
+	 */
 	public void setTableHeader(JPanel tableHeader) {
 		this.tableHeader = tableHeader;
 	}
 
+	/**
+	 * @return the tableHeaderLabel
+	 */
 	public JLabel getTableHeaderLabel() {
 		return tableHeaderLabel;
 	}
 
+	/**
+	 * @param tableHeaderLabel the tableHeaderLabel to set
+	 */
 	public void setTableHeaderLabel(JLabel tableHeaderLabel) {
 		this.tableHeaderLabel = tableHeaderLabel;
 	}
 
+	/**
+	 * @return the allocationPanel
+	 */
 	public JPanel getAllocationPanel() {
 		return allocationPanel;
 	}
 
+	/**
+	 * @param allocationPanel the allocationPanel to set
+	 */
 	public void setAllocationPanel(JPanel allocationPanel) {
 		this.allocationPanel = allocationPanel;
 	}
 
+	/**
+	 * @return the textArea
+	 */
 	public JTextArea getTextArea() {
 		return textArea;
 	}
 
+	/**
+	 * @param textArea the textArea to set
+	 */
 	public void setTextArea(JTextArea textArea) {
 		this.textArea = textArea;
 	}
 
+	/**
+	 * @return the countries
+	 */
 	public List<String> getCountries() {
 		return countries;
 	}
 
+	/**
+	 * @param countries the countries to set
+	 */
 	public void setCountries(List<String> countries) {
 		this.countries = countries;
 	}
 
+	/**
+	 * @return the playerStrength
+	 */
 	public JTable getPlayerStrength() {
 		return playerStrength;
 	}
 
+	/**
+	 * @param playerStrength the playerStrength to set
+	 */
 	public void setPlayerStrength(JTable playerStrength) {
 		this.playerStrength = playerStrength;
 	}
 
+	/**
+	 * @return the data
+	 */
 	public String[][] getData() {
 		return data;
 	}
 
+	/**
+	 * @param data the data to set
+	 */
 	public void setData(String[][] data) {
 		this.data = data;
 	}
 
+	/**
+	 * @return the countryColumn
+	 */
 	public String[] getCountryColumn() {
 		return countryColumn;
 	}
 
+	/**
+	 * @param countryColumn the countryColumn to set
+	 */
 	public void setCountryColumn(String[] countryColumn) {
 		this.countryColumn = countryColumn;
 	}
 
+	/**
+	 * @return the tablematrix
+	 */
 	public JTable getTablematrix() {
 		return tablematrix;
 	}
 
+	/**
+	 * @param tablematrix the tablematrix to set
+	 */
 	public void setTablematrix(JTable tablematrix) {
 		this.tablematrix = tablematrix;
 	}
 
+	/**
+	 * @return the scrollPane
+	 */
 	public JScrollPane getScrollPane() {
 		return scrollPane;
 	}
 
+	/**
+	 * @param scrollPane the scrollPane to set
+	 */
 	public void setScrollPane(JScrollPane scrollPane) {
 		this.scrollPane = scrollPane;
 	}
 
+	/**
+	 * @return the currentPlayerName
+	 */
 	public JLabel getCurrentPlayerName() {
 		return currentPlayerName;
 	}
 
+	/**
+	 * @param currentPlayerName the currentPlayerName to set
+	 */
 	public void setCurrentPlayerName(JLabel currentPlayerName) {
 		this.currentPlayerName = currentPlayerName;
 	}
 
+	/**
+	 * @return the countriesComboBox
+	 */
 	public JComboBox getCountriesComboBox() {
 		return countriesComboBox;
 	}
 
+	/**
+	 * @param countriesComboBox the countriesComboBox to set
+	 */
 	public void setCountriesComboBox(JComboBox countriesComboBox) {
 		this.countriesComboBox = countriesComboBox;
 	}
 
+	/**
+	 * @return the armyAllocation
+	 */
 	public JButton getArmyAllocation() {
 		return armyAllocation;
 	}
 
+	/**
+	 * @param armyAllocation the armyAllocation to set
+	 */
 	public void setArmyAllocation(JButton armyAllocation) {
 		this.armyAllocation = armyAllocation;
 	}
 
+	/**
+	 * @return the armiesAvailable
+	 */
 	public JLabel getArmiesAvailable() {
 		return armiesAvailable;
 	}
 
+	/**
+	 * @param armiesAvailable the armiesAvailable to set
+	 */
 	public void setArmiesAvailable(JLabel armiesAvailable) {
 		this.armiesAvailable = armiesAvailable;
 	}
 
+	/**
+	 * @return the gameController
+	 */
 	public GameController getGameController() {
 		return gameController;
 	}
 
+	/**
+	 * @param gameController the gameController to set
+	 */
 	public void setGameController(GameController gameController) {
 		this.gameController = gameController;
 	}
-	
-	/**
-	 * This method create Tree with all the continents and countries
-	 */
-	public void createTree() {
 
-		DefaultMutableTreeNode top = new DefaultMutableTreeNode("Map - " + gameMap.getName() + "");
-
-		for (Continent continent : gameMap.getContinents()) {
-			DefaultMutableTreeNode branch = new DefaultMutableTreeNode(continent.getContinentName());
-			for (Country country : continent.getCountriesPresent()) {
-				DefaultMutableTreeNode subBranch = new DefaultMutableTreeNode(country.getCountryName());
-				branch.add(subBranch);
-			}
-			top.add(branch);
-		}
-		mapTree = new JTree(top);
-		treeScrollPane.getViewport().add(mapTree);
-
-	}
-	
 	/**
 	 * This method create tree with players and the countries owned by them and corresponding armies in particular country
 	 */
