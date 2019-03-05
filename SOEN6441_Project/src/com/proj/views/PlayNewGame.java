@@ -82,6 +82,7 @@ public class PlayNewGame extends JFrame implements ActionListener {
 		textFieldMap = new JTextField();
 		textFieldMap.setBounds(380, 195, 180, 30);
 		add(textFieldMap);
+		textFieldMap.setEditable(false);
 
 		buttonbrowse = new JButton();
 		buttonbrowse.setText("Press button to select file");
