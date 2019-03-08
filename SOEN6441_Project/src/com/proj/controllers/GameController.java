@@ -18,7 +18,6 @@ import com.proj.views.GameWindowScreen;
  * @version 1.0
  */
 public class GameController implements ActionListener {
-
 	private GameWindowScreen gameWindowScreen;
 	private Map gameMap;
 
@@ -31,20 +30,17 @@ public class GameController implements ActionListener {
 	 *            the map of continents and countries
 	 */
 	public GameController(GameWindowScreen gameWindowScreen, Map gameMap) {
-
 		this.gameMap = gameMap;
 		this.gameWindowScreen = gameWindowScreen;
-
 	}
 
 	/**
 	 * action performed when reinforcement phase starts
 	 * 
-	 * @param event action event performed that triggers the response
+	 * @param e action event performed that triggers the response
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
 		String button = e.getActionCommand();
 		switch (button) {
 		case "Place Army":
@@ -87,7 +83,6 @@ public class GameController implements ActionListener {
 	 * initializes reinforcement armies
 	 */
 	public void intializeReinforcementArmies() {
-
 		for (int i = 0; i < gameWindowScreen.getPlayer().length; i++) {
 			long armies = Math.round(Math.floor(gameWindowScreen.getPlayerAtIndex(i).getCountriesOwned().size() / 3));
 			if (armies > 3) {
@@ -96,7 +91,6 @@ public class GameController implements ActionListener {
 			else {
 				gameWindowScreen.getPlayerAtIndex(i).incrementNoOfArmiesOwned(3);
 			}
-
 			updateContinentsOwned(i);
 		}
 	}
@@ -108,7 +102,6 @@ public class GameController implements ActionListener {
 		if (gameWindowScreen.getPlayerAtIndex(gameWindowScreen.getCurrentPlayer()).getNoOfArmiesOwned() == 0) {
 			gameWindowScreen.getStartPhaseDefinedLabel().setText("Reinforcement Phase");
 			intializeReinforcementArmies();
-
 			gameWindowScreen.getArmyAllocation().setText("Reinforcement Phase");
 		}
 	}
@@ -139,7 +132,6 @@ public class GameController implements ActionListener {
 	 *            name of country
 	 */
 	public void updateGame(String country) {
-
 		if (gameWindowScreen.getPlayerAtIndex(gameWindowScreen.getCurrentPlayer()).getNoOfArmiesOwned() > 0) {
 			gameWindowScreen.getPlayerAtIndex(gameWindowScreen.getCurrentPlayer()).reduceArmyInPlayer();
 			for (Country c : gameWindowScreen.getPlayerAtIndex(gameWindowScreen.getCurrentPlayer()).getCountriesOwned()) {
@@ -175,7 +167,5 @@ public class GameController implements ActionListener {
 			}
 		}
 		System.out.println("Current player : " + gameWindowScreen.getCurrentPlayer() + " number: " + number);
-
 	}
-
 }

@@ -17,8 +17,6 @@ import org.junit.Test;
  * @version 1.0
  */
 public class MapTest {
-	
-	
 	private Map map;
 	private Country country,country1,country2,country3,country4,country5,country6;
 	private List<Continent> continentList;
@@ -28,7 +26,6 @@ public class MapTest {
 	 */
 	@Before
 	public void before() {
-		
 		map = new Map();
 		Continent continent1 = new Continent();
 		continent1.setContinentName("Asia");
@@ -74,19 +71,15 @@ public class MapTest {
 	
 	
 	@After
-	public void after() {
-		
-	}
+	public void after() {}
 	
 	/**
 	 * This test method checks searchContinent method to find continent by name
 	 */
 	@Test
 	public void searchContinentTest() {
-		
 		assertEquals("Asia", map.searchContinent("Asia"));
 		assertEquals("North America", map.searchContinent("North America") );
-		
 	}
 	
 	/**
@@ -94,11 +87,9 @@ public class MapTest {
 	 */
 	@Test
 	public void searchCountryTest() {
-		
 		assertEquals(country, map.searchCountry("India"));
 		assertEquals(country1, map.searchCountry("Pakistan"));
 		assertEquals(country2, map.searchCountry("China"));
-		
 	}
 	
 	/**
@@ -106,25 +97,19 @@ public class MapTest {
 	 */
 	@Test
 	public void getListOfContinentNamesTest() {
-		
 		ArrayList<String> continentNameList = new ArrayList<String>();
 		continentNameList.add("Asia");
 		continentNameList.add("North America");
 		System.out.println(map.listOfContinentNames());
 		System.out.println(continentNameList);
-		
-
 		assertEquals(continentNameList, map.listOfContinentNames());
-		
 	}
-	
 	
 	/**
 	 * This test method checks all the counties present in map
 	 */
 	@Test
-	public void getListOfCountryNamesTest() {
-		
+	public void getListOfCountryNamesTest() {	
 		ArrayList<String> countryNameList = new ArrayList<String>();
 		countryNameList.add("India");
 		countryNameList.add("Pakistan");
@@ -141,16 +126,9 @@ public class MapTest {
 		countryNameList.add("Eastern United States");
 		countryNameList.add("Western United States");
 		
-		
 		System.out.println(map.listOfCountryNames());
 		System.out.println(countryNameList);
-		
 
-		assertEquals(countryNameList, map.listOfCountryNames());
-		
+		assertEquals(countryNameList, map.listOfCountryNames());	
 	}
-	
-	
-
-	
 }

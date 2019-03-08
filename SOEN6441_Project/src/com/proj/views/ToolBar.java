@@ -29,10 +29,7 @@ public class ToolBar extends JPanel{
 	 * @param mapEditorController object of MapEditorController class
 	 */
 	public ToolBar(MapEditorController mapEditorController) {
-		
-		
 		setLayout(new FlowLayout());
-
 		continent =  new Continent();
 		newCountry = new Country();
 		addContinent = new JButton("Add Continent");
@@ -53,8 +50,5 @@ public class ToolBar extends JPanel{
 		add(removeContinent);
 		add(removeCountry);
 		add(save);
-		
-
-	
 	}
 }

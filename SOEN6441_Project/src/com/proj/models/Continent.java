@@ -10,7 +10,6 @@ import java.util.List;
  * @version 1.0
  */
 public class Continent {
-
 	private String continentName;
 	private List<Country> countriesPresent;
 	private int controlValue;
@@ -21,7 +20,6 @@ public class Continent {
 	public Continent() {
 		controlValue = 0;
 		countriesPresent = new ArrayList<Country>();
-
 	}
 
 	/**

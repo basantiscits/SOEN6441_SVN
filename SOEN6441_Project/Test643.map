@@ -1,0 +1,13 @@
+[Map]
+author=Anonymous
+[Continents]
+Asia=5
+Europe=1
+[Territories]
+India,0.0,0.0,Asia,Bangladesh,NL,Norway,bhutan
+Bangladesh,0.0,0.0,Asia,India,NL,Norway,bhutan
+NL,0.0,0.0,Asia,India,Bangladesh,AMS,Norway,bhutan
+Norway,0.0,0.0,Asia,India,Bangladesh,NL,AMS,bhutan
+bhutan,0.0,0.0,Asia,India,Bangladesh,NL,Norway,AMS
+AMS,0.0,0.0,Europe,India,Bangladesh
+

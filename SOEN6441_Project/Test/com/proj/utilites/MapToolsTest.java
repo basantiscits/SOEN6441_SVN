@@ -10,15 +10,12 @@ import com.proj.models.Map;
 
 /**
  * MapTest class
- * 
  * @author Basant
  * @since 02/03/2019
  * @version 1.0
  */
 public class MapToolsTest {
-
 	private Map[] gameMap;
-
 	private String absolutePath[];
 
 	/**
@@ -33,7 +30,6 @@ public class MapToolsTest {
 			absolutePath[i] = new String();
 
 		}
-
 		absolutePath[0] = "MapFiles/World.map";
 		gameMap[0].setName("World.map");
 		gameMap[0].setPath(absolutePath[0].substring(0, absolutePath[0].lastIndexOf("/")));
@@ -60,8 +56,7 @@ public class MapToolsTest {
 	}
 
 	/**
-	 * This test method checks parseAndValidateMap method to test map is valid or
-	 * not
+	 * This test method checks parseAndValidateMap method to test map is valid or not
 	 */
 	@Test
 	public void parseAndValidateMapCorrectnessTest() {
@@ -74,7 +69,6 @@ public class MapToolsTest {
 			System.out.println(isMapValid[i]);
 		}
 		assertArrayEquals(isMapValidExpected, isMapValid);
-
 	}
 
 	/**
@@ -82,11 +76,9 @@ public class MapToolsTest {
 	 */
 	@Test
 	public void validateMapNoNeighboursTest() {
-
 		MapTools sFunctions = new MapTools();
 		boolean isMapValid = sFunctions.parseAndValidateMap(gameMap[3], 3);
 		assertEquals(false, isMapValid);
-
 	}
 
 	/**
@@ -94,11 +86,9 @@ public class MapToolsTest {
 	 */
 	@Test
 	public void validateMapInformationMissing() {
-
 		MapTools sFunctions = new MapTools();
 		boolean isMapValid = sFunctions.parseAndValidateMap(gameMap[4], 3);
 		assertEquals(false, isMapValid);
-
 	}
 
 	/**
@@ -106,14 +96,11 @@ public class MapToolsTest {
 	 */
 	@Test
 	public void checkMapConnectivityTest() {
-
 		MapTools sFunctions = new MapTools();
-
 		sFunctions.parseAndValidateMap(gameMap[0], 3);
 		boolean isMapConnected = sFunctions.checkMapConnectivity(gameMap[0]);
 		System.out.println("result:-" + isMapConnected);
 		assertEquals(true, isMapConnected);
-
 	}
 
 	/**
@@ -121,14 +108,10 @@ public class MapToolsTest {
 	 */
 	@Test
 	public void checkMapAuthorTest() {
-
 		MapTools sFunctions = new MapTools();
-
 		boolean isAuthorExists = sFunctions.parseAndValidateMap(gameMap[5], 3);
-
 		System.out.println("result:-" + isAuthorExists);
 		assertEquals(false, isAuthorExists);
-
 	}
 
 	/**
@@ -136,7 +119,6 @@ public class MapToolsTest {
 	 */
 	@Test
 	public void checkIfNeigbourExistTest() {
-
 		Map map = new Map();
 		String absolutePath = "MapFiles/WorldMaptwosameCountries.map";
 		map.setName("WorldMaptwosameCountries.map");
@@ -153,14 +135,12 @@ public class MapToolsTest {
 	 */
 	@Test
 	public void checkDuplicateCountriesTest() {
-
 		Map map = new Map();
 		String absolutePath = "MapFiles/WorldWithDuplicateCountries.map";
 		map.setName("WorldWithDuplicateCountries.map");
 		map.setPath(absolutePath.substring(0, absolutePath.lastIndexOf("/")));
 		MapTools sFunctions = new MapTools();
 		boolean is = sFunctions.parseAndValidateMap(map, 3);
-
 		boolean isMapValid = sFunctions.checkDuplicateNeighbours(map);
 		System.out.println("Result is: " + isMapValid);
 		assertEquals(false, isMapValid);

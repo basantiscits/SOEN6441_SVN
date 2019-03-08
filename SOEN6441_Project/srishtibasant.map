@@ -1,0 +1,12 @@
+[Map]
+author=Anonymous
+[Continents]
+CFCTFC=3
+trftrfr=2
+[Territories]
+tvv,0.0,0.0,CFCTFC,ygy,jj,vhv
+ygy,0.0,0.0,CFCTFC,tvv,jj
+jj,0.0,0.0,CFCTFC,tvv,ygy
+vhv,0.0,0.0,trftrfr,tvv,ygy,jj,tfytjjh
+tfytjjh,0.0,0.0,trftrfr,tvv,ygy,jj,vhv
+

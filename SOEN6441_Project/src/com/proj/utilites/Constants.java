@@ -27,5 +27,4 @@ public class Constants {
 	 * The Constant MAP_EDITOR_HEIGHT. 
 	 */
 	public static final int MAP_EDITOR_HEIGHT = MAP_EDITOR_WIDTH / 12 * 11;
-
 }

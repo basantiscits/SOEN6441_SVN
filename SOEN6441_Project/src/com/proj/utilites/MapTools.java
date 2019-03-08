@@ -34,26 +34,24 @@ public class MapTools {
 	 */
 	public String pickMapFile(Map gameMap) {
 		String sAppendFileName = null;
-		
 		try {
-			String ImportFileName;
+			String importFileName;
 			JFileChooser chooser;
 			chooser = new JFileChooser();
 			chooser.setDialogTitle("Choose Map file");
 			chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 			chooser.setAcceptAllFileFilterUsed(false);
 			chooser.addChoosableFileFilter(new FileNameExtensionFilter("*.map", "map"));
-
 			if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-				ImportFileName = chooser.getSelectedFile().getAbsolutePath();
-				if (ImportFileName.trim().isEmpty()) {
+				importFileName = chooser.getSelectedFile().getAbsolutePath();
+				if (importFileName.trim().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "File name invalid");
 				} 
 				else {
-					if (ImportFileName.trim().substring(ImportFileName.length() - 4).equals(".map")) {
-						File f = new File(ImportFileName);
+					if (importFileName.trim().substring(importFileName.length() - 4).equals(".map")) {
+						File f = new File(importFileName);
 						gameMap.setName(f.getName());
-						gameMap.setPath(ImportFileName.substring(0, ImportFileName.lastIndexOf("\\")));
+						gameMap.setPath(importFileName.substring(0, importFileName.lastIndexOf("\\")));
 						JOptionPane.showMessageDialog(null, "File in Correct format");
 						System.out.println(gameMap.getPath());
 						System.out.println(gameMap.getName());
@@ -61,13 +59,13 @@ public class MapTools {
 					}
 					else {
 						JOptionPane.showMessageDialog(null, "File name invalid");
-						String sPrint = ImportFileName.trim().substring(ImportFileName.length() - 4);
+						String sPrint = importFileName.trim().substring(importFileName.length() - 4);
 						System.out.println(sPrint);
 					}
-
 				}
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 		return sAppendFileName;
@@ -82,20 +80,16 @@ public class MapTools {
 	public boolean parseAndValidateMap(Map gameMap, int size) {
 		boolean isMapValid = false;
 		try {
-
 			FileReader mapFile;
 			String line = null;
 			mapFile = new FileReader(gameMap.getPath() + "\\" + gameMap.getName());
-			
 			String Data = "";
-
 			BufferedReader mapReader = new BufferedReader(mapFile);
 			while ((line = mapReader.readLine()) != null) {
 				if (line != "\n") {
 					Data += line + "\n";
 				}
 			}
-
 			if (Data.toLowerCase().indexOf("[continents]") >= 0 && Data.toLowerCase().indexOf("[territories]") >= 0
 					&& Data.toLowerCase().indexOf("author") >= 0 && Data.toLowerCase().indexOf("[map]") >= 0) {
 				isMapValid = true;
@@ -108,16 +102,13 @@ public class MapTools {
 				gameMap.setErrorMessage("Information missing");
 				return isMapValid;
 			}
-
 			String authorData = Data.substring(Data.toLowerCase().indexOf("[map]"),
 					Data.toLowerCase().indexOf("[continents]"));
 			String continentData = Data.substring(Data.toLowerCase().indexOf("[continents]"),
 					Data.toLowerCase().indexOf("[territories]"));
 			String countryData = Data.substring(Data.toLowerCase().indexOf("[territories]"));
-
 			String[] countryDataArray = countryData.split("\n");
 			String[] continentDataArray = continentData.split("\n");
-
 			for (String stringManipulation : continentDataArray) {
 				if (!stringManipulation.equalsIgnoreCase("[continents]") && stringManipulation.length() >= 3) {
 					Continent newContinent = new Continent();
@@ -153,17 +144,11 @@ public class MapTools {
 					}
 				}
 			}
-			
-			if (!checkDuplicateContinents(gameMap)) {
-				
+			if (!checkDuplicateContinents(gameMap)) {	
 				if (!checkDuplicateCountries(gameMap)) {
-					
 					if (!checkEmptyContinent(gameMap)) {
-						
 						if (checkIfNeigbourExist(gameMap)) {
-							
 							if (checkMapConnectivity(gameMap)) {
-								
 								if (checkCountryCount(gameMap, size)) {
 									return true;
 								}
@@ -190,8 +175,8 @@ public class MapTools {
 			else {
 				return false;
 			}
-
-		} catch (IOException e) {
+		} 
+		catch (IOException e) {
 			e.printStackTrace();
 		}
 		return isMapValid;
@@ -203,8 +188,7 @@ public class MapTools {
 	 * @param size number of countries
 	 * @return true if map is valid else false
 	 */
-	public boolean validateMap(Map gameMap,int size){
-		
+	public boolean validateMap(Map gameMap,int size) {
 		if (!checkEmptyContinent(gameMap)) {
 			if (!checkDuplicateContinents(gameMap)) {
 				if (!checkDuplicateCountries(gameMap)) {
@@ -266,7 +250,6 @@ public class MapTools {
 	 * @return true if map is valid else false
 	 */
 	public boolean checkCountryCount(Map gameMap,int size){
-		
 		if(gameMap.listOfCountryNames().size()>=size){
 			return true;
 		}
@@ -282,7 +265,6 @@ public class MapTools {
 	 * @return true if map contains duplicate continent names else false
 	 */
 	public boolean checkDuplicateContinents(Map gameMap) {
-
 		List<String> continentNames = gameMap.listOfContinentNames();
 		HashSet<String> set = new HashSet<String>(continentNames);
 		ArrayList<String> result = new ArrayList<String>(set);
@@ -290,9 +272,7 @@ public class MapTools {
 			gameMap.setErrorMessage("Duplicate Continents present");
 			return true;
 		}
-
 		return false;
-
 	}
 	
 	/**
@@ -301,7 +281,6 @@ public class MapTools {
 	 * @return true if map contains duplicate countries names else false
 	 */
 	public boolean checkDuplicateCountries(Map gameMap) {
-
 		List<String> countryNames = gameMap.listOfCountryNames();
 		HashSet<String> set = new HashSet<String>(countryNames);
 		ArrayList<String> result = new ArrayList<String>(set);
@@ -319,7 +298,6 @@ public class MapTools {
 	 * @return true if map contains duplicate neighbors else false
 	 */
 	public boolean checkDuplicateNeighbours(Map gameMap) {
-
 		for (Continent continent : gameMap.getContinents()) {
 			for (Country country : continent.getCountriesPresent()) {
 				List<String> neighbours = country.getListOfNeighbours();
@@ -331,7 +309,6 @@ public class MapTools {
 				}
 			}
 		}
-
 		return false;
 	}
 	
@@ -341,7 +318,6 @@ public class MapTools {
 	 * @return true if map contains neighbors else false
 	 */
 	public boolean checkIfNeigbourExist(Map gameMap) {
-
 		List<String> list =  gameMap.listOfCountryNames();
 		List<String> listOfCountries = new ArrayList<String>();
 		for(String name : list) {
@@ -349,16 +325,15 @@ public class MapTools {
 		}
 		for (Continent c : gameMap.getContinents()) {
 			for (Country country : c.getCountriesPresent()) {
-				for (String neigbhour : country.getListOfNeighbours()) {
-					if (!listOfCountries.contains(neigbhour.toLowerCase())) {
-						gameMap.setErrorMessage("Neighbour not part of countries list "+" neighbour");
+				for (String neighbour : country.getListOfNeighbours()) {
+					if (!listOfCountries.contains(neighbour.toLowerCase())) {
+						gameMap.setErrorMessage("Neighbour not part of countries list "+neighbour+" neighbour");
 						return false;
 					}
 				}
 			}
 		}
 		return true;
-
 	}
 	
 	/**
@@ -368,71 +343,70 @@ public class MapTools {
 	 * @version 1.0
 	 */
 	class Graph {
-		private int V; 
+		private int Value; 
 		private ArrayList<Integer> adj[]; 
-
-		Graph(int v) {
-			V = v;
-			adj = new ArrayList[v];
-			for (int i = 0; i < v; ++i) {
+		
+		Graph(int val) {
+			this.Value = val;
+			adj = new ArrayList[val];
+			for (int i = 0; i < val; ++i) {
 				adj[i] = new ArrayList();
 			}
 		}
 
-		void addEdge(int v, int w) {
-			adj[v].add(w);
+		void addEdge(int edge1, int edge2) {
+			adj[edge1].add(edge2);
 		}
 
-		void DFSUtil(int v, Boolean visited[]) {
-			visited[v] = true;
-
-			Iterator<Integer> i = adj[v].listIterator();
+		void dfsUtil(int val, Boolean visited[]) {
+			visited[val] = true;
+			Iterator<Integer> i = adj[val].listIterator();
 			while (i.hasNext()) {
-				int n;
-				n = i.next();
-				if (!visited[n])
-					DFSUtil(n, visited);
+				int num;
+				num = i.next();
+				if (!visited[num]) {
+					dfsUtil(num, visited);
+				}
 			}
 		}
 		
 		Graph getTranspose() {
-			Graph g = new Graph(V);
-			for (int v = 0; v < V; v++) {
+			Graph graph = new Graph(Value);
+			for (int v = 0; v < Value; v++) {
 				Iterator<Integer> i = adj[v].listIterator();
 				while (i.hasNext()) {
-					g.adj[i.next()].add(v);
+					graph.adj[i.next()].add(v);
 				}
 			}
-			return g;
+			return graph;
 		}
 
-		Boolean isSC() {
-			Boolean visited[] = new Boolean[V];
-			for (int i = 0; i < V; i++) {
+		Boolean isStronglyConnected() {
+			Boolean visited[] = new Boolean[Value];
+			for (int i = 0; i < Value; i++) {
 				visited[i] = false;
 			}
-			DFSUtil(0, visited);
+			dfsUtil(0, visited);
 
-			for (int i = 0; i < V; i++) {
+			for (int i = 0; i < Value; i++) {
 				if (visited[i] == false) {
 					return false;
 				}
 			}
 
-			Graph gr = getTranspose();
+			Graph graph = getTranspose();
 
-			for (int i = 0; i < V; i++) {
+			for (int i = 0; i < Value; i++) {
 				visited[i] = false;
 			}
 
-			gr.DFSUtil(0, visited);
+			graph.dfsUtil(0, visited);
 
-			for (int i = 0; i < V; i++) {
+			for (int i = 0; i < Value; i++) {
 				if (visited[i] == false) {
 					return false;
 				}
 			}
-
 			return true;
 		}
 	}
@@ -443,14 +417,13 @@ public class MapTools {
 	 * @return true if map is connected else false
 	 */
 	boolean checkMapConnectivity(Map gameMap) {
-
 		List<String> list =  gameMap.listOfCountryNames();
 		List<String> listOfCountries = new ArrayList<String>();
 		for(String name : list) {
 			listOfCountries.add(name.toLowerCase());
 		}
 		int noOfVertices = listOfCountries.size();
-		Graph g1 = new Graph(noOfVertices);
+		Graph graph = new Graph(noOfVertices);
 		for (int i = 0; i < noOfVertices; i++) {
 			for (Continent c : gameMap.getContinents()) {
 				for (Country country : c.getCountriesPresent()) {
@@ -458,15 +431,13 @@ public class MapTools {
 						List<String> neighbours = country.getListOfNeighbours();
 						for (String current : neighbours) {
 							int index = listOfCountries.indexOf(current.toLowerCase());
-							g1.addEdge(i, index);
+							graph.addEdge(i, index);
 						}
-
 					}
 				}
 			}
 		}
-
-		if (g1.isSC()) {
+		if (graph.isStronglyConnected()) {
 			System.out.println("Yes, Map is strongly connected");
 			return true;
 		} 
@@ -505,14 +476,14 @@ public class MapTools {
 					writeData = new PrintWriter(name+".map");
 					writeData.println(data);
 					return true;
-				} catch (Exception e) {
+				} 
+				catch (Exception e) {
 					System.out.println(e.getMessage());
 					return false;
-				}finally{
+				}
+				finally{
 					writeData.close();
 				}
 		}
-
-
 }
 

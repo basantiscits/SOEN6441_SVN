@@ -1,0 +1,9 @@
+[Map]
+author=Anonymous
+[Continents]
+ASIA=4
+[Territories]
+india,0.0,0.0,ASIA,nepal,pakistan
+nepal,0.0,0.0,ASIA,india,pakistan
+pakistan,0.0,0.0,ASIA,india,nepal
+india,0.0,0.0,ASIA,nepal,pakistan

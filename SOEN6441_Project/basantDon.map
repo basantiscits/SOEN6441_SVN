@@ -1,0 +1,9 @@
+[Map]
+author=Anonymous
+[Continents]
+cfctfc=3
+[Territories]
+tvv,0.0,0.0,cfctfc,ygy,jj
+ygy,0.0,0.0,cfctfc,tvv,jj
+jj,0.0,0.0,cfctfc,tvv,ygy
+

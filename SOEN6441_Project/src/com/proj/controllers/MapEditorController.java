@@ -23,17 +23,14 @@ import com.proj.views.MapEditor;
  * @version 1.0
  */
 public class MapEditorController implements ActionListener {
-
 	private Continent continent;
-
 	private com.proj.views.MapEditor mapEditorView;
-
 	private Map gameMap;
 
 	/**
 	 * constructor for map editor controller
 	 * 
-	 * @param mapEditorView setter for map editor & game map view
+	 * @param mapEditorView setter for map editor, game map view
 	 */
 	public MapEditorController(MapEditor mapEditorView) {
 		this.gameMap = mapEditorView.gameMap;
@@ -42,9 +39,7 @@ public class MapEditorController implements ActionListener {
 
 	/**
 	 * action performed on click of button
-	 * 
-	 * @param event
-	 *            action event that triggers the response
+	 * @param e action event that triggers the response
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -69,7 +64,6 @@ public class MapEditorController implements ActionListener {
 		default:
 			break;
 		}
-
 	}
 
 	/**
@@ -84,19 +78,15 @@ public class MapEditorController implements ActionListener {
 				if (continentName.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Please specify the name!");
 				}
-
 				else if (continentName.trim().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Name cannot be empty!");
 				}
-
 				else if (gameMap.searchContinent(continentName).equalsIgnoreCase(continentName)) {
 					JOptionPane.showMessageDialog(null, "Continent name already exists!");
 				}
-
 				else if (gameMap.searchContinent(continentName.trim()).equalsIgnoreCase(continentName.trim())) {
 					JOptionPane.showMessageDialog(null, "Continent name already exists!");
 				}
-
 				else if ((continentName != null) && (gameMap.searchContinent(continentName) == "")) {
 					continent.setContinentName(continentName);
 					gameMap.addContinent(continent);
@@ -104,13 +94,10 @@ public class MapEditorController implements ActionListener {
 					loop = false;
 				}
 			} 
-			
 			else {
 				loop = false;
 			}
-
 		}
-
 	}
 
 	/**
@@ -123,22 +110,17 @@ public class MapEditorController implements ActionListener {
 		if (gameMap.getContinents().size() == 0) {
 			JOptionPane.showMessageDialog(null, "Please specify continent first!");
 		}
-
 		else {
 			String continents[] = new String[gameMap.getContinents().size()];
 			int count = 0;
-
 			for (Continent name : gameMap.getContinents()) {
 				continents[count++] = name.getContinentName();
 			}
-
 			JComboBox<Object> continentBox = new JComboBox<Object>(continents);
 			Object[] message = { "Select continent name : ", continentBox, "Enter the Country name : ", inputCountry };
 			continentBox.setSelectedIndex(0);
 			boolean loop = true;
-
 			while (loop) {
-
 				int countryName = JOptionPane.showConfirmDialog(null, message, "Country Name",
 						JOptionPane.OK_CANCEL_OPTION);
 
@@ -154,18 +136,14 @@ public class MapEditorController implements ActionListener {
 					if (inputCountry.getText() == null || inputCountry.getText().trim().isEmpty()) {
 						JOptionPane.showMessageDialog(null, "Please specify the name!");
 					}
-
 					else if (gameMap.getContinents().size() == 0) {
 						JOptionPane.showMessageDialog(null, "Please enter continent first");
 					}
-
 					else if (flag == 1) {
 						flag = 0;
 						JOptionPane.showMessageDialog(null, "Country already exists!");
 					}
-
 					else {
-
 						Continent tempContinent = null;
 						String selectedContinent = (String) continentBox.getItemAt(continentBox.getSelectedIndex());
 						for (Continent name : gameMap.getContinents()) {
@@ -175,7 +153,6 @@ public class MapEditorController implements ActionListener {
 						}
 						List<String> countryNames = new ArrayList<String>();
 						countryNames = gameMap.listOfCountryNames();
-
 						Country newCountry = new Country();
 						newCountry.setCountryName(inputCountry.getText());
 						if (countryNames.size() > 0) {
@@ -184,7 +161,6 @@ public class MapEditorController implements ActionListener {
 						for (Country country : tempContinent.getCountriesPresent()) {
 							country.getListOfNeighbours().add(inputCountry.getText());
 						}
-
 						tempContinent.addCountry(newCountry);
 						tempContinent.setControlValue(tempContinent.getCountriesPresent().size());
 						mapEditorView.createTree();
@@ -197,7 +173,6 @@ public class MapEditorController implements ActionListener {
 				}
 			}
 		}
-
 	}
 
 	/**
@@ -208,42 +183,44 @@ public class MapEditorController implements ActionListener {
 		if (gameMap.getContinents().size() == 0) {
 			JOptionPane.showMessageDialog(null, "Map Contains Zero Continent!");
 		}
-
 		else {
 			String continents[] = new String[gameMap.getContinents().size()];
 			int count = 0;
-
 			for (Continent name : gameMap.getContinents()) {
 				continents[count++] = name.getContinentName();
 			}
-
 			JComboBox<Object> continentBox = new JComboBox<Object>(continents);
 			continentBox.setSelectedIndex(-1);
-
 			JOptionPane.showConfirmDialog(null, continentBox, "Select continent name : ", JOptionPane.OK_CANCEL_OPTION);
-
 			if (continentBox.getSelectedIndex() > -1) {
-
 				int result = JOptionPane.showConfirmDialog(null,"Deleting Continent will delete all the countries! \n Do you want to Continue ?");
-
 				if (result == JOptionPane.YES_OPTION) {
+					List<String> countriesToBeRemoved=new ArrayList<String>();
 					Continent tempContinent = null;
 					String selectedContinent = (String) continentBox.getItemAt(continentBox.getSelectedIndex());
 					for (Continent name : gameMap.getContinents()) {
 						if (name.getContinentName().equalsIgnoreCase(selectedContinent)) {
 							tempContinent = name;
+							for(Country c:tempContinent.getCountriesPresent()) {
+								countriesToBeRemoved.add(c.getCountryName());
+							}
+						}
+					}					
+					gameMap.removeContinent(tempContinent);
+					for(Continent c:gameMap.getContinents()) {
+						for(Country t:c.getCountriesPresent()) {
+							for(String neighbours:countriesToBeRemoved) {
+								if(t.getListOfNeighbours().contains(neighbours)) {
+									t.getListOfNeighbours().remove(neighbours);
+								}
+							}
 						}
 					}
-
-					gameMap.removeContinent(tempContinent);
-					gameMap.listOfContinentNames().remove(selectedContinent);
 					mapEditorView.createTree();
 					mapEditorView.countriesMatrix();
 				}
-
 			}
 		}
-
 	}
 
 	/**
@@ -253,15 +230,12 @@ public class MapEditorController implements ActionListener {
 		if (gameMap.getContinents().size() == 0) {
 			JOptionPane.showMessageDialog(null, "Map Contains Zero Continent, So no country to remove!");
 		}
-
 		else if (gameMap.listOfCountryNames().size() == 0) {
 			JOptionPane.showMessageDialog(null, "All Continents are empty, No country to remove!");
 		}
-
 		else {
 			ArrayList<String> continentsList = new ArrayList<String>();
 			int count = 0;
-
 			for (Continent contName : gameMap.getContinents()) {
 				if (contName.getCountriesPresent().size() > 0) {
 					continentsList.add(contName.getContinentName());
@@ -271,10 +245,8 @@ public class MapEditorController implements ActionListener {
 			for (String value : continentsList) {
 				continents[count++] = value;
 			}
-
 			JComboBox<Object> continentBox = new JComboBox<Object>(continents);
 			continentBox.setSelectedIndex(-1);
-
 			int result = JOptionPane.showConfirmDialog(null, continentBox, "Select continent name : ",JOptionPane.OK_CANCEL_OPTION);
 			if (result == JOptionPane.OK_OPTION) {
 				if (continentBox.getSelectedItem() == null) {
@@ -298,14 +270,10 @@ public class MapEditorController implements ActionListener {
 						for (Country countryName : continentName.getCountriesPresent()) {
 							countries[val++] = countryName.getCountryName();
 						}
-
 						JComboBox<Object> countryBox = new JComboBox<Object>(countries);
 						countryBox.setSelectedIndex(-1);
-
 						int CountryResult = JOptionPane.showConfirmDialog(null, countryBox, "Select Country name : ",JOptionPane.OK_CANCEL_OPTION);
-
 						if (CountryResult == JOptionPane.OK_OPTION) {
-
 							if (countryBox.getSelectedItem() == null) {
 								JOptionPane.showMessageDialog(null, "Please select country");
 							}
@@ -318,16 +286,21 @@ public class MapEditorController implements ActionListener {
 										break;
 									}
 								}
+								String removedCountry=tempCountry.getCountryName();
 								continentName.removeCountry(tempCountry);
 								continentName.setControlValue(continentName.getCountriesPresent().size());
-								gameMap.listOfCountryNames().remove(selectedCountry);
+								for(Continent c:gameMap.getContinents()){
+									for(Country t:c.getCountriesPresent()){
+										if(t.getListOfNeighbours().contains(removedCountry)){
+											t.getListOfNeighbours().remove(removedCountry);
+										}
+									}
+								}
 								mapEditorView.createTree();
 								mapEditorView.countriesMatrix();
 							}
-
 						}
 					}
-
 				}
 			} 
 			else {
@@ -368,6 +341,7 @@ public class MapEditorController implements ActionListener {
 		}
 		else {
 			JOptionPane.showMessageDialog(null, "Invalid Map, can not save.");
+			System.out.println(gameMap.getErrorMessage());
 		}
 	}
 }
