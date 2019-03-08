@@ -13,14 +13,12 @@ public class GameModelCreation {
 
 	/**
 	 * constructor of Game Model Creation
-	 * @param ExisitingMapDetails existing map details
+	 * @param exisitingMapDetails existing map details
 	 * @param player array object of Player class
 	 */
 	public GameModelCreation(Map exisitingMapDetails, Player[] player) {
 		this.player = player;
 		this.exisitingMapDetails = exisitingMapDetails;
 		this.currPlayer = player[0];
-	
 	}
-
 }

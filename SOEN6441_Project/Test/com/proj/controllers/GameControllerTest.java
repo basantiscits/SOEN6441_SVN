@@ -97,9 +97,7 @@ public class GameControllerTest {
 	}
 	
 	@After
-	public void after() {
-		
-	}
+	public void after() {}
 	
 	/**
 	 * This test method checks the number of Reinforcement Armies after startup phase.
@@ -112,5 +110,4 @@ public class GameControllerTest {
 		assertEquals(3,player[1].getNoOfArmiesOwned());
 		assertEquals(5,player[2].getNoOfArmiesOwned());
 	}
-
 }

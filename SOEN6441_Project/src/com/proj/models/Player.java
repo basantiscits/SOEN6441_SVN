@@ -10,7 +10,6 @@ import java.util.List;
  * @version 1.0
  */
 public class Player {
-	
 	private String playerName;
 	private List<Country> countriesOwned;
 	private List<Continent> continentsOwned;
@@ -119,8 +118,7 @@ public class Player {
 	 * @param countryName name of country to be added
 	 */
 	public void addCountry(Country countryName) {
-		countriesOwned.add(countryName);
-		
+		countriesOwned.add(countryName);	
 	}
 	
 	/**
@@ -128,7 +126,6 @@ public class Player {
 	 */
 	public void reduceArmyInPlayer() {
 		this.noOfArmiesOwned--;
-	
 	}
 	
 	/**
@@ -136,7 +133,5 @@ public class Player {
 	 */
 	public void addArmyInPlayer() {
 		this.noOfArmiesOwned++;
-	
 	}
-
 }

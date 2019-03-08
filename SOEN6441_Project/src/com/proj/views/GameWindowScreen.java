@@ -40,10 +40,6 @@ import com.proj.utilites.Constants;
  * @since 10 Feb 2019
  * @version 1.0
  */
-/**
- * @author Arpit
- *
- */
 public class GameWindowScreen extends JFrame implements ActionListener {
 	private int currentPlayer = 0;
 	public Player[] player;
@@ -58,28 +54,20 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	public JLabel startPhaseDefinedLabel;
 	public JLabel playerAllocatedLabel;
 	private JPanel dynamicAreastartPhasePanel;
-
 	private JPanel randomPlayerPhaseViewPanel;
 	private JPanel dynamicAreaPlayerPhasePanel;
-
-	private JPanel ContientLabelViewPanel;
-	private JPanel CountryLabelViewPanel;
-
+	private JPanel contientLabelViewPanel;
+	private JPanel countryLabelViewPanel;
 	private JPanel tableHeader;
 	private JLabel tableHeaderLabel;
-
 	private JPanel allocationPanel;
-
 	private JTextArea textArea;
 	private List<String> countries = new ArrayList<String>();
-
 	private JTable playerStrength;
-
 	private String data[][];
 	private String countryColumn[];
-	private JTable tablematrix;
+	private JTable tableMatrix;
 	private JScrollPane scrollPane;
-
 	private JLabel currentPlayerName;
 	private JComboBox countriesComboBox;
 	private JButton armyAllocation;
@@ -92,21 +80,15 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	 * @param player Array object of Player class 
 	 */
 	public GameWindowScreen(Map gameMap, Player[] player) {
-
 		super("Game Window");
 		this.gameMap = gameMap;
 		this.player = player;
-
 		gameController = new GameController(this, gameMap);
-		
 		setSize(Constants.MAP_EDITOR_WIDTH, Constants.MAP_EDITOR_HEIGHT);
 		setResizable(false);
 		setLocationRelativeTo(null);
-
 		addComponents();
-		
 		addWindowListener(new WindowAdapter() {
-
 			@Override
 			public void windowClosing(WindowEvent e) {
 				MainMenuScreen mainMenuScreen = new MainMenuScreen();
@@ -122,43 +104,35 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	public void addComponents() {
 		setLayout(null);
 		Border blackline = BorderFactory.createLineBorder(Color.black);
-
 		Dimension frameSize = this.getSize();
-
-		ContientLabelViewPanel = new JPanel();
+		contientLabelViewPanel = new JPanel();
 		continentLabel = new JLabel("Continent Tree");
 		Dimension continentSize = continentLabel.getPreferredSize();
 		continentLabel.setFont(new Font("TimesRoman", Font.BOLD, 20));
 		continentLabel.setBounds(140, 50, continentSize.width + 500, continentSize.height);
-		ContientLabelViewPanel.setBounds(10, 35, frameSize.width - 950, 35);
-		add(ContientLabelViewPanel);
-		ContientLabelViewPanel.setBackground(Color.lightGray);
-		ContientLabelViewPanel.setLayout(new FlowLayout());
+		contientLabelViewPanel.setBounds(10, 35, frameSize.width - 950, 35);
+		add(contientLabelViewPanel);
+		contientLabelViewPanel.setBackground(Color.lightGray);
+		contientLabelViewPanel.setLayout(new FlowLayout());
 		continentLabel.setFont(new Font("dialog", 1, 15));
-		ContientLabelViewPanel.setBorder(blackline);
-		ContientLabelViewPanel.add(continentLabel);
-
+		contientLabelViewPanel.setBorder(blackline);
+		contientLabelViewPanel.add(continentLabel);
 		treeScrollPane = new JScrollPane(mapTree);
 		treeScrollPane.setBounds(10, 70, frameSize.width - 950, frameSize.height - 800);
-
-		CountryLabelViewPanel = new JPanel();
+		countryLabelViewPanel = new JPanel();
 		countriesLabel = new JLabel("Countries Matrix");
 		Dimension countriesSize = countriesLabel.getPreferredSize();
 		countriesLabel.setFont(new Font("TimesRoman", Font.BOLD, 20));
-
 		countriesLabel.setBounds(240, 50, countriesSize.width + 500, countriesSize.height);
-		CountryLabelViewPanel.setBounds(ContientLabelViewPanel.getBounds().x + (int) (ContientLabelViewPanel.getBounds().getWidth()), 35,frameSize.width - 300, 35);
-		add(CountryLabelViewPanel);
-		CountryLabelViewPanel.setBackground(Color.lightGray);
-		CountryLabelViewPanel.setLayout(new FlowLayout());
+		countryLabelViewPanel.setBounds(contientLabelViewPanel.getBounds().x + (int) (contientLabelViewPanel.getBounds().getWidth()), 35,frameSize.width - 300, 35);
+		add(countryLabelViewPanel);
+		countryLabelViewPanel.setBackground(Color.lightGray);
+		countryLabelViewPanel.setLayout(new FlowLayout());
 		countriesLabel.setFont(new Font("dialog", 1, 15));
-		CountryLabelViewPanel.setBorder(blackline);
-		CountryLabelViewPanel.add(countriesLabel);
-
-		scrollPane = new JScrollPane(tablematrix);
-
+		countryLabelViewPanel.setBorder(blackline);
+		countryLabelViewPanel.add(countriesLabel);
+		scrollPane = new JScrollPane(tableMatrix);
 		scrollPane.setBounds(treeScrollPane.getBounds().x + (int) (treeScrollPane.getBounds().getWidth()), 70,frameSize.width - 300, frameSize.height - 800);
-
 		startPhaseViewPanel = new JPanel();
 		startPhaseViewPanel.setBounds(10,treeScrollPane.getBounds().y + (int) (treeScrollPane.getBounds().getHeight() + 10),frameSize.width - 50, 35);
 		add(startPhaseViewPanel);
@@ -201,7 +175,6 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 		armiesAvailable = new JLabel("Number of Armies Available:" + String.valueOf(player[currentPlayer].getNoOfArmiesOwned()));
 		armiesAvailable.setBounds(850, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 20,200, 30);
 		add(armiesAvailable);
-
 		add(scrollPane);
 		add(treeScrollPane);
 		add(startUpScrollPane);
@@ -227,7 +200,6 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 			if (currentPlayer == player.length) {
 				currentPlayer--;
 			}
-
 		}
 	}
 
@@ -235,11 +207,9 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	 * Displays number of armies available
 	 */
 	public void displayPhase() {
-		
 		addPlayerName(player[currentPlayer].getPlayerName());
 		addCountriesToBox(player[currentPlayer]);
 		armiesAvailable.setText("Number of Armies Available:" + String.valueOf(player[currentPlayer].getNoOfArmiesOwned()));
-
 	}
 
 	/**
@@ -248,44 +218,30 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	public void countriesMatrix() {
 		System.out.println("inside countriesMAtrix");
 		countries = gameMap.listOfCountryNames();
-
 		int noOfCountries = countries.size();
-
 		DefaultTableModel dtm = new DefaultTableModel(noOfCountries, noOfCountries) {
-
 			private static final long serialVersionUID = 1L;
-
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
-
 		};
-
 		data = new String[noOfCountries][noOfCountries + 1];
 		countryColumn = new String[noOfCountries + 1];
 		countryColumn[0] = "**";
 		int i = 0;
 		int j = 0;
-
 		for (String countryName : countries) {
-
 			data[i++][0] = countryName;
 			countryColumn[++j] = countryName;
 		}
 		dtm.setDataVector(data, countryColumn);
 
-		tablematrix = new JTable(dtm) {
-			/**
-			 * 
-			 */
+		tableMatrix = new JTable(dtm) {
 			private static final long serialVersionUID = 1L;
-
 			@Override
 			public Component prepareRenderer(TableCellRenderer renderer, int row, int col) {
 				Component component = super.prepareRenderer(renderer, row, col);
-
 				String value = (String) dtm.getValueAt(row, col);
-
 				if (value.equals("N")) {
 					component.setBackground(Color.LIGHT_GRAY);
 				}
@@ -295,11 +251,9 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 				return component;
 			}
 		};
-		tablematrix.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-
+		tableMatrix.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		scrollPane.getViewport().removeAll();
-		scrollPane.getViewport().add(tablematrix);
-
+		scrollPane.getViewport().add(tableMatrix);
 		for (Continent currentContinent : gameMap.getContinents()) {
 			for (Country currentCountry : currentContinent.getCountriesPresent()) {
 				int row_length = data.length;
@@ -308,17 +262,16 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 					if (currentCountry.getCountryName().equalsIgnoreCase(data[i][0])) {
 						for (j = 1; j < column_length; j++) {
 							if (!currentCountry.getListOfNeighbours().contains(countryColumn[j])) {
-								tablematrix.setValueAt("N", i, j);
+								tableMatrix.setValueAt("N", i, j);
 							}
 							else {
-								tablematrix.setValueAt("Y", i, j);
+								tableMatrix.setValueAt("Y", i, j);
 							}
 						}
 					}
 				}
 			}
 		}
-
 	}
 	
 	
@@ -326,9 +279,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	 * This method create Tree with all the continents and countries
 	 */
 	public void createTree() {
-
 		DefaultMutableTreeNode top = new DefaultMutableTreeNode("Map - " + gameMap.getName() + "");
-
 		for (Continent continent : gameMap.getContinents()) {
 			DefaultMutableTreeNode branch = new DefaultMutableTreeNode(continent.getContinentName());
 			for (Country country : continent.getCountriesPresent()) {
@@ -339,7 +290,6 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 		}
 		mapTree = new JTree(top);
 		treeScrollPane.getViewport().add(mapTree);
-
 	}
 
 	/**
@@ -417,7 +367,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 
 	/**
 	 * getter for game map
-	 * @return
+	 * @return game map
 	 */
 	public Map getGameMap() {
 		return gameMap;
@@ -505,7 +455,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 
 	/**
 	 * setter for start up scroll pane
-	 * @return Object of JScrollPane class
+	 * @param startUpScrollPane Object of JScrollPane class
 	 */
 	public void setStartUpScrollPane(JScrollPane startUpScrollPane) {
 		this.startUpScrollPane = startUpScrollPane;
@@ -521,7 +471,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 
 	/**
 	 * setter for strength pane
-	 * @return Object of JScrollPane class
+	 * @param strengthPane Object of JScrollPane class
 	 */
 	public void setStrengthPane(JScrollPane strengthPane) {
 		this.strengthPane = strengthPane;
@@ -537,7 +487,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 
 	/**
 	 * setter for user selected tree node
-	 * @return user selected tree node name
+	 * @param userSelTreeNode User selected tree node
 	 */
 	public void setUserSelTreeNode(String userSelTreeNode) {
 		this.userSelTreeNode = userSelTreeNode;
@@ -553,7 +503,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 
 	/**
 	 * setter for start phase view panel
-	 * @return Object of JPanel class
+	 * @param startPhaseViewPanel Object of JPanel class
 	 */
 	public void setStartPhaseViewPanel(JPanel startPhaseViewPanel) {
 		this.startPhaseViewPanel = startPhaseViewPanel;
@@ -569,15 +519,14 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 
 	/**
 	 * setter for start phase defined label
-	 * @return Object of JLabel class
+	 * @param startPhaseDefinedLabel Object of JLabel class
 	 */
 	public void setStartPhaseDefinedLabel(JLabel startPhaseDefinedLabel) {
 		this.startPhaseDefinedLabel = startPhaseDefinedLabel;
 	}
 	
-
-	
 	/**
+	 * getter for Player Allocated Label
 	 * @return the playerAllocatedLabel
 	 */
 	public JLabel getPlayerAllocatedLabel() {
@@ -585,6 +534,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	/**
+	 * setter for Player Allocated Label
 	 * @param playerAllocatedLabel the playerAllocatedLabel to set
 	 */
 	public void setPlayerAllocatedLabel(JLabel playerAllocatedLabel) {
@@ -592,6 +542,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	/**
+	 * getter for Dynamic Area start Phase Panel
 	 * @return the dynamicAreastartPhasePanel
 	 */
 	public JPanel getDynamicAreastartPhasePanel() {
@@ -599,6 +550,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	/**
+	 * setter for Dynamic Area start Phase Panel
 	 * @param dynamicAreastartPhasePanel the dynamicAreastartPhasePanel to set
 	 */
 	public void setDynamicAreastartPhasePanel(JPanel dynamicAreastartPhasePanel) {
@@ -606,6 +558,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	/**
+	 * getter for Random Player Phase View Panel
 	 * @return the randomPlayerPhaseViewPanel
 	 */
 	public JPanel getRandomPlayerPhaseViewPanel() {
@@ -613,6 +566,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	/**
+	 * setter for Random Player Phase View Panel
 	 * @param randomPlayerPhaseViewPanel the randomPlayerPhaseViewPanel to set
 	 */
 	public void setRandomPlayerPhaseViewPanel(JPanel randomPlayerPhaseViewPanel) {
@@ -620,6 +574,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	/**
+	 * getter for Dynamic Area Player Phase Panel
 	 * @return the dynamicAreaPlayerPhasePanel
 	 */
 	public JPanel getDynamicAreaPlayerPhasePanel() {
@@ -627,6 +582,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	/**
+	 * setter for Dynamic Area Player Phase Panel
 	 * @param dynamicAreaPlayerPhasePanel the dynamicAreaPlayerPhasePanel to set
 	 */
 	public void setDynamicAreaPlayerPhasePanel(JPanel dynamicAreaPlayerPhasePanel) {
@@ -634,34 +590,39 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	/**
+	 * getter for Dynamic Area Player Phase Panel
 	 * @return the contientLabelViewPanel
 	 */
 	public JPanel getContientLabelViewPanel() {
-		return ContientLabelViewPanel;
+		return contientLabelViewPanel;
 	}
 
 	/**
+	 * setter for Continent Label View Panel
 	 * @param contientLabelViewPanel the contientLabelViewPanel to set
 	 */
 	public void setContientLabelViewPanel(JPanel contientLabelViewPanel) {
-		ContientLabelViewPanel = contientLabelViewPanel;
+		contientLabelViewPanel = contientLabelViewPanel;
 	}
 
 	/**
+	 * getter for Country Label View Panel
 	 * @return the countryLabelViewPanel
 	 */
 	public JPanel getCountryLabelViewPanel() {
-		return CountryLabelViewPanel;
+		return countryLabelViewPanel;
 	}
 
 	/**
+	 * setter for Country Label View Panel
 	 * @param countryLabelViewPanel the countryLabelViewPanel to set
 	 */
 	public void setCountryLabelViewPanel(JPanel countryLabelViewPanel) {
-		CountryLabelViewPanel = countryLabelViewPanel;
+		countryLabelViewPanel = countryLabelViewPanel;
 	}
 
 	/**
+	 * getter for Table Header
 	 * @return the tableHeader
 	 */
 	public JPanel getTableHeader() {
@@ -669,6 +630,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	/**
+	 * setter for Table Header
 	 * @param tableHeader the tableHeader to set
 	 */
 	public void setTableHeader(JPanel tableHeader) {
@@ -676,6 +638,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	/**
+	 * getter for Table Header Label
 	 * @return the tableHeaderLabel
 	 */
 	public JLabel getTableHeaderLabel() {
@@ -683,6 +646,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	/**
+	 * setter for Table Header Label
 	 * @param tableHeaderLabel the tableHeaderLabel to set
 	 */
 	public void setTableHeaderLabel(JLabel tableHeaderLabel) {
@@ -690,6 +654,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	/**
+	 * getter Allocation Panel
 	 * @return the allocationPanel
 	 */
 	public JPanel getAllocationPanel() {
@@ -697,6 +662,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	/**
+	 * setter for Allocation Panel
 	 * @param allocationPanel the allocationPanel to set
 	 */
 	public void setAllocationPanel(JPanel allocationPanel) {
@@ -704,6 +670,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	/**
+	 * getter for TextArea
 	 * @return the textArea
 	 */
 	public JTextArea getTextArea() {
@@ -711,6 +678,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	/**
+	 * setter for TextArea
 	 * @param textArea the textArea to set
 	 */
 	public void setTextArea(JTextArea textArea) {
@@ -718,6 +686,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	/**
+	 * getter for countries
 	 * @return the countries
 	 */
 	public List<String> getCountries() {
@@ -725,6 +694,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	/**
+	 * setter for countries
 	 * @param countries the countries to set
 	 */
 	public void setCountries(List<String> countries) {
@@ -732,6 +702,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	/**
+	 * getter for Player Strength
 	 * @return the playerStrength
 	 */
 	public JTable getPlayerStrength() {
@@ -739,6 +710,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	/**
+	 * setter for Player Strength
 	 * @param playerStrength the playerStrength to set
 	 */
 	public void setPlayerStrength(JTable playerStrength) {
@@ -746,6 +718,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	/**
+	 * getter for Data matrix
 	 * @return the data
 	 */
 	public String[][] getData() {
@@ -753,6 +726,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	/**
+	 * setter for data matrix
 	 * @param data the data to set
 	 */
 	public void setData(String[][] data) {
@@ -760,6 +734,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	/**
+	 * getter for country column
 	 * @return the countryColumn
 	 */
 	public String[] getCountryColumn() {
@@ -767,6 +742,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	/**
+	 * setter for country column
 	 * @param countryColumn the countryColumn to set
 	 */
 	public void setCountryColumn(String[] countryColumn) {
@@ -774,20 +750,23 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * @return the tablematrix
+	 * getter for table matrix
+	 * @return the tableMatrix
 	 */
-	public JTable getTablematrix() {
-		return tablematrix;
+	public JTable getTableMatrix() {
+		return tableMatrix;
 	}
 
 	/**
-	 * @param tablematrix the tablematrix to set
+	 * setter for table matrix
+	 * @param tableMatrix the table matrix to set
 	 */
-	public void setTablematrix(JTable tablematrix) {
-		this.tablematrix = tablematrix;
+	public void setTablematrix(JTable tableMatrix) {
+		this.tableMatrix = tableMatrix;
 	}
 
 	/**
+	 * getter for scroll pane
 	 * @return the scrollPane
 	 */
 	public JScrollPane getScrollPane() {
@@ -795,6 +774,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	/**
+	 * setter for scroll pane
 	 * @param scrollPane the scrollPane to set
 	 */
 	public void setScrollPane(JScrollPane scrollPane) {
@@ -802,6 +782,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	/**
+	 * getter for current player name
 	 * @return the currentPlayerName
 	 */
 	public JLabel getCurrentPlayerName() {
@@ -809,6 +790,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	/**
+	 * setter for current player name
 	 * @param currentPlayerName the currentPlayerName to set
 	 */
 	public void setCurrentPlayerName(JLabel currentPlayerName) {
@@ -816,6 +798,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	/**
+	 * getter for Countries ComboBox
 	 * @return the countriesComboBox
 	 */
 	public JComboBox getCountriesComboBox() {
@@ -823,6 +806,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	/**
+	 * setter for Countries ComboBox
 	 * @param countriesComboBox the countriesComboBox to set
 	 */
 	public void setCountriesComboBox(JComboBox countriesComboBox) {
@@ -830,6 +814,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	/**
+	 * getter for Army Allocation 
 	 * @return the armyAllocation
 	 */
 	public JButton getArmyAllocation() {
@@ -837,6 +822,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	/**
+	 * setter for Army Allocation
 	 * @param armyAllocation the armyAllocation to set
 	 */
 	public void setArmyAllocation(JButton armyAllocation) {
@@ -844,6 +830,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	/**
+	 * getter for Armies Available
 	 * @return the armiesAvailable
 	 */
 	public JLabel getArmiesAvailable() {
@@ -851,6 +838,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	/**
+	 * setter for Armies Available
 	 * @param armiesAvailable the armiesAvailable to set
 	 */
 	public void setArmiesAvailable(JLabel armiesAvailable) {
@@ -858,6 +846,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	/**
+	 * getter for Game Controller
 	 * @return the gameController
 	 */
 	public GameController getGameController() {
@@ -865,6 +854,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	/**
+	 * setter Game Controller  
 	 * @param gameController the gameController to set
 	 */
 	public void setGameController(GameController gameController) {
@@ -876,7 +866,6 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	 */
 	public void createStartUpTree() {
 		DefaultMutableTreeNode top = new DefaultMutableTreeNode("Initial Allocation");
-
 		for (Player P : player) {
 			DefaultMutableTreeNode branch = new DefaultMutableTreeNode(P.getPlayerName());
 			for (Country C : P.getCountriesOwned()) {
@@ -888,19 +877,15 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 		}
 		startUpTree = new JTree(top);
 		startUpScrollPane.getViewport().add(startUpTree);
-
 	}
 	
 	/**
 	 * This method create table which displays the number of countries owned by players 
 	 */
 	public void playerStrengthTable() {
-
 		String countrySize = "Number of Countries";
-
 		String[] column = { "Players", countrySize };
 		String[][] data = new String[player.length][column.length];
-
 		for (int i = 0; i < player.length; i++) {
 			for (int j = 0; j < column.length; j++) {
 				if (j == 0) {
@@ -910,12 +895,14 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 				}
 			}
 		}
-
 		playerStrength = new JTable(data, column);
 		strengthPane.getViewport().add(playerStrength);
-
 	}
 
+	/**
+	 * This method assign name to player
+	 * @param name name of player 
+	 */
 	public void addPlayerName(String name) {
 		currentPlayerName.setText(name);
 	}
@@ -932,9 +919,5 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
-
-	}
-
-
+	public void actionPerformed(ActionEvent arg0) {}
 }

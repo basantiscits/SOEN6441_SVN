@@ -9,13 +9,13 @@ import java.util.List;
  * @version 1.0
  */
 public class Map {
-	
 	private String name;
 	private String authorName;
 	private String path;
 	private boolean errorOccurred;
 	private String errorMessage;
 	private List<Continent> continents;	
+	
 	/**
 	 * constructor of Map class
 	 */
@@ -36,7 +36,7 @@ public class Map {
 	
 	/**
 	 * setter for path
-	 * @param path
+	 * @param path path where map is saved
 	 */
 	public void setPath(String path) {
 		this.path = path;
@@ -68,7 +68,7 @@ public class Map {
 	
 	/**
 	 * setter for list of continents
-	 * @param continents
+	 * @param continents list of continents
 	 */
 	public void setContinents(List<Continent> continents) {
 		this.continents = continents;
@@ -128,24 +128,20 @@ public class Map {
 	 * @return name of continent
 	 */
 	public String searchContinent(String continentName) {
-		
 		for(Continent name : getContinents()) {
 			if(name.getContinentName().equalsIgnoreCase(continentName)) {
 				return name.getContinentName();
 			}
 		}
 		return "";
-		
 	}
 	
 	/**
 	 * remove continent
 	 * @param continent name of continent to be removed
 	 */
-	public void removeContinent(Continent continent)
-	{
+	public void removeContinent(Continent continent) {
 		getContinents().remove(continent);
-		
 	}
 	
 	/**
@@ -153,11 +149,9 @@ public class Map {
 	 * @param continent name of continent to be added
 	 */
 	public void addContinent(Continent continent) {
-		
 		if(searchContinent(continent.getContinentName())=="") {
 			getContinents().add(continent);
 		}
-		
 	}
 	
 	/**
@@ -193,7 +187,6 @@ public class Map {
 	 * @return country name
 	 */
 	public String searchCountry(String countryName, String continentName) {
-		
 		for(Continent name : getContinents()) {
 			if(name.getContinentName().equalsIgnoreCase(continentName)) {
 				for(Country cName : name.getCountriesPresent() ) {
@@ -204,7 +197,6 @@ public class Map {
 			}
 		}
 		return "";
-		
 	}
 	
 	/**
@@ -213,7 +205,6 @@ public class Map {
 	 * @return name of country
 	 */
 	public Country searchCountry(String countryName) {
-		
 		for(Continent name : getContinents()) {
 			for(Country cName : name.getCountriesPresent() ) {
 				if(cName.getCountryName().equalsIgnoreCase(countryName)) {
@@ -222,15 +213,5 @@ public class Map {
 			}
 		}
 		return null;
-		
 	}
-	
 }
-
-
-
-
-
-
-
-

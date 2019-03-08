@@ -1,0 +1,14 @@
+[Map]
+author=Anonymous
+[Continents]
+;ljf;l=4
+,k.k.=3
+[Territories]
+,wke.k,0.0,0.0,;ljf;l,.welj.l,wl.ek,lk/k/;,'po'o
+.welj.l,0.0,0.0,;ljf;l,,wke.k,wl.ek,lk/k/;,;ip;
+wl.ek,0.0,0.0,;ljf;l,,wke.k,.welj.l,lk/k/;
+lk/k/;,0.0,0.0,;ljf;l,,wke.k,.welj.l,wl.ek
+'po'o,0.0,0.0,,k.k.,,wke.k,.welj.l,wl.ek,lk/k/;,;ip;,j;lj;
+;ip;,0.0,0.0,,k.k.,,wke.k,.welj.l,wl.ek,lk/k/;,'po'o,j;lj;
+j;lj;,0.0,0.0,,k.k.,,wke.k,.welj.l,wl.ek,lk/k/;,'po'o,;ip;
+

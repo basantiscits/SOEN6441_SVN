@@ -35,7 +35,6 @@ import com.proj.utilites.Constants;
  * @version 1.0
  */
 public class MapEditor extends JFrame {
-
 	private JLabel countriesLabel;
 	private JLabel continentLabel;
 	private ToolBar toolBar;
@@ -43,50 +42,28 @@ public class MapEditor extends JFrame {
 	private MapEditorController mapEditorController;
 	private JTree mapTree;
 	private JScrollPane treeScrollPane;
-	private String userSelTreeNode;
-	private JPanel startPhaseViewPanel;
-	public JLabel startPhaseDefinedLabel;
-	public JLabel playerAllocatedLabel;
-	private JPanel dynamicAreastartPhasePanel;
-
-	private JPanel randomPlayerPhaseViewPanel;
-	private JPanel dynamicAreaPlayerPhasePanel;
-	
 	private JPanel contientLabelViewPanel;
 	private JPanel countryLabelViewPanel;
-	
-	
-	private JTextArea textArea;
 	private List<String> countries = new ArrayList<String>();
-	
 	private String data[][];
 	private String countryColumn[];
-	private JTable tablematrix;
+	private JTable tableMatrix;
 	private JScrollPane scrollPane;
-	
-	
 	
 	/**
 	 * map editor constructor
 	 * @param gameMap object of Map class
 	 */
 	public MapEditor(Map gameMap) {
-
 		super("Game Window");
 		this.gameMap = gameMap;
-
 		setSize(Constants.MAP_EDITOR_WIDTH, Constants.MAP_EDITOR_HEIGHT);
 		setMinimumSize(new Dimension(Constants.MAP_EDITOR_WIDTH, Constants.MAP_EDITOR_HEIGHT));
 		setResizable(false);
 		setLocationRelativeTo(null);
-
 		mapEditorController= new MapEditorController(this);
-
-
 		addComponents(mapEditorController);
-		
 		addWindowListener(new WindowAdapter() {
-
 			@Override
 			public void windowClosing(WindowEvent e) {
 				MainMenuScreen mainMenuScreen = new MainMenuScreen();
@@ -103,9 +80,7 @@ public class MapEditor extends JFrame {
 	public void addComponents(MapEditorController mapEditorController) {
 		setLayout(null);
 		Border blackline = BorderFactory.createLineBorder(Color.black);
-
 		Dimension frameSize = this.getSize();
-		
 		toolBar = new ToolBar(mapEditorController);
 		toolBar.setBounds(0, 0, frameSize.width, 40);
 		contientLabelViewPanel = new JPanel();
@@ -121,7 +96,6 @@ public class MapEditor extends JFrame {
 		contientLabelViewPanel.setBorder(blackline);
 		contientLabelViewPanel.add(continentLabel);
 		
-
 		treeScrollPane = new JScrollPane(mapTree);
 		treeScrollPane.setBounds(10, 70, frameSize.width - 950, frameSize.height - 600);
 		countryLabelViewPanel = new JPanel();
@@ -136,21 +110,15 @@ public class MapEditor extends JFrame {
 		countriesLabel.setFont(new Font("dialog", 1, 15));
 		countryLabelViewPanel.setBorder(blackline);
 		countryLabelViewPanel.add(countriesLabel);
-
-
-		scrollPane = new JScrollPane(tablematrix);
-		
+		scrollPane = new JScrollPane(tableMatrix);
 		scrollPane.setBounds(treeScrollPane.getBounds().x + (int) (treeScrollPane.getBounds().getWidth()), 70,frameSize.width - 300, frameSize.height - 600);
 	
-
-
 		add(scrollPane);
 		add(treeScrollPane);
 		add(toolBar);
 		
 		countriesMatrix();
 		createTree();
-
 	}
 	
 	/**
@@ -159,99 +127,73 @@ public class MapEditor extends JFrame {
 	public void countriesMatrix(){
 		System.out.println("inside countriesMAtrix");
 		countries = gameMap.listOfCountryNames();
-		Color color = new Color(200,240,240);
-		
 		int noOfCountries = countries.size();
-		
 		DefaultTableModel dtm = new DefaultTableModel(noOfCountries,noOfCountries) {
-			
-			 
 			private static final long serialVersionUID = 1L;
-
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
-			
-		
 		};
-		
-		
 		data = new String[noOfCountries][noOfCountries + 1];
 		countryColumn = new String[noOfCountries + 1];
 		countryColumn[0] = "**";
 		int i = 0;
 		int j = 0;
-		
-		
-		for(String countryName:countries){
-			
+		for(String countryName:countries) {
 			data[i++][0] = countryName;
 			countryColumn[++j] =  countryName;	
 		}
 		dtm.setDataVector(data, countryColumn);
-		tablematrix = new JTable(dtm) {
-			
+		tableMatrix = new JTable(dtm) {
 			@Override
 			public Component prepareRenderer(TableCellRenderer renderer, int row, int col) {
 			        Component component = super.prepareRenderer(renderer, row, col);
-			       
 			        String value = (String) dtm.getValueAt(row, col);
-			       
-			            if (value.equals("N")) {
-			                component.setBackground(Color.LIGHT_GRAY);
-			            }
-			            else{
-			            	component.setBackground(Color.WHITE);
-			            }
+			        if (value.equals("N")) {
+			        	component.setBackground(Color.LIGHT_GRAY);
+			        }
+			        else {
+			            component.setBackground(Color.WHITE);
+			        }
 			        return component;
 			    }
-			
-			
-			
-			
 		};
-		tablematrix.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		
+		tableMatrix.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		scrollPane.getViewport().removeAll();
-		scrollPane.getViewport().add(tablematrix);
-		
-		
-		for(Continent currentContinent:gameMap.getContinents()){
-			for(Country currentCountry:currentContinent.getCountriesPresent()){
+		scrollPane.getViewport().add(tableMatrix);
+		for(Continent currentContinent:gameMap.getContinents()) {
+			for(Country currentCountry:currentContinent.getCountriesPresent()) {
 				int row_length = data.length;
 				int column_length = data[0].length;
 				for(i = 0;i<row_length;i++){
-					if(currentCountry.getCountryName().equalsIgnoreCase(data[i][0])){
+					if(currentCountry.getCountryName().equalsIgnoreCase(data[i][0])) {
 						for(j = 1;j<column_length;j++){
-							String neighbour = countryColumn[j];
-							if(!currentCountry.getListOfNeighbours().contains(countryColumn[j])){	
-								tablematrix.setValueAt("N", i, j);
-							
+							//String neighbour = countryColumn[j];
+							if(!currentCountry.getListOfNeighbours().contains(countryColumn[j])) {	
+								tableMatrix.setValueAt("N", i, j);
 							}
 							else {
-								tablematrix.setValueAt("Y", i, j);	
+								tableMatrix.setValueAt("Y", i, j);
 							}
 						}
 					}
 				}
 			}
 		}
-		
-		tablematrix.addMouseListener(new java.awt.event.MouseAdapter() {
+		tableMatrix.addMouseListener(new java.awt.event.MouseAdapter() {
 	    @Override
 	    public void mouseClicked(java.awt.event.MouseEvent ev) {
-	        int row = tablematrix.rowAtPoint(ev.getPoint());
-	        int col = tablematrix.columnAtPoint(ev.getPoint());
-	        String source = data[row][0];
-	        String neighbour = countryColumn[col];
-	        
-	       if(tablematrix.getValueAt(row, col) == "Y"){
-	    	   for(Continent continent:gameMap.getContinents()){
-	    		   for(Country country:continent.getCountriesPresent()){
-	    			   if(country.getCountryName().trim().equalsIgnoreCase(source.trim())){
+	       int row = tableMatrix.rowAtPoint(ev.getPoint());
+	       int col = tableMatrix.columnAtPoint(ev.getPoint());
+	       String source = data[row][0];
+	       String neighbour = countryColumn[col];
+	       if(tableMatrix.getValueAt(row, col) == "Y") {
+	    	   for(Continent continent:gameMap.getContinents()) {
+	    		   for(Country country:continent.getCountriesPresent()) {
+	    			   if(country.getCountryName().trim().equalsIgnoreCase(source.trim())) {
 	    				   country.getListOfNeighbours().remove(neighbour);
-	    				   tablematrix.setValueAt("N", row, col);
-	    				   for(String s:country.getListOfNeighbours()){
+	    				   tableMatrix.setValueAt("N", row, col);
+	    				   for(String s:country.getListOfNeighbours()) {
 	    					   System.out.println("country " + s);
 	    				   }
 	    				   System.out.println();
@@ -259,17 +201,16 @@ public class MapEditor extends JFrame {
 	    			   }
 	    		   }
 	    	   }
-	    	   
 	       }
-	       else{
-	    	   if(!source.trim().equalsIgnoreCase(neighbour)){
-	    		   if(tablematrix.getValueAt(row, col) == "N"){
-	    			   for(Continent continent:gameMap.getContinents()){
-	    	    		   for(Country country:continent.getCountriesPresent()){
-	    	    			   if(country.getCountryName().trim().equalsIgnoreCase(source.trim())){
+	       else {
+	    	   if(!source.trim().equalsIgnoreCase(neighbour)) {
+	    		   if(tableMatrix.getValueAt(row, col) == "N") {
+	    			   for(Continent continent:gameMap.getContinents()) {
+	    	    		   for(Country country:continent.getCountriesPresent()) {
+	    	    			   if(country.getCountryName().trim().equalsIgnoreCase(source.trim())) {
 	    	    				   country.getListOfNeighbours().add(neighbour);
-	    	    				   tablematrix.setValueAt("Y", row, col);
-	    	    				   for(String s:country.getListOfNeighbours()){
+	    	    				   tableMatrix.setValueAt("Y", row, col);
+	    	    				   for(String s:country.getListOfNeighbours()) {
 	    	    					   System.out.println("country" + s);
 	    	    				   }
 	    	    				   System.out.println();
@@ -277,14 +218,9 @@ public class MapEditor extends JFrame {
 	    	    			   }
 	    	    		   }
 	    	    	   }
-	    			   
-	    			   
-	    			   
 	    		   }
 	    	   }
-	    	   
 	       }
-	        
 	    }
 	});
 	}
@@ -293,9 +229,7 @@ public class MapEditor extends JFrame {
 	 * This method create Tree with all the continents and countries
 	 */
 	public void createTree() {
-
 		DefaultMutableTreeNode top = new DefaultMutableTreeNode("Map - " + gameMap.getName() + "");
-
 		for (Continent continent : gameMap.getContinents()) {
 			DefaultMutableTreeNode branch = new DefaultMutableTreeNode(continent.getContinentName());
 			for (Country country : continent.getCountriesPresent()) {
@@ -306,8 +240,6 @@ public class MapEditor extends JFrame {
 		}
 		mapTree = new JTree(top);
 		treeScrollPane.getViewport().add(mapTree);
-
 	}
-
 }
 	

@@ -7,14 +7,10 @@ import org.junit.*;
 public class MainMenuScreenTest {
 	
 	@Before
-	public void before() {
-		
-	}
+	public void before() {}
 	
 	@After
-	public void after() {
-		
-	}
+	public void after() {}
 
 	@Test
 	public void test() {

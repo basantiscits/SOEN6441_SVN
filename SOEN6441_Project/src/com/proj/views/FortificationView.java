@@ -21,15 +21,23 @@ import com.proj.utilites.Constants;
  * @since 1 Feb 2019
  * @version 1.0
  */
-public class FortificationView extends JFrame implements ActionListener{
-	
+public class FortificationView extends JFrame implements ActionListener {
 	private JLabel source;
-	
 	private JLabel destination;
-	
 	private JLabel noOfArmies;
-	
 	private JLabel playerName;
+	private JLabel armiesInSource;
+	private JLabel armiesInDestination;
+	private JComboBox sourceCountry;
+	private JComboBox destinationCountry;
+	private JComboBox selectNoOfArmies;
+	private JButton send;
+	private JButton finish;
+	private Map map;
+	private Player[] player;
+	private int currentPlayer;
+	private GameWindowScreen gameWindow;
+	private FortificationController fortificationController;
 	
 	/**
 	 * getter for source country
@@ -255,35 +263,7 @@ public class FortificationView extends JFrame implements ActionListener{
 		this.fortificationController = fortificationController;
 	}
 
-
-	private JLabel armiesInSource;
-	
-	private JLabel armiesInDestination;
-	
-	private JComboBox sourceCountry;
-	
-	private JComboBox destinationCountry;
-	
-	private JComboBox selectNoOfArmies;
-	
-	private JButton send;
-	
-	private JButton finish;
-	
-	private Map map;
-	
-	
-	
-	private Player[] player;
-	
-	private int currentPlayer;
-	
-	private GameWindowScreen gameWindow;
-	
-	private FortificationController fortificationController;
-	
-	public FortificationView(Map map, Player[] player, int currentPlayer, GameWindowScreen gameWindow){
-		
+	public FortificationView(Map map, Player[] player, int currentPlayer, GameWindowScreen gameWindow) {
 		this.map = map;
 		this.player = player;
 		this.currentPlayer = currentPlayer;
@@ -294,13 +274,10 @@ public class FortificationView extends JFrame implements ActionListener{
 		setSize(Constants.WIDTH + 300, Constants.HEIGHT);
 		setLayout(null);
 		setLocationRelativeTo(null);
-		
 		fortificationController = new FortificationController(this);
-		
 		playerName = new JLabel(player[currentPlayer].getPlayerName());
 		playerName.setBounds(15, 150, 100, 35);
 		add(playerName);
-		
 		source = new JLabel("Source Country");
 		source.setBounds(165, 120, 100, 35);
 		add(source);
@@ -346,7 +323,6 @@ public class FortificationView extends JFrame implements ActionListener{
 		finish.setBounds(765, 150, 100, 35);
 		finish.addActionListener(fortificationController);
 		add(finish);
-
 	}
 	
 	/**
@@ -419,10 +395,7 @@ public class FortificationView extends JFrame implements ActionListener{
 	 * action performed method
 	 */
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		
-	}
-
+	public void actionPerformed(ActionEvent e) {}
 }
 
 

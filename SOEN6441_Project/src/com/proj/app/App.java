@@ -9,6 +9,7 @@ import com.proj.views.*;
 public class App {
 	/** 
 	 * Creates main menu screen object. 
+	 * @param args command line arguments
 	 */
 	public static void main(String[] args) {
 		MainMenuScreen screen = new MainMenuScreen();

@@ -110,7 +110,7 @@ public class Country {
 	
 	/**
 	 * setter for longitude
-	 * @param longitude
+	 * @param longitude longitude of country
 	 */
 	public void setLongitude(double longitude) {
 		longitude = longitude;
@@ -126,7 +126,7 @@ public class Country {
 	
 	/**
 	 * setter for latitude
-	 * @param latitude
+	 * @param latitude latitude of country
 	 */
 	public void setLatitude(double latitude) {
 		latitude = latitude;
@@ -153,7 +153,4 @@ public class Country {
 	public void removeNoOfArmiesCountry() {
 		this.noOfArmiesPresent--;	
 	}
-
-	
-
 }
