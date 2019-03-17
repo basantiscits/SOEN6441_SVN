@@ -10,13 +10,18 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -28,6 +33,7 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import com.proj.controllers.GameController;
+import com.proj.models.Card;
 import com.proj.models.Continent;
 import com.proj.models.Country;
 import com.proj.models.Map;
@@ -73,7 +79,21 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	private JButton armyAllocation;
 	private JLabel armiesAvailable;
 	private GameController gameController;
-
+	private JPanel cardExchangePanel;
+	private JFrame cardExchangeFrame;
+	private JLabel exchangeLabel;
+	private JButton exchangeButton;
+	private DefaultListModel<String> list;
+	private String cardType;
+	
+	private List<String> cardsSelected;
+	private JList<String> listOfCards;
+	private JLabel cardViewLabel;
+	
+	
+	private JOptionPane exchangePane;
+	
+	private JButton exchangeButt;
 	/**
 	 * Game Window Screen constructor
 	 * @param gameMap Object of Map class
@@ -96,6 +116,12 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 				dispose();
 			}
 		});
+		
+
+		
+		
+		
+		
 	}
 
 	/**
@@ -138,6 +164,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 		add(startPhaseViewPanel);
 		startPhaseViewPanel.setBackground(Color.lightGray);
 		startPhaseViewPanel.setLayout(new FlowLayout());
+		
 
 		startPhaseDefinedLabel = new JLabel("StartUp Phase");
 		startPhaseDefinedLabel.setFont(new Font("dialog", 1, 15));
@@ -166,6 +193,34 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 		countriesComboBox.setBounds(350, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 20,150, 30);
 		add(countriesComboBox);
 		addCountriesToBox(player[currentPlayer]);
+		
+		
+		cardExchangePanel = new JPanel();
+		add(cardExchangePanel);
+		cardExchangeFrame = new JFrame("Card Exchange View");
+
+		listOfCards = new JList<String>();
+		
+		cardExchangeFrame.add(cardExchangePanel);
+		
+		cardExchangeFrame.setTitle("Exchange Of Cards");
+		cardExchangeFrame.setResizable(false);
+		cardExchangeFrame.setSize(Constants.WIDTH + 300, Constants.HEIGHT);
+		cardExchangeFrame.setLayout(null);
+		cardExchangeFrame.setLocationRelativeTo(null);
+		
+		exchangePane = new JOptionPane();
+	//	armyAllocation.setEnabled(false);
+		
+		exchangeButton = new JButton("Exchange");
+		exchangeButton.setBounds(200,150,100,70);
+		exchangeButt = new JButton("View Available Cards");
+		
+		exchangeButt.setBounds(500, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 20,30, 30); // to be placed correctly
+		exchangeButt.addActionListener(gameController);
+		add(exchangeButt);
+		
+		
 
 		armyAllocation = new JButton("Place Army");
 		armyAllocation.setBounds(650, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 20,100, 30);
@@ -197,6 +252,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 			FortificationView FV = new FortificationView(gameMap, player, currentPlayer, this);
 			FV.setVisible(true);
 			currentPlayer++;
+			cardExchangeView();
 			if (currentPlayer == player.length) {
 				currentPlayer--;
 			}
@@ -898,6 +954,201 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 		playerStrength = new JTable(data, column);
 		strengthPane.getViewport().add(playerStrength);
 	}
+	public void cardExchangeView() {
+
+		
+//		if(player[currentPlayer].getNoOfCardsOwned()<3) return;
+
+//		
+//		cardExchangeFrame.add(cardExchangePanel);
+//		
+//		cardExchangeFrame.setTitle("Exchange Of Cards");
+//		cardExchangeFrame.setResizable(false);
+//		cardExchangeFrame.setSize(Constants.WIDTH + 300, Constants.HEIGHT);
+//		cardExchangeFrame.setLayout(null);
+//		cardExchangeFrame.setLocationRelativeTo(null);
+//		
+//		exchangePane = new JOptionPane();
+//		armyAllocation.setEnabled(false);
+//		
+//		exchangeButton = new JButton("Exchange");
+//		exchangeButton.setBounds(200,150,100,70);
+//
+//		
+		
+		for(int i = 0;i<4;i++)
+		{
+			System.out.println(player[currentPlayer].getNoOfCardsOwned());
+			player[currentPlayer].getListOfCardsOwned().add(Card.getNewCard());
+			player[currentPlayer].setNoOfCardsOwned(player[currentPlayer].getNoOfCardsOwned()+1);
+		}
+		
+		
+		if(player[currentPlayer].getNoOfCardsOwned()< 5 && player[currentPlayer].getNoOfCardsOwned() >=3) {
+			int r=JOptionPane.showConfirmDialog(this,"Do you want to exchange Cards"); 
+			if(r==JOptionPane.YES_OPTION) {  
+			     cardExchangeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			 	 
+			 	 doExchangeCardsNow();
+			 } 
+		}
+		else if(player[currentPlayer].getNoOfCardsOwned()<3) {
+			
+			exchangeButton.setEnabled(false);
+			doExchangeCardsNow();
+
+		}
+		
+		
+		else {
+			cardExchangeFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);  
+		    
+		    doExchangeCardsNow();
+		    
+			if(player[currentPlayer].getNoOfCardsOwned()<5) cardExchangeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+		    
+		    
+		}
+	}
+
+	public void doExchangeCardsNow() {
+		
+		if(player[currentPlayer].getNoOfCardsOwned()<5)
+			cardExchangeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
+		
+		
+		cardsSelected = new ArrayList<String>();
+	
+		exchangeLabel = new JLabel();
+		exchangeLabel.setText("Please Exchange 3 cards of same or different Type");
+		exchangeLabel.setSize(500,100);
+		displayCards();
+		listOfCards.setBounds(100,100, 75,150); 
+		
+		cardExchangeFrame.add(listOfCards);
+		
+		
+		 
+		 cardExchangeFrame.add(exchangeLabel);
+		 cardExchangeFrame.add(exchangeButton);
+		 
+		 cardExchangeFrame.setVisible(true);
+		 
+		 exchangeButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				if(player[currentPlayer].getNoOfCardsOwned()<5) cardExchangeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+				
+				System.out.println("Before Cards:- "+ player[currentPlayer].getNoOfCardsOwned());
+				System.out.println("Before Armies:- "+ player[currentPlayer].getNoOfArmiesOwned());
+			
+				if(listOfCards.getSelectedIndex()!=-1 && listOfCards.getSelectedIndices().length==3)
+				{
+					cardsSelected = listOfCards.getSelectedValuesList();
+					
+					Set<String> setOfCards = new HashSet<String>(cardsSelected);
+					if(setOfCards.size()==1 || setOfCards.size()==cardsSelected.size())
+					{
+						player[currentPlayer].setCardsForArmies(player[currentPlayer].getCardsForArmies() + 5);
+						player[currentPlayer].setNoOfArmiesOwned(player[currentPlayer].getNoOfArmiesOwned() + player[currentPlayer].getCardsForArmies());
+						
+						for(String cardType: cardsSelected) {
+							
+							for(Card card: player[currentPlayer].getListOfCardsOwned())
+							{
+								if(card.getTypeOfCard().toString().equals(cardType)) {
+									player[currentPlayer].getListOfCardsOwned().remove(card);
+									player[currentPlayer].setNoOfCardsOwned(player[currentPlayer].getNoOfCardsOwned()-1);
+									break;
+								}
+							}
+							
+						}
+						System.out.println("After Cards:- "+ player[currentPlayer].getNoOfCardsOwned());
+						System.out.println("After Armies:- "+player[currentPlayer].getNoOfArmiesOwned());
+						JOptionPane.showMessageDialog(cardExchangeFrame,"Successfully Exchanged."); 
+						displayCards();
+				
+					}
+					else {
+						
+							JOptionPane.showMessageDialog(cardExchangeFrame,"Cards should of same or different type","Alert", JOptionPane.WARNING_MESSAGE); 
+					}
+					
+				}
+				else {
+					JOptionPane.showMessageDialog(cardExchangeFrame,"Please select exactly three cards","Alert",JOptionPane.WARNING_MESSAGE); 
+				}
+				
+			}
+		});
+		
+	}
+	
+	public void viewAvailableCards()
+	{
+		JFrame viewCardFrame = new JFrame();
+		
+		cardViewLabel = new JLabel();
+		cardViewLabel.setText("Cards Available: ");
+		cardViewLabel.setSize(500,100);
+		displayCards();
+		listOfCards.setBounds(100,100, 75,150); 
+		if(player[currentPlayer].getNoOfCardsOwned()<5) cardExchangeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
+		viewCardFrame.setTitle("View Cards");
+		viewCardFrame.setResizable(false);
+		viewCardFrame.setSize(Constants.WIDTH + 300, Constants.HEIGHT);
+		viewCardFrame.setLayout(null);
+		viewCardFrame.setLocationRelativeTo(null);
+		
+		
+		
+		
+		
+		
+		viewCardFrame.add(listOfCards);
+		 viewCardFrame.add(cardViewLabel);
+		 viewCardFrame.setVisible(true);
+		
+		
+		
+	}
+	
+	
+	public void displayCards()
+	{	
+		list = null;
+		
+		
+		list = new DefaultListModel<String>();  
+		System.out.println("Total cards of player 1 is " + player[currentPlayer].getNoOfCardsOwned());
+		for(Card cards: player[currentPlayer].getListOfCardsOwned())
+		{
+			
+			cardType = cards.getTypeOfCard().toString();
+			if(cardType.equals("INFANTRY")) {			
+				list.addElement("INFANTRY");			
+			}
+			else if(cardType.equals("CAVALRY")) {
+				list.addElement("CAVALRY");				
+			}
+			else {
+				list.addElement("ARTILLERY");				
+			}
+			
+		}
+		System.out.println("List is: " + list.size());
+		listOfCards.setModel(list);
+	//	listOfCards = new JList<String>(list);
+		
+
+	}
 
 	/**
 	 * This method assign name to player
@@ -920,4 +1171,9 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {}
+
+		
+		
+		
+		
 }

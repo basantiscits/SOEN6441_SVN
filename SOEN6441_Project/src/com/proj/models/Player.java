@@ -14,8 +14,23 @@ public class Player {
 	private List<Country> countriesOwned;
 	private List<Continent> continentsOwned;
 	private int noOfArmiesOwned;
-	private int noOfCardsOwned;
-	
+	private int noOfCardsOwned = 0;
+	/**
+	 * @return the cardsForArmies
+	 */
+	public int getCardsForArmies() {
+		return cardsForArmies;
+	}
+
+	/**
+	 * @param cardsForArmies the cardsForArmies to set
+	 */
+	public void setCardsForArmies(int cardsForArmies) {
+		this.cardsForArmies = cardsForArmies;
+	}
+
+	private int cardsForArmies = 0;
+	private List<Card> listOfCardsOwned = new ArrayList<Card>();
 	/**
 	 * constructor for Player class
 	 * @param string name of player
@@ -25,6 +40,20 @@ public class Player {
 		countriesOwned = new ArrayList<Country>();
 	}
 	
+	/**
+	 * @return the listOfCardsOwned
+	 */
+	public List<Card> getListOfCardsOwned() {
+		return listOfCardsOwned;
+	}
+
+	/**
+	 * @param listOfCardsOwned the listOfCardsOwned to set
+	 */
+	public void setListOfCardsOwned(List<Card> listOfCardsOwned) {
+		this.listOfCardsOwned = listOfCardsOwned;
+	}
+
 	/**
 	 * getter for list of countries owned
 	 * @return countries owned

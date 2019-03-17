@@ -13,6 +13,6 @@ public class App {
 	 */
 	public static void main(String[] args) {
 		MainMenuScreen screen = new MainMenuScreen();
-		screen.setVisible(true);
+		screen.setVisible(true);	
 	}
 }
