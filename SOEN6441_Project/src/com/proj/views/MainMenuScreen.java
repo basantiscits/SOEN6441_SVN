@@ -33,7 +33,7 @@ public class MainMenuScreen extends JFrame {
 	private MapEditor mapEditorView;
 	public MainMenuScreen() {
 		CreateMenuBar();
-		setTitle("Simple menu");
+		setTitle("********THE RISK GAME********");
 		setSize(900, 800);
 		setResizable(false);
 		setLocationRelativeTo(null);

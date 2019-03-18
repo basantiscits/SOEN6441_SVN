@@ -57,8 +57,8 @@ public class PlayNewGame extends JFrame implements ActionListener {
 	public PlayNewGame() {
 		newGameController = new NewGameController(this);
 		JLabel labelHeading = new JLabel();
-		labelHeading.setText("THE RISK GAME");
-		labelHeading.setBounds(Constants.WIDTH / 2 + 120, 0, 100, 30);
+		labelHeading.setText("THE RISK GAME : START PHASE");
+		labelHeading.setBounds(Constants.WIDTH / 2 + 90, 0, 200,30);
 		add(labelHeading);
 		
 		JLabel labelSelectPlayer = new JLabel();
@@ -93,7 +93,8 @@ public class PlayNewGame extends JFrame implements ActionListener {
 		buttonPlayGame.addActionListener(newGameController);
 		add(buttonPlayGame);
 
-		setTitle("New Game Menu");
+
+		setTitle("******THE RISK GAME******");
 		setResizable(false);
 		setSize(Constants.WIDTH + 300, Constants.HEIGHT + 300);
 		setLayout(null);

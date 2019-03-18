@@ -77,6 +77,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	private JLabel currentPlayerName;
 	private JComboBox countriesComboBox;
 	private JButton armyAllocation;
+	private JButton DummyAttackButton;
 	private JLabel armiesAvailable;
 	private GameController gameController;
 	private JPanel cardExchangePanel;
@@ -235,7 +236,22 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 		add(startUpScrollPane);
 		add(tableHeader);
 		add(strengthPane);
-
+		//------------------------------------------------
+		DummyAttackButton= new JButton("Dummy Attack");
+		DummyAttackButton.setBounds(550, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 200,250, 30);
+		DummyAttackButton.addActionListener(gameController);
+		add(DummyAttackButton);
+		
+		DummyAttackButton.addActionListener(new java.awt.event.ActionListener() {
+			@Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				DummyAttackButton.addActionListener(this);
+				AttackView openAttackView=new AttackView(gameMap, player, currentPlayer, null);
+				openAttackView.setVisible(true);
+			}
+		});
+		//------------------------------------------------
+		
 		countriesMatrix();
 		createTree();
 		createStartUpTree();
@@ -249,6 +265,8 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	public void reinforce() {
 		if (player[currentPlayer].getNoOfArmiesOwned() == 0 && currentPlayer < player.length) {
 			System.out.println("currentPlayer: "+currentPlayer);
+			AttackView AT= new AttackView(gameMap, player, currentPlayer, this);
+			AT.setVisible(true);
 			FortificationView FV = new FortificationView(gameMap, player, currentPlayer, this);
 			FV.setVisible(true);
 			currentPlayer++;
@@ -1170,7 +1188,10 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {}
+	public void actionPerformed(ActionEvent arg0) {
+		
+		
+	}
 
 		
 		
