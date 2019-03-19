@@ -220,11 +220,15 @@ public class AttackController implements ActionListener{
 			attacker.getCardsOwned().add(Card.getNewCard());
 			if(defender.getCountriesOwned().size()==0){
 				attacker.getCardsOwned().addAll(defender.getCardsOwned());
-	//removeplayer			for(Player p:players){
-	//				if(p==defender){
-	//					
-	//				}
-	//			}
+				Player []newList=new Player[players.length-1];
+				int k=0;
+				for(Player p:players){
+					if(p==defender){
+						continue;
+					}
+					newList[k++]=p;
+				}
+				players=newList;
 		}
 			return true;
 		}
