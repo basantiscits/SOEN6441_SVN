@@ -23,7 +23,6 @@ import com.proj.utilites.Constants;
 
 
 public class AttackView extends JFrame implements ActionListener {
-	private JLabel  Player;
 	private JLabel noOfArmies;
 	private JLabel PlayerDicestrlbl;
 	private JLabel DefendersDicestrlbl;
@@ -36,7 +35,12 @@ public class AttackView extends JFrame implements ActionListener {
 	private JLabel armiesInDestination;
 	private JComboBox sourceCountry;
 	private JComboBox destinationCountry;
-	private JComboBox selectNoOfArmies;
+	
+	private JComboBox sourceCountryArmiesddl;
+	private JComboBox destinationCountryArmiesddl;
+	
+	//private JComboBox selectNoOfArmies;
+	private JComboBox selectNoOfDices;
 	private JButton Attackbtn;
 	private JButton AllOutAttackbtn;
 	private JLabel PlayerDicelbl;
@@ -49,23 +53,229 @@ public class AttackView extends JFrame implements ActionListener {
 	private GameWindowScreen gameWindow;
 	private AttackController AttackController;
 	
+	
+	
+	/**
+	 * getter for armies in source country
+	 * @return number of armies in source country
+	 */
+	public JLabel getArmiesInSource() {
+		return armiesInSource;
+	}
+	
+	/**
+	 * setter for armies in source country
+	 * @param armiesInSource number of armies in source country
+	 */
+	public void setArmiesInSource(JLabel armiesInSource) {
+		this.armiesInSource = armiesInSource;
+	}
 
+	
+	/**
+	 * getter for source country
+	 * @return source country
+	 */
+	public JLabel getSource() {
+		return source;
+	}
+	
+	/**
+	 * setter for source country
+	 * @param source name of source country
+	 */
+	public void setSource(JLabel source) {
+		this.source = source;
+	}
+	
+	/**
+	 * getter for destination country
+	 * @return destination country
+	 */
+	public JLabel getDestination() {
+		return destination;
+	}
+	
+	/**
+	 * setter for destination country
+	 * @param destination destination country
+	 */
+	public void setDestination(JLabel destination) {
+		this.destination = destination;
+	}
+	
+	/**
+	 * getter for number of armies
+	 * @return number of armies
+	 */
+	public JLabel getNoOfArmies() {
+		return noOfArmies;
+	}
+	
+	/**
+	 * setter for number of armies
+	 * @param noOfArmies number of armies
+	 */
+	public void setNoOfArmies(JLabel noOfArmies) {
+		this.noOfArmies = noOfArmies;
+	}
+	
+	/**
+	 * getter for player name
+	 * @return name of player
+	 */
+	public JLabel getPlayerName() {
+		return playerName;
+	}
+	
+	/**
+	 * setter for player name
+	 * @param playerName name of player
+	 */
+	public void setPlayerName(JLabel playerName) {
+		this.playerName = playerName;
+	}
+	
+	/**
+	 * getter for source country
+	 * @return source country
+	 */
+	public JComboBox getSourceCountry() {
+		return sourceCountry;
+	}
+	
+	/**
+	 * setter for source country
+	 * @param sourceCountry name of source country
+	 */
+	public void setSourceCountry(JComboBox sourceCountry) {
+		this.sourceCountry = sourceCountry;
+	}
+	
+	/**
+	 * getter for destination country
+	 * @return name of destination country
+	 */
+	public JComboBox getDestinationCountry() {
+		return destinationCountry;
+	}
+	
+	/**
+	 * setter for destination country
+	 * @param destinationCountry name of destination country
+	 */
+	public void setDestinationCountry(JComboBox destinationCountry) {
+		this.destinationCountry = destinationCountry;
+	}
+	
+	
+	
+	
+
+	
+	/**
+	 * getter for map
+	 * @return map
+	 */
+	public Map getMap() {
+		return map;
+	}
+	
+	/**
+	 * setter for map
+	 * @param map object of type Map
+	 */
+	public void setMap(Map map) {
+		this.map = map;
+	}
+
+	/**
+	 * getter for Player
+	 * @return player
+	 */
+	public Player[] getPlayer() {
+		return player;
+	}
+	
+	/**
+	 * setter for Player
+	 * @param player array object of type Player[]
+	 */
+	public void setPlayer(Player[] player) {
+		this.player = player;
+	}
+	
+	/**
+	 * getter for current player
+	 * @return current player number
+	 */
+	public int getCurrentPlayer() {
+		return currentPlayer;
+	}
+	
+	/**
+	 * setter for current player
+	 * @param currentPlayer current player number
+	 */
+	public void setCurrentPlayer(int currentPlayer) {
+		this.currentPlayer = currentPlayer;
+	}
+	
+	/**
+	 * getter for Game Window
+	 * @return game window
+	 */
+	public GameWindowScreen getGameWindow() {
+		return gameWindow;
+	}
+
+	/**
+	 * setter for Game Window
+	 * @param gameWindow object of type GameWindowScreen
+	 */
+	public void setGameWindow(GameWindowScreen gameWindow) {
+		this.gameWindow = gameWindow;
+	}
+	
+	public AttackController getAttackController() {
+		return AttackController;
+	}
+	public void setAttackController(AttackController AttackController) {
+		this.AttackController = AttackController;
+	}
+	
+	/**
+	 * getter for armies in destination country
+	 * @return number of armies in destination country
+	 */
+	public JLabel getArmiesInDestination() {
+		return armiesInDestination;
+	}
+	
+	/**
+	 * setter for armies in destination country
+	 * @param armiesInDestination number of armies in destination country
+	 */
+	public void setArmiesInDestination(JLabel armiesInDestination) {
+		this.armiesInDestination = armiesInDestination;
+	}
 
 	public AttackView(Map gameMap, Player[] playersArry, int currentPlayer, GameWindowScreen gameWindowScreen) {
-		this.map = map;
-		this.player = player;
+		this.map = gameMap;
+		this.player = playersArry;
 		this.currentPlayer = currentPlayer;
-		this.gameWindow = gameWindow;
-
+		this.gameWindow = gameWindowScreen;
+		AttackController = new AttackController(this);
 		setTitle("******ATTACK PHASE******");
 		setResizable(false);
 		setSize(Constants.WIDTH + 300, Constants.HEIGHT);
 		setLayout(null);
 		setLocationRelativeTo(null);
 		
-		Player = new JLabel("Player 1");
-		Player.setBounds(55, 155, 100, 35);
-		add(Player);
+		playerName = new JLabel(player[currentPlayer].getPlayerName());
+		playerName.setBounds(55, 155, 100, 35);
+		add(playerName);
+		
 		
 		PlayerDicestrlbl = new JLabel("Player Dice");
 		PlayerDicestrlbl.setBounds(70, -10, 100, 35);
@@ -75,10 +285,12 @@ public class AttackView extends JFrame implements ActionListener {
 		DefendersDicestrlbl.setBounds(785, -10, 100, 35);
 		add(DefendersDicestrlbl);
 		
+		//Player1 or 2 or 3 Dice
 		PlayerDiceRandomAllocated= new JLabel("Dice Count Player");
 		PlayerDiceRandomAllocated.setBounds(180, -40, 200, 200);
 		add(PlayerDiceRandomAllocated);
 		
+		// Defender Dice 
 		DefenderDiceRandomAllocated= new JLabel("Dice Count Defender");
 		DefenderDiceRandomAllocated.setBounds(650, -40, 200, 200);
 		add(DefenderDiceRandomAllocated);
@@ -105,35 +317,33 @@ public class AttackView extends JFrame implements ActionListener {
 		noOfDices.setBounds(465, 120, 135, 35);
 		add(noOfDices);
 		
-		
-		
-		
-		
 		sourceCountry = new JComboBox();
 		sourceCountry.setBounds(165, 150, 120, 35);
-		//addCountryToBox(sourceCountry);
+		addCountryToBox(sourceCountry);
 		sourceCountry.setSelectedIndex(-1);
-		//sourceCountry.addActionListener(fortificationController);
+		sourceCountry.addActionListener(AttackController);
 		add(sourceCountry);
 		
 		destinationCountry = new JComboBox();
 		destinationCountry.setBounds(315, 150, 100, 35);
 		add(destinationCountry);
-		//destinationCountry.addActionListener(fortificationController);
+		destinationCountry.addActionListener(AttackController);
 		
-	
-		selectNoOfArmies = new JComboBox<String>(noOfDicesList);
-		selectNoOfArmies.setBounds(465, 150, 100, 35);
-		add(selectNoOfArmies);
+
+		selectNoOfDices = new JComboBox<String>(noOfDicesList);
+		selectNoOfDices.setBounds(465, 150, 100, 35);
+		add(selectNoOfDices);
 		
 		Attackbtn = new JButton("Attack");
 		Attackbtn.setBounds(615, 150, 100, 35);
 		//send.addActionListener(fortificationController);
+		Attackbtn.addActionListener(this);
 		add(Attackbtn);
 		
 		AllOutAttackbtn = new JButton("All out Attack");
 		AllOutAttackbtn.setBounds(770, 150, 130, 35);
 		//finish.addActionListener(fortificationController);
+		AllOutAttackbtn.addActionListener(this);
 		add(AllOutAttackbtn);
 		
 		ImageIcon PlayerDice = new ImageIcon("Images/Dice.jpg");
@@ -153,6 +363,21 @@ public class AttackView extends JFrame implements ActionListener {
 
 		
 	}
+	public void addCountryToBox(JComboBox country) {
+		country.removeAllItems();
+		for(Country c : player[currentPlayer].getCountriesOwned()) {
+			country.addItem(c.getCountryName());
+		}
+	}
+	
+	public void addDestCountries(Country sourCountry) {
+		destinationCountry.removeAllItems();
+		for(Country c : player[currentPlayer].getCountriesOwned()) {
+			if(sourCountry.getListOfNeighbours().contains(c.getCountryName())) {
+				destinationCountry.addItem(c.getCountryName());
+			}
+		}
+	}
 		
 	
 
@@ -162,7 +387,43 @@ public class AttackView extends JFrame implements ActionListener {
 	
 	
 	@Override
-	public void actionPerformed(ActionEvent e) {}
+	public void actionPerformed(ActionEvent e) {
+		Player[] sPlayerName;
+	    String sourceCountry;
+		String sAttackingCountry;
+		String sDefenderCountry;
+		//int iNoOfArmiesOfAttacker;
+		Country sourCountry;
+		if (e.getSource() == Attackbtn)
+		{
+			System.out.println("\n");
+			System.out.println("Attack Param");
+			//sPlayerName=player[currentPlayer].getPlayerName();
+			sPlayerName=this.player;
+			sAttackingCountry=(String) getSourceCountry().getSelectedItem();
+			sourCountry = getMap().searchCountry(sAttackingCountry);
+			sDefenderCountry=(String) getDestinationCountry().getSelectedItem();
+			 String iNoOfArmiesOfAttacker=(String.valueOf(sourCountry.getNoOfArmiesPresent()));
+			System.out.println("Player Name : "+sPlayerName+"\n"+ "Source Country :"+ sAttackingCountry+"\n"+ "Defender Country :" +sDefenderCountry+"\n"+ "No of Armies of Attacker : "+iNoOfArmiesOfAttacker);
+			//+ sPlayerName + "Source Country :" +sAttackingCountry "Defender Country :" +sDefenderCountry+ "No of Armies of Attacker"+iNoOfArmiesOfAttacker,iNoOfArmiesOfAttacker);
+			//Handover to Aman
+			AttackController objAttackController= new AttackController();
+			//objAttackController.fncNamegivenByAman(sPlayerName,sAttackingCountry,sDefenderCountry,);
+		}
+		else if(e.getSource() == AllOutAttackbtn)
+		{
+			System.out.println("\n");
+			System.out.println("All out Attack Param");
+			//sPlayerName=player[currentPlayer].getPlayerName();
+			sPlayerName=this.player;
+			sAttackingCountry=(String) getSourceCountry().getSelectedItem();
+			sDefenderCountry=(String) getDestinationCountry().getSelectedItem();;
+			System.out.println("Player Name : "+sPlayerName+"\n"+ "Source Country :"+ sAttackingCountry+"\n"+ "Defender Country :" +sDefenderCountry);
+			//Handover to Aman
+			AttackController objAttackController= new AttackController();
+			//objAttackController.fncNameGiveByAman(sPlayerName,sAttackingCountry,sDefenderCountry);
+		}
+	}
 
 
 
