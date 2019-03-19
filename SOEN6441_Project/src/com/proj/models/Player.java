@@ -153,6 +153,14 @@ public class Player {
 	}
 	
 	/**
+	 * add country in list of countries owned
+	 * @param countryName name of country to be added
+	 */
+	public void removeCountry(Country countryName) {
+		countriesOwned.remove(countryName);	
+	}
+
+	/**
 	 * decrement number of armies owned
 	 */
 	public void reduceArmyInPlayer() {
