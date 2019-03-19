@@ -54,6 +54,37 @@ public class AttackView extends JFrame implements ActionListener {
 	private GameWindowScreen gameWindow;
 	private AttackController AttackController;
 	
+	/**
+	 * getter for AlloutAttack
+	 * @return AllOutAttackbtn
+	 */
+	public JButton getAllOutAttackbtn() {
+		return AllOutAttackbtn;
+	}
+	
+	/**
+	 * setter for AllOutAttackbtn
+	 * @param AllOutAttackbtn name of button
+	 */
+	public void setAllOutAttackbtn(JButton AllOutAttackbtn) {
+		this.AllOutAttackbtn = AllOutAttackbtn;
+	}
+	
+	/**
+	 * getter for Attack
+	 * @return Attackbtn
+	 */
+	public JButton getAttack() {
+		return Attackbtn;
+	}
+	
+	/**
+	 * setter for Attack
+	 * @param Attackbtn name of button
+	 */
+	public void setAttack(JButton Attackbtn) {
+		this.Attackbtn = Attackbtn;
+	}
 	
 	
 	/**
@@ -351,13 +382,13 @@ public class AttackView extends JFrame implements ActionListener {
 		
 		Attackbtn = new JButton("Attack");
 		Attackbtn.setBounds(615, 150, 100, 35);
-		//send.addActionListener(fortificationController);
+		Attackbtn.addActionListener(AttackController);
 		Attackbtn.addActionListener(this);
 		add(Attackbtn);
 		
 		AllOutAttackbtn = new JButton("All out Attack");
 		AllOutAttackbtn.setBounds(770, 150, 130, 35);
-		//finish.addActionListener(fortificationController);
+		AllOutAttackbtn.addActionListener(AttackController);
 		AllOutAttackbtn.addActionListener(this);
 		add(AllOutAttackbtn);
 		
@@ -411,41 +442,41 @@ public class AttackView extends JFrame implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Player[] sPlayerName;
-	    String sourceCountry;
-		String sAttackingCountry;
-		String sDefenderCountry;
-		//int iNoOfArmiesOfAttacker;
-		Country sourCountry;
-		if (e.getSource() == Attackbtn)
-		{
-			System.out.println("\n");
-			System.out.println("Attack Param");
-			//sPlayerName=player[currentPlayer].getPlayerName();
-			sPlayerName=this.player;
-			sAttackingCountry=(String) getSourceCountry().getSelectedItem();
-			sourCountry = getMap().searchCountry(sAttackingCountry);
-			sDefenderCountry=(String) getDestinationCountry().getSelectedItem();
-			 String iNoOfArmiesOfAttacker=(String.valueOf(sourCountry.getNoOfArmiesPresent()));
-			System.out.println("Player Name : "+sPlayerName+"\n"+ "Source Country :"+ sAttackingCountry+"\n"+ "Defender Country :" +sDefenderCountry+"\n"+ "No of Armies of Attacker : "+iNoOfArmiesOfAttacker);
-			//+ sPlayerName + "Source Country :" +sAttackingCountry "Defender Country :" +sDefenderCountry+ "No of Armies of Attacker"+iNoOfArmiesOfAttacker,iNoOfArmiesOfAttacker);
-			//Handover to Aman
-			AttackController objAttackController= new AttackController();
-			//objAttackController.fncNamegivenByAman(sPlayerName,sAttackingCountry,sDefenderCountry,);
-		}
-		else if(e.getSource() == AllOutAttackbtn)
-		{
-			System.out.println("\n");
-			System.out.println("All out Attack Param");
-			//sPlayerName=player[currentPlayer].getPlayerName();
-			sPlayerName=this.player;
-			sAttackingCountry=(String) getSourceCountry().getSelectedItem();
-			sDefenderCountry=(String) getDestinationCountry().getSelectedItem();;
-			System.out.println("Player Name : "+sPlayerName+"\n"+ "Source Country :"+ sAttackingCountry+"\n"+ "Defender Country :" +sDefenderCountry);
-			//Handover to Aman
-			AttackController objAttackController= new AttackController();
-			//objAttackController.fncNameGiveByAman(sPlayerName,sAttackingCountry,sDefenderCountry);
-		}
+//		Player[] sPlayerName;
+//	    String sourceCountry;
+//		String sAttackingCountry;
+//		String sDefenderCountry;
+//		//int iNoOfArmiesOfAttacker;
+//		Country sourCountry;
+//	if (e.getSource() == Attackbtn)
+//		{
+			//System.out.println("\n");
+			//System.out.println("Attack Param");
+//			//sPlayerName=player[currentPlayer].getPlayerName();
+//			sPlayerName=this.player;
+//			sAttackingCountry=(String) getSourceCountry().getSelectedItem();
+//			sourCountry = getMap().searchCountry(sAttackingCountry);
+//			sDefenderCountry=(String) getDestinationCountry().getSelectedItem();
+//			 String iNoOfArmiesOfAttacker=(String.valueOf(sourCountry.getNoOfArmiesPresent()));
+//			System.out.println("Player Name : "+sPlayerName+"\n"+ "Source Country :"+ sAttackingCountry+"\n"+ "Defender Country :" +sDefenderCountry+"\n"+ "No of Armies of Attacker : "+iNoOfArmiesOfAttacker);
+//			//+ sPlayerName + "Source Country :" +sAttackingCountry "Defender Country :" +sDefenderCountry+ "No of Armies of Attacker"+iNoOfArmiesOfAttacker,iNoOfArmiesOfAttacker);
+//			//Handover to Aman
+//			AttackController objAttackController= new AttackController();
+//			//objAttackController.fncNamegivenByAman(sPlayerName,sAttackingCountry,sDefenderCountry,);
+//		}
+//		else if(e.getSource() == AllOutAttackbtn)
+//		{
+//			System.out.println("\n");
+//			System.out.println("All out Attack Param");
+//			//sPlayerName=player[currentPlayer].getPlayerName();
+//			sPlayerName=this.player;
+//			sAttackingCountry=(String) getSourceCountry().getSelectedItem();
+//			sDefenderCountry=(String) getDestinationCountry().getSelectedItem();;
+//			System.out.println("Player Name : "+sPlayerName+"\n"+ "Source Country :"+ sAttackingCountry+"\n"+ "Defender Country :" +sDefenderCountry);
+//			//Handover to Aman
+//			AttackController objAttackController= new AttackController();
+//			//objAttackController.fncNameGiveByAman(sPlayerName,sAttackingCountry,sDefenderCountry);
+//		}
 	}
 
 

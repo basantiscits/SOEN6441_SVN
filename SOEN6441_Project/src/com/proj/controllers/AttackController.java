@@ -249,21 +249,9 @@ public class AttackController implements ActionListener{
 	}
 	private Country sourCountry, destCountry;
 
-	public Country getSourCountry() {
-		return sourCountry;
-	}
 	
-	public void setSourCountry(Country sourCountry) {
-		this.sourCountry = sourCountry;
-	}
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
 	
-
-
+	
 	public Country getDestCountry() {
 		return destCountry;
 	}
@@ -299,9 +287,35 @@ public class AttackController implements ActionListener{
 				AttackView.selectDices();
 			}
 		}
+		else if(e.getSource() == AttackView.getAttack())
+		{
+			System.out.println("Attack Button Pressed...");
+			//Attacking Country
+			String sSourceCountry=(String) AttackView.getSourceCountry().getSelectedItem();
+			//Defender Country
+			String sDestinationCountry=(String) AttackView.getDestinationCountry().getSelectedItem();
+			int iNoOfArmiesOfAttacker=Integer.parseInt((String.valueOf(sourCountry.getNoOfArmiesPresent())));
+			System.out.println("Player Name : "+AttackView.getPlayer()+"\n"+ "Source Country :"+ sSourceCountry+"\n"+ "Defender Country :" +sDestinationCountry+"\n"+ "No of Armies of Attacker : "+iNoOfArmiesOfAttacker);
+			
+		}
+		else if(e.getSource() == AttackView.getAllOutAttackbtn())
+		{
+			System.out.println("All out attack button pressed");
+			//Attacking Country
+			String sSourceCountry=(String) AttackView.getSourceCountry().getSelectedItem();
+			//Defender Country
+			String sDestinationCountry=(String) AttackView.getDestinationCountry().getSelectedItem();
+			System.out.println("Player Name : "+AttackView.getPlayer()+"\n"+ "Source Country :"+ sSourceCountry+"\n"+ "Defender Country :" +sDestinationCountry);
+			
+		}
 		
 	}
+	
+	
 
 
 
 }
+
+
+	
