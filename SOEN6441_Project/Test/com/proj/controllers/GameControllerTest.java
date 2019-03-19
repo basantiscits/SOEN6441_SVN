@@ -41,7 +41,7 @@ public class GameControllerTest {
 		player[2] = new Player("Player3");
 		gameMap = new Map();
 		screen = new GameWindowScreen(gameMap, player);
-		controller = new GameController(screen, gameMap);
+		controller = new GameController(screen, gameMap, player);
 		continent1 = new Continent();
 		continent1.setContinentName("Asia");
 		country1 = new Country("India",continent1);
@@ -104,7 +104,7 @@ public class GameControllerTest {
 	 */
 	@Test
 	public void intializeReinforcementArmiesTest() {
-		controller.intializeReinforcementArmies();
+		Player.intializeReinforcementArmies(screen, gameMap);
 		System.out.println(player[0].getNoOfArmiesOwned()+" : "+player[1].getNoOfArmiesOwned()+" : "+player[2].getNoOfArmiesOwned());
 		assertEquals(3,player[0].getNoOfArmiesOwned());
 		assertEquals(3,player[1].getNoOfArmiesOwned());

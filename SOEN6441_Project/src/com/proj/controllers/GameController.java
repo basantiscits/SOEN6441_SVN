@@ -20,6 +20,7 @@ import com.proj.views.GameWindowScreen;
 public class GameController implements ActionListener {
 	private GameWindowScreen gameWindowScreen;
 	private Map gameMap;
+	private Player[] player;
 
 	/**
 	 * constructor for Game Controller
@@ -29,9 +30,10 @@ public class GameController implements ActionListener {
 	 * @param gameMap
 	 *            the map of continents and countries
 	 */
-	public GameController(GameWindowScreen gameWindowScreen, Map gameMap) {
+	public GameController(GameWindowScreen gameWindowScreen, Map gameMap, Player[] player) {
 		this.gameMap = gameMap;
 		this.gameWindowScreen = gameWindowScreen;
+		this.player = player;
 	}
 
 	/**
@@ -56,8 +58,6 @@ public class GameController implements ActionListener {
 		case "Reinforcement Phase":
 			
 			updateGame((String) gameWindowScreen.getCountriesComboBox().getSelectedItem());
-			
-			
 			gameWindowScreen.reinforce();
 			gameWindowScreen.displayPhase();
 			break;
@@ -66,7 +66,7 @@ public class GameController implements ActionListener {
 			
 			gameWindowScreen.getStartPhaseDefinedLabel().setText("Reinforcement Phase");
 			gameWindowScreen.getArmyAllocation().setText("Reinforcement Phase");
-			intializeReinforcementArmies();
+			Player.intializeReinforcementArmies(gameWindowScreen, gameMap);
 			gameWindowScreen.displayPhase();
 			break;
 		
@@ -84,33 +84,6 @@ public class GameController implements ActionListener {
 		} 
 		else {
 			gameWindowScreen.setCurrentPlayer(gameWindowScreen.getCurrentPlayer() + 1);
-		}
-	}
-
-	/**
-	 * initializes reinforcement armies
-	 */
-	public void intializeReinforcementArmies() {
-		for (int i = 0; i < gameWindowScreen.getPlayer().length; i++) {
-			long armies = Math.round(Math.floor(gameWindowScreen.getPlayerAtIndex(i).getCountriesOwned().size() / 3));
-			if (armies > 3) {
-				gameWindowScreen.getPlayerAtIndex(i).incrementNoOfArmiesOwned((int) armies);
-			} 
-			else {
-				gameWindowScreen.getPlayerAtIndex(i).incrementNoOfArmiesOwned(3);
-			}
-			updateContinentsOwned(i);
-		}
-	}
-
-	/**
-	 * reinforcement phase starts
-	 */
-	public void startReinforcementPhase() {
-		if (gameWindowScreen.getPlayerAtIndex(gameWindowScreen.getCurrentPlayer()).getNoOfArmiesOwned() == 0) {
-			gameWindowScreen.getStartPhaseDefinedLabel().setText("Reinforcement Phase");
-			intializeReinforcementArmies();
-			gameWindowScreen.getArmyAllocation().setText("Reinforcement Phase");
 		}
 	}
 
@@ -169,7 +142,7 @@ public class GameController implements ActionListener {
 	 * @param number
 	 *            to indicate control value has to be assigned for which player
 	 */
-	public void updateContinentsOwned(int number) {
+/*	public void updateContinentsOwned(int number) {
 		boolean flag = false;
 		for (Continent continent : gameMap.getContinents()) {
 			for (Country country : continent.getCountriesPresent()) {
@@ -187,5 +160,5 @@ public class GameController implements ActionListener {
 			}
 		}
 		System.out.println("Current player : " + gameWindowScreen.getCurrentPlayer() + " number: " + number);
-	}
+	}*/
 }

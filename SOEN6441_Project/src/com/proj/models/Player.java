@@ -3,6 +3,8 @@ package com.proj.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.proj.views.GameWindowScreen;
+
 /**
  * The Player class
  * @author Ofreish
@@ -163,4 +165,52 @@ public class Player {
 	public void addArmyInPlayer() {
 		this.noOfArmiesOwned++;
 	}
+	
+
+	/**
+	 * initializes reinforcement armies
+	 * @param gameMap 
+	 * @param gameWindowScreen 
+	 */
+	public static void intializeReinforcementArmies(GameWindowScreen gameWindowScreen, Map gameMap) {
+		for (int i = 0; i < gameWindowScreen.getPlayer().length; i++) {
+			long armies = Math.round(Math.floor(gameWindowScreen.getPlayerAtIndex(i).getCountriesOwned().size() / 3));
+			if (armies > 3) {
+				gameWindowScreen.getPlayerAtIndex(i).incrementNoOfArmiesOwned((int) armies);
+			} 
+			else {
+				gameWindowScreen.getPlayerAtIndex(i).incrementNoOfArmiesOwned(3);
+			}
+			updateContinentsOwned(i,gameMap, gameWindowScreen);
+		}
+	}
+	
+	/**
+	 * updates continents owned by player
+	 * 
+	 * @param number
+	 *            to indicate control value has to be assigned for which player
+	 * @param gameWindowScreen 
+	 * @param gameMap 
+	 */
+	public static void updateContinentsOwned(int number, Map gameMap, GameWindowScreen gameWindowScreen) {
+		boolean flag = false;
+		for (Continent continent : gameMap.getContinents()) {
+			for (Country country : continent.getCountriesPresent()) {
+				if (gameWindowScreen.getPlayerAtIndex(number).getCountriesOwned().contains(country)) {
+					flag = true;
+				} 
+				else {
+					flag = false;
+					break;
+				}
+			}
+			if (flag) {
+				System.out.println("ControlValue: " + continent.getControlValue() + " number: " + number);
+				gameWindowScreen.getPlayerAtIndex(number).incrementNoOfArmiesOwned(continent.getControlValue());
+			}
+		}
+		System.out.println("Current player : " + gameWindowScreen.getCurrentPlayer() + " number: " + number);
+	}
+	
 }

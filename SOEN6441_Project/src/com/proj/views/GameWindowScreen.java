@@ -104,7 +104,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 		super("Game Window");
 		this.gameMap = gameMap;
 		this.player = player;
-		gameController = new GameController(this, gameMap);
+		gameController = new GameController(this, gameMap, player);
 		setSize(Constants.MAP_EDITOR_WIDTH, Constants.MAP_EDITOR_HEIGHT);
 		setResizable(false);
 		setLocationRelativeTo(null);
