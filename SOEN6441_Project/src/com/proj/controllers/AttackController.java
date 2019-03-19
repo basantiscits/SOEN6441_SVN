@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 
 import com.proj.views.AttackView;
 import com.proj.views.FortificationView;
+import com.proj.models.Card;
 import com.proj.models.Country;
 import com.proj.models.Player;
 
@@ -42,11 +43,9 @@ public class AttackController implements ActionListener{
 		this.players=players;
 	}
 	
-	public boolean normalAttack(Player selectedPlayer,String attackingCountryName,String defendingCountryName,int noOfArmiesSelected){
+	public boolean normalAttack(Player selectedPlayer,String attackingCountryName,String defendingCountryName,int noOfDicesSelected){
 		
 		attacker=selectedPlayer;
-		noOfAttackingArmies=noOfArmiesSelected;
-		
 		for(Player p:players){
 			for(Country c:p.getCountriesOwned()){
 				if(c.getCountryName()==defendingCountryName){
@@ -61,8 +60,7 @@ public class AttackController implements ActionListener{
 			return false;
 		}
 		noOfDefendingArmies=countryDefending.getNoOfArmiesPresent();
-		if(noOfDefendingArmies==0){
-			warWon();
+		if(checkWarWon()){
 			return true;
 		}
 		for(Country c:attacker.getCountriesOwned()){
@@ -70,55 +68,39 @@ public class AttackController implements ActionListener{
 				countryAttacking=c;
 			}
 		}
+		noOfAttackingArmies=countryAttacking.getNoOfArmiesPresent();
 		if(countryAttacking.getNoOfArmiesPresent()<=1){
 			return false;
 		}
-		
-		
-		if(noOfArmiesSelected==1){
-			
+		if(noOfDicesSelected==1){
 			rollDice(attackerDiceValues);
-			
 			int i=noOfDefendingArmies;
-			if(noOfDefendingArmies==1){
+			if(noOfDefendingArmies==1)
 				rollDice(defenderDiceValues);
-				storeDiceValues();
-			}
+			
 			else if(noOfDefendingArmies>1){
 				rollDice(defenderDiceValues);
 				rollDice(defenderDiceValues);
-				storeDiceValues();
 			}
-			if(Collections.max(attackerDiceValues) > Collections.max(defenderDiceValues)){
+			if(Collections.max(attackerDiceValues) > Collections.max(defenderDiceValues))
 				battleWon();
-				if(countryDefending.getNoOfArmiesPresent()<1){
-					warWon();
-				}
-			}
-			else{
+			else
 				battleLost();
-			}
-			
-			return true;
+			storeDiceValues();
 		}
 		
 		
-		else if(noOfArmiesSelected==2){
+		else if(noOfDicesSelected==2){
 			rollDice(attackerDiceValues);
 			rollDice(attackerDiceValues);
 			if(noOfDefendingArmies==1){
 				rollDice(defenderDiceValues);
 				storeDiceValues();
-				if(Collections.max(attackerDiceValues) > Collections.max(defenderDiceValues)){
+				if(Collections.max(attackerDiceValues) > Collections.max(defenderDiceValues))
 					battleWon();
-					if(countryDefending.getNoOfArmiesPresent()<1){
-						warWon();
-					}
-				}
-				else{
+				else
 					battleLost();
-				}
-				return true;
+				
 			}
 			else if(noOfDefendingArmies>1){
 				rollDice(defenderDiceValues);
@@ -128,43 +110,128 @@ public class AttackController implements ActionListener{
 					battleWon();
 					attackerDiceValues.remove(Collections.max(attackerDiceValues));
 					defenderDiceValues.remove(Collections.max(defenderDiceValues));
-					if(Collections.max(attackerDiceValues) > Collections.max(defenderDiceValues)){
+					if(Collections.max(attackerDiceValues) > Collections.max(defenderDiceValues))
 						battleWon();
-					}
-					else{
+					else
 						battleLost();
-					}
 				}
 				else{
-					battleLost();		
+					battleLost();
+					attackerDiceValues.remove(Collections.max(attackerDiceValues));
+					defenderDiceValues.remove(Collections.max(defenderDiceValues));
+					if(Collections.max(attackerDiceValues) > Collections.max(defenderDiceValues))
+						battleWon();
+					else
+						battleLost();
 				}
-				return true;
 			}
 		}
-		else{
-			
+		else if (noOfDicesSelected==3){
+			rollDice(attackerDiceValues);
+			rollDice(attackerDiceValues);
+			rollDice(attackerDiceValues);
+			if(noOfDefendingArmies==1){
+				rollDice(defenderDiceValues);
+				storeDiceValues();
+				if(Collections.max(attackerDiceValues) > Collections.max(defenderDiceValues))
+					battleWon();
+				else
+					battleLost();
+			}
+			else if(noOfDefendingArmies>1){
+				rollDice(defenderDiceValues);
+				rollDice(defenderDiceValues);
+				storeDiceValues();
+				if(Collections.max(attackerDiceValues) > Collections.max(defenderDiceValues)){
+					battleWon();
+					attackerDiceValues.remove(Collections.max(attackerDiceValues));
+					defenderDiceValues.remove(Collections.max(defenderDiceValues));
+					if(Collections.max(attackerDiceValues) > Collections.max(defenderDiceValues))
+						battleWon();
+					else
+						battleLost();
+				}
+				else{
+					battleLost();
+					attackerDiceValues.remove(Collections.max(attackerDiceValues));
+					defenderDiceValues.remove(Collections.max(defenderDiceValues));
+					if(Collections.max(attackerDiceValues) > Collections.max(defenderDiceValues))
+						battleWon();
+					else
+						battleLost();
+				}
+			}	
 		}
-		return true;
+		initiateDice();
+		return checkWarWon();
 	}
 	
-	public boolean allOutAttack(Player attacker,String attackingCountryName,String defendingCountryName){
+	public boolean allOutAttack(Player selectedPlayer,String attackingCountryName,String defendingCountryName){
 		
-		return false;
+		attacker=selectedPlayer;
+		for(Player p:players){
+			for(Country c:p.getCountriesOwned()){
+				if(c.getCountryName()==defendingCountryName){
+					countryDefending=c;
+					defender=p;
+					break;
+				}
+			}
+		}
+		for(Country c:attacker.getCountriesOwned()){
+			if(attackingCountryName.equals(c.getCountryName())){
+				countryAttacking=c;
+			}
+		}
+		noOfDefendingArmies=countryDefending.getNoOfArmiesPresent();
+		if(noOfDefendingArmies>0){
+			return true;
+		}
+		noOfAttackingArmies = countryAttacking.getNoOfArmiesPresent()-1;
+		boolean won=false;
 		
+		do{
+			if(noOfAttackingArmies==1)
+				won=normalAttack(selectedPlayer, attackingCountryName, defendingCountryName,1);
+			else if(noOfAttackingArmies==2)
+				won=normalAttack(selectedPlayer, attackingCountryName, defendingCountryName,2);
+			else
+				won=normalAttack(selectedPlayer, attackingCountryName, defendingCountryName,3);
+			noOfAttackingArmies = countryAttacking.getNoOfArmiesPresent()-1;
+		}while(noOfAttackingArmies>0 && noOfDefendingArmies>0);
+		
+		return won;
 	}
+	
 	
 	private void battleWon(){
-		countryDefending.removeNoOfArmiesCountry(); 
-		initiateDice();
-	}
-	private void battleLost(){
-		initiateDice();
+		countryDefending.removeNoOfArmiesCountry();
 	}
 	
-	private void warWon(){
-		attacker.addCountry(countryDefending);
-		defender.removeCountry(countryDefending);
-		initiateDice();
+	private void battleLost(){
+		countryAttacking.removeNoOfArmiesCountry();
+	}
+	
+	private boolean checkWarWon(){
+		
+		if(noOfDefendingArmies==0){
+			attacker.addCountry(countryDefending);
+			defender.removeCountry(countryDefending);
+			attacker.getCardsOwned().add(Card.getNewCard());
+			if(defender.getCountriesOwned().size()==0){
+				attacker.getCardsOwned().addAll(defender.getCardsOwned());
+	//removeplayer			for(Player p:players){
+	//				if(p==defender){
+	//					
+	//				}
+	//			}
+		}
+			return true;
+		}
+		else{
+			return false;
+		}
+		
 	}
 	
 	private void storeDiceValues(){
