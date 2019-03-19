@@ -997,7 +997,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 		for(int i = 0;i<4;i++)
 		{
 			System.out.println(player[currentPlayer].getNoOfCardsOwned());
-			player[currentPlayer].getListOfCardsOwned().add(Card.getNewCard());
+			player[currentPlayer].getCardsOwned().add(Card.getNewCard());
 			player[currentPlayer].setNoOfCardsOwned(player[currentPlayer].getNoOfCardsOwned()+1);
 		}
 		
@@ -1077,10 +1077,10 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 						
 						for(String cardType: cardsSelected) {
 							
-							for(Card card: player[currentPlayer].getListOfCardsOwned())
+							for(Card card: player[currentPlayer].getCardsOwned())
 							{
 								if(card.getTypeOfCard().toString().equals(cardType)) {
-									player[currentPlayer].getListOfCardsOwned().remove(card);
+									player[currentPlayer].getCardsOwned().remove(card);
 									player[currentPlayer].setNoOfCardsOwned(player[currentPlayer].getNoOfCardsOwned()-1);
 									break;
 								}
@@ -1146,7 +1146,7 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 		
 		list = new DefaultListModel<String>();  
 		System.out.println("Total cards of player 1 is " + player[currentPlayer].getNoOfCardsOwned());
-		for(Card cards: player[currentPlayer].getListOfCardsOwned())
+		for(Card cards: player[currentPlayer].getCardsOwned())
 		{
 			
 			cardType = cards.getTypeOfCard().toString();

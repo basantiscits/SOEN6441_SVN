@@ -241,6 +241,7 @@ public class AttackController implements ActionListener{
 	private void storeDiceValues(){
 		diceValues=attackerDiceValues.toString();
 		diceValues=diceValues+"\n"+defenderDiceValues.toString();
+		System.out.println(diceValues);
 	}
 	
 	private void rollDice(ArrayList <Integer> setDiceValues){
