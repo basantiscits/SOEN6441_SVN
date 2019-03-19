@@ -29,6 +29,7 @@ public class AttackView extends JFrame implements ActionListener {
 	private JLabel source;
 	private JLabel destination;
 	private JLabel noOfDices;
+	private JComboBox selectNoOfDice;
 	private String[] noOfDicesList = new String[] { "  --Select--  ","1", "2", "3" };
 	private JLabel playerName;
 	private JLabel armiesInSource;
@@ -168,7 +169,21 @@ public class AttackView extends JFrame implements ActionListener {
 		this.destinationCountry = destinationCountry;
 	}
 	
+	/**
+	 * getter for number of dice
+	 * @return combo box for number of dices
+	 */
+	public JComboBox getNoOfDice() {
+		return selectNoOfDice;
+	}
 	
+	/**
+	 * setter for numer of dice
+	 * @param dice combo box for number of dices
+	 */
+	public void setNoOfDice(JComboBox dice) {
+		this.selectNoOfDice = dice;
+	}
 	
 	
 
@@ -330,9 +345,9 @@ public class AttackView extends JFrame implements ActionListener {
 		destinationCountry.addActionListener(AttackController);
 		
 
-		selectNoOfDices = new JComboBox<String>(noOfDicesList);
-		selectNoOfDices.setBounds(465, 150, 100, 35);
-		add(selectNoOfDices);
+		selectNoOfDice = new JComboBox();
+		selectNoOfDice.setBounds(465, 150, 100, 35);
+		add(selectNoOfDice);
 		
 		Attackbtn = new JButton("Attack");
 		Attackbtn.setBounds(615, 150, 100, 35);
@@ -366,25 +381,33 @@ public class AttackView extends JFrame implements ActionListener {
 	public void addCountryToBox(JComboBox country) {
 		country.removeAllItems();
 		for(Country c : player[currentPlayer].getCountriesOwned()) {
-			country.addItem(c.getCountryName());
+			if(c.getNoOfArmiesPresent()>1) {
+				country.addItem(c.getCountryName());
+			}
 		}
 	}
 	
 	public void addDestCountries(Country sourCountry) {
 		destinationCountry.removeAllItems();
-		for(Country c : player[currentPlayer].getCountriesOwned()) {
-			if(sourCountry.getListOfNeighbours().contains(c.getCountryName())) {
-				destinationCountry.addItem(c.getCountryName());
+		for(String c : sourCountry.getListOfNeighbours()) {
+			if(!(player[currentPlayer].getCountriesOwned().contains(c))) {
+				destinationCountry.addItem(c);
 			}
 		}
 	}
 		
 	
-
-	
-
-
-	
+	public void selectDices() {
+		selectNoOfDice.removeAllItems();
+		for(int i=1; i<Integer.valueOf(armiesInSource.getText()); i++) {
+			if(i<4) {
+				selectNoOfDice.addItem(String.valueOf(i));
+			}
+			else {
+				break;
+			}
+		}
+	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {

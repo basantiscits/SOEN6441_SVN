@@ -87,19 +87,13 @@ public class AttackController implements ActionListener{
 		else if (e.getSource() == AttackView.getSourceCountry()) {
 			if (AttackView.getSourceCountry().getItemCount() != 0) {
 				AttackView.getArmiesInDestination().setText("");
-				//AttackView.getSelectNoOfArmies().removeAllItems();
+				AttackView.getNoOfDice().removeAllItems();
 				destCountry = null;
 				String countryName = (String) AttackView.getSourceCountry().getSelectedItem();
 				sourCountry = AttackView.getMap().searchCountry(countryName);
 				AttackView.getArmiesInSource().setText(String.valueOf(sourCountry.getNoOfArmiesPresent()));
 				AttackView.addDestCountries(sourCountry);
-				if (sourCountry.getNoOfArmiesPresent() <= 1) {
-					JOptionPane.showMessageDialog(null, "Country should contain atleast 2 armies to move 1");
-				}
-				else {
-					//AttackView.getSelectNoOfArmies().removeAllItems();
-					//AttackView.AddArmies();
-				}
+				AttackView.selectDices();
 			}
 		}
 		
