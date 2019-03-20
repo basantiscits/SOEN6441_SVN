@@ -12,7 +12,9 @@ import javax.swing.JOptionPane;
 import com.proj.views.AttackView;
 import com.proj.views.FortificationView;
 import com.proj.models.Card;
+import com.proj.models.Continent;
 import com.proj.models.Country;
+import com.proj.models.Map;
 import com.proj.models.Player;
 
 
@@ -32,6 +34,9 @@ public class AttackController implements ActionListener{
 	public String diceValues;
 	boolean boolAttackAllout;
 	boolean boolAttack;
+	private int attackerDiceCount;
+	private Map map;
+	private Country sourCountry, destCountry;
 	
 	
 	public AttackController(AttackView AttackView){
@@ -46,6 +51,8 @@ public class AttackController implements ActionListener{
 		attackerDiceValues=new ArrayList<Integer>();
 		defenderDiceValues=new ArrayList<Integer>();
 		this.players=AttackView.getPlayer();
+		this.map=AttackView.getMap();
+		attackerDiceCount=0;
 	}
 	
 	public boolean normalAttack(String attackingCountryName,String defendingCountryName,int noOfDicesSelected){
@@ -241,7 +248,14 @@ public class AttackController implements ActionListener{
 					newList[k++]=p;
 				}
 				players=newList;
-		}
+			}
+			for(Continent c:map.getContinents()){
+				if(attacker.getCountriesOwned().containsAll(c.getCountriesPresent()) && !attacker.getContinentsOwned().contains(c)){
+					attacker.getContinentsOwned().add(c);
+				}
+			}
+			
+			
 			return true;
 		}
 		else{
@@ -253,6 +267,7 @@ public class AttackController implements ActionListener{
 	private void storeDiceValues(){
 		diceValues=attackerDiceValues.toString();
 		diceValues=diceValues+"\n"+defenderDiceValues.toString();
+		attackerDiceCount=attackerDiceValues.size();
 		System.out.println(diceValues);
 		System.out.println();
 	}
@@ -265,9 +280,11 @@ public class AttackController implements ActionListener{
 		defenderDiceValues.clear();
 		attackerDiceValues.clear();
 	}
-	private Country sourCountry, destCountry;
-
 	
+	private void moveArmies(int noOfArmiesToMove){
+		countryAttacking.setNoOfArmiesPresent(countryAttacking.getNoOfArmiesPresent()-noOfArmiesToMove);
+		countryDefending.setNoOfArmiesPresent(noOfArmiesToMove);
+	}
 	
 	
 	public Country getDestCountry() {
@@ -337,11 +354,11 @@ public class AttackController implements ActionListener{
 			boolAttackAllout=allOutAttack(sSourceCountry,sDestinationCountry);
 			if (boolAttackAllout== true)
 			{
-				System.out.println("All out Attack "+" terriotry  won");
+				System.out.println("All out Attack "+" territory  won");
 			}
 			else
 			{
-				System.out.println("All out Attack "+" terriotry  won");
+				System.out.println("All out Attack "+" territory  won");
 			}
 			
 		}
