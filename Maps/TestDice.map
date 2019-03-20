@@ -1,0 +1,23 @@
+[Map]
+author=Sean O'Connor
+image=world.bmp
+wrap=no
+scroll=horizontal
+warn=yes
+
+[Continents]
+x=5
+y=5
+
+[Territories]
+a,70,126,x,b
+b,70,126,x,c
+c,70,126,x,d
+d,70,126,x,e
+e,70,126,x,f
+f,70,126,y,g
+g,70,126,y,h
+h,70,126,y,i
+i,70,126,y,j
+j,70,126,y,a
+
