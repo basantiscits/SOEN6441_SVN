@@ -271,6 +271,11 @@ public class AttackController implements ActionListener{
 				}
 				players=newList;
 			}
+			for(Continent c:map.getContinents()){
+				if(attacker.getCountriesOwned().containsAll(c.getCountriesPresent()) && !attacker.getContinentsOwned().contains(c)){
+					attacker.getContinentsOwned().add(c);
+				}
+			}
 			return true;
 		}
 		else{
