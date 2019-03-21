@@ -2,6 +2,7 @@ package com.proj.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 import com.proj.views.GameWindowScreen;
 
@@ -11,13 +12,28 @@ import com.proj.views.GameWindowScreen;
  * @since 7 Feb 2019
  * @version 1.0
  */
-public class Player {
+public class Player extends Observable{
 	private String playerName;
 	private List<Country> countriesOwned;
 	private List<Continent> continentsOwned;
 	private int noOfArmiesOwned;
 	private int noOfCardsOwned = 0;
 	private List<Card> cardsOwned = new ArrayList<Card>();
+	private int cardsForArmies = 0;
+	
+	
+	/**
+	 * constructor for Player class
+	 * @param string name of player
+	 */
+	public Player(String string) {
+		this.playerName = string;	
+		countriesOwned = new ArrayList<Country>();
+		cardsOwned=new ArrayList<Card>();
+		continentsOwned=new ArrayList<Continent>();
+		updateChanges();
+	}
+	
 	/**
 	 * @return the cardsForArmies
 	 */
@@ -30,19 +46,6 @@ public class Player {
 	 */
 	public void setCardsForArmies(int cardsForArmies) {
 		this.cardsForArmies = cardsForArmies;
-	}
-
-	private int cardsForArmies = 0;
-	
-	/**
-	 * constructor for Player class
-	 * @param string name of player
-	 */
-	public Player(String string) {
-		this.playerName = string;	
-		countriesOwned = new ArrayList<Country>();
-		cardsOwned=new ArrayList<Card>();
-		continentsOwned=new ArrayList<Continent>();
 	}
 	
 	/**
@@ -73,6 +76,7 @@ public class Player {
 	 */
 	public void setCountriesOwned(List<Country> countriesOwned) {
 		this.countriesOwned = countriesOwned;
+		updateChanges();
 	}
 	
 	/**
@@ -89,6 +93,7 @@ public class Player {
 	 */
 	public void setContinentsOwned(List<Continent> continentsOwned) {
 		this.continentsOwned = continentsOwned;
+		updateChanges();
 	}
 	
 	/**
@@ -105,6 +110,7 @@ public class Player {
 	 */
 	public void setNoOfArmiesOwned(int noOfArmiesOwned) {
 		this.noOfArmiesOwned = noOfArmiesOwned;
+		updateChanges();
 	}
 	
 	/**
@@ -113,6 +119,7 @@ public class Player {
 	 */
 	public void incrementNoOfArmiesOwned(int noOfnewArmies) {
 		this.noOfArmiesOwned = this.noOfArmiesOwned + noOfnewArmies;
+		updateChanges();
 	}
 	
 	/**
@@ -129,6 +136,7 @@ public class Player {
 	 */
 	public void setNoOfCardsOwned(int noOfCardsOwned) {
 		this.noOfCardsOwned = noOfCardsOwned;
+		updateChanges();
 	}
 	
 	/**
@@ -137,6 +145,7 @@ public class Player {
 	 */
 	public void setPlayerName(String playerName){
 		this.playerName=playerName;
+		updateChanges();
 	}
 	
 	/**
@@ -153,6 +162,7 @@ public class Player {
 	 */
 	public void addCountry(Country countryName) {
 		countriesOwned.add(countryName);	
+		updateChanges();
 	}
 	
 	/**
@@ -161,6 +171,7 @@ public class Player {
 	 */
 	public void removeCountry(Country countryName) {
 		countriesOwned.remove(countryName);	
+		updateChanges();
 	}
 
 	/**
@@ -168,6 +179,7 @@ public class Player {
 	 */
 	public void reduceArmyInPlayer() {
 		this.noOfArmiesOwned--;
+		updateChanges();
 	}
 	
 	/**
@@ -175,6 +187,7 @@ public class Player {
 	 */
 	public void addArmyInPlayer() {
 		this.noOfArmiesOwned++;
+		updateChanges();
 	}
 	
 
@@ -222,6 +235,11 @@ public class Player {
 			}
 		}
 		System.out.println("Current player : " + gameWindowScreen.getCurrentPlayer() + " number: " + number);
+	}
+	
+	public void updateChanges() {
+		setChanged();
+		notifyObservers(this);
 	}
 	
 }

@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 
 import com.proj.controllers.AttackController;
 import com.proj.controllers.FortificationController;
+import com.proj.models.Continent;
 //import com.proj.controllers.FortificationController;
 //import com.proj.controllers.NewGameController;
 import com.proj.models.Country;
@@ -30,7 +31,6 @@ public class AttackView extends JFrame implements ActionListener {
 	private JLabel destination;
 	private JLabel noOfDices;
 	private JComboBox selectNoOfDice;
-	private String[] noOfDicesList = new String[] { "  --Select--  ","1", "2", "3" };
 	private JLabel playerName;
 	private JLabel armiesInSource;
 	private JLabel armiesInDestination;
@@ -44,6 +44,7 @@ public class AttackView extends JFrame implements ActionListener {
 	private JComboBox selectNoOfDices;
 	private JButton Attackbtn;
 	private JButton AllOutAttackbtn;
+	private JButton finish;
 	private JLabel PlayerDicelbl;
 	private JLabel DefenderDicelbl;
 	private JLabel PlayerDiceRandomAllocated;
@@ -53,6 +54,69 @@ public class AttackView extends JFrame implements ActionListener {
 	private int currentPlayer;
 	private GameWindowScreen gameWindow;
 	private AttackController AttackController;
+	
+	private JLabel attackDice1;
+	private JLabel attackDice2;
+	private JLabel attackDice3;
+	private JLabel defendDice1;
+	private JLabel defendDice2;
+	
+	
+	public JLabel getAttackDice1() {
+		return attackDice1;
+	}
+
+	public void setAttackDice1(JLabel attackDice1) {
+		this.attackDice1 = attackDice1;
+	}
+
+	public JLabel getAttackDice2() {
+		return attackDice2;
+	}
+
+	public void setAttackDice2(JLabel attackDice2) {
+		this.attackDice2 = attackDice2;
+	}
+
+	public JLabel getAttackDice3() {
+		return attackDice3;
+	}
+
+	public void setAttackDice3(JLabel attackDice3) {
+		this.attackDice3 = attackDice3;
+	}
+
+	public JLabel getDefendDice1() {
+		return defendDice1;
+	}
+
+	public void setDefendDice1(JLabel defendDice1) {
+		this.defendDice1 = defendDice1;
+	}
+
+	public JLabel getDefendDice2() {
+		return defendDice2;
+	}
+
+	public void setDefendDice2(JLabel defendDice2) {
+		this.defendDice2 = defendDice2;
+	}
+
+	/**
+	 * getter for finish
+	 * @return finish
+	 */
+	public JButton getFinish() {
+		return finish;
+	}
+	
+	/**
+	 * setter for finish
+	 * @param finish name of button
+	 */
+	public void setFinish(JButton finish) {
+		this.finish = finish;
+	}
 	
 	/**
 	 * getter for AlloutAttack
@@ -322,26 +386,6 @@ public class AttackView extends JFrame implements ActionListener {
 		playerName.setBounds(55, 155, 100, 35);
 		add(playerName);
 		
-		
-		PlayerDicestrlbl = new JLabel("Player Dice");
-		PlayerDicestrlbl.setBounds(70, -10, 100, 35);
-		add(PlayerDicestrlbl);
-		
-		DefendersDicestrlbl = new JLabel("Defender Dice");
-		DefendersDicestrlbl.setBounds(785, -10, 100, 35);
-		add(DefendersDicestrlbl);
-		
-		//Player1 or 2 or 3 Dice
-		PlayerDiceRandomAllocated= new JLabel("Dice Count Player");
-		PlayerDiceRandomAllocated.setBounds(180, -40, 200, 200);
-		add(PlayerDiceRandomAllocated);
-		
-		// Defender Dice 
-		DefenderDiceRandomAllocated= new JLabel("Dice Count Defender");
-		DefenderDiceRandomAllocated.setBounds(650, -40, 200, 200);
-		add(DefenderDiceRandomAllocated);
-		
-		
 		source = new JLabel("Source Country");
 		source.setBounds(165, 120, 100, 30);
 		add(source);
@@ -392,6 +436,12 @@ public class AttackView extends JFrame implements ActionListener {
 		AllOutAttackbtn.addActionListener(this);
 		add(AllOutAttackbtn);
 		
+		finish = new JButton("Finish");
+		finish.setBounds(500, 250, 130, 35);
+		finish.addActionListener(AttackController);
+		finish.addActionListener(this);
+		add(finish);
+		
 		ImageIcon PlayerDice = new ImageIcon("Images/Dice.jpg");
 		ImageIcon DefenderDice = new ImageIcon("Images/Dice.jpg");
 		
@@ -405,7 +455,25 @@ public class AttackView extends JFrame implements ActionListener {
 		DefenderDicelbl.setBounds(780, -40, 200, 200);
 		add(DefenderDicelbl);
 		
-	
+		attackDice1 = new JLabel();
+		attackDice1.setBounds(400,40,50,20);
+		add(attackDice1);
+
+		attackDice2 = new JLabel();
+		attackDice2.setBounds(400,60,50,20);
+		add(attackDice2);
+		
+		attackDice3 = new JLabel();
+		attackDice3.setBounds(400,80,50,20);
+		add(attackDice3);
+
+		defendDice1 = new JLabel();
+		defendDice1.setBounds(450,40,50,20);
+		add(defendDice1);
+		
+		defendDice2 = new JLabel();
+		defendDice2.setBounds(450,60,50,20);
+		add(defendDice2);
 
 		
 	}
@@ -420,9 +488,18 @@ public class AttackView extends JFrame implements ActionListener {
 	
 	public void addDestCountries(Country sourCountry) {
 		destinationCountry.removeAllItems();
+		Country countryToBeChechked = null;
 		for(String c : sourCountry.getListOfNeighbours()) {
-			if(!(player[currentPlayer].getCountriesOwned().contains(c))) {
+			for(Continent continent:map.getContinents()){
+				for(Country country:continent.getCountriesPresent()){
+					if(country.getCountryName().equalsIgnoreCase(c)) {
+						countryToBeChechked = country;
+					}
+				}
+			}
+			if(!(player[currentPlayer].getCountriesOwned().contains(countryToBeChechked))) {
 				destinationCountry.addItem(c);
+				System.out.println(c);
 			}
 		}
 	}

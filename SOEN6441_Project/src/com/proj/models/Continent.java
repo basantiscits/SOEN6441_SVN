@@ -2,6 +2,7 @@ package com.proj.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 /**
  * Continent class
@@ -9,7 +10,7 @@ import java.util.List;
  * @since 10 Feb 2019
  * @version 1.0
  */
-public class Continent {
+public class Continent extends Observable{
 	private String continentName;
 	private List<Country> countriesPresent;
 	private int controlValue;
@@ -20,6 +21,7 @@ public class Continent {
 	public Continent() {
 		controlValue = 0;
 		countriesPresent = new ArrayList<Country>();
+		updateChanges();
 	}
 
 	/**
@@ -38,6 +40,7 @@ public class Continent {
 	 */
 	public void setContinentName(String continentName) {
 		this.continentName = continentName;
+		updateChanges();
 	}
 
 	/**
@@ -56,6 +59,7 @@ public class Continent {
 	 */
 	public void setCountriesPresent(List<Country> countriesPresent) {
 		this.countriesPresent = countriesPresent;
+		updateChanges();
 	}
 
 	/**
@@ -74,6 +78,7 @@ public class Continent {
 	 */
 	public void setControlValue(int controlValue) {
 		this.controlValue = controlValue;
+		updateChanges();
 	}
 
 	/**
@@ -83,6 +88,7 @@ public class Continent {
 	 */
 	public void addCountry(Country name) {
 		countriesPresent.add(name);
+		updateChanges();
 	}
 
 	/**
@@ -92,6 +98,13 @@ public class Continent {
 	 */
 	public void removeCountry(Country name) {
 		countriesPresent.remove(name);
+		updateChanges();
 	}
+	
+	public void updateChanges() {
+		setChanged();
+		notifyObservers(this);
+	}
+	
 
 }

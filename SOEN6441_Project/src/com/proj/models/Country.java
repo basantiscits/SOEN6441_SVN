@@ -2,6 +2,7 @@ package com.proj.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 /**
  * the country class
@@ -9,7 +10,7 @@ import java.util.List;
  * @since 12 Feb 2019
  * @version 1.0
  */
-public class Country {
+public class Country extends Observable{
 	private String countryName;
 	private String ownedBy;
 	private int noOfArmiesPresent;
@@ -23,6 +24,7 @@ public class Country {
 	 */
 	public Country(){
 		listOfNeighbours=new ArrayList<String>();
+		updateChanges();
 	}
 	
 	/**
@@ -34,6 +36,7 @@ public class Country {
 		this.setCountryName(countryName);
 		this.listOfNeighbours = new ArrayList<String>();
 		isVisited = false;
+		updateChanges();
 
 	}
 	/**
@@ -50,6 +53,7 @@ public class Country {
 	 */
 	public void setCountryName(String countryName) {
 		this.countryName = countryName;
+		updateChanges();
 	}
 	
 	/**
@@ -66,6 +70,7 @@ public class Country {
 	 */
 	public void setOwnedBy(String ownedBy) {
 		this.ownedBy = ownedBy;
+		updateChanges();
 	}
 	
 	/**
@@ -82,6 +87,7 @@ public class Country {
 	 */
 	public void setNoOfArmiesPresent(int noOfArmiesPresent) {
 		this.noOfArmiesPresent = noOfArmiesPresent;
+		updateChanges();
 	}
 	
 	/**
@@ -98,6 +104,7 @@ public class Country {
 	 */
 	public void setListOfNeighbours(List<String> listOfNeighbours) {
 		this.listOfNeighbours = listOfNeighbours;
+		updateChanges();
 	}
 	
 	/**
@@ -138,19 +145,30 @@ public class Country {
 	 */
 	public void setOwnedBy(Player owner) {
 		this.ownedBy = ownedBy;
+		updateChanges();
 	}
 
 	/**
 	 * incrementing number of armies present
 	 */
 	public void addNoOfArmiesCountry() {
-		this.noOfArmiesPresent++;	
+		this.noOfArmiesPresent++;
+		updateChanges();
 	}
 	
 	/**
 	 * decrement number of armies present
 	 */
 	public void removeNoOfArmiesCountry() {
-		this.noOfArmiesPresent--;	
+		this.noOfArmiesPresent--;
+		updateChanges();
+	}
+	
+	/**
+	 * Update changes.
+	 */
+	public void updateChanges() {
+		setChanged();
+		notifyObservers(this);
 	}
 }

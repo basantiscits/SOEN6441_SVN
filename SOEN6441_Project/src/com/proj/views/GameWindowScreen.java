@@ -12,6 +12,8 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Set;
 
 import javax.swing.BorderFactory;
@@ -46,7 +48,7 @@ import com.proj.utilites.Constants;
  * @since 10 Feb 2019
  * @version 1.0
  */
-public class GameWindowScreen extends JFrame implements ActionListener {
+public class GameWindowScreen extends JFrame implements ActionListener,Observer {
 	private int currentPlayer = 0;
 	public Player[] player;
 	private JLabel countriesLabel;
@@ -104,6 +106,9 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 		super("Game Window");
 		this.gameMap = gameMap;
 		this.player = player;
+		for (Player p : player) {
+			p.addObserver(this);
+		}
 		gameController = new GameController(this, gameMap, player);
 		setSize(Constants.MAP_EDITOR_WIDTH, Constants.MAP_EDITOR_HEIGHT);
 		setResizable(false);
@@ -117,12 +122,6 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 				dispose();
 			}
 		});
-		
-
-		
-		
-		
-		
 	}
 
 	/**
@@ -1193,7 +1192,17 @@ public class GameWindowScreen extends JFrame implements ActionListener {
 		
 	}
 
+	@Override
+	public void update(Observable type, Object object) {
+		if (type instanceof Player) {
+			Player p = (Player) type;
+			createStartUpTree();
+			playerStrengthTable();
+
+			//updateUIInfo(gameModel.getCurrPlayer());
+		}
 		
+	}
 		
 		
 		

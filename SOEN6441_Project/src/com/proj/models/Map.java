@@ -2,13 +2,14 @@ package com.proj.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 /**
  * The Map class
  * @author Ofreish
  * @since 5 Feb 2019
  * @version 1.0
  */
-public class Map {
+public class Map extends Observable{
 	private String name;
 	private String authorName;
 	private String path;
@@ -24,6 +25,7 @@ public class Map {
 		path="";
 		name="";
 		errorOccurred=false;
+		updateChanges();
 	}
 	
 	/**
@@ -56,6 +58,7 @@ public class Map {
 	 */
 	public void setName(String name) {
 		this.name = name;
+		updateChanges();
 	}
 	
 	/**
@@ -72,6 +75,7 @@ public class Map {
 	 */
 	public void setContinents(List<Continent> continents) {
 		this.continents = continents;
+		updateChanges();
 	}
 	
 	/**
@@ -88,6 +92,7 @@ public class Map {
 	 */
 	public void setAuthorName(String authorName) {
 		this.authorName = authorName;
+		updateChanges();
 	}
 	
 	/**
@@ -142,6 +147,7 @@ public class Map {
 	 */
 	public void removeContinent(Continent continent) {
 		getContinents().remove(continent);
+		updateChanges();
 	}
 	
 	/**
@@ -152,6 +158,7 @@ public class Map {
 		if(searchContinent(continent.getContinentName())=="") {
 			getContinents().add(continent);
 		}
+		updateChanges();
 	}
 	
 	/**
@@ -213,5 +220,10 @@ public class Map {
 			}
 		}
 		return null;
+	}
+	
+	public void updateChanges() {
+		setChanged();
+		notifyObservers(this);
 	}
 }

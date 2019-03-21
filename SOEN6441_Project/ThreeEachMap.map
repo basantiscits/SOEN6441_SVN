@@ -1,0 +1,17 @@
+[Map]
+author=Anonymous
+[Continents]
+Asia=3
+Europe=3
+NorthAmerica=3
+[Territories]
+India,0.0,0.0,Asia,Pakistan,Nepal
+Pakistan,0.0,0.0,Asia,India,Nepal
+Nepal,0.0,0.0,Asia,India,Pakistan,USA
+UK,0.0,0.0,Europe,India,Pakistan,Nepal,Spain,Germany
+Spain,0.0,0.0,Europe,India,Pakistan,Nepal,UK,Germany
+Germany,0.0,0.0,Europe,India,Pakistan,Nepal,UK,Spain
+USA,0.0,0.0,NorthAmerica,India,Pakistan,Nepal,UK,Spain,Germany,Canada,Alaska
+Canada,0.0,0.0,NorthAmerica,India,Pakistan,Nepal,UK,Spain,Germany,USA,Alaska
+Alaska,0.0,0.0,NorthAmerica,India,Pakistan,Nepal,UK,Spain,Germany,USA,Canada
+
