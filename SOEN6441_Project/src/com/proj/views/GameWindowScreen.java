@@ -1,5 +1,6 @@
 package com.proj.views;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -25,6 +26,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
@@ -33,7 +35,6 @@ import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.tree.DefaultMutableTreeNode;
-
 import com.proj.controllers.GameController;
 import com.proj.models.Card;
 import com.proj.models.Continent;
@@ -92,6 +93,9 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer 
 	private List<String> cardsSelected;
 	private JList<String> listOfCards;
 	private JLabel cardViewLabel;
+	
+	private JPanel progressBarPanel;
+	private JProgressBar progressBar;
 	
 	
 	private JOptionPane exchangePane;
@@ -172,7 +176,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer 
 		startPhaseViewPanel.add(startPhaseDefinedLabel);
 
 		startUpScrollPane = new JScrollPane(startUpTree);
-		startUpScrollPane.setBounds(10,startPhaseViewPanel.getBounds().y + (int) (startPhaseViewPanel.getBounds().getHeight()) + 5,635 + (int) (200), frameSize.height - 900);
+		startUpScrollPane.setBounds(10,startPhaseViewPanel.getBounds().y + (int) (startPhaseViewPanel.getBounds().getHeight()) + 5,500, frameSize.height - 900);
 
 		tableHeader = new JPanel();
 		tableHeader.setBounds(startUpScrollPane.getBounds().x + (int) (startUpScrollPane.getBounds().getWidth()),startPhaseViewPanel.getBounds().y + (int) (startPhaseViewPanel.getBounds().getHeight()) + 5, 320, 25);
@@ -184,13 +188,17 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer 
 
 		strengthPane = new JScrollPane(playerStrength);
 		strengthPane.setBounds(startUpScrollPane.getBounds().x + (int) (startUpScrollPane.getBounds().getWidth()),tableHeader.getBounds().y + (int) (tableHeader.getBounds().getHeight()), (int) (320),frameSize.height - 925);
+		
+		progressBarPanel = new JPanel();
+		progressBarPanel.setBounds(strengthPane.getBounds().x + (int) (strengthPane.getBounds().getWidth()),tableHeader.getBounds().y + (int) (tableHeader.getBounds().getHeight())+1, (int) (320),frameSize.height - 500);
+		
 
 		currentPlayerName = new JLabel(player[currentPlayer].getPlayerName());
-		currentPlayerName.setBounds(150, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 20,100, 30);
+		currentPlayerName.setBounds(50, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 20,100, 30);
 		add(currentPlayerName);
 
 		countriesComboBox = new JComboBox();
-		countriesComboBox.setBounds(350, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 20,150, 30);
+		countriesComboBox.setBounds(150, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 20,150, 30);
 		add(countriesComboBox);
 		addCountriesToBox(player[currentPlayer]);
 		
@@ -216,25 +224,29 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer 
 		exchangeButton.setBounds(200,150,100,70);
 		exchangeButt = new JButton("View Available Cards");
 		
-		exchangeButt.setBounds(500, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 20,30, 30); // to be placed correctly
+		exchangeButt.setBounds(300, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 20,30, 30); // to be placed correctly
 		exchangeButt.addActionListener(gameController);
 		add(exchangeButt);
 		
 		
 
 		armyAllocation = new JButton("Place Army");
-		armyAllocation.setBounds(650, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 20,100, 30);
+		armyAllocation.setBounds(400, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 20,100, 30);
 		armyAllocation.addActionListener(gameController);
 		add(armyAllocation);
 
 		armiesAvailable = new JLabel("Number of Armies Available:" + String.valueOf(player[currentPlayer].getNoOfArmiesOwned()));
-		armiesAvailable.setBounds(850, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 20,200, 30);
+		armiesAvailable.setBounds(600, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 20,200, 30);
+		
+		
+		
 		add(armiesAvailable);
 		add(scrollPane);
 		add(treeScrollPane);
 		add(startUpScrollPane);
 		add(tableHeader);
 		add(strengthPane);
+		add(progressBarPanel);
 		//------------------------------------------------
 		DummyAttackButton= new JButton("Dummy Attack");
 		DummyAttackButton.setBounds(550, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 200,250, 30);
@@ -255,7 +267,8 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer 
 		createTree();
 		createStartUpTree();
 		playerStrengthTable();
-
+		addProgressBar();
+		
 	}
 
 	/**
@@ -1203,7 +1216,38 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer 
 		}
 		
 	}
+	
+	private void addProgressBar() {
+
+		progressBarPanel.removeAll();
+		Color color1 = new Color(23, 54, 135);
+		Color color2 = new Color(32, 198, 42);
+		Color color3 = new Color(88, 43, 97);
+		Color color4 = new Color(67, 89, 67);
+		Color color5 = new Color(11, 78, 80);
 		
+		Player[] players = player;
+		for (int i = 0; i < players.length; i++) {
+			progressBar = new JProgressBar();
+			int value = (int) (((double) players[i].getCountriesOwned().size()/gameMap.listOfCountryNames().size()) * 100);
+			progressBar.setValue(value);
+			progressBar.setStringPainted(true);
+			if (i == 0)
+				progressBar.setForeground(color1);
+			if (i == 1)
+				progressBar.setForeground(color2);
+			if (i == 2)
+				progressBar.setForeground(color3);
+			if (i == 3)
+				progressBar.setForeground(color4);
+			if (i == 4)
+				progressBar.setForeground(color5);
+
+			Border border = BorderFactory.createTitledBorder(players[i].getPlayerName());
+			progressBar.setBorder(border);
+			progressBarPanel.add(progressBar, BorderLayout.NORTH);
+		}
+	}
 		
 		
 }
