@@ -270,11 +270,6 @@ public class AttackController implements ActionListener{
 					newList[k++]=p;
 				}
 				players=newList;
-		}
-			for(Continent c:map.getContinents()){
-				if(attacker.getCountriesOwned().containsAll(c.getCountriesPresent()) && !attacker.getContinentsOwned().contains(c)){
-					attacker.getContinentsOwned().add(c);
-				}
 			}
 			return true;
 		}
@@ -287,6 +282,7 @@ public class AttackController implements ActionListener{
 	private void storeDiceValues(){
 		diceValues=attackerDiceValues.toString();
 		diceValues=diceValues+"\n"+defenderDiceValues.toString();
+		attackerDiceCount=attackerDiceValues.size();
 		System.out.println(diceValues);
 		System.out.println();
 	}
@@ -300,6 +296,13 @@ public class AttackController implements ActionListener{
 		attackerDiceValues.clear();
 	}
 
+	
+	private void moveArmies(int noOfArmiesToMove){
+		countryAttacking.setNoOfArmiesPresent(countryAttacking.getNoOfArmiesPresent()-noOfArmiesToMove);
+		countryDefending.setNoOfArmiesPresent(noOfArmiesToMove);
+	}
+	
+	
 	public Country getDestCountry() {
 		return destCountry;
 	}
@@ -373,9 +376,7 @@ public class AttackController implements ActionListener{
 					}
 				}
 				
-			}
-
-			
+			}		
 		}
 		else if(e.getSource() == AttackView.getAllOutAttackbtn()){
 			System.out.println("All out attack button pressed");
@@ -385,6 +386,7 @@ public class AttackController implements ActionListener{
 			String sDestinationCountry=(String) AttackView.getDestinationCountry().getSelectedItem();
 			System.out.println("Player Name : "+AttackView.getPlayer()+"\n"+ "Source Country :"+ sSourceCountry+"\n"+ "Defender Country :" +sDestinationCountry);
 			boolAttackAllout=allOutAttack(sSourceCountry,sDestinationCountry);
+
 			if (boolAttackAllout== true){
 				System.out.println("All out Attack "+" terriotry  won");
 				AttackView.getSourceCountry().removeAllItems();
@@ -409,7 +411,7 @@ public class AttackController implements ActionListener{
 					AttackView.getArmiesInDestination().setText("");
 				}
 			}
-			
+
 		}
 		else if(e.getSource() == AttackView.getFinish()) {
 			AttackView.dispose();
