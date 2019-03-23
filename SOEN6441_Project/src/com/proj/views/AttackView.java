@@ -2,24 +2,20 @@ package com.proj.views;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-//import javax.swing.JTextField;
-import javax.swing.JProgressBar;
+import javax.swing.JOptionPane;
 
 import com.proj.controllers.AttackController;
-import com.proj.controllers.FortificationController;
 import com.proj.models.Continent;
-//import com.proj.controllers.FortificationController;
-//import com.proj.controllers.NewGameController;
+import com.proj.controllers.FortificationController;
+import com.proj.controllers.NewGameController;
 import com.proj.models.Country;
+import com.proj.models.GameModelCreation;
 import com.proj.models.Map;
 import com.proj.models.Player;
 import com.proj.utilites.Constants;
@@ -53,6 +49,7 @@ public class AttackView extends JFrame implements ActionListener {
 	private JLabel DefenderDiceRandomAllocated;
 	private Map map;
 	private Player[] player;
+	private GameModelCreation gameModel;
 	private int currentPlayer;
 	private GameWindowScreen gameWindow;
 	private AttackController AttackController;
@@ -371,12 +368,23 @@ public class AttackView extends JFrame implements ActionListener {
 	public void setArmiesInDestination(JLabel armiesInDestination) {
 		this.armiesInDestination = armiesInDestination;
 	}
+	
+	
+
+	public GameModelCreation getGameModel() {
+		return gameModel;
+	}
+
+	public void setGameModel(GameModelCreation gameModel) {
+		this.gameModel = gameModel;
+	}
 
 	public AttackView(Map gameMap, Player[] playersArry, int currentPlayer, GameWindowScreen gameWindowScreen) {
 		this.map = gameMap;
 		this.player = playersArry;
 		this.currentPlayer = currentPlayer;
 		this.gameWindow = gameWindowScreen;
+		this.gameModel = gameWindowScreen.getGameController().getGameModel();
 		AttackController = new AttackController(this);
 		setTitle("******ATTACK PHASE******");
 		setResizable(false);
@@ -518,6 +526,17 @@ public class AttackView extends JFrame implements ActionListener {
 			}
 		}
 	}
+	
+/*	public boolean attackPossible() {
+		boolean hasArmy = false;
+		for (Country country : gameWindow.getGameController().getGameModel().getCurrPlayer().getCountriesOwned()) {
+			if (country.getNoOfArmiesPresent() > 1) {
+				hasArmy = true;
+				break;
+			}
+		}
+		return hasArmy;
+	}*/
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {

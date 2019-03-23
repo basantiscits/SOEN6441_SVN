@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import com.proj.models.Continent;
 import com.proj.models.Country;
+import com.proj.models.GameModelCreation;
 import com.proj.models.Map;
 import com.proj.models.Player;
 import com.proj.views.GameWindowScreen;
@@ -40,7 +41,8 @@ public class GameControllerTest {
 		player[1] = new Player("Player2");
 		player[2] = new Player("Player3");
 		gameMap = new Map();
-		screen = new GameWindowScreen(gameMap, player);
+		GameModelCreation gameModel = new GameModelCreation(gameMap,player);
+		screen = new GameWindowScreen(gameMap, player, gameModel);
 		controller = new GameController(screen, gameMap, player);
 		continent1 = new Continent();
 		continent1.setContinentName("Asia");

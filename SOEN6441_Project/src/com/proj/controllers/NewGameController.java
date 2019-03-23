@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 
 import com.proj.models.Continent;
 import com.proj.models.Country;
+import com.proj.models.GameModelCreation;
 import com.proj.models.Map;
 import com.proj.models.Player;
 import com.proj.utilites.MapTools;
@@ -24,11 +25,23 @@ import com.proj.views.PlayNewGame;
  */
 public class NewGameController implements ActionListener {
 	private PlayNewGame playNewGame;
+	private GameModelCreation gameModel;
 	private String noOfPlayers;
 	private String sPathFileName = "";
 	private Map sCarryMapForward = new Map();
 	private Player[] player;
 	boolean sCopyisMapValid = true;
+
+	
+	
+	
+	public GameModelCreation getGameModel() {
+		return gameModel;
+	}
+
+	public void setGameModel(GameModelCreation gameModel) {
+		this.gameModel = gameModel;
+	}
 
 	/**
 	 * constructor for new game controller
@@ -92,7 +105,9 @@ public class NewGameController implements ActionListener {
 						String[] comboSelectedPlayers = new String[Integer.parseInt(noOfPlayers)];
 						player = initializingPlayerModels(Integer.parseInt(noOfPlayers), sCarryMapForward,
 								comboSelectedPlayers);
-						playNewGame.GameModelWindowMade(sCarryMapForward, player);
+						this.gameModel = new GameModelCreation(sCarryMapForward, player);
+						providingGameModelToPlayer();
+						playNewGame.GameModelWindowMade(sCarryMapForward, player,gameModel);
 					}
 				}
 			} 
@@ -101,6 +116,13 @@ public class NewGameController implements ActionListener {
 				System.out.println(existingMap.getErrorMessage());
 			}
 		}
+	}
+
+	public void providingGameModelToPlayer() {
+		for (Player players : player) {
+			players.setGameModel(gameModel);
+		}
+		
 	}
 
 	/**
@@ -154,6 +176,16 @@ public class NewGameController implements ActionListener {
 				}
 			}
 		}
+		
+		for(Continent cont : sCarryMapForward.getContinents()) {
+			for(Player p:players) {
+				if(p.getCountriesOwned().containsAll(cont.getCountriesPresent())) {
+					p.getContinentsOwned().add(cont);
+					break;
+				}
+			}
+		}
+		
 		System.out.println(players);
 		return players;
 	}

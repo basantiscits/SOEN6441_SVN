@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import com.proj.models.Continent;
 import com.proj.models.Country;
+import com.proj.models.GameModelCreation;
 import com.proj.models.Map;
 import com.proj.models.Player;
 import com.proj.views.GameWindowScreen;
@@ -21,6 +22,7 @@ public class GameController implements ActionListener {
 	private GameWindowScreen gameWindowScreen;
 	private Map gameMap;
 	private Player[] player;
+	private GameModelCreation gameModel;
 
 	/**
 	 * constructor for Game Controller
@@ -34,7 +36,58 @@ public class GameController implements ActionListener {
 		this.gameMap = gameMap;
 		this.gameWindowScreen = gameWindowScreen;
 		this.player = player;
+		this.gameModel= new GameModelCreation(this.gameMap, this.player);
 	}
+
+	
+	
+	public GameWindowScreen getGameWindowScreen() {
+		return gameWindowScreen;
+	}
+
+
+
+	public void setGameWindowScreen(GameWindowScreen gameWindowScreen) {
+		this.gameWindowScreen = gameWindowScreen;
+	}
+
+
+
+	public Map getGameMap() {
+		return gameMap;
+	}
+
+
+
+	public void setGameMap(Map gameMap) {
+		this.gameMap = gameMap;
+	}
+
+
+
+	public Player[] getPlayer() {
+		return player;
+	}
+
+
+
+	public void setPlayer(Player[] player) {
+		this.player = player;
+	}
+
+
+
+	public GameModelCreation getGameModel() {
+		return gameModel;
+	}
+
+
+
+	public void setGameModel(GameModelCreation gameModel) {
+		this.gameModel = gameModel;
+	}
+
+
 
 	/**
 	 * action performed when reinforcement phase starts
@@ -47,8 +100,9 @@ public class GameController implements ActionListener {
 		switch (button) {
 		case "Place Army":
 			updateGame((String) gameWindowScreen.getCountriesComboBox().getSelectedItem());
-			start();
-			gameWindowScreen.displayPhase();
+			getGameModel().incrementTurn();
+			getGameModel().changePlayer();
+			gameWindowScreen.displayPlayer();
 			if (checkStartUpEnd()) {
 				gameWindowScreen.setCurrentPlayer(0);
 				gameWindowScreen.getArmyAllocation().setText("Phase Change");
@@ -59,7 +113,7 @@ public class GameController implements ActionListener {
 			
 			updateGame((String) gameWindowScreen.getCountriesComboBox().getSelectedItem());
 			gameWindowScreen.reinforce();
-			gameWindowScreen.displayPhase();
+			gameWindowScreen.displayPlayer();
 			break;
 		case "Phase Change":
 			cardExchange();
@@ -67,7 +121,7 @@ public class GameController implements ActionListener {
 			gameWindowScreen.getStartPhaseDefinedLabel().setText("Reinforcement Phase");
 			gameWindowScreen.getArmyAllocation().setText("Reinforcement Phase");
 			Player.intializeReinforcementArmies(gameWindowScreen, gameMap);
-			gameWindowScreen.displayPhase();
+			gameWindowScreen.displayPlayer();
 			break;
 		
 		case "View Available Cards":
@@ -78,14 +132,14 @@ public class GameController implements ActionListener {
 	/**
 	 * start method for game window screen
 	 */
-	public void start() {
+/*	public void start() {
 		if (gameWindowScreen.getCurrentPlayer() == (gameWindowScreen.getPlayer().length - 1)) {
 			gameWindowScreen.setCurrentPlayer(0);
 		} 
 		else {
 			gameWindowScreen.setCurrentPlayer(gameWindowScreen.getCurrentPlayer() + 1);
 		}
-	}
+	}*/
 
 	/**
 	 * checks end of start up phase
@@ -113,16 +167,18 @@ public class GameController implements ActionListener {
 	 *            name of country
 	 */
 	public void updateGame(String country) {
-		if (gameWindowScreen.getPlayerAtIndex(gameWindowScreen.getCurrentPlayer()).getNoOfArmiesOwned() > 0) {
-			gameWindowScreen.getPlayerAtIndex(gameWindowScreen.getCurrentPlayer()).reduceArmyInPlayer();
-			for (Country c : gameWindowScreen.getPlayerAtIndex(gameWindowScreen.getCurrentPlayer()).getCountriesOwned()) {
-				if (c.getCountryName().equals(country)) {
+		
+		if(getGameModel().getCurrPlayer().getNoOfArmiesOwned()>0) {
+			getGameModel().getCurrPlayer().reduceArmyInPlayer();
+			for(Country c : getGameModel().getCurrPlayer().getCountriesOwned()) {
+				if(c.getCountryName().equals(country)) {
 					c.addNoOfArmiesCountry();
 				}
 			}
-			gameWindowScreen.createStartUpTree();
+			//gameWindowScreen.createStartUpTree();
 		}
 	}
+	
 	
 	public void cardExchange()
 	

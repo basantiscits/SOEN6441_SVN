@@ -230,6 +230,7 @@ public class AttackController implements ActionListener{
 		noOfDefendingArmies=countryDefending.getNoOfArmiesPresent();
 		noOfAttackingArmies = countryAttacking.getNoOfArmiesPresent()-1;
 		boolean won=false;
+		//// Check again
 		while(noOfAttackingArmies>0 && noOfDefendingArmies>0){
 			if(noOfAttackingArmies==1)
 				won=normalAttack(attackingCountryName, defendingCountryName,1);
@@ -245,17 +246,22 @@ public class AttackController implements ActionListener{
 	
 	
 	private void battleWon(){
+		System.out.println("BattleWon");
 		countryDefending.removeNoOfArmiesCountry();
 		noOfDefendingArmies=countryDefending.getNoOfArmiesPresent();
+		
 	}
 	
 	private void battleLost(){
+		System.out.println("BattleLost");
 		countryAttacking.removeNoOfArmiesCountry();
 		noOfAttackingArmies=countryAttacking.getNoOfArmiesPresent()-1; // ???
+		
 	}
 	
 	private boolean checkWarWon(){
 		if(noOfDefendingArmies==0){
+			System.out.println("WarWon");
 			attacker.addCountry(countryDefending);
 			defender.removeCountry(countryDefending);
 			attacker.getCardsOwned().add(Card.getNewCard());
@@ -271,9 +277,21 @@ public class AttackController implements ActionListener{
 				}
 				players=newList;
 			}
+			Continent continentName = map.searchContinent(countryDefending);
+			for(Continent c : map.getContinents()) {
+				if(defender.getContinentsOwned().contains(continentName)) {
+					defender.getContinentsOwned().remove(continentName);
+				}
+			}
+			
 			for(Continent c:map.getContinents()){
 				if(attacker.getCountriesOwned().containsAll(c.getCountriesPresent()) && !attacker.getContinentsOwned().contains(c)){
 					attacker.getContinentsOwned().add(c);
+					for(Player p :AttackView.getPlayer()) {
+						if(p.getContinentsOwned().contains(c) && p!=attacker) {
+							p.getContinentsOwned().remove(c);
+						}
+					}
 				}
 			}
 			return true;
@@ -342,7 +360,13 @@ public class AttackController implements ActionListener{
 		}
 		else if(e.getSource() == AttackView.getAttack()){
 			
-			if(AttackView.getNoOfDice().getSelectedIndex()==-1) {
+			if(AttackView.getSourceCountry().getSelectedItem()==null) {
+				JOptionPane.showMessageDialog(null, "Please select Source country");
+			}
+			else if(AttackView.getDestinationCountry().getSelectedItem()==null) {
+				JOptionPane.showMessageDialog(null, "Please select target country");
+			}
+			else if(AttackView.getNoOfDice().getSelectedIndex()==-1) {
 				JOptionPane.showMessageDialog(null, "Please select number of dices");
 			}
 			else {
@@ -366,6 +390,18 @@ public class AttackController implements ActionListener{
 					AttackView.getNoOfDice().removeAllItems();
 					transferArmy();	
 					AttackView.addCountryToBox(AttackView.getSourceCountry());
+					if(AttackView.getGameModel().getCurrPlayer().getCountriesOwned().size()==AttackView.getGameModel().getMapDetails().listOfCountryNames().size()) {
+						JOptionPane.showMessageDialog(null, AttackView.getPlayer()[AttackView.getCurrentPlayer()].getPlayerName()+" has won the game\n CONGRATULATIONS");
+						AttackView.dispose();
+						AttackView.getGameWindow().dispose();
+					}
+					if(AttackView.getSourceCountry().getSelectedItem()==null) {
+						JOptionPane.showMessageDialog(null, AttackView.getPlayer()[AttackView.getCurrentPlayer()].getPlayerName()+" has no country with armies more than one!!!");
+						AttackView.dispose();
+						int flag=0;
+						AttackView.getGameModel().getCurrPlayer().fortificationPhaseImplementation(AttackView.getMap(), AttackView.getPlayer(), AttackView.getGameWindow(),flag);
+
+					}
 				}
 				else{
 					System.out.println("Normal Attack "+"terroitry is not won");
@@ -379,47 +415,87 @@ public class AttackController implements ActionListener{
 						AttackView.getDestinationCountry().removeAllItems();
 						AttackView.getArmiesInDestination().setText("");
 					}
+					if(AttackView.getSourceCountry().getSelectedItem()==null) {
+						JOptionPane.showMessageDialog(null, AttackView.getPlayer()[AttackView.getCurrentPlayer()].getPlayerName()+" has no country with armies more than one!!!");
+						AttackView.dispose();
+						int flag = 0;
+						AttackView.getGameModel().getCurrPlayer().fortificationPhaseImplementation(AttackView.getMap(), AttackView.getPlayer(), AttackView.getGameWindow(),flag);
+					}
 				}
 				
 			}		
 		}
 		else if(e.getSource() == AttackView.getAllOutAttackbtn()){
-			System.out.println("All out attack button pressed");
-			//Attacking Country
-			String sSourceCountry=(String) AttackView.getSourceCountry().getSelectedItem();
-			//Defender Country
-			String sDestinationCountry=(String) AttackView.getDestinationCountry().getSelectedItem();
-			System.out.println("Player Name : "+AttackView.getPlayer()+"\n"+ "Source Country :"+ sSourceCountry+"\n"+ "Defender Country :" +sDestinationCountry);
-			boolAttackAllout=allOutAttack(sSourceCountry,sDestinationCountry);
-
-			if (boolAttackAllout== true){
-				System.out.println("All out Attack "+" terriotry  won");
-				AttackView.getSourceCountry().removeAllItems();
-				AttackView.getArmiesInSource().setText("");
-				AttackView.getDestinationCountry().removeAllItems();
-				AttackView.getArmiesInDestination().setText("");
-				AttackView.getNoOfDice().removeAllItems();
-				transferArmy();	
-				AttackView.addCountryToBox(AttackView.getSourceCountry());
-				System.out.println("chl pya");
+			if(AttackView.getSourceCountry().getSelectedItem()==null) {
+				JOptionPane.showMessageDialog(null, "Please select Source country");
 			}
-			else{
-				System.out.println("All out Attack "+" terriotry not won");
-				AttackView.selectDices();
-				AttackView.getNoOfDice().setSelectedIndex(-1);
-				AttackView.getArmiesInSource().setText(String.valueOf(sourCountry.getNoOfArmiesPresent()));
-				AttackView.getArmiesInDestination().setText(String.valueOf(destCountry.getNoOfArmiesPresent()));
-				if(sourCountry.getNoOfArmiesPresent()<=1) {
-					JOptionPane.showMessageDialog(null, "Source country contains only 1 army \n Player should select other country to attack!!!");
-					AttackView.addCountryToBox(AttackView.getSourceCountry());
+			else if(AttackView.getDestinationCountry().getSelectedItem()==null) {
+				JOptionPane.showMessageDialog(null, "Please select target country");
+			}
+			else if(AttackView.getNoOfDice().getSelectedIndex()==-1) {
+				JOptionPane.showMessageDialog(null, "Please select number of dices");
+			}
+			
+			else {
+				System.out.println("All out attack button pressed");
+				//Attacking Country
+				String sSourceCountry=(String) AttackView.getSourceCountry().getSelectedItem();
+				//Defender Country
+				String sDestinationCountry=(String) AttackView.getDestinationCountry().getSelectedItem();
+				System.out.println("Player Name : "+AttackView.getPlayer()+"\n"+ "Source Country :"+ sSourceCountry+"\n"+ "Defender Country :" +sDestinationCountry);
+				boolAttackAllout=allOutAttack(sSourceCountry,sDestinationCountry);
+
+				if (boolAttackAllout== true){
+					System.out.println("All out Attack "+" terriotry  won");
+					AttackView.getSourceCountry().removeAllItems();
+					AttackView.getArmiesInSource().setText("");
 					AttackView.getDestinationCountry().removeAllItems();
 					AttackView.getArmiesInDestination().setText("");
+					AttackView.getNoOfDice().removeAllItems();
+					transferArmy();	
+					AttackView.addCountryToBox(AttackView.getSourceCountry());
+					System.out.println("chl pya");
+					if(AttackView.getGameModel().getCurrPlayer().getCountriesOwned().size()==AttackView.getGameModel().getMapDetails().listOfCountryNames().size()) {
+						JOptionPane.showMessageDialog(null, AttackView.getPlayer()[AttackView.getCurrentPlayer()].getPlayerName()+" has won the game\n CONGRATULATIONS");
+						AttackView.dispose();
+						AttackView.getGameWindow().dispose();
+					}
+					if(AttackView.getSourceCountry().getSelectedItem()==null) {
+						JOptionPane.showMessageDialog(null, AttackView.getPlayer()[AttackView.getCurrentPlayer()].getPlayerName()+" has no country with armies more than one!!!");
+						AttackView.dispose();
+						int flag = 0;
+						AttackView.getGameModel().getCurrPlayer().fortificationPhaseImplementation(AttackView.getMap(), AttackView.getPlayer(), AttackView.getGameWindow(),flag);
+
+					}
+				}
+				else{
+					System.out.println("All out Attack "+" terriotry not won");
+					AttackView.selectDices();
+					AttackView.getNoOfDice().setSelectedIndex(-1);
+					AttackView.getArmiesInSource().setText(String.valueOf(sourCountry.getNoOfArmiesPresent()));
+					AttackView.getArmiesInDestination().setText(String.valueOf(destCountry.getNoOfArmiesPresent()));
+					if(sourCountry.getNoOfArmiesPresent()<=1) {
+						//JOptionPane.showMessageDialog(null, "Source country contains only 1 army \n Player should select other country to attack!!!");
+						AttackView.addCountryToBox(AttackView.getSourceCountry());
+						AttackView.getDestinationCountry().removeAllItems();
+						AttackView.getArmiesInDestination().setText("");
+					}
+					if(AttackView.getSourceCountry().getSelectedItem()==null) {
+						JOptionPane.showMessageDialog(null, AttackView.getPlayer()[AttackView.getCurrentPlayer()].getPlayerName()+" has no country with armies more than one!!!");
+						AttackView.dispose();
+						int flag = 0;
+						AttackView.getGameModel().getCurrPlayer().fortificationPhaseImplementation(AttackView.getMap(), AttackView.getPlayer(), AttackView.getGameWindow(),flag);
+						
+					}
 				}
 			}
+			
 
 		}
 		else if(e.getSource() == AttackView.getFinish()) {
 			AttackView.dispose();
+			int flag = 1;
+			AttackView.getGameModel().getCurrPlayer().fortificationPhaseImplementation(AttackView.getMap(), AttackView.getPlayer(), AttackView.getGameWindow(),flag);
 		}
 		
 	}
@@ -432,8 +508,21 @@ public class AttackController implements ActionListener{
 			int index = i - 1;
 			options[index] = i;
 		}
-		int n = (Integer) JOptionPane.showInputDialog(null, "Select no of armies to be transfered", "Move Armies",
-				JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+		int n;
+		try {
+			n = (Integer) JOptionPane.showInputDialog(null, "Select no of armies to be transfered", "Move Armies",
+					JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+		} catch(Exception ex){
+			System.out.println("Exception encountered");
+		} finally {
+			n = 1;
+			System.out.println("finally set up");
+		}
+		
+		if(n==JOptionPane.CANCEL_OPTION || n==JOptionPane.CLOSED_OPTION) {
+			n=1;
+			System.out.println("N set up");
+		}
 		System.out.println("Armies transfer: " + n);
 		for (int j = 0; j < n; j++) {
 			countryAttacking.removeNoOfArmiesCountry();

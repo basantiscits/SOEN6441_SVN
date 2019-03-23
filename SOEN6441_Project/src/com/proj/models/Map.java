@@ -222,6 +222,15 @@ public class Map extends Observable{
 		return null;
 	}
 	
+	public Continent searchContinent(Country c) {
+		for(Continent cont : getContinents()) {
+			if(cont.getCountriesPresent().contains(c)) {
+				return cont;
+			}
+		}
+		return null;
+	}
+	
 	public void updateChanges() {
 		setChanged();
 		notifyObservers(this);

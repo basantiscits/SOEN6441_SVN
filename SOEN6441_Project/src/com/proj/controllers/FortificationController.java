@@ -105,17 +105,20 @@ public class FortificationController implements ActionListener {
 					sourCountry.removeNoOfArmiesCountry();
 					destCountry.addNoOfArmiesCountry();
 				}
-				fortifyView.getGameWindow().createStartUpTree();
-				if (fortifyView.getCurrentPlayer() == (fortifyView.getPlayer().length - 1)) {
-					fortifyView.setVisible(false);
-					fortifyView.getGameWindow().getArmyAllocation().setEnabled(false);
-					fortifyView.dispose();
-				} 
-				else {
-					fortifyView.setVisible(false);
-					fortifyView.getGameWindow().getArmyAllocation().setEnabled(true);
-					fortifyView.dispose();
+				//fortifyView.getGameWindow().createStartUpTree();
+				if((fortifyView.getGameWindow().getGameController().getGameModel().getCurrPlayer()==fortifyView.getPlayer()[fortifyView.getPlayer().length-1]) && fortifyView.checkDraw()) {
+					JOptionPane.showMessageDialog(null, "No Player is eligible to attack \n MATCH DRAWN!!!");
+					fortifyView.getGameWindow().dispose();
 				}
+				
+				fortifyView.getGameWindow().getGameController().getGameModel().incrementTurn();
+				fortifyView.getGameWindow().getGameController().getGameModel().changePlayer();
+				fortifyView.getGameWindow().displayPlayer();
+				fortifyView.setVisible(false);
+				fortifyView.getGameWindow().getStartPhaseDefinedLabel().setText("Reinforcement Phase");
+				fortifyView.getGameWindow().getArmyAllocation().setEnabled(true);
+				fortifyView.dispose();
+
 			} 
 			else if (sourCountry == null) {
 				JOptionPane.showMessageDialog(null, "Please select country with armies more than 1");
@@ -128,16 +131,19 @@ public class FortificationController implements ActionListener {
 			}
 		}
 		else if (e.getSource() == fortifyView.getFinish()) {
-			if (fortifyView.getCurrentPlayer() == (fortifyView.getPlayer().length - 1)) {
-				fortifyView.setVisible(false);
-				fortifyView.getGameWindow().getArmyAllocation().setEnabled(false);
-				fortifyView.dispose();
-			} 
-			else {
-				fortifyView.setVisible(false);
-				fortifyView.getGameWindow().getArmyAllocation().setEnabled(true);
-				fortifyView.dispose();
+			
+			if(fortifyView.checkDraw()) {
+				JOptionPane.showMessageDialog(null, "No Player is eligible to attack \n MATCH DRAWN!!!");
+				fortifyView.getGameWindow().dispose();
 			}
+			
+			fortifyView.getGameWindow().getGameController().getGameModel().incrementTurn();
+			fortifyView.getGameWindow().getGameController().getGameModel().changePlayer();
+			fortifyView.getGameWindow().displayPlayer();
+			fortifyView.setVisible(false);
+			fortifyView.getGameWindow().getStartPhaseDefinedLabel().setText("Reinforcement Phase");
+			fortifyView.getGameWindow().getArmyAllocation().setEnabled(true);
+			fortifyView.dispose();
 		}
 	}
 }

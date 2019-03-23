@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
+import javax.swing.JOptionPane;
+
+import com.proj.views.AttackView;
+import com.proj.views.FortificationView;
 import com.proj.views.GameWindowScreen;
 
 /**
@@ -14,12 +18,15 @@ import com.proj.views.GameWindowScreen;
  */
 public class Player extends Observable{
 	private String playerName;
+	private int status;	// 1 cannot win 0 can win
 	private List<Country> countriesOwned;
 	private List<Continent> continentsOwned;
 	private int noOfArmiesOwned;
 	private int noOfCardsOwned = 0;
 	private List<Card> cardsOwned = new ArrayList<Card>();
 	private int cardsForArmies = 0;
+	private GameModelCreation gameModel;
+	private GameWindowScreen gameScreen;
 	
 	
 	/**
@@ -34,6 +41,46 @@ public class Player extends Observable{
 		updateChanges();
 	}
 	
+	
+	
+	
+	public int getStatus() {
+		return status;
+	}
+
+
+
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+
+
+
+	public GameWindowScreen getGameScreen() {
+		return gameScreen;
+	}
+
+
+
+
+	public void setGameScreen(GameWindowScreen gameScreen) {
+		this.gameScreen = gameScreen;
+	}
+
+
+
+
+	public GameModelCreation getGameModel() {
+		return gameModel;
+	}
+
+
+	public void setGameModel(GameModelCreation gameModel) {
+		this.gameModel = gameModel;
+	}
+
 	/**
 	 * @return the cardsForArmies
 	 */
@@ -235,6 +282,82 @@ public class Player extends Observable{
 			}
 		}
 		System.out.println("Current player : " + gameWindowScreen.getCurrentPlayer() + " number: " + number);
+	}
+	
+	
+	public void attackPhaseImplementation(Map gameMap, Player[] playersArray, GameWindowScreen gameWindowScreen) {
+		this.gameScreen = gameWindowScreen;
+		gameWindowScreen.getArmyAllocation().setEnabled(false);
+		int index = 0 ;
+		for(int i=0; i < playersArray.length;i++) {
+			if(this == playersArray[i]) {
+				index = i;
+			}
+		}
+		int possibility = 0;
+		for(Player p : gameScreen.getGameController().getGameModel().getPlayer()) {
+			if(p.getStatus()==1) {
+				possibility++;
+			}
+		}
+		
+		if(possibility==gameScreen.getGameController().getGameModel().getPlayer().length) {
+			JOptionPane.showMessageDialog(null, "No Player is eligible for further Attack \n Match Drawn!!");
+			gameWindowScreen.dispose();
+		}
+		
+		if(!attackPossible()) {
+			this.setStatus(1);
+			JOptionPane.showMessageDialog(null, "Player is not eligible for Attack and fortification phase");
+			gameWindowScreen.getGameController().getGameModel().incrementTurn();
+			gameWindowScreen.getGameController().getGameModel().changePlayer();
+			gameWindowScreen.displayPlayer();
+			gameWindowScreen.getStartPhaseDefinedLabel().setText("Reinforcement Phase");
+			gameWindowScreen.getArmyAllocation().setEnabled(true);
+
+		}
+		else {
+			gameWindowScreen.getStartPhaseDefinedLabel().setText("Attack Phase");
+			AttackView attackPhase = new AttackView(gameMap,playersArray, index ,gameWindowScreen);
+			attackPhase.setVisible(true);
+		}
+	}
+	
+
+	public void fortificationPhaseImplementation(Map map, Player[] player, GameWindowScreen gameScreen, int flag) {
+		int index = 0 ;
+		for(int i=0; i < player.length;i++) {
+			if(this == player[i]) {
+				index = i;
+			}
+		}
+		
+		gameScreen.getStartPhaseDefinedLabel().setText("Fortification Phase");
+		FortificationView FV = new FortificationView(map, player, index, gameScreen);
+		FV.setVisible(true);
+		if(flag == 0) {
+			FV.getDisposeMsg();
+		}
+	}
+	
+/*	public boolean checkDraw() {
+		for(Player p : gameScreen.getGameController().getGameModel().getPlayer()) {
+			if(!(p.getCountriesOwned().size()==gameScreen.getGameController().getGameModel().armiesAllocated(p))) {
+				return false;
+			}
+		}
+		return true;
+	}*/
+	
+	public boolean attackPossible() {
+		boolean hasArmy = false;
+		for (Country country : this.getCountriesOwned()) {
+			if (country.getNoOfArmiesPresent() > 1) {
+				hasArmy = true;
+				break;
+			}
+		}
+		return hasArmy;
 	}
 	
 	public void updateChanges() {

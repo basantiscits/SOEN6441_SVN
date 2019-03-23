@@ -35,10 +35,13 @@ import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreePath;
+
 import com.proj.controllers.GameController;
 import com.proj.models.Card;
 import com.proj.models.Continent;
 import com.proj.models.Country;
+import com.proj.models.GameModelCreation;
 import com.proj.models.Map;
 import com.proj.models.Player;
 import com.proj.utilites.Constants;
@@ -67,6 +70,8 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer 
 	private JPanel dynamicAreaPlayerPhasePanel;
 	private JPanel contientLabelViewPanel;
 	private JPanel countryLabelViewPanel;
+	private JPanel playerDominationPanel;
+	private JLabel playerDominationLabel;
 	private JPanel tableHeader;
 	private JLabel tableHeaderLabel;
 	private JPanel allocationPanel;
@@ -99,21 +104,28 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer 
 	
 	
 	private JOptionPane exchangePane;
-	
+	private GameModelCreation gameModel;
 	private JButton exchangeButt;
 	/**
 	 * Game Window Screen constructor
 	 * @param gameMap Object of Map class
 	 * @param player Array object of Player class 
 	 */
-	public GameWindowScreen(Map gameMap, Player[] player) {
+	public GameWindowScreen(Map gameMap, Player[] player, GameModelCreation gameModel) {
 		super("Game Window");
 		this.gameMap = gameMap;
 		this.player = player;
+		this.gameModel = gameModel;
 		for (Player p : player) {
 			p.addObserver(this);
+			for(Country c :p.getCountriesOwned()) {
+				c.addObserver(this);
+			}
 		}
+		
 		gameController = new GameController(this, gameMap, player);
+		gameController.getGameModel().addObserver(this);
+		
 		setSize(Constants.MAP_EDITOR_WIDTH, Constants.MAP_EDITOR_HEIGHT);
 		setResizable(false);
 		setLocationRelativeTo(null);
@@ -163,6 +175,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer 
 		countryLabelViewPanel.add(countriesLabel);
 		scrollPane = new JScrollPane(tableMatrix);
 		scrollPane.setBounds(treeScrollPane.getBounds().x + (int) (treeScrollPane.getBounds().getWidth()), 70,frameSize.width - 300, frameSize.height - 800);
+		
 		startPhaseViewPanel = new JPanel();
 		startPhaseViewPanel.setBounds(10,treeScrollPane.getBounds().y + (int) (treeScrollPane.getBounds().getHeight() + 10),frameSize.width - 50, 35);
 		add(startPhaseViewPanel);
@@ -176,21 +189,38 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer 
 		startPhaseViewPanel.add(startPhaseDefinedLabel);
 
 		startUpScrollPane = new JScrollPane(startUpTree);
-		startUpScrollPane.setBounds(10,startPhaseViewPanel.getBounds().y + (int) (startPhaseViewPanel.getBounds().getHeight()) + 5,500, frameSize.height - 900);
-
+		startUpScrollPane.setBounds(10,startPhaseViewPanel.getBounds().y + (int) (startPhaseViewPanel.getBounds().getHeight()) + 5,400, frameSize.height - 900);
+		
+		playerDominationPanel = new JPanel();
+		playerDominationPanel.setBounds(startUpScrollPane.getBounds().x + (int) (startUpScrollPane.getBounds().getWidth()),startPhaseViewPanel.getBounds().y + (int) (startPhaseViewPanel.getBounds().getHeight()) + 5, frameSize.width - 450, 25);
+		add(playerDominationPanel);
+		playerDominationPanel.setBackground(Color.lightGray);
+		playerDominationPanel.setLayout(new FlowLayout());
+		
+		playerDominationLabel = new JLabel("Players "+gameMap.getName()+ " Domination View");
+		playerDominationLabel.setFont(new Font("dialog", 1, 11));
+		playerDominationPanel.setBorder(blackline);
+		playerDominationPanel.add(playerDominationLabel);
+		
+		
 		tableHeader = new JPanel();
-		tableHeader.setBounds(startUpScrollPane.getBounds().x + (int) (startUpScrollPane.getBounds().getWidth()),startPhaseViewPanel.getBounds().y + (int) (startPhaseViewPanel.getBounds().getHeight()) + 5, 320, 25);
+		tableHeader.setBounds(startUpScrollPane.getBounds().x + (int) (startUpScrollPane.getBounds().getWidth()),playerDominationPanel.getBounds().y + (int) (playerDominationPanel.getBounds().getHeight())+5, 320, 25);
 
+		tableHeaderLabel = new JLabel("Map contains " + gameMap.listOfContinentNames().size()+" Continents and  "+ gameMap.listOfCountryNames().size()+" Countries");
+		tableHeaderLabel.setFont(new Font("dialog", 1, 15));
+		tableHeader.add(tableHeaderLabel);
+		
+		
 		tableHeaderLabel = new JLabel("Total Countries " + gameMap.listOfCountryNames().size());
 		tableHeaderLabel.setFont(new Font("dialog", 1, 15));
 		tableHeaderLabel.setBorder(blackline);
 		tableHeader.add(tableHeaderLabel);
 
 		strengthPane = new JScrollPane(playerStrength);
-		strengthPane.setBounds(startUpScrollPane.getBounds().x + (int) (startUpScrollPane.getBounds().getWidth()),tableHeader.getBounds().y + (int) (tableHeader.getBounds().getHeight()), (int) (320),frameSize.height - 925);
+		strengthPane.setBounds(startUpScrollPane.getBounds().x + (int) (startUpScrollPane.getBounds().getWidth()),tableHeader.getBounds().y + (int) (tableHeader.getBounds().getHeight()), (int) (500),frameSize.height - 955);
 		
 		progressBarPanel = new JPanel();
-		progressBarPanel.setBounds(strengthPane.getBounds().x + (int) (strengthPane.getBounds().getWidth()),tableHeader.getBounds().y + (int) (tableHeader.getBounds().getHeight())+1, (int) (320),frameSize.height - 500);
+		progressBarPanel.setBounds((strengthPane.getBounds().x + (int) (strengthPane.getBounds().getWidth())),tableHeader.getBounds().y + (int) (tableHeader.getBounds().getHeight()), (int) (200),frameSize.height - 500);
 		
 
 		currentPlayerName = new JLabel(player[currentPlayer].getPlayerName());
@@ -266,8 +296,11 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer 
 		countriesMatrix();
 		createTree();
 		createStartUpTree();
-		playerStrengthTable();
-		addProgressBar();
+		playerStrengthTable(gameController.getGameModel());
+		addProgressBar(gameController.getGameModel());
+		
+		displayPlayer();
+		gameController.getGameModel().incrementTurn();
 		
 	}
 
@@ -275,27 +308,19 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer 
 	 * Reinforcement phase
 	 */
 	public void reinforce() {
-		if (player[currentPlayer].getNoOfArmiesOwned() == 0 && currentPlayer < player.length) {
-			System.out.println("currentPlayer: "+currentPlayer);
-			AttackView AT= new AttackView(gameMap, player, currentPlayer, this);
-			AT.setVisible(true);
-			FortificationView FV = new FortificationView(gameMap, player, currentPlayer, this);
-			FV.setVisible(true);
-			currentPlayer++;
-			cardExchangeView();
-			if (currentPlayer == player.length) {
-				currentPlayer--;
-			}
+		if (gameController.getGameModel().getCurrPlayer().getNoOfArmiesOwned() == 0) {
+			displayPlayer();
+			gameController.getGameModel().getCurrPlayer().attackPhaseImplementation(gameController.getGameModel().getMapDetails(),gameController.getGameModel().getPlayer(),this);	
 		}
 	}
 
 	/**
 	 * Displays number of armies available
 	 */
-	public void displayPhase() {
-		addPlayerName(player[currentPlayer].getPlayerName());
-		addCountriesToBox(player[currentPlayer]);
-		armiesAvailable.setText("Number of Armies Available:" + String.valueOf(player[currentPlayer].getNoOfArmiesOwned()));
+	public void displayPlayer() {
+		addPlayerName(gameController.getGameModel().getCurrPlayer().getPlayerName());
+		addCountriesToBox(gameController.getGameModel().getCurrPlayer());
+		armiesAvailable.setText("Number of Armies Available:" + String.valueOf(gameController.getGameModel().getCurrPlayer().getNoOfArmiesOwned()));		
 	}
 
 	/**
@@ -968,43 +993,36 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer 
 	/**
 	 * This method create table which displays the number of countries owned by players 
 	 */
-	public void playerStrengthTable() {
-		String countrySize = "Number of Countries";
-		String[] column = { "Players", countrySize };
-		String[][] data = new String[player.length][column.length];
-		for (int i = 0; i < player.length; i++) {
+	public void playerStrengthTable(GameModelCreation gameModel) {
+		String countrySize = "Countries";
+		String continentSize = "Continents";
+		String availableArmiesSize = "Available Armies";
+		String allocatedArmiesSize = "Allocated Armies";
+		String[] column = { "Players", countrySize, continentSize, availableArmiesSize, allocatedArmiesSize };
+		String[][] data = new String[gameModel.getPlayer().length][column.length];
+		for (int i = 0; i < gameModel.getPlayer().length; i++) {
 			for (int j = 0; j < column.length; j++) {
 				if (j == 0) {
-					data[i][j] = player[i].getPlayerName();
-				} else {
-					data[i][j] = String.valueOf(player[i].getCountriesOwned().size());
+					data[i][j] = gameModel.getPlayer()[i].getPlayerName();
+				} 
+				else if(j==1){
+					data[i][j] = String.valueOf(gameModel.getPlayer()[i].getCountriesOwned().size()+"  ("+ (int) (((double) gameModel.getPlayer()[i].getCountriesOwned().size()/gameMap.listOfCountryNames().size()) * 100)+"%)");
+				}
+				else if(j==2){
+					data[i][j] = String.valueOf(gameModel.getPlayer()[i].getContinentsOwned().size());
+				}
+				else if(j==3){
+					data[i][j] = String.valueOf(gameModel.getPlayer()[i].getNoOfArmiesOwned());
+				}
+				else if(j==4){
+					data[i][j] = String.valueOf(gameModel.armiesAllocated(gameModel.getPlayer()[i]));
 				}
 			}
 		}
 		playerStrength = new JTable(data, column);
 		strengthPane.getViewport().add(playerStrength);
 	}
-	public void cardExchangeView() {
-
-		
-//		if(player[currentPlayer].getNoOfCardsOwned()<3) return;
-
-//		
-//		cardExchangeFrame.add(cardExchangePanel);
-//		
-//		cardExchangeFrame.setTitle("Exchange Of Cards");
-//		cardExchangeFrame.setResizable(false);
-//		cardExchangeFrame.setSize(Constants.WIDTH + 300, Constants.HEIGHT);
-//		cardExchangeFrame.setLayout(null);
-//		cardExchangeFrame.setLocationRelativeTo(null);
-//		
-//		exchangePane = new JOptionPane();
-//		armyAllocation.setEnabled(false);
-//		
-//		exchangeButton = new JButton("Exchange");
-//		exchangeButton.setBounds(200,150,100,70);
-//
-//		
+	public void cardExchangeView() {	
 		
 		for(int i = 0;i<4;i++)
 		{
@@ -1207,17 +1225,12 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer 
 
 	@Override
 	public void update(Observable type, Object object) {
-		if (type instanceof Player) {
-			Player p = (Player) type;
-			createStartUpTree();
-			playerStrengthTable();
-
-			//updateUIInfo(gameModel.getCurrPlayer());
-		}
-		
+		createStartUpTree();
+		playerStrengthTable(gameController.getGameModel());
+		addProgressBar(gameController.getGameModel());
 	}
 	
-	private void addProgressBar() {
+	private void addProgressBar(GameModelCreation gameModel) {
 
 		progressBarPanel.removeAll();
 		Color color1 = new Color(23, 54, 135);
@@ -1226,26 +1239,33 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer 
 		Color color4 = new Color(67, 89, 67);
 		Color color5 = new Color(11, 78, 80);
 		
-		Player[] players = player;
+		Player[] players = gameModel.getPlayer();
 		for (int i = 0; i < players.length; i++) {
 			progressBar = new JProgressBar();
 			int value = (int) (((double) players[i].getCountriesOwned().size()/gameMap.listOfCountryNames().size()) * 100);
-			progressBar.setValue(value);
-			progressBar.setStringPainted(true);
-			if (i == 0)
-				progressBar.setForeground(color1);
-			if (i == 1)
-				progressBar.setForeground(color2);
-			if (i == 2)
-				progressBar.setForeground(color3);
-			if (i == 3)
-				progressBar.setForeground(color4);
-			if (i == 4)
-				progressBar.setForeground(color5);
 
+			progressBar.setValue(value);
+
+			progressBar.setStringPainted(true);
+			if (i == 0) {
+				progressBar.setForeground(color1);
+			}
+			else if (i == 1) {
+				progressBar.setForeground(color2);
+			}
+			else if (i == 2) {
+				progressBar.setForeground(color3);
+			}
+			else if (i == 3) {
+				progressBar.setForeground(color4);
+			}
+			else if (i == 4) {
+				progressBar.setForeground(color5);
+			}
 			Border border = BorderFactory.createTitledBorder(players[i].getPlayerName());
 			progressBar.setBorder(border);
 			progressBarPanel.add(progressBar, BorderLayout.NORTH);
+		
 		}
 	}
 		

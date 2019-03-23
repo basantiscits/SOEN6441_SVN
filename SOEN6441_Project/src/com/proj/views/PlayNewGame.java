@@ -385,10 +385,9 @@ public class PlayNewGame extends JFrame implements ActionListener {
 	 * @param sCarryMapForward Already edited map
 	 * @param player Array of Player objects
 	 */
-	public void GameModelWindowMade(Map sCarryMapForward, Player[] player) {
+	public void GameModelWindowMade(Map sCarryMapForward, Player[] player, GameModelCreation gameModel) {
 		dispose();
-		GameModelCreation gameModel = new GameModelCreation(sCarryMapForward, player);
-		GameWindowScreen GameWindowScreen = new GameWindowScreen(sCarryMapForward,player);
+		GameWindowScreen GameWindowScreen = new GameWindowScreen(sCarryMapForward,player,gameModel);
 		GameWindowScreen.setVisible(true);
 	}
 
