@@ -118,7 +118,8 @@ public class FortificationController implements ActionListener {
 				fortifyView.getGameWindow().getStartPhaseDefinedLabel().setText("Reinforcement Phase");
 				fortifyView.getGameWindow().getArmyAllocation().setEnabled(true);
 				fortifyView.dispose();
-
+				fortifyView.getGameWindow().getGameController().cardExchange();
+				
 			} 
 			else if (sourCountry == null) {
 				JOptionPane.showMessageDialog(null, "Please select country with armies more than 1");
@@ -141,9 +142,13 @@ public class FortificationController implements ActionListener {
 			fortifyView.getGameWindow().getGameController().getGameModel().changePlayer();
 			fortifyView.getGameWindow().displayPlayer();
 			fortifyView.setVisible(false);
+			
 			fortifyView.getGameWindow().getStartPhaseDefinedLabel().setText("Reinforcement Phase");
 			fortifyView.getGameWindow().getArmyAllocation().setEnabled(true);
 			fortifyView.dispose();
+			
+			System.out.println("Player name after fortification: -"+fortifyView.getGameWindow().getGameController().getGameModel().getCurrPlayer().getPlayerName());
+			fortifyView.getGameWindow().getGameController().cardExchange();
 		}
 	}
 }

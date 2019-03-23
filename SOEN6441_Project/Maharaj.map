@@ -1,0 +1,17 @@
+[Map]
+author=Anonymous
+[Continents]
+Sahil=3
+Ofreish=3
+Sanyam=3
+[Territories]
+Jindal,0.0,0.0,Sahil,ION,Goneana
+ION,0.0,0.0,Sahil,Jindal,Goneana
+Goneana,0.0,0.0,Sahil,Jindal,ION,Bansal
+Talwar,0.0,0.0,Ofreish,Jindal,ION,Goneana,Moga,Berojgaar,Barnala
+Moga,0.0,0.0,Ofreish,Jindal,ION,Goneana,Talwar,Berojgaar
+Berojgaar,0.0,0.0,Ofreish,Jindal,ION,Goneana,Talwar,Moga
+Bansal,0.0,0.0,Sanyam,Jindal,ION,Goneana,Talwar,Moga,Berojgaar,Barnala,Infosys
+Barnala,0.0,0.0,Sanyam,Jindal,ION,Goneana,Talwar,Moga,Berojgaar,Bansal,Infosys
+Infosys,0.0,0.0,Sanyam,Jindal,ION,Goneana,Talwar,Moga,Berojgaar,Bansal,Barnala
+

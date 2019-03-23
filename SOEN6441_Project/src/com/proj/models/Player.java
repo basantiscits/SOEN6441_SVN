@@ -29,6 +29,7 @@ public class Player extends Observable{
 	private GameWindowScreen gameScreen;
 	
 	
+	
 	/**
 	 * constructor for Player class
 	 * @param string name of player
@@ -107,6 +108,7 @@ public class Player extends Observable{
 	 */
 	public void setCardsOwned(List<Card> listOfCardsOwned) {
 		this.cardsOwned = listOfCardsOwned;
+		updateChanges();
 	}
 
 	/**

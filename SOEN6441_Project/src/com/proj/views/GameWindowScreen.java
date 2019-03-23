@@ -106,6 +106,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer 
 	private JOptionPane exchangePane;
 	private GameModelCreation gameModel;
 	private JButton exchangeButt;
+	private JFrame viewCardFrame;
 	/**
 	 * Game Window Screen constructor
 	 * @param gameMap Object of Map class
@@ -243,9 +244,9 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer 
 		
 		cardExchangeFrame.setTitle("Exchange Of Cards");
 		cardExchangeFrame.setResizable(false);
-		cardExchangeFrame.setSize(Constants.WIDTH + 300, Constants.HEIGHT);
+		cardExchangeFrame.setSize(Constants.WIDTH-250, Constants.HEIGHT);
 		cardExchangeFrame.setLayout(null);
-		cardExchangeFrame.setLocationRelativeTo(null);
+		cardExchangeFrame.setLocationRelativeTo(listOfCards);
 		
 		exchangePane = new JOptionPane();
 	//	armyAllocation.setEnabled(false);
@@ -258,6 +259,14 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer 
 		exchangeButt.addActionListener(gameController);
 		add(exchangeButt);
 		
+		viewCardFrame = new JFrame();
+		viewCardFrame.setResizable(false);
+		viewCardFrame.setSize(Constants.WIDTH-400, Constants.HEIGHT);
+		viewCardFrame.setLayout(null);
+		viewCardFrame.setLocationRelativeTo(listOfCards);
+
+		
+		exchangeButton.addActionListener(this);
 		
 
 		armyAllocation = new JButton("Place Army");
@@ -1024,15 +1033,18 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer 
 	}
 	public void cardExchangeView() {	
 		
+		gameModel = gameController.getGameModel();
 		for(int i = 0;i<4;i++)
 		{
-			System.out.println(player[currentPlayer].getNoOfCardsOwned());
-			player[currentPlayer].getCardsOwned().add(Card.getNewCard());
-			player[currentPlayer].setNoOfCardsOwned(player[currentPlayer].getNoOfCardsOwned()+1);
+			System.out.println(gameModel.getCurrPlayer().getNoOfCardsOwned());
+			gameModel.getCurrPlayer().getCardsOwned().add(Card.getNewCard());
+			gameModel.getCurrPlayer().setNoOfCardsOwned(gameModel.getCurrPlayer().getNoOfCardsOwned()+1);
 		}
 		
+		cardExchangeFrame.setTitle(gameModel.getCurrPlayer().getPlayerName());
 		
-		if(player[currentPlayer].getNoOfCardsOwned()< 5 && player[currentPlayer].getNoOfCardsOwned() >=3) {
+		
+		if(gameModel.getCurrPlayer().getNoOfCardsOwned()< 5 && gameModel.getCurrPlayer().getNoOfCardsOwned() >=3) {
 			int r=JOptionPane.showConfirmDialog(this,"Do you want to exchange Cards"); 
 			if(r==JOptionPane.YES_OPTION) {  
 			     cardExchangeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -1040,7 +1052,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer 
 			 	 doExchangeCardsNow();
 			 } 
 		}
-		else if(player[currentPlayer].getNoOfCardsOwned()<3) {
+		else if(gameModel.getCurrPlayer().getNoOfCardsOwned()<3) {
 			
 			exchangeButton.setEnabled(false);
 			doExchangeCardsNow();
@@ -1053,7 +1065,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer 
 		    
 		    doExchangeCardsNow();
 		    
-			if(player[currentPlayer].getNoOfCardsOwned()<5) cardExchangeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			if(gameModel.getCurrPlayer().getNoOfCardsOwned()<5) cardExchangeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		    
 		    
@@ -1062,7 +1074,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer 
 
 	public void doExchangeCardsNow() {
 		
-		if(player[currentPlayer].getNoOfCardsOwned()<5)
+		if(gameModel.getCurrPlayer().getNoOfCardsOwned()<5)
 			cardExchangeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		
@@ -1083,17 +1095,44 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer 
 		 cardExchangeFrame.add(exchangeButton);
 		 
 		 cardExchangeFrame.setVisible(true);
+		 System.out.println("Again outside action performed");
 		 
-		 exchangeButton.addActionListener(new ActionListener() {
-			
+		 
+		
+	}
+	
+	public void viewAvailableCards()
+	{
+		
+		cardViewLabel = new JLabel();
+		cardViewLabel.setText("Cards Available: ");
+		cardViewLabel.setSize(500,100);
+		
+		
+		displayCards();
+		listOfCards.setBounds(100,100, 75,150); 
+		if(gameModel.getCurrPlayer().getNoOfCardsOwned()<5) cardExchangeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
+		viewCardFrame.setTitle("View Cards");
+		
+		viewCardFrame.add(listOfCards);
+		 viewCardFrame.add(cardViewLabel);
+		 viewCardFrame.setVisible(true);
+		
+		
+		
+	}
+	
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				if(player[currentPlayer].getNoOfCardsOwned()<5) cardExchangeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				System.out.println("Again action performed");
+				 
+				if(gameModel.getCurrPlayer().getNoOfCardsOwned()<5) cardExchangeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 				
-				System.out.println("Before Cards:- "+ player[currentPlayer].getNoOfCardsOwned());
-				System.out.println("Before Armies:- "+ player[currentPlayer].getNoOfArmiesOwned());
+				System.out.println("Before Cards:- "+ gameModel.getCurrPlayer().getNoOfCardsOwned());
+				System.out.println("Before Armies:- "+ gameModel.getCurrPlayer().getNoOfArmiesOwned());
 			
 				if(listOfCards.getSelectedIndex()!=-1 && listOfCards.getSelectedIndices().length==3)
 				{
@@ -1102,23 +1141,23 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer 
 					Set<String> setOfCards = new HashSet<String>(cardsSelected);
 					if(setOfCards.size()==1 || setOfCards.size()==cardsSelected.size())
 					{
-						player[currentPlayer].setCardsForArmies(player[currentPlayer].getCardsForArmies() + 5);
-						player[currentPlayer].setNoOfArmiesOwned(player[currentPlayer].getNoOfArmiesOwned() + player[currentPlayer].getCardsForArmies());
+						gameModel.getCurrPlayer().setCardsForArmies(gameModel.getCurrPlayer().getCardsForArmies() + 5);
+						gameModel.getCurrPlayer().setNoOfArmiesOwned(gameModel.getCurrPlayer().getNoOfArmiesOwned() + gameModel.getCurrPlayer().getCardsForArmies());
 						
 						for(String cardType: cardsSelected) {
 							
-							for(Card card: player[currentPlayer].getCardsOwned())
+							for(Card card: gameModel.getCurrPlayer().getCardsOwned())
 							{
 								if(card.getTypeOfCard().toString().equals(cardType)) {
-									player[currentPlayer].getCardsOwned().remove(card);
-									player[currentPlayer].setNoOfCardsOwned(player[currentPlayer].getNoOfCardsOwned()-1);
+									gameModel.getCurrPlayer().getCardsOwned().remove(card);
+									gameModel.getCurrPlayer().setNoOfCardsOwned(gameModel.getCurrPlayer().getNoOfCardsOwned()-1);
 									break;
 								}
 							}
 							
 						}
-						System.out.println("After Cards:- "+ player[currentPlayer].getNoOfCardsOwned());
-						System.out.println("After Armies:- "+player[currentPlayer].getNoOfArmiesOwned());
+						System.out.println("After Cards:- "+ gameModel.getCurrPlayer().getNoOfCardsOwned());
+						System.out.println("After Armies:- "+gameModel.getCurrPlayer().getNoOfArmiesOwned());
 						JOptionPane.showMessageDialog(cardExchangeFrame,"Successfully Exchanged."); 
 						displayCards();
 				
@@ -1134,39 +1173,6 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer 
 				}
 				
 			}
-		});
-		
-	}
-	
-	public void viewAvailableCards()
-	{
-		JFrame viewCardFrame = new JFrame();
-		
-		cardViewLabel = new JLabel();
-		cardViewLabel.setText("Cards Available: ");
-		cardViewLabel.setSize(500,100);
-		displayCards();
-		listOfCards.setBounds(100,100, 75,150); 
-		if(player[currentPlayer].getNoOfCardsOwned()<5) cardExchangeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
-		viewCardFrame.setTitle("View Cards");
-		viewCardFrame.setResizable(false);
-		viewCardFrame.setSize(Constants.WIDTH + 300, Constants.HEIGHT);
-		viewCardFrame.setLayout(null);
-		viewCardFrame.setLocationRelativeTo(null);
-		
-		
-		
-		
-		
-		
-		viewCardFrame.add(listOfCards);
-		 viewCardFrame.add(cardViewLabel);
-		 viewCardFrame.setVisible(true);
-		
-		
-		
-	}
 	
 	
 	public void displayCards()
@@ -1175,8 +1181,8 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer 
 		
 		
 		list = new DefaultListModel<String>();  
-		System.out.println("Total cards of player 1 is " + player[currentPlayer].getNoOfCardsOwned());
-		for(Card cards: player[currentPlayer].getCardsOwned())
+		System.out.println("Total cards of player 1 is " + gameModel.getCurrPlayer().getNoOfCardsOwned());
+		for(Card cards: gameModel.getCurrPlayer().getCardsOwned())
 		{
 			
 			cardType = cards.getTypeOfCard().toString();
@@ -1217,17 +1223,14 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer 
 		}
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		
-		
-	}
+
 
 	@Override
 	public void update(Observable type, Object object) {
 		createStartUpTree();
 		playerStrengthTable(gameController.getGameModel());
 		addProgressBar(gameController.getGameModel());
+		
 	}
 	
 	private void addProgressBar(GameModelCreation gameModel) {
