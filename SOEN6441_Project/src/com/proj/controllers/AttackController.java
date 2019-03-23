@@ -508,21 +508,17 @@ public class AttackController implements ActionListener{
 			int index = i - 1;
 			options[index] = i;
 		}
-		int n;
+		int n = 0;
 		try {
 			n = (Integer) JOptionPane.showInputDialog(null, "Select no of armies to be transfered", "Move Armies",
 					JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 		} catch(Exception ex){
 			System.out.println("Exception encountered");
-		} finally {
 			n = 1;
+		} finally {
 			System.out.println("finally set up");
 		}
-		
-		if(n==JOptionPane.CANCEL_OPTION || n==JOptionPane.CLOSED_OPTION) {
-			n=1;
-			System.out.println("N set up");
-		}
+
 		System.out.println("Armies transfer: " + n);
 		for (int j = 0; j < n; j++) {
 			countryAttacking.removeNoOfArmiesCountry();
