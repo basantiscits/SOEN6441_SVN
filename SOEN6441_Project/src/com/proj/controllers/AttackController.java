@@ -245,14 +245,14 @@ public class AttackController implements ActionListener{
 	}
 	
 	
-	private void battleWon(){
+	public void battleWon(){
 		System.out.println("BattleWon");
 		countryDefending.removeNoOfArmiesCountry();
 		noOfDefendingArmies=countryDefending.getNoOfArmiesPresent();
 		
 	}
 	
-	private void battleLost(){
+	public void battleLost(){
 		System.out.println("BattleLost");
 		countryAttacking.removeNoOfArmiesCountry();
 		noOfAttackingArmies=countryAttacking.getNoOfArmiesPresent()-1; // ???
@@ -525,6 +525,20 @@ public class AttackController implements ActionListener{
 		for (int j = 0; j < n; j++) {
 			countryAttacking.removeNoOfArmiesCountry();
 			countryDefending.addNoOfArmiesCountry();
+		}
+	}
+	
+	public boolean checkDiceValues( ArrayList<Integer>  attackerDice, ArrayList<Integer> defenderDice) {
+		if(Collections.max(attackerDice) > Collections.max(defenderDice)) {
+			return true;
+		}
+		return false;
+	}
+	
+	public void numberOfArmiesTransfered(int n, Country attack, Country defender) {
+		for (int j = 0; j < n; j++) {
+			attack.removeNoOfArmiesCountry();
+			defender.addNoOfArmiesCountry();
 		}
 	}
 }
