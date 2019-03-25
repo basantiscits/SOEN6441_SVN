@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -35,7 +36,6 @@ import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreePath;
 
 import com.proj.controllers.GameController;
 import com.proj.models.Card;
@@ -52,7 +52,7 @@ import com.proj.utilites.Constants;
  * @since 10 Feb 2019
  * @version 1.0
  */
-public class GameWindowScreen extends JFrame implements ActionListener,Observer {
+public class GameWindowScreen extends JFrame implements ActionListener,Observer, WindowListener {
 	private int currentPlayer = 0;
 	public Player[] player;
 	private JLabel countriesLabel;
@@ -246,6 +246,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer 
 		cardExchangeFrame.setSize(Constants.WIDTH-250, Constants.HEIGHT);
 		cardExchangeFrame.setLayout(null);
 		cardExchangeFrame.setLocationRelativeTo(listOfCards);
+		cardExchangeFrame.addWindowListener(this);
 		
 		exchangePane = new JOptionPane();
 	//	armyAllocation.setEnabled(false);
@@ -1013,16 +1014,55 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer 
 		playerStrength = new JTable(data, column);
 		strengthPane.getViewport().add(playerStrength);
 	}
+	
+	
+	
+	public void doOnClose() {
+		
+		String[] button = new String[] {"Yes", "No", "Cancel"};
+		String defaultOption = button[0];
+			
+		int i = JOptionPane.showOptionDialog(cardExchangeFrame,
+				"\n" +
+						"Are you sure you want to Close?",
+						"Warning",
+						JOptionPane.YES_NO_CANCEL_OPTION,
+						JOptionPane.WARNING_MESSAGE, null, button, defaultOption);
+		
+		if(i==JOptionPane.YES_OPTION) {
+			
+			if(gameModel.getCurrPlayer().getNoOfCardsOwned()<5) {
+				
+				cardExchangeFrame.dispose();
+			}
+			else if(gameModel.getCurrPlayer().getNoOfCardsOwned()>=5){
+				JOptionPane.showMessageDialog(cardExchangeFrame, "Available Cards more than 5. Please exchange !");
+				
+			}	
+		}
+		else if(i==JOptionPane.NO_OPTION) {
+			
+			
+		
+			
+		}
+			
+	}
+		
+	
 	public void cardExchangeView() {	
 		
 		gameModel = gameController.getGameModel();
-		for(int i = 0;i<4;i++)
+		for(int i = 0;i<6;i++)
 		{
 			System.out.println(gameModel.getCurrPlayer().getNoOfCardsOwned());
 			gameModel.getCurrPlayer().getCardsOwned().add(Card.getNewCard());
 			gameModel.getCurrPlayer().setNoOfCardsOwned(gameModel.getCurrPlayer().getNoOfCardsOwned()+1);
 		}
 		
+		
+		
+	
 		cardExchangeFrame.setTitle(gameModel.getCurrPlayer().getPlayerName());
 		
 		
@@ -1246,6 +1286,50 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer 
 			progressBarPanel.add(progressBar, BorderLayout.NORTH);
 		
 		}
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		// TODO Auto-generated method stub
+	
+		doOnClose();
+ 
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 		
 		
