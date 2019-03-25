@@ -124,7 +124,7 @@ public class GameController implements ActionListener {
 			gameWindowScreen.displayPlayer();
 			break;
 		
-		case "View Available Cards":
+		case "Cards":
 			gameWindowScreen.viewAvailableCards();
 		}
 	}

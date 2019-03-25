@@ -106,6 +106,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 	private GameModelCreation gameModel;
 	private JButton exchangeButt;
 	private JFrame viewCardFrame;
+	private JLabel noOfCardsLabel;
 	/**
 	 * Game Window Screen constructor
 	 * @param gameMap Object of Map class
@@ -252,11 +253,13 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 	//	armyAllocation.setEnabled(false);
 		
 		exchangeButton = new JButton("Exchange");
-		exchangeButton.setBounds(200,150,100,70);
-		exchangeButt = new JButton("View Available Cards");
-		exchangeButt.setBounds(370, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 80,170, 30);
+		exchangeButton.setBounds(200,150,100,50);
+		exchangeButt = new JButton("Cards");
+		exchangeButt.setBounds(400, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 80,100, 30);
 		exchangeButt.addActionListener(gameController);
 		add(exchangeButt);
+		
+		
 		
 		viewCardFrame = new JFrame();
 		viewCardFrame.setResizable(false);
@@ -276,7 +279,9 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		armiesAvailable = new JLabel("Number of Armies Available:" + String.valueOf(player[currentPlayer].getNoOfArmiesOwned()));
 		armiesAvailable.setBounds(600, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 20,200, 30);
 		
-		
+		noOfCardsLabel = new JLabel("No of Cards Available: " + gameModel.getCurrPlayer().getNoOfCardsOwned() );
+		noOfCardsLabel.setBounds(600, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 80,200, 30);
+		add(noOfCardsLabel);
 		
 		add(armiesAvailable);
 		add(scrollPane);
@@ -312,7 +317,8 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 	public void displayPlayer() {
 		addPlayerName(gameController.getGameModel().getCurrPlayer().getPlayerName());
 		addCountriesToBox(gameController.getGameModel().getCurrPlayer());
-		armiesAvailable.setText("Number of Armies Available:" + String.valueOf(gameController.getGameModel().getCurrPlayer().getNoOfArmiesOwned()));		
+		armiesAvailable.setText("Number of Armies Available:" + String.valueOf(gameController.getGameModel().getCurrPlayer().getNoOfArmiesOwned()));
+		noOfCardsLabel.setText("No of Cards Available: " + gameModel.getCurrPlayer().getNoOfCardsOwned());
 	}
 
 	/**
@@ -1015,8 +1021,9 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		strengthPane.getViewport().add(playerStrength);
 	}
 	
-	
-	
+	/**
+	 * This method controls whether to close card exchange window when user clicks on close
+	 */
 	public void doOnClose() {
 		
 		String[] button = new String[] {"Yes", "No", "Cancel"};
@@ -1048,17 +1055,19 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		}
 			
 	}
-		
 	
+	/**
+	 * This method asks user If a user wants to exchange cards and displays card exchange frame
+	 */
 	public void cardExchangeView() {	
 		
 		gameModel = gameController.getGameModel();
-		for(int i = 0;i<6;i++)
-		{
-			System.out.println(gameModel.getCurrPlayer().getNoOfCardsOwned());
-			gameModel.getCurrPlayer().getCardsOwned().add(Card.getNewCard());
-			gameModel.getCurrPlayer().setNoOfCardsOwned(gameModel.getCurrPlayer().getNoOfCardsOwned()+1);
-		}
+//		for(int i = 0;i<6;i++)
+//		{
+//			System.out.println(gameModel.getCurrPlayer().getNoOfCardsOwned());
+//			gameModel.getCurrPlayer().getCardsOwned().add(Card.getNewCard());
+//			gameModel.getCurrPlayer().setNoOfCardsOwned(gameModel.getCurrPlayer().getNoOfCardsOwned()+1);
+//		}
 		
 		
 		
@@ -1093,7 +1102,11 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		    
 		}
 	}
-
+	
+	
+	/**
+	 * This method controls whether user has selected cards of same or different type or not
+	 */
 	public void doExchangeCardsNow() {
 		
 		if(gameModel.getCurrPlayer().getNoOfCardsOwned()<5)
@@ -1119,6 +1132,10 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		
 	}
 	
+	
+	/**
+	 * This method displays all the available cards as to a particular user
+	 */
 	public void viewAvailableCards()
 	{
 		
@@ -1139,6 +1156,10 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		
 	}
 	
+	/**
+	 * This method listens to exchange button events
+	 * @param e Event corresponding to exchange button
+	 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
@@ -1189,8 +1210,11 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 				}
 				
 			}
-	
-	
+			
+			
+			/**
+			 * This method displays all cards in the card exchange frame as a JList
+			 */
 	public void displayCards()
 	{	
 		list = null;
@@ -1251,6 +1275,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 	
 	private void addProgressBar(GameModelCreation gameModel) {
 
+		noOfCardsLabel.setText("No of Cards Available: " + gameModel.getCurrPlayer().getNoOfCardsOwned());
 		progressBarPanel.removeAll();
 		Color color1 = new Color(23, 54, 135);
 		Color color2 = new Color(32, 198, 42);

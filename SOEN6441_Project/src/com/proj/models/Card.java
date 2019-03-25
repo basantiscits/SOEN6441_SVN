@@ -1,8 +1,9 @@
 package com.proj.models;
 
+import java.util.Observable;
 import java.util.Random;
 
-public class Card {
+public class Card extends Observable{
 
 	private int cardId;
 
@@ -31,6 +32,7 @@ public class Card {
 	 */
 	public void setCardId(int cardId) {
 		this.cardId = cardId;
+		updateChanges();
 	}
 
 	/**
@@ -45,6 +47,7 @@ public class Card {
 	 */
 	public void setTypeOfCard(Type typeOfCard) {
 		this.typeOfCard = typeOfCard;
+		updateChanges();
 	}
 
 	static int num = 0;
@@ -58,5 +61,11 @@ public class Card {
 		return new Card(++num, randomNum == 1 ? Type.INFANTRY : randomNum == 2 ? Type.CAVALRY : Type.ARTILLERY);
 
 	}
+	
+	public void updateChanges() {
+		setChanged();
+		notifyObservers(this);
+	}
+	
 
 }
