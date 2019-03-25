@@ -85,7 +85,6 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer 
 	private JLabel currentPlayerName;
 	private JComboBox countriesComboBox;
 	private JButton armyAllocation;
-	private JButton DummyAttackButton;
 	private JLabel armiesAvailable;
 	private GameController gameController;
 	private JPanel cardExchangePanel;
@@ -254,8 +253,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer 
 		exchangeButton = new JButton("Exchange");
 		exchangeButton.setBounds(200,150,100,70);
 		exchangeButt = new JButton("View Available Cards");
-		
-		exchangeButt.setBounds(300, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 20,30, 30); // to be placed correctly
+		exchangeButt.setBounds(370, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 80,170, 30);
 		exchangeButt.addActionListener(gameController);
 		add(exchangeButt);
 		
@@ -286,22 +284,6 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer 
 		add(tableHeader);
 		add(strengthPane);
 		add(progressBarPanel);
-		//------------------------------------------------
-		DummyAttackButton= new JButton("Dummy Attack");
-		DummyAttackButton.setBounds(550, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 200,250, 30);
-		DummyAttackButton.addActionListener(gameController);
-		add(DummyAttackButton);
-		
-		DummyAttackButton.addActionListener(new java.awt.event.ActionListener() {
-			@Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				DummyAttackButton.addActionListener(this);
-				AttackView openAttackView=new AttackView(gameMap, player, currentPlayer, null);
-				openAttackView.setVisible(true);
-			}
-		});
-		//------------------------------------------------
-		
 		countriesMatrix();
 		createTree();
 		createStartUpTree();
@@ -1087,13 +1069,9 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer 
 		displayCards();
 		listOfCards.setBounds(100,100, 75,150); 
 		
-		cardExchangeFrame.add(listOfCards);
-		
-		
-		 
+		 cardExchangeFrame.add(listOfCards);
 		 cardExchangeFrame.add(exchangeLabel);
 		 cardExchangeFrame.add(exchangeButton);
-		 
 		 cardExchangeFrame.setVisible(true);
 		 System.out.println("Again outside action performed");
 		 
@@ -1105,14 +1083,12 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer 
 	{
 		
 		cardViewLabel = new JLabel();
-		cardViewLabel.setText("Cards Available: ");
+		cardViewLabel.setText("Cards Available :");
+		cardViewLabel.setLocation(70,10);
 		cardViewLabel.setSize(500,100);
-		
-		
 		displayCards();
-		listOfCards.setBounds(100,100, 75,150); 
+		listOfCards.setBounds(80,100, 75,150); 
 		if(gameModel.getCurrPlayer().getNoOfCardsOwned()<5) cardExchangeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
 		viewCardFrame.setTitle("View Cards");
 		
 		viewCardFrame.add(listOfCards);
