@@ -20,7 +20,12 @@ import com.proj.models.Map;
 import com.proj.models.Player;
 import com.proj.utilites.Constants;
 
-
+/**
+ * The Player class
+ * @author Ofreish
+ * @since 12 Mar 2019
+ * @version 1.1
+ */
 public class AttackView extends JFrame implements ActionListener {
 	private JLabel noOfArmies;
 	private JLabel PlayerDicestrlbl;
@@ -38,7 +43,6 @@ public class AttackView extends JFrame implements ActionListener {
 	private JComboBox sourceCountryArmiesddl;
 	private JComboBox destinationCountryArmiesddl;
 	
-	//private JComboBox selectNoOfArmies;
 	private JComboBox selectNoOfDices;
 	private JButton Attackbtn;
 	private JButton AllOutAttackbtn;
@@ -60,43 +64,82 @@ public class AttackView extends JFrame implements ActionListener {
 	private JLabel defendDice1;
 	private JLabel defendDice2;
 	
-	
+	/**
+	 * getter for attack dice
+	 * @return attackDice1
+	 */
 	public JLabel getAttackDice1() {
 		return attackDice1;
 	}
-
+	
+	/**
+	 * setter for attack dice
+	 * @param attackDice1 1st dice value of attacker
+	 */
 	public void setAttackDice1(JLabel attackDice1) {
 		this.attackDice1 = attackDice1;
 	}
-
+	
+	/**
+	 * getter for attack dice
+	 * @return attackDice2
+	 */
 	public JLabel getAttackDice2() {
 		return attackDice2;
 	}
-
+	
+	/**
+	 * setter for attack dice
+	 * @param attackDice2 2nd dice value of attacker
+	 */
 	public void setAttackDice2(JLabel attackDice2) {
 		this.attackDice2 = attackDice2;
 	}
-
+	
+	/**
+	 * getter for attack dice
+	 * @return attackDice3
+	 */
 	public JLabel getAttackDice3() {
 		return attackDice3;
 	}
-
+	
+	/**
+	 * setter for attack dice
+	 * @param attackDice2 3rd dice value of attacker
+	 */
 	public void setAttackDice3(JLabel attackDice3) {
 		this.attackDice3 = attackDice3;
 	}
-
+	
+	/**
+	 * getter for defend dice
+	 * @return defendDice1
+	 */
 	public JLabel getDefendDice1() {
 		return defendDice1;
 	}
-
+	
+	/**
+	 * setter for defend dice
+	 * @param defendDice1 1st dice value of defender
+	 */
 	public void setDefendDice1(JLabel defendDice1) {
 		this.defendDice1 = defendDice1;
 	}
-
+	
+	/**
+	 * getter for defend dice
+	 * @return defendDice2
+	 */
 	public JLabel getDefendDice2() {
 		return defendDice2;
 	}
-
+	
+	/**
+	 * setter for defend dice
+	 * @param defendDice1 1st dice value of defender
+	 */
 	public void setDefendDice2(JLabel defendDice2) {
 		this.defendDice2 = defendDice2;
 	}
@@ -346,9 +389,18 @@ public class AttackView extends JFrame implements ActionListener {
 		this.gameWindow = gameWindow;
 	}
 	
+	/**
+	 * getter for attack controller
+	 * @return attack controller
+	 */
 	public AttackController getAttackController() {
 		return AttackController;
 	}
+	
+	/**
+	 * setter for attack controller
+	 * @param AttackController Object of AttackController class
+	 */
 	public void setAttackController(AttackController AttackController) {
 		this.AttackController = AttackController;
 	}
@@ -369,16 +421,29 @@ public class AttackView extends JFrame implements ActionListener {
 		this.armiesInDestination = armiesInDestination;
 	}
 	
-	
-
+	/**
+	 * getter for game model creation
+	 * @return game model
+	 */
 	public GameModelCreation getGameModel() {
 		return gameModel;
 	}
 
+	/**
+	 * setter for game model
+	 * @param gameModel Object of GameModelCreation class
+	 */
 	public void setGameModel(GameModelCreation gameModel) {
 		this.gameModel = gameModel;
 	}
-
+	
+	/**
+	 * Constructor of AttackView class
+	 * @param gameMap Object of Map class
+	 * @param playersArry Array object of Player class
+	 * @param currentPlayer current player
+	 * @param gameWindowScreen Object of GameWindowScreen class
+	 */
 	public AttackView(Map gameMap, Player[] playersArry, int currentPlayer, GameWindowScreen gameWindowScreen) {
 		this.map = gameMap;
 		this.player = playersArry;
@@ -496,6 +561,10 @@ public class AttackView extends JFrame implements ActionListener {
 		}
 	}
 	
+	/**
+	 * Add destination countries
+	 * @param sourCountry source country
+	 */
 	public void addDestCountries(Country sourCountry) {
 		destinationCountry.removeAllItems();
 		Country countryToBeChechked = null;
@@ -514,7 +583,9 @@ public class AttackView extends JFrame implements ActionListener {
 		}
 	}
 		
-	
+	/**
+	 * select dices
+	 */
 	public void selectDices() {
 		selectNoOfDice.removeAllItems();
 		for(int i=1; i<Integer.valueOf(armiesInSource.getText()); i++) {
@@ -527,58 +598,19 @@ public class AttackView extends JFrame implements ActionListener {
 		}
 	}
 	
-/*	public boolean attackPossible() {
-		boolean hasArmy = false;
-		for (Country country : gameWindow.getGameController().getGameModel().getCurrPlayer().getCountriesOwned()) {
-			if (country.getNoOfArmiesPresent() > 1) {
-				hasArmy = true;
-				break;
-			}
-		}
-		return hasArmy;
-	}*/
-	
+	/**
+	 * Action performed
+	 * @param e Object of ActionEvent class
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-//		Player[] sPlayerName;
-//	    String sourceCountry;
-//		String sAttackingCountry;
-//		String sDefenderCountry;
-//		//int iNoOfArmiesOfAttacker;
-//		Country sourCountry;
-//	if (e.getSource() == Attackbtn)
-//		{
-			//System.out.println("\n");
-			//System.out.println("Attack Param");
-//			//sPlayerName=player[currentPlayer].getPlayerName();
-//			sPlayerName=this.player;
-//			sAttackingCountry=(String) getSourceCountry().getSelectedItem();
-//			sourCountry = getMap().searchCountry(sAttackingCountry);
-//			sDefenderCountry=(String) getDestinationCountry().getSelectedItem();
-//			 String iNoOfArmiesOfAttacker=(String.valueOf(sourCountry.getNoOfArmiesPresent()));
-//			System.out.println("Player Name : "+sPlayerName+"\n"+ "Source Country :"+ sAttackingCountry+"\n"+ "Defender Country :" +sDefenderCountry+"\n"+ "No of Armies of Attacker : "+iNoOfArmiesOfAttacker);
-//			//+ sPlayerName + "Source Country :" +sAttackingCountry "Defender Country :" +sDefenderCountry+ "No of Armies of Attacker"+iNoOfArmiesOfAttacker,iNoOfArmiesOfAttacker);
-//			//Handover to Aman
-//			AttackController objAttackController= new AttackController();
-//			//objAttackController.fncNamegivenByAman(sPlayerName,sAttackingCountry,sDefenderCountry,);
-//		}
-//		else if(e.getSource() == AllOutAttackbtn)
-//		{
-//			System.out.println("\n");
-//			System.out.println("All out Attack Param");
-//			//sPlayerName=player[currentPlayer].getPlayerName();
-//			sPlayerName=this.player;
-//			sAttackingCountry=(String) getSourceCountry().getSelectedItem();
-//			sDefenderCountry=(String) getDestinationCountry().getSelectedItem();;
-//			System.out.println("Player Name : "+sPlayerName+"\n"+ "Source Country :"+ sAttackingCountry+"\n"+ "Defender Country :" +sDefenderCountry);
-//			//Handover to Aman
-//			AttackController objAttackController= new AttackController();
-//			//objAttackController.fncNameGiveByAman(sPlayerName,sAttackingCountry,sDefenderCountry);
-//		}
 	}
 
 
-
+	/**
+	 * Main method
+	 * @param args Command line arguments
+	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		

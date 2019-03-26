@@ -250,7 +250,6 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		cardExchangeFrame.addWindowListener(this);
 		
 		exchangePane = new JOptionPane();
-	//	armyAllocation.setEnabled(false);
 		
 		exchangeButton = new JButton("Exchange");
 		exchangeButton.setBounds(200,150,100,50);
@@ -1256,7 +1255,11 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 	}
 
 
-
+	/**
+	 * Update method
+	 * @param type Object of Observable
+	 * @param object calling observer
+	 */
 	@Override
 	public void update(Observable type, Object object) {
 		createStartUpTree();
@@ -1265,6 +1268,10 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		
 	}
 	
+	/**
+	 * add progress bar
+	 * @param gameModel Object of GameModelCreation class 
+	 */
 	private void addProgressBar(GameModelCreation gameModel) {
 
 		noOfCardsLabel.setText("No of Cards Available: " + gameModel.getCurrPlayer().getNoOfCardsOwned());

@@ -262,7 +262,14 @@ public class FortificationView extends JFrame implements ActionListener {
 	public void setFortificationController(FortificationController fortificationController) {
 		this.fortificationController = fortificationController;
 	}
-
+	
+	/**
+	 * Fortification View constructor
+	 * @param map Object of Map class
+	 * @param player Array Object of Player class
+	 * @param currentPlayer current player
+	 * @param gameWindow Object of GameWindowScreen class
+	 */
 	public FortificationView(Map map, Player[] player, int currentPlayer, GameWindowScreen gameWindow) {
 		this.map = map;
 		this.player = player;
@@ -391,6 +398,9 @@ public class FortificationView extends JFrame implements ActionListener {
 		this.armiesInDestination = armiesInDestination;
 	}
 	
+	/**
+	 * getter for dispose message
+	 */
 	public void getDisposeMsg() {
 		JOptionPane.showMessageDialog(null,"Player has no country with armies more than one!!!\n Click Ok to finish Fortification Phase");
 		//(getGameWindow().getGameController().getGameModel().getCurrPlayer()==getPlayer()[getPlayer().length-1])
@@ -411,6 +421,10 @@ public class FortificationView extends JFrame implements ActionListener {
 		
 	}
 	
+	/**
+	 * check draw
+	 * @return true if all players have 1 army left else false
+	 */
 	public boolean checkDraw() {
 		for(Player p : getGameWindow().getPlayer()) {
 			if(!(p.getCountriesOwned().size()==getGameWindow().getGameController().getGameModel().armiesAllocated(p))) {
