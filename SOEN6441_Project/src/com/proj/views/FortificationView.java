@@ -400,9 +400,12 @@ public class FortificationView extends JFrame implements ActionListener {
 		}
 		getGameWindow().getGameController().getGameModel().incrementTurn();
 		getGameWindow().getGameController().getGameModel().changePlayer();
-		getGameWindow().displayPlayer();
+		getGameWindow().getArmyAllocation().setEnabled(true);
+		getGameWindow().getArmyAllocation().setText("Phase Change");
+		getGameWindow().getArmyAllocation().doClick();
 		setVisible(false);
 		getGameWindow().getStartPhaseDefinedLabel().setText("Reinforcement Phase");
+		getGameWindow().displayPlayer();
 		getGameWindow().getArmyAllocation().setEnabled(true);
 		dispose();
 		
@@ -423,16 +426,3 @@ public class FortificationView extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -390,7 +390,7 @@ public class AttackController implements ActionListener{
 					AttackView.getDestinationCountry().removeAllItems();
 					AttackView.getArmiesInDestination().setText("");
 					AttackView.getNoOfDice().removeAllItems();
-					transferArmy();	
+					transferArmy(DiceSelection);	
 					AttackView.addCountryToBox(AttackView.getSourceCountry());
 					if(AttackView.getGameModel().getCurrPlayer().getCountriesOwned().size()==AttackView.getGameModel().getMapDetails().listOfCountryNames().size()) {
 						JOptionPane.showMessageDialog(null, AttackView.getPlayer()[AttackView.getCurrentPlayer()].getPlayerName()+" has won the game\n CONGRATULATIONS");
@@ -454,7 +454,7 @@ public class AttackController implements ActionListener{
 					AttackView.getDestinationCountry().removeAllItems();
 					AttackView.getArmiesInDestination().setText("");
 					AttackView.getNoOfDice().removeAllItems();
-					transferArmy();	
+					transferArmy(attackerDiceCount);	
 					AttackView.addCountryToBox(AttackView.getSourceCountry());
 					System.out.println("chl pya");
 					if(AttackView.getGameModel().getCurrPlayer().getCountriesOwned().size()==AttackView.getGameModel().getMapDetails().listOfCountryNames().size()) {
@@ -502,12 +502,12 @@ public class AttackController implements ActionListener{
 		
 	}
 	
-	public void transferArmy() {
+	public void transferArmy(int dice) {
 		System.out.println("a gya");
 		int attackArmy = countryAttacking.getNoOfArmiesPresent()-1;
-		Integer[] options = new Integer[attackArmy];
-		for (int i = 1; i <= attackArmy; i++) {
-			int index = i - 1;
+		Integer[] options = new Integer[attackArmy-(dice-1)];
+		for (int i = dice,j = 1; i <= attackArmy; i++,j++) {
+			int index = j - 1;
 			options[index] = i;
 		}
 		int n = 0;
@@ -516,7 +516,8 @@ public class AttackController implements ActionListener{
 					JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 		} catch(Exception ex){
 			System.out.println("Exception encountered");
-			n = 1;
+			n = dice;
+			System.out.println("n: "+n+"dice: "+dice);
 		} finally {
 			System.out.println("finally set up");
 		}

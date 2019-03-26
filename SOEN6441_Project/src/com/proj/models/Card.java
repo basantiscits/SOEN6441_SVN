@@ -3,7 +3,7 @@ package com.proj.models;
 import java.util.Observable;
 import java.util.Random;
 
-public class Card extends Observable{
+public class Card extends Observable {
 
 	private int cardId;
 
@@ -13,6 +13,7 @@ public class Card extends Observable{
 		super();
 		this.cardId = cardId;
 		this.typeOfCard = typeOfCard;
+		updateChanges();
 	}
 
 	public enum Type {

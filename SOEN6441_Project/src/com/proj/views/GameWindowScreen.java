@@ -128,7 +128,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		gameController.getGameModel().addObserver(this);
 		
 		setSize(Constants.MAP_EDITOR_WIDTH, Constants.MAP_EDITOR_HEIGHT);
-		setResizable(false);
+		setResizable(true);
 		setLocationRelativeTo(null);
 		addComponents();
 		addWindowListener(new WindowAdapter() {
@@ -1062,15 +1062,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 	public void cardExchangeView() {	
 		
 		gameModel = gameController.getGameModel();
-//		for(int i = 0;i<6;i++)
-//		{
-//			System.out.println(gameModel.getCurrPlayer().getNoOfCardsOwned());
-//			gameModel.getCurrPlayer().getCardsOwned().add(Card.getNewCard());
-//			gameModel.getCurrPlayer().setNoOfCardsOwned(gameModel.getCurrPlayer().getNoOfCardsOwned()+1);
-//		}
-		
-		
-		
+	
 	
 		cardExchangeFrame.setTitle(gameModel.getCurrPlayer().getPlayerName());
 		

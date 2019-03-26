@@ -109,18 +109,21 @@ public class GameController implements ActionListener {
 				gameWindowScreen.getArmyAllocation().doClick();
 			}
 			break;
-		case "Reinforcement Phase":
 			
+		case "Reinforcement Phase":
+/*			gameModel.getCurrPlayer().intializeReinforcementArmies(gameWindowScreen, gameMap);
+			gameWindowScreen.displayPlayer();*/
 			updateGame((String) gameWindowScreen.getCountriesComboBox().getSelectedItem());
 			gameWindowScreen.reinforce();
 			gameWindowScreen.displayPlayer();
 			break;
+			
 		case "Phase Change":
-			cardExchange();
+			//cardExchange();
 			
 			gameWindowScreen.getStartPhaseDefinedLabel().setText("Reinforcement Phase");
 			gameWindowScreen.getArmyAllocation().setText("Reinforcement Phase");
-			Player.intializeReinforcementArmies(gameWindowScreen, gameMap);
+			gameModel.getCurrPlayer().intializeReinforcementArmies(gameWindowScreen, gameMap);
 			gameWindowScreen.displayPlayer();
 			break;
 		
@@ -180,17 +183,9 @@ public class GameController implements ActionListener {
 	}
 	
 	
-	public void cardExchange()
-	
-	{
-		
+	public void cardExchange(){
 		gameWindowScreen.cardExchangeView();
-		
 	}
-	
-	
-	
-	
 
 	/**
 	 * updates continents owned by player

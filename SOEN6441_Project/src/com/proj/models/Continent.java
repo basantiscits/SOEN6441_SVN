@@ -11,6 +11,7 @@ import java.util.Observable;
  * @version 1.0
  */
 public class Continent extends Observable{
+	
 	private String continentName;
 	private List<Country> countriesPresent;
 	private int controlValue;

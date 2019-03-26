@@ -245,8 +245,8 @@ public class Player extends Observable{
 	 * @param gameMap 
 	 * @param gameWindowScreen 
 	 */
-	public static void intializeReinforcementArmies(GameWindowScreen gameWindowScreen, Map gameMap) {
-		for (int i = 0; i < gameWindowScreen.getPlayer().length; i++) {
+	public void intializeReinforcementArmies(GameWindowScreen gameWindowScreen, Map gameMap) {
+/*		for (int i = 0; i < gameWindowScreen.getPlayer().length; i++) {
 			long armies = Math.round(Math.floor(gameWindowScreen.getPlayerAtIndex(i).getCountriesOwned().size() / 3));
 			if (armies > 3) {
 				gameWindowScreen.getPlayerAtIndex(i).incrementNoOfArmiesOwned((int) armies);
@@ -254,8 +254,19 @@ public class Player extends Observable{
 			else {
 				gameWindowScreen.getPlayerAtIndex(i).incrementNoOfArmiesOwned(3);
 			}
-			updateContinentsOwned(i,gameMap, gameWindowScreen);
+			updateContinentsOwned(gameMap, gameWindowScreen);
 		}
+		*/
+		
+		long armies = Math.round(Math.floor(getCountriesOwned().size() / 3));
+		if(armies > 3) {
+			incrementNoOfArmiesOwned((int) armies);
+		}
+		else {
+			incrementNoOfArmiesOwned(3);
+		}
+		updateContinentsOwned(gameMap, gameWindowScreen);
+		
 	}
 	
 	/**
@@ -266,11 +277,16 @@ public class Player extends Observable{
 	 * @param gameWindowScreen 
 	 * @param gameMap 
 	 */
-	public static void updateContinentsOwned(int number, Map gameMap, GameWindowScreen gameWindowScreen) {
-		boolean flag = false;
+	public void updateContinentsOwned( Map gameMap, GameWindowScreen gameWindowScreen) {
+		
+		for(Continent cont:continentsOwned) {
+			incrementNoOfArmiesOwned(cont.getControlValue());
+		}
+		
+/*		boolean flag = false;
 		for (Continent continent : gameMap.getContinents()) {
 			for (Country country : continent.getCountriesPresent()) {
-				if (gameWindowScreen.getPlayerAtIndex(number).getCountriesOwned().contains(country)) {
+				if (getCountriesOwned().contains(country)) {
 					flag = true;
 				} 
 				else {
@@ -279,11 +295,9 @@ public class Player extends Observable{
 				}
 			}
 			if (flag) {
-				System.out.println("ControlValue: " + continent.getControlValue() + " number: " + number);
-				gameWindowScreen.getPlayerAtIndex(number).incrementNoOfArmiesOwned(continent.getControlValue());
+				incrementNoOfArmiesOwned(continent.getControlValue());
 			}
-		}
-		System.out.println("Current player : " + gameWindowScreen.getCurrentPlayer() + " number: " + number);
+		}*/
 	}
 	
 	
@@ -313,6 +327,8 @@ public class Player extends Observable{
 			JOptionPane.showMessageDialog(null, "Player is not eligible for Attack and fortification phase");
 			gameWindowScreen.getGameController().getGameModel().incrementTurn();
 			gameWindowScreen.getGameController().getGameModel().changePlayer();
+			gameWindowScreen.getArmyAllocation().setText("Phase Change");
+			gameWindowScreen.getArmyAllocation().doClick();
 			gameWindowScreen.displayPlayer();
 			gameWindowScreen.getStartPhaseDefinedLabel().setText("Reinforcement Phase");
 			gameWindowScreen.getArmyAllocation().setEnabled(true);
