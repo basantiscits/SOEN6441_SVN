@@ -102,6 +102,9 @@ public class Continent extends Observable{
 		updateChanges();
 	}
 	
+	/**
+	 * Update changes
+	 */
 	public void updateChanges() {
 		setChanged();
 		notifyObservers(this);

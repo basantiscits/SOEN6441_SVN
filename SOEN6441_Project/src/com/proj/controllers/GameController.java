@@ -27,10 +27,8 @@ public class GameController implements ActionListener {
 	/**
 	 * constructor for Game Controller
 	 * 
-	 * @param gameWindowScreen
-	 *            the game window screen
-	 * @param gameMap
-	 *            the map of continents and countries
+	 * @param gameWindowScreen the game window screen
+	 * @param gameMap the map of continents and countries
 	 */
 	public GameController(GameWindowScreen gameWindowScreen, Map gameMap, Player[] player) {
 		this.gameMap = gameMap;
@@ -40,49 +38,73 @@ public class GameController implements ActionListener {
 	}
 
 	
-	
+	/**
+	 * getter for game window screen
+	 * @return Object of GameWindowScreen
+	 */
 	public GameWindowScreen getGameWindowScreen() {
 		return gameWindowScreen;
 	}
 
 
-
+	/**
+	 * setter for Game window screen
+	 * @param gameWindowScreen Object of GameWindowScreen
+	 */
 	public void setGameWindowScreen(GameWindowScreen gameWindowScreen) {
 		this.gameWindowScreen = gameWindowScreen;
 	}
 
 
-
+	/**
+	 * getter for game map
+	 * @return Object of Map
+	 */
 	public Map getGameMap() {
 		return gameMap;
 	}
 
 
-
+	/**
+	 * setter for game map
+	 * @param gameMap Object of Map
+	 */
 	public void setGameMap(Map gameMap) {
 		this.gameMap = gameMap;
 	}
 
 
-
+	/**
+	 * getter for Player
+	 * @return player object
+	 */
 	public Player[] getPlayer() {
 		return player;
 	}
 
 
-
+	/**
+	 * setter for player
+	 * @param player array object of Player class
+	 */
 	public void setPlayer(Player[] player) {
 		this.player = player;
 	}
 
 
-
+	/**
+	 * getter for game model
+	 * @return game model
+	 */
 	public GameModelCreation getGameModel() {
 		return gameModel;
 	}
 
 
-
+	/**
+	 * setter for game model
+	 * @param gameModel Object of GameModelCreation
+	 */
 	public void setGameModel(GameModelCreation gameModel) {
 		this.gameModel = gameModel;
 	}
@@ -111,16 +133,12 @@ public class GameController implements ActionListener {
 			break;
 			
 		case "Reinforcement Phase":
-/*			gameModel.getCurrPlayer().intializeReinforcementArmies(gameWindowScreen, gameMap);
-			gameWindowScreen.displayPlayer();*/
 			updateGame((String) gameWindowScreen.getCountriesComboBox().getSelectedItem());
 			gameWindowScreen.reinforce();
 			gameWindowScreen.displayPlayer();
 			break;
 			
 		case "Phase Change":
-			//cardExchange();
-			
 			gameWindowScreen.getStartPhaseDefinedLabel().setText("Reinforcement Phase");
 			gameWindowScreen.getArmyAllocation().setText("Reinforcement Phase");
 			gameModel.getCurrPlayer().intializeReinforcementArmies(gameWindowScreen, gameMap);
@@ -131,18 +149,6 @@ public class GameController implements ActionListener {
 			gameWindowScreen.viewAvailableCards();
 		}
 	}
-
-	/**
-	 * start method for game window screen
-	 */
-/*	public void start() {
-		if (gameWindowScreen.getCurrentPlayer() == (gameWindowScreen.getPlayer().length - 1)) {
-			gameWindowScreen.setCurrentPlayer(0);
-		} 
-		else {
-			gameWindowScreen.setCurrentPlayer(gameWindowScreen.getCurrentPlayer() + 1);
-		}
-	}*/
 
 	/**
 	 * checks end of start up phase
@@ -166,8 +172,7 @@ public class GameController implements ActionListener {
 	/**
 	 * creates the start up phase tree showing country and number of armies
 	 * 
-	 * @param country
-	 *            name of country
+	 * @param country name of country
 	 */
 	public void updateGame(String country) {
 		
@@ -178,7 +183,6 @@ public class GameController implements ActionListener {
 					c.addNoOfArmiesCountry();
 				}
 			}
-			//gameWindowScreen.createStartUpTree();
 		}
 	}
 	
@@ -186,30 +190,4 @@ public class GameController implements ActionListener {
 	public void cardExchange(){
 		gameWindowScreen.cardExchangeView();
 	}
-
-	/**
-	 * updates continents owned by player
-	 * 
-	 * @param number
-	 *            to indicate control value has to be assigned for which player
-	 */
-/*	public void updateContinentsOwned(int number) {
-		boolean flag = false;
-		for (Continent continent : gameMap.getContinents()) {
-			for (Country country : continent.getCountriesPresent()) {
-				if (gameWindowScreen.getPlayerAtIndex(number).getCountriesOwned().contains(country)) {
-					flag = true;
-				} 
-				else {
-					flag = false;
-					break;
-				}
-			}
-			if (flag) {
-				System.out.println("ControlValue: " + continent.getControlValue() + " number: " + number);
-				gameWindowScreen.getPlayerAtIndex(number).incrementNoOfArmiesOwned(continent.getControlValue());
-			}
-		}
-		System.out.println("Current player : " + gameWindowScreen.getCurrentPlayer() + " number: " + number);
-	}*/
 }

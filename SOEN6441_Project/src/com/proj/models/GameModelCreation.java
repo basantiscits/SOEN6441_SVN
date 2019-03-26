@@ -26,7 +26,11 @@ public class GameModelCreation extends Observable{
 		updateChanges();
 	}
 	
-	
+	/**
+	 * Armies allocated to player
+	 * @param p Object of Player class
+	 * @return number of armies allocated to player
+	 */
 	public int armiesAllocated(Player p) {
 		int size = 0;
 		for(Country c : p.getCountriesOwned()) {
@@ -36,17 +40,26 @@ public class GameModelCreation extends Observable{
 	}
 	
 	
-	
+	/**
+	 * getter for turn
+	 * @return turn
+	 */
 	public int getTurn() {
 		return turn;
 	}
 
-
+	/**
+	 * setter for turn
+	 * @param turn number of turn
+	 */
 	public void setTurn(int turn) {
 		this.turn = turn;
 	}
 
-
+	/**
+	 * increments turn
+	 * 
+	 */
 	public void incrementTurn() {
 		if(turn == player.length) {
 			turn = 0;
@@ -55,7 +68,10 @@ public class GameModelCreation extends Observable{
 		updateChanges();
 	}
 	
-	
+	/**
+	 * change player
+	 * 
+	 */
 	public void changePlayer(){
 		if(currPlayer == player[player.length-1]) {
 			currPlayer = player[0];
@@ -71,63 +87,61 @@ public class GameModelCreation extends Observable{
 		updateChanges();
 	}
 	
+	/**
+	 * getter for player
+	 * @return player
+	 */
 	public Player[] getPlayer() {
 		return player;
 	}
 
-
-
-
-
-
+	/**
+	 * setter for player
+	 * @param player Array object of Player class 
+	 */
 	public void setPlayer(Player[] player) {
 		this.player = player;
 		updateChanges();
 	}
 
-
-
-
-
-
+	/**
+	 * getter of current player
+	 * @return current player
+	 */
 	public Player getCurrPlayer() {
 		return currPlayer;
 	}
 
-
-
-
-
-
+	/**
+	 * setter of current player
+	 * @param currPlayer Object of Player class
+	 * 
+	 */
 	public void setCurrPlayer(Player currPlayer) {
 		this.currPlayer = currPlayer;
 		updateChanges();
 	}
 
-
-
-
-
-
+	/**
+	 * getter for map details
+	 * @return map details
+	 */
 	public Map getMapDetails() {
 		return mapDetails;
 	}
 
-
-
-
-
-
+	/**
+	 * setter for map details
+	 * @param mapDetails Object of Map class
+	 */
 	public void setMapDetails(Map mapDetails) {
 		this.mapDetails = mapDetails;
 		updateChanges();
 	}
 
-
-
-
-
-
+	/**
+	 * Update changes
+	 */
 	public void updateChanges() {
 		setChanged();
 		notifyObservers(this);

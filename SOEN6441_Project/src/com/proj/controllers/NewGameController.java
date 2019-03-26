@@ -126,8 +126,8 @@ public class NewGameController implements ActionListener {
 	}
 
 	/**
-	 * initializes player models and sets total number of armies based on number of
-	 * players
+	 * initializes player models and sets total number of armies based on number of players
+	 * 
 	 * 
 	 * @param noOfPlayers total number of players in the game
 	 * @param sCarryMapForward map constructed so far
