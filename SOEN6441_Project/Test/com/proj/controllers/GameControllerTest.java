@@ -96,6 +96,7 @@ public class GameControllerTest {
 		player[1].addCountry(country8);
 		player[2].addCountry(country9);
 		player[2].addCountry(country10);
+		player[2].getContinentsOwned().add(continent3);
 	}
 	
 	@After
@@ -106,7 +107,9 @@ public class GameControllerTest {
 	 */
 	@Test
 	public void intializeReinforcementArmiesTest() {
-		Player.intializeReinforcementArmies(screen, gameMap);
+		player[0].intializeReinforcementArmies(screen, gameMap);
+		player[1].intializeReinforcementArmies(screen, gameMap);
+		player[2].intializeReinforcementArmies(screen, gameMap);
 		System.out.println(player[0].getNoOfArmiesOwned()+" : "+player[1].getNoOfArmiesOwned()+" : "+player[2].getNoOfArmiesOwned());
 		assertEquals(3,player[0].getNoOfArmiesOwned());
 		assertEquals(3,player[1].getNoOfArmiesOwned());

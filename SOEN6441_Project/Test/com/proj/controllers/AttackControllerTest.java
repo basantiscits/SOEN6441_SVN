@@ -18,7 +18,6 @@ import com.proj.views.AttackView;
 import com.proj.views.GameWindowScreen;
 
 public class AttackControllerTest {
-
 	public Player defender;
 	public Player attacker;
 	public int noOfAttackingArmies;
@@ -112,7 +111,7 @@ public class AttackControllerTest {
 	}
 	
 	@Test
-	public void method1Test() {
+	public void checkDiceValuesTest() {
 		
 		attackView = new AttackView(gameMap, player, currentPlayer, screen);
 		attackController = new AttackController(attackView);
@@ -141,7 +140,65 @@ public class AttackControllerTest {
 		assertEquals(0,attackController.countryDefending.getNoOfArmiesPresent());
 	}
 	
-
+	@Test
+	public void numberOfArmiesTransferedTest() {
+		attackView = new AttackView(gameMap, player, currentPlayer, screen);
+		attackController = new AttackController(attackView);
+		attackController.countryAttacking = India;
+		attackController.countryDefending = Pakistan;
+		
+		attackController.countryAttacking.setNoOfArmiesPresent(5);
+		attackController.countryDefending.setNoOfArmiesPresent(1);
+		int numberOfAttackingArmies=attackController.countryAttacking.getNoOfArmiesPresent();
+		int numberOfDefendingArmies=attackController.countryDefending.getNoOfArmiesPresent();
+		
+		attackController.numberOfArmiesTransfered(2,India,Pakistan);
+		assertEquals(3,attackController.countryAttacking.getNoOfArmiesPresent());
+		assertEquals(3,attackController.countryDefending.getNoOfArmiesPresent());
+	}
 	
+	@Test
+	public void warWonTest() {
+		attackView = new AttackView(gameMap, player, currentPlayer, screen);
+		attackController = new AttackController(attackView);
+		attackController.countryAttacking = India;
+		attackController.countryDefending = Pakistan;
+		
+		attackController.countryAttacking.setNoOfArmiesPresent(5);
+		attackController.countryDefending.setNoOfArmiesPresent(1);
+		int numberOfAttackingArmies=attackController.countryAttacking.getNoOfArmiesPresent();
+		int numberOfDefendingArmies=attackController.countryDefending.getNoOfArmiesPresent();
+		
+		ArrayList<Integer> attackerDiceValues=new ArrayList<>();
+		ArrayList<Integer> defenderDiceValues=new ArrayList<>();
+		
+		
+		attackController.attacker = player[0];
+		attackController.defender = player[1];
+		attackerDiceValues.add(6);
+		attackerDiceValues.add(5);
+		attackerDiceValues.add(2);
+		defenderDiceValues.add(3);
+		attackController.battleWon();
+		
+		boolean check=attackController.checkWarWon();
+		System.out.println(check);
+		assertEquals(true,check);
+	}
 
+	@Test
+	public void attackerValidTest() {
+		attackView = new AttackView(gameMap, player, currentPlayer, screen);
+		attackController = new AttackController(attackView);
+		attackController.attacker=player[0];
+		attackController.defender=player[1];
+		India.setNoOfArmiesPresent(3);
+		Bangladesh.setNoOfArmiesPresent(2);
+		Italy.setNoOfArmiesPresent(1);
+		boolean status=attackController.validAttacker(player[0]);
+		
+		assertEquals(true,status);
+
+	}
+	
 }

@@ -292,7 +292,7 @@ public class AttackController implements ActionListener{
 	 * @return true if war won else false
 	 * 
 	 */
-	private boolean checkWarWon(){
+	boolean checkWarWon(){
 		if(noOfDefendingArmies==0){
 			System.out.println("WarWon");
 			attacker.addCountry(countryDefending);
@@ -612,6 +612,14 @@ public class AttackController implements ActionListener{
 			attack.removeNoOfArmiesCountry();
 			defender.addNoOfArmiesCountry();
 		}
+	}
+	public boolean validAttacker(Player p) {
+		for(Country c:p.getCountriesOwned()) {
+			if(c.getNoOfArmiesPresent()>1) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
 
