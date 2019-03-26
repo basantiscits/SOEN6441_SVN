@@ -1070,21 +1070,22 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 			int r=JOptionPane.showConfirmDialog(this,"Do you want to exchange Cards"); 
 			if(r==JOptionPane.YES_OPTION) {  
 			     cardExchangeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			     exchangeButton.setEnabled(true);
 			 	 
 			 	 doExchangeCardsNow();
 			 } 
 		}
 		else if(gameModel.getCurrPlayer().getNoOfCardsOwned()<3) {
 			
-			exchangeButton.setEnabled(false);
-			doExchangeCardsNow();
+			//exchangeButton.setEnabled(false);
+			//doExchangeCardsNow();
 
 		}
 		
 		
 		else {
 			cardExchangeFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);  
-		    
+			exchangeButton.setEnabled(true);
 		    doExchangeCardsNow();
 		    
 			if(gameModel.getCurrPlayer().getNoOfCardsOwned()<5) cardExchangeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

@@ -329,6 +329,7 @@ public class FortificationView extends JFrame implements ActionListener {
 		finish = new JButton("Finish");
 		finish.setBounds(765, 150, 100, 35);
 		finish.addActionListener(fortificationController);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);  
 		add(finish);
 	}
 	

@@ -549,6 +549,7 @@ public class AttackView extends JFrame implements ActionListener {
 		defendDice2 = new JLabel();
 		defendDice2.setBounds(450,60,50,20);
 		add(defendDice2);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);  
 
 		
 	}
