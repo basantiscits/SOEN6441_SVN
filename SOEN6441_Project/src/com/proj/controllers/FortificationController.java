@@ -101,11 +101,11 @@ public class FortificationController implements ActionListener {
 				String arm = (String) fortifyView.getSelectNoOfArmies().getSelectedItem();
 				int army = Integer.valueOf(arm);
 
-				for (int i = 0; i < army; i++) {
+				transferFortifyArmies(army,sourCountry,destCountry);
+/*				for (int i = 0; i < army; i++) {
 					sourCountry.removeNoOfArmiesCountry();
 					destCountry.addNoOfArmiesCountry();
-				}
-				//fortifyView.getGameWindow().createStartUpTree();
+				}*/
 				if((fortifyView.getGameWindow().getGameController().getGameModel().getCurrPlayer()==fortifyView.getPlayer()[fortifyView.getPlayer().length-1]) && fortifyView.checkDraw()) {
 					JOptionPane.showMessageDialog(null, "No Player is eligible to attack \n MATCH DRAWN!!!");
 					fortifyView.getGameWindow().dispose();
@@ -155,6 +155,13 @@ public class FortificationController implements ActionListener {
 			
 			System.out.println("Player name after fortification: -"+fortifyView.getGameWindow().getGameController().getGameModel().getCurrPlayer().getPlayerName());
 			fortifyView.getGameWindow().getGameController().cardExchange();
+		}
+	}
+	
+	public void transferFortifyArmies(int army, Country sCountry, Country tCountry) {
+		for (int i = 0; i < army; i++) {
+			sCountry.removeNoOfArmiesCountry();
+			tCountry.addNoOfArmiesCountry();
 		}
 	}
 }

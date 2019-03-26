@@ -128,7 +128,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		gameController.getGameModel().addObserver(this);
 		
 		setSize(Constants.MAP_EDITOR_WIDTH, Constants.MAP_EDITOR_HEIGHT);
-		setResizable(true);
+		setResizable(false);
 		setLocationRelativeTo(null);
 		addComponents();
 		addWindowListener(new WindowAdapter() {
@@ -1231,7 +1231,6 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		}
 		System.out.println("List is: " + list.size());
 		listOfCards.setModel(list);
-	//	listOfCards = new JList<String>(list);
 		
 
 	}
@@ -1266,6 +1265,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		createStartUpTree();
 		playerStrengthTable(gameController.getGameModel());
 		addProgressBar(gameController.getGameModel());
+		displayPlayer();
 		
 	}
 	

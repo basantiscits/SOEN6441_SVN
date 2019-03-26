@@ -2,18 +2,17 @@ package com.proj.views;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 import com.proj.controllers.AttackController;
 import com.proj.models.Continent;
-import com.proj.controllers.FortificationController;
-import com.proj.controllers.NewGameController;
 import com.proj.models.Country;
 import com.proj.models.GameModelCreation;
 import com.proj.models.Map;
@@ -582,6 +581,25 @@ public class AttackView extends JFrame implements ActionListener {
 				System.out.println(c);
 			}
 		}
+	}
+	
+	public boolean endGame(Player p, Map gameMap) {
+		if(p.getCountriesOwned().size()==gameMap.listOfCountryNames().size()) {
+			return true;
+		}
+		return false;
+	}
+	
+	public ArrayList<Country> targetCountries(Country sourCountry, Map gameMap) {
+		ArrayList<Country> countriesList = new ArrayList<Country>(); 
+		for(Continent c : gameMap.getContinents()) {
+			for(Country cont : c.getCountriesPresent()) {
+				if(sourCountry.getListOfNeighbours().contains(cont.getCountryName())) {
+					countriesList.add(cont);
+				}
+			}
+		}
+		return countriesList; 
 	}
 		
 	/**

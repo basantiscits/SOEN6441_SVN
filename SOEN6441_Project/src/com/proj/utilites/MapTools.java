@@ -144,37 +144,7 @@ public class MapTools {
 					}
 				}
 			}
-			if (!checkDuplicateContinents(gameMap)) {	
-				if (!checkDuplicateCountries(gameMap)) {
-					if (!checkEmptyContinent(gameMap)) {
-						if (checkIfNeigbourExist(gameMap)) {
-							if (checkMapConnectivity(gameMap)) {
-								if (checkCountryCount(gameMap, size)) {
-									return true;
-								}
-								else {
-									return false;
-								}
-							}
-							else {
-								return false;
-							}
-						}
-						else {
-							return false;
-						}
-					}
-					else {
-						return false;
-					}
-				}
-				else {
-					return false;
-				}
-			}
-			else {
-				return false;
-			}
+			isMapValid=validateMap(gameMap,size);
 		} 
 		catch (IOException e) {
 			e.printStackTrace();

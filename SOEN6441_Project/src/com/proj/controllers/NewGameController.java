@@ -124,6 +124,22 @@ public class NewGameController implements ActionListener {
 		}
 		
 	}
+	
+	public void initializeNumberOfArmies(Player[] players, int noOfPlayers) {
+		for (int j = 0; j < noOfPlayers; j++) {
+			int value = j + 1;
+			players[j] = new Player("Player" + String.valueOf(value));
+			if (noOfPlayers == 3) {
+				players[j].setNoOfArmiesOwned(25);
+			}
+			else if (noOfPlayers == 4) {
+				players[j].setNoOfArmiesOwned(20);
+			}
+			else if (noOfPlayers == 5) {
+				players[j].setNoOfArmiesOwned(15);
+			}
+		}
+	}
 
 	/**
 	 * initializes player models and sets total number of armies based on number of players
@@ -138,19 +154,7 @@ public class NewGameController implements ActionListener {
 		Player[] players = new Player[noOfPlayers];
 		int pickedNumber = 0;
 		Continent[] continents = new Continent[sCarryMapForward.getContinents().size()];
-		for (int j = 0; j < noOfPlayers; j++) {
-			int value = j + 1;
-			players[j] = new Player("Player" + String.valueOf(value));
-			if (noOfPlayers == 3) {
-				players[j].setNoOfArmiesOwned(25);
-			}
-			else if (noOfPlayers == 4) {
-				players[j].setNoOfArmiesOwned(20);
-			}
-			else if (noOfPlayers == 5) {
-				players[j].setNoOfArmiesOwned(15);
-			}
-		}
+		initializeNumberOfArmies(players, noOfPlayers);
 		Random RandomAllocationCountries = new Random();
 		List<Country> countryModelList = new ArrayList<Country>();
 		List<Continent> continentModelList = new ArrayList<Continent>();

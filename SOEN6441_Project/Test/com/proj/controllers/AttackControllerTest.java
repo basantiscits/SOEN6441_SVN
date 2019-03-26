@@ -90,6 +90,8 @@ public class AttackControllerTest {
 		Europe.setControlValue(4);
 		Africa.setControlValue(2);
 		
+		India.getListOfNeighbours().add("Pakistan");
+		
 		player[0].addCountry(India);
 		player[1].addCountry(Pakistan);
 		player[2].addCountry(Nepal);
@@ -196,6 +198,41 @@ public class AttackControllerTest {
 		Bangladesh.setNoOfArmiesPresent(2);
 		Italy.setNoOfArmiesPresent(1);
 		boolean status=attackController.validAttacker(player[0]);
+		
+		assertEquals(true,status);
+
+	}
+	
+	@Test
+	public void defenderValidTest() {
+		attackView = new AttackView(gameMap, player, currentPlayer, screen);
+		attackController = new AttackController(attackView);
+		attackController.attacker=player[0];
+		attackController.defender=player[1];
+		India.setNoOfArmiesPresent(3);
+		Bangladesh.setNoOfArmiesPresent(2);
+		Italy.setNoOfArmiesPresent(1);
+		ArrayList<Country> cList = attackView.targetCountries(India, gameMap);
+		
+		assertEquals(Pakistan,cList.get(0));
+
+	}
+	
+	@Test
+	public void endGameTest() {
+		attackView = new AttackView(gameMap, player, currentPlayer, screen);
+		attackController = new AttackController(attackView);
+		attackController.attacker=player[2];
+		attackController.defender=player[1];
+
+		player[2].addCountry(Bangladesh);
+		player[2].addCountry(India);
+		player[2].addCountry(Pakistan);
+		player[2].addCountry(Spain);
+		player[2].addCountry(Italy);
+		player[2].addCountry(England);
+
+		boolean status = attackView.endGame(player[2], gameMap);
 		
 		assertEquals(true,status);
 

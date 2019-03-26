@@ -404,7 +404,7 @@ public class FortificationView extends JFrame implements ActionListener {
 	 */
 	public void getDisposeMsg() {
 		JOptionPane.showMessageDialog(null,"Player has no country with armies more than one!!!\n Click Ok to finish Fortification Phase");
-		//(getGameWindow().getGameController().getGameModel().getCurrPlayer()==getPlayer()[getPlayer().length-1])
+
 		if(checkDraw()) {
 			JOptionPane.showMessageDialog(null, "No Player is eligible to attack \n MATCH DRAWN!!!");
 			getGameWindow().dispose();

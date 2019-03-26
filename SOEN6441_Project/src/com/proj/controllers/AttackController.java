@@ -344,7 +344,7 @@ public class AttackController implements ActionListener{
 		diceValues=attackerDiceValues.toString();
 		diceValues=diceValues+"\n"+defenderDiceValues.toString();
 		attackerDiceCount=attackerDiceValues.size();
-		System.out.println(diceValues);
+		System.out.println("Dice output: "+diceValues);
 		System.out.println();
 	}
 	
