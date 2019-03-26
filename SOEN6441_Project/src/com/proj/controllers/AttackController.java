@@ -17,9 +17,13 @@ import com.proj.models.Country;
 import com.proj.models.Map;
 import com.proj.models.Player;
 
-
+/**
+ * Attack Controller Class
+ * @author Basant
+ * @since 9 Mar 2019
+ * @version 1.1
+ */
 public class AttackController implements ActionListener{
-	//private Country sourCountry, destCountry;
 	private AttackView AttackView;
 	public Random diceRoll;
 	public ArrayList<Integer> attackerDiceValues;
@@ -38,7 +42,10 @@ public class AttackController implements ActionListener{
 	private Map map;
 	private Country sourCountry, destCountry;
 	
-	
+	/** 
+	 * AttackView class constructor
+	 * @param AttackView attack view object
+	 */
 	public AttackController(AttackView AttackView){
 		this.AttackView=AttackView;
 		diceRoll=new Random();
@@ -55,6 +62,14 @@ public class AttackController implements ActionListener{
 		attackerDiceCount=0;
 	}
 	
+	/**
+	 * Normal Attack
+	 * @param attackingCountryName name of attacking country
+	 * @param defendingCountryName name of defending country
+	 * @param noOfDicesSelected number of dice selected for attack
+	 * @return true if war won else false
+	 * 
+	 */
 	public boolean normalAttack(String attackingCountryName,String defendingCountryName,int noOfDicesSelected){
 		
 		for(Player p:players){
@@ -204,6 +219,12 @@ public class AttackController implements ActionListener{
 		return checkWarWon();
 	}
 	
+	/** 
+	 * All Out Attack
+	 * @param attackingCountryName name of attacking country
+	 * @param defendingCountryName name of defending country
+	 * @return true if all out attack was successful else false
+	 */
 	public boolean allOutAttack(String attackingCountryName,String defendingCountryName){
 		
 		for(Player p:players){
@@ -244,7 +265,10 @@ public class AttackController implements ActionListener{
 		return won;
 	}
 	
-	
+	/** 
+	 * Battle won so removes armies from defending country
+	 * 
+	 */
 	public void battleWon(){
 		System.out.println("BattleWon");
 		countryDefending.removeNoOfArmiesCountry();
@@ -252,6 +276,10 @@ public class AttackController implements ActionListener{
 		
 	}
 	
+	/** 
+	 * Battle lost so removes armies from attacking country
+	 * 
+	 */
 	public void battleLost(){
 		System.out.println("BattleLost");
 		countryAttacking.removeNoOfArmiesCountry();
@@ -259,6 +287,11 @@ public class AttackController implements ActionListener{
 		
 	}
 	
+	/**
+	 * Check war won
+	 * @return true if war won else false
+	 * 
+	 */
 	private boolean checkWarWon(){
 		if(noOfDefendingArmies==0){
 			System.out.println("WarWon");
@@ -304,6 +337,9 @@ public class AttackController implements ActionListener{
 		
 	}
 	
+	/**
+	 * stores attacker and defender dice values in a list
+	 */
 	private void storeDiceValues(){
 		diceValues=attackerDiceValues.toString();
 		diceValues=diceValues+"\n"+defenderDiceValues.toString();
@@ -312,32 +348,52 @@ public class AttackController implements ActionListener{
 		System.out.println();
 	}
 	
+	/**
+	 * roll dice
+	 * @param setDiceValues List of dice values
+	 */
 	private void rollDice(ArrayList <Integer> setDiceValues){
 		setDiceValues.add(diceRoll.nextInt(6)+1);
 	}
 	
+	/**
+	 * initiate dice values to null
+	 */
 	private void initiateDice(){
 		defenderDiceValues.clear();
 		attackerDiceValues.clear();
 	}
 
-	
+	/**
+	 * Moves armies from attacking to defending country that was won
+	 * @param noOfArmiesToMove
+	 */
 	private void moveArmies(int noOfArmiesToMove){
 		countryAttacking.setNoOfArmiesPresent(countryAttacking.getNoOfArmiesPresent()-noOfArmiesToMove);
 		countryDefending.setNoOfArmiesPresent(noOfArmiesToMove);
 	}
 	
-	
+	/**
+	 * getter for destination country
+	 * @return destCountry name of destination country
+	 */
 	public Country getDestCountry() {
 		return destCountry;
 	}
 	
+	/**
+	 * setter for destination country
+	 * @param destCountry name of destination country
+	 */
 	public void setDestCountry(Country destCountry) {
 		this.destCountry = destCountry;
 	}
 	
 	
-	
+	/**
+	 * Action performed when attack is initiated
+	 * @param e Object of type ActionEvent
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == AttackView.getSourceCountry()) {
@@ -502,8 +558,11 @@ public class AttackController implements ActionListener{
 		
 	}
 	
+	/**
+	 * Transfers armies from attacking to defending country won
+	 * @param dice number of dice of attacker
+	 */
 	public void transferArmy(int dice) {
-		System.out.println("a gya");
 		int attackArmy = countryAttacking.getNoOfArmiesPresent()-1;
 		Integer[] options = new Integer[attackArmy-(dice-1)];
 		for (int i = dice,j = 1; i <= attackArmy; i++,j++) {
@@ -529,6 +588,12 @@ public class AttackController implements ActionListener{
 		}
 	}
 	
+	/**
+	 * Checks dice values
+	 * @param attackerDice list of attacker dice values
+	 * @param defenderDice list of defender dice values
+	 * @return true if best of attacker dice values is greater than best of defender dice values else false
+	 */
 	public boolean checkDiceValues( ArrayList<Integer>  attackerDice, ArrayList<Integer> defenderDice) {
 		if(Collections.max(attackerDice) > Collections.max(defenderDice)) {
 			return true;
@@ -536,6 +601,12 @@ public class AttackController implements ActionListener{
 		return false;
 	}
 	
+	/**
+	 * Number of armies transferred
+	 * @param n number of armies to be transferred
+	 * @param attack attacking country
+	 * @param defender defending country
+	 */
 	public void numberOfArmiesTransfered(int n, Country attack, Country defender) {
 		for (int j = 0; j < n; j++) {
 			attack.removeNoOfArmiesCountry();
