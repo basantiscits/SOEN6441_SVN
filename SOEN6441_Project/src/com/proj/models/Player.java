@@ -18,7 +18,7 @@ import com.proj.views.GameWindowScreen;
  */
 public class Player extends Observable{
 	private String playerName;
-	private int status;	// 1 cannot win 0 can win
+	private int status;	
 	private List<Country> countriesOwned;
 	private List<Continent> continentsOwned;
 	private int noOfArmiesOwned;
@@ -44,45 +44,56 @@ public class Player extends Observable{
 	
 	
 	
-	
+	/**
+	 * getter for status
+	 * @return status whether won 
+	 */
 	public int getStatus() {
 		return status;
 	}
 
-
-
-
+	/**
+	 * setter for status
+	 * @param status 0 if won and 1 if lost
+	 */
 	public void setStatus(int status) {
 		this.status = status;
 	}
 
-
-
-
+	/**
+	 * getter for game screen
+	 * @return game screen
+	 */
 	public GameWindowScreen getGameScreen() {
 		return gameScreen;
 	}
 
-
-
-
+	/**
+	 * setter for game screen
+	 * @param gameScreen Object of GameWindowScreen class
+	 */
 	public void setGameScreen(GameWindowScreen gameScreen) {
 		this.gameScreen = gameScreen;
 	}
 
-
-
-
+	/**
+	 * getter for game model
+	 * @return game model
+	 */
 	public GameModelCreation getGameModel() {
 		return gameModel;
 	}
 
-
+	/**
+	 * setter for game model
+	 * @param gameModel Object of GameModelCreation class
+	 */
 	public void setGameModel(GameModelCreation gameModel) {
 		this.gameModel = gameModel;
 	}
 
 	/**
+	 * getter for cards for armies
 	 * @return the cardsForArmies
 	 */
 	public int getCardsForArmies() {
@@ -90,6 +101,7 @@ public class Player extends Observable{
 	}
 
 	/**
+	 * setter for cards for armies
 	 * @param cardsForArmies the cardsForArmies to set
 	 */
 	public void setCardsForArmies(int cardsForArmies) {
@@ -97,6 +109,7 @@ public class Player extends Observable{
 	}
 	
 	/**
+	 * getter for cards owned
 	 * @return the listOfCardsOwned
 	 */
 	public List<Card> getCardsOwned() {
@@ -104,6 +117,7 @@ public class Player extends Observable{
 	}
 
 	/**
+	 * setter for cards owned
 	 * @param listOfCardsOwned the listOfCardsOwned to set
 	 */
 	public void setCardsOwned(List<Card> listOfCardsOwned) {
@@ -242,21 +256,10 @@ public class Player extends Observable{
 
 	/**
 	 * initializes reinforcement armies
-	 * @param gameMap 
-	 * @param gameWindowScreen 
+	 * @param gameMap Object of Map class
+	 * @param gameWindowScreen Object of GameWindowScreen class
 	 */
 	public void intializeReinforcementArmies(GameWindowScreen gameWindowScreen, Map gameMap) {
-/*		for (int i = 0; i < gameWindowScreen.getPlayer().length; i++) {
-			long armies = Math.round(Math.floor(gameWindowScreen.getPlayerAtIndex(i).getCountriesOwned().size() / 3));
-			if (armies > 3) {
-				gameWindowScreen.getPlayerAtIndex(i).incrementNoOfArmiesOwned((int) armies);
-			} 
-			else {
-				gameWindowScreen.getPlayerAtIndex(i).incrementNoOfArmiesOwned(3);
-			}
-			updateContinentsOwned(gameMap, gameWindowScreen);
-		}
-		*/
 		
 		long armies = Math.round(Math.floor(getCountriesOwned().size() / 3));
 		if(armies > 3) {
@@ -272,35 +275,23 @@ public class Player extends Observable{
 	/**
 	 * updates continents owned by player
 	 * 
-	 * @param number
-	 *            to indicate control value has to be assigned for which player
-	 * @param gameWindowScreen 
-	 * @param gameMap 
+	 * @param number to indicate control value has to be assigned for which player
+	 * @param gameWindowScreen Object of GameWindowScreen class
+	 * @param gameMap Object of Map class
 	 */
 	public void updateContinentsOwned( Map gameMap, GameWindowScreen gameWindowScreen) {
 		
 		for(Continent cont:continentsOwned) {
 			incrementNoOfArmiesOwned(cont.getControlValue());
 		}
-		
-/*		boolean flag = false;
-		for (Continent continent : gameMap.getContinents()) {
-			for (Country country : continent.getCountriesPresent()) {
-				if (getCountriesOwned().contains(country)) {
-					flag = true;
-				} 
-				else {
-					flag = false;
-					break;
-				}
-			}
-			if (flag) {
-				incrementNoOfArmiesOwned(continent.getControlValue());
-			}
-		}*/
 	}
 	
-	
+	/**
+	 * Attack phase implementation
+	 * @param gameMap Object of Map class
+	 * @param playersArray Array object of Player class
+	 * @param gameWindowScreen Object of GameWindowScreen class
+	 */
 	public void attackPhaseImplementation(Map gameMap, Player[] playersArray, GameWindowScreen gameWindowScreen) {
 		this.gameScreen = gameWindowScreen;
 		gameWindowScreen.getArmyAllocation().setEnabled(false);
@@ -341,7 +332,12 @@ public class Player extends Observable{
 		}
 	}
 	
-
+	/**
+	 * Fortification phase Implementation
+	 * @param map Object of Map class
+	 * @param gameScreen Object of GameWindowScreen class
+	 * @param flag set to 1 if only 1 army present in country
+	 */
 	public void fortificationPhaseImplementation(Map map, Player[] player, GameWindowScreen gameScreen, int flag) {
 		int index = 0 ;
 		for(int i=0; i < player.length;i++) {
@@ -358,15 +354,10 @@ public class Player extends Observable{
 		}
 	}
 	
-/*	public boolean checkDraw() {
-		for(Player p : gameScreen.getGameController().getGameModel().getPlayer()) {
-			if(!(p.getCountriesOwned().size()==gameScreen.getGameController().getGameModel().armiesAllocated(p))) {
-				return false;
-			}
-		}
-		return true;
-	}*/
-	
+	/**
+	 * Attack possible
+	 * @return true if attack possible else false
+	 */
 	public boolean attackPossible() {
 		boolean hasArmy = false;
 		for (Country country : this.getCountriesOwned()) {
@@ -378,6 +369,9 @@ public class Player extends Observable{
 		return hasArmy;
 	}
 	
+	/**
+	 * Update changes
+	 */
 	public void updateChanges() {
 		setChanged();
 		notifyObservers(this);
