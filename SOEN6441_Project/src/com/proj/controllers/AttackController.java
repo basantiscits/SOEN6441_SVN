@@ -400,19 +400,34 @@ public class AttackController implements ActionListener{
 			if (AttackView.getSourceCountry().getItemCount() != 0) {
 				AttackView.getArmiesInDestination().setText("");
 				AttackView.getNoOfDice().removeAllItems();
+				AttackView.getNoOfDiceDefender().removeAllItems();
 				destCountry = null;
 				String countryName = (String) AttackView.getSourceCountry().getSelectedItem();
 				sourCountry = AttackView.getMap().searchCountry(countryName);
 				AttackView.getArmiesInSource().setText(String.valueOf(sourCountry.getNoOfArmiesPresent()));
-				AttackView.addDestCountries(sourCountry);
-				AttackView.selectDices();
+				boolean check = AttackView.addDestCountries(sourCountry);
+				if(check){
+					AttackView.getDestinationCountry().setSelectedIndex(0);
+
+					String destinationSelected = (String) AttackView.getDestinationCountry().getSelectedItem();
+					destCountry = AttackView.getMap().searchCountry(destinationSelected);
+					System.out.println("AGGGGG :"+destCountry.getCountryName()+" String: "+destinationSelected);
+					AttackView.getArmiesInDestination().setText(String.valueOf(destCountry.getNoOfArmiesPresent()));
+					AttackView.selectDices();
+					AttackView.selectDefenderDice();
+				}
+				else{
+					AttackView.selectDices();
+				}
 			}
 		}
 		else if(e.getSource() == AttackView.getDestinationCountry()) {
 			if (AttackView.getDestinationCountry().getItemCount() != 0) {
+				AttackView.getNoOfDiceDefender().removeAllItems();
 				String destinationSelected = (String) AttackView.getDestinationCountry().getSelectedItem();
 				destCountry = AttackView.getMap().searchCountry(destinationSelected);
 				AttackView.getArmiesInDestination().setText(String.valueOf(destCountry.getNoOfArmiesPresent()));
+				AttackView.selectDefenderDice();
 			}
 		
 		}
@@ -446,6 +461,7 @@ public class AttackController implements ActionListener{
 					AttackView.getDestinationCountry().removeAllItems();
 					AttackView.getArmiesInDestination().setText("");
 					AttackView.getNoOfDice().removeAllItems();
+					AttackView.getNoOfDiceDefender().removeAllItems();
 					transferArmy(DiceSelection);	
 					AttackView.addCountryToBox(AttackView.getSourceCountry());
 					if(AttackView.getGameModel().getCurrPlayer().getCountriesOwned().size()==AttackView.getGameModel().getMapDetails().listOfCountryNames().size()) {
@@ -464,7 +480,9 @@ public class AttackController implements ActionListener{
 				else{
 					System.out.println("Normal Attack "+"terroitry is not won");
 					AttackView.selectDices();
+					AttackView.selectDefenderDice();
 					AttackView.getNoOfDice().setSelectedIndex(-1);
+					AttackView.getNoOfDiceDefender().setSelectedIndex(-1);
 					AttackView.getArmiesInSource().setText(String.valueOf(sourCountry.getNoOfArmiesPresent()));
 					AttackView.getArmiesInDestination().setText(String.valueOf(destCountry.getNoOfArmiesPresent()));
 					if(sourCountry.getNoOfArmiesPresent()<=1) {
@@ -510,6 +528,7 @@ public class AttackController implements ActionListener{
 					AttackView.getDestinationCountry().removeAllItems();
 					AttackView.getArmiesInDestination().setText("");
 					AttackView.getNoOfDice().removeAllItems();
+					AttackView.getNoOfDiceDefender().removeAllItems();
 					transferArmy(attackerDiceCount);	
 					AttackView.addCountryToBox(AttackView.getSourceCountry());
 					System.out.println("chl pya");
@@ -529,7 +548,9 @@ public class AttackController implements ActionListener{
 				else{
 					System.out.println("All out Attack "+" terriotry not won");
 					AttackView.selectDices();
+					AttackView.selectDefenderDice();
 					AttackView.getNoOfDice().setSelectedIndex(-1);
+					AttackView.getNoOfDiceDefender().setSelectedIndex(-1);
 					AttackView.getArmiesInSource().setText(String.valueOf(sourCountry.getNoOfArmiesPresent()));
 					AttackView.getArmiesInDestination().setText(String.valueOf(destCountry.getNoOfArmiesPresent()));
 					if(sourCountry.getNoOfArmiesPresent()<=1) {

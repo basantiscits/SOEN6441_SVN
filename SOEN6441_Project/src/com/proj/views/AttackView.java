@@ -32,6 +32,7 @@ public class AttackView extends JFrame implements ActionListener {
 	private JLabel source;
 	private JLabel destination;
 	private JLabel noOfDices;
+	private JLabel noOfDicesDefender;
 	private JComboBox selectNoOfDice;
 	private JLabel playerName;
 	private JLabel armiesInSource;
@@ -43,6 +44,7 @@ public class AttackView extends JFrame implements ActionListener {
 	private JComboBox destinationCountryArmiesddl;
 	
 	private JComboBox selectNoOfDices;
+	private JComboBox selectNoOfDiceDefender;
 	private JButton Attackbtn;
 	private JButton AllOutAttackbtn;
 	private JButton finish;
@@ -313,6 +315,10 @@ public class AttackView extends JFrame implements ActionListener {
 		return selectNoOfDice;
 	}
 	
+	public JComboBox getNoOfDiceDefender() {
+		return selectNoOfDiceDefender;
+	}
+	
 	/**
 	 * setter for numer of dice
 	 * @param dice combo box for number of dices
@@ -477,9 +483,13 @@ public class AttackView extends JFrame implements ActionListener {
 		add(armiesInDestination);
 		
 		
-		noOfDices = new JLabel("No. of Dice to be rolled");
+		noOfDices = new JLabel("Attackers Dice");
 		noOfDices.setBounds(465, 120, 135, 35);
 		add(noOfDices);
+		
+		noOfDicesDefender = new JLabel("Defenders Dice");
+		noOfDicesDefender.setBounds(465, 180, 135, 35);
+		add(noOfDicesDefender);
 		
 		sourceCountry = new JComboBox();
 		sourceCountry.setBounds(165, 150, 120, 35);
@@ -497,6 +507,11 @@ public class AttackView extends JFrame implements ActionListener {
 		selectNoOfDice = new JComboBox();
 		selectNoOfDice.setBounds(465, 150, 100, 35);
 		add(selectNoOfDice);
+		
+		
+		selectNoOfDiceDefender = new JComboBox();
+		selectNoOfDiceDefender.setBounds(465, 210, 100, 35);
+		add(selectNoOfDiceDefender);
 		
 		Attackbtn = new JButton("Attack");
 		Attackbtn.setBounds(615, 150, 100, 35);
@@ -565,8 +580,9 @@ public class AttackView extends JFrame implements ActionListener {
 	 * Add destination countries
 	 * @param sourCountry source country
 	 */
-	public void addDestCountries(Country sourCountry) {
+	public boolean addDestCountries(Country sourCountry) {
 		destinationCountry.removeAllItems();
+		int flag =0;
 		Country countryToBeChechked = null;
 		for(String c : sourCountry.getListOfNeighbours()) {
 			for(Continent continent:map.getContinents()){
@@ -578,9 +594,14 @@ public class AttackView extends JFrame implements ActionListener {
 			}
 			if(!(player[currentPlayer].getCountriesOwned().contains(countryToBeChechked))) {
 				destinationCountry.addItem(c);
+				flag=1;
 				System.out.println(c);
 			}
 		}
+		if(flag==1){
+			return true;
+		}
+		return false;
 	}
 	
 	public boolean endGame(Player p, Map gameMap) {
@@ -599,7 +620,7 @@ public class AttackView extends JFrame implements ActionListener {
 				}
 			}
 		}
-		return countriesList; 
+		return countriesList;
 	}
 		
 	/**
@@ -610,6 +631,21 @@ public class AttackView extends JFrame implements ActionListener {
 		for(int i=1; i<Integer.valueOf(armiesInSource.getText()); i++) {
 			if(i<4) {
 				selectNoOfDice.addItem(String.valueOf(i));
+			}
+			else {
+				break;
+			}
+		}
+	}
+	
+	/**
+	 * select dices
+	 */
+	public void selectDefenderDice() {
+		selectNoOfDiceDefender.removeAllItems();
+		for(int i=1; i<=Integer.valueOf(armiesInDestination.getText()); i++) {
+			if(i<=2) {
+				selectNoOfDiceDefender.addItem(String.valueOf(i));
 			}
 			else {
 				break;
