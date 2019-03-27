@@ -24,7 +24,7 @@ import com.proj.models.Player;
  * @version 1.1
  */
 public class AttackController implements ActionListener{
-	private AttackView AttackView;
+	private AttackView attackView;
 	public Random diceRoll;
 	public ArrayList<Integer> attackerDiceValues;
 	public ArrayList<Integer> defenderDiceValues;
@@ -36,18 +36,18 @@ public class AttackController implements ActionListener{
 	public int noOfDefendingArmies;
 	public Player[] players;
 	public String diceValues;
-	boolean boolAttackAllout;
+	boolean boolAttackAllOut;
 	boolean boolAttack;
 	private int attackerDiceCount;
 	private Map map;
 	private Country sourCountry, destCountry;
 	
 	/** 
-	 * AttackView class constructor
-	 * @param AttackView attack view object
+	 * attackView class constructor
+	 * @param attackView attack view object
 	 */
-	public AttackController(AttackView AttackView){
-		this.AttackView=AttackView;
+	public AttackController(AttackView attackView){
+		this.attackView=attackView;
 		diceRoll=new Random();
 		defender=null;
 		attacker=null;
@@ -57,8 +57,8 @@ public class AttackController implements ActionListener{
 		noOfDefendingArmies=0;
 		attackerDiceValues=new ArrayList<Integer>();
 		defenderDiceValues=new ArrayList<Integer>();
-		this.players=AttackView.getPlayer();
-		this.map=AttackView.getMap();
+		this.players=attackView.getPlayer();
+		this.map=attackView.getMap();
 		attackerDiceCount=0;
 	}
 	
@@ -70,7 +70,7 @@ public class AttackController implements ActionListener{
 	 * @return true if war won else false
 	 * 
 	 */
-	public boolean normalAttack(String attackingCountryName,String defendingCountryName,int noOfDicesSelected){
+public boolean normalAttack(String attackingCountryName,String defendingCountryName,int noOfAttackingDicesSelected,int noOfDefendingDicesSelected){
 		
 		for(Player p:players){
 			for(Country c:p.getCountriesOwned()){
@@ -103,97 +103,18 @@ public class AttackController implements ActionListener{
 		if(noOfAttackingArmies<=0){
 			return false;
 		}
-		if(noOfDicesSelected==1){
-			rollDice(attackerDiceValues);
-			AttackView.getAttackDice1().setText(String.valueOf(attackerDiceValues.get(0)));
-			AttackView.getAttackDice2().setText("");
-			AttackView.getAttackDice3().setText("");
-			if(noOfDefendingArmies==1) {
-				rollDice(defenderDiceValues);
-				AttackView.getDefendDice1().setText(String.valueOf(defenderDiceValues.get(0)));
-				AttackView.getDefendDice2().setText("");
-			}
-			else if(noOfDefendingArmies>1) {
-				rollDice(defenderDiceValues);
-				rollDice(defenderDiceValues);
-				AttackView.getDefendDice1().setText(String.valueOf(defenderDiceValues.get(0)));
-				AttackView.getDefendDice2().setText(String.valueOf(defenderDiceValues.get(1)));
-			}
-			
-			if(Collections.max(attackerDiceValues) > Collections.max(defenderDiceValues))
-				battleWon();
-			else
-				battleLost();
-			storeDiceValues();
-		}
-		
-		
-		else if(noOfDicesSelected==2){
-			rollDice(attackerDiceValues);
-			rollDice(attackerDiceValues);
-			AttackView.getAttackDice1().setText(String.valueOf(attackerDiceValues.get(0)));
-			AttackView.getAttackDice2().setText(String.valueOf(attackerDiceValues.get(1)));
-			AttackView.getAttackDice3().setText("");
-			if(noOfDefendingArmies==1){
-				rollDice(defenderDiceValues);
-				AttackView.getDefendDice1().setText(String.valueOf(defenderDiceValues.get(0)));
-				AttackView.getDefendDice2().setText("");
-				storeDiceValues();
-				if(Collections.max(attackerDiceValues) > Collections.max(defenderDiceValues)) {
-					battleWon();
-				}
-				else {
-					battleLost();
-				}
-			}
-			else if(noOfDefendingArmies>1){
-				rollDice(defenderDiceValues);
-				rollDice(defenderDiceValues);
-				AttackView.getDefendDice1().setText(String.valueOf(defenderDiceValues.get(0)));
-				AttackView.getDefendDice2().setText(String.valueOf(defenderDiceValues.get(1)));
-				storeDiceValues();
-				if(Collections.max(attackerDiceValues) > Collections.max(defenderDiceValues)){
-					battleWon();
-					attackerDiceValues.remove(Collections.max(attackerDiceValues));
-					defenderDiceValues.remove(Collections.max(defenderDiceValues));
-					if(Collections.max(attackerDiceValues) > Collections.max(defenderDiceValues))
-						battleWon();
-					else
-						battleLost();
-				}
-				else{
-					battleLost();
-					attackerDiceValues.remove(Collections.max(attackerDiceValues));
-					defenderDiceValues.remove(Collections.max(defenderDiceValues));
-					if(Collections.max(attackerDiceValues) > Collections.max(defenderDiceValues))
-						battleWon();
-					else
-						battleLost();
-				}
-			}
-		}
-		else if (noOfDicesSelected==3){
+		if (noOfAttackingDicesSelected==3 && noOfAttackingArmies>2){
 			rollDice(attackerDiceValues);
 			rollDice(attackerDiceValues);
 			rollDice(attackerDiceValues);
-			AttackView.getAttackDice1().setText(String.valueOf(attackerDiceValues.get(0)));
-			AttackView.getAttackDice2().setText(String.valueOf(attackerDiceValues.get(1)));
-			AttackView.getAttackDice3().setText(String.valueOf(attackerDiceValues.get(2)));
-			if(noOfDefendingArmies==1){
-				rollDice(defenderDiceValues);
-				AttackView.getDefendDice1().setText(String.valueOf(defenderDiceValues.get(0)));
-				AttackView.getDefendDice2().setText("");
-				storeDiceValues();
-				if(Collections.max(attackerDiceValues) > Collections.max(defenderDiceValues))
-					battleWon();
-				else
-					battleLost();
-			}
-			else if(noOfDefendingArmies>1){
+			attackView.getAttackDice1().setText(String.valueOf(attackerDiceValues.get(0)));
+			attackView.getAttackDice2().setText(String.valueOf(attackerDiceValues.get(1)));
+			attackView.getAttackDice3().setText(String.valueOf(attackerDiceValues.get(2)));
+			if(noOfDefendingArmies>1 && noOfDefendingDicesSelected==2){
 				rollDice(defenderDiceValues);
 				rollDice(defenderDiceValues);
-				AttackView.getDefendDice1().setText(String.valueOf(defenderDiceValues.get(0)));
-				AttackView.getDefendDice2().setText(String.valueOf(defenderDiceValues.get(1)));
+				attackView.getDefendDice1().setText(String.valueOf(defenderDiceValues.get(0)));
+				attackView.getDefendDice2().setText(String.valueOf(defenderDiceValues.get(1)));
 				storeDiceValues();
 				if(Collections.max(attackerDiceValues) > Collections.max(defenderDiceValues)){
 					battleWon();
@@ -214,19 +135,95 @@ public class AttackController implements ActionListener{
 						battleLost();
 				}
 			}	
+			
+			else if(noOfDefendingDicesSelected == 1){
+				rollDice(defenderDiceValues);
+				attackView.getDefendDice1().setText(String.valueOf(defenderDiceValues.get(0)));
+				attackView.getDefendDice2().setText("");
+				storeDiceValues();
+				if(Collections.max(attackerDiceValues) > Collections.max(defenderDiceValues))
+					battleWon();
+				else
+					battleLost();
+			}
+		}
+		else if(noOfAttackingDicesSelected==2 && noOfAttackingArmies>1){
+			rollDice(attackerDiceValues);
+			rollDice(attackerDiceValues);
+			attackView.getAttackDice1().setText(String.valueOf(attackerDiceValues.get(0)));
+			attackView.getAttackDice2().setText(String.valueOf(attackerDiceValues.get(1)));
+			attackView.getAttackDice3().setText("");
+			if(noOfDefendingArmies>1 && noOfDefendingDicesSelected==2){
+				rollDice(defenderDiceValues);
+				rollDice(defenderDiceValues);
+				attackView.getDefendDice1().setText(String.valueOf(defenderDiceValues.get(0)));
+				attackView.getDefendDice2().setText(String.valueOf(defenderDiceValues.get(1)));
+				storeDiceValues();
+				if(Collections.max(attackerDiceValues) > Collections.max(defenderDiceValues)){
+					battleWon();
+					attackerDiceValues.remove(Collections.max(attackerDiceValues));
+					defenderDiceValues.remove(Collections.max(defenderDiceValues));
+					if(Collections.max(attackerDiceValues) > Collections.max(defenderDiceValues))
+						battleWon();
+					else
+						battleLost();
+				}
+				else{
+					battleLost();
+					attackerDiceValues.remove(Collections.max(attackerDiceValues));
+					defenderDiceValues.remove(Collections.max(defenderDiceValues));
+					if(Collections.max(attackerDiceValues) > Collections.max(defenderDiceValues))
+						battleWon();
+					else
+						battleLost();
+				}
+			}
+			else if(noOfDefendingDicesSelected == 1){
+				rollDice(defenderDiceValues);
+				attackView.getDefendDice1().setText(String.valueOf(defenderDiceValues.get(0)));
+				attackView.getDefendDice2().setText("");
+				storeDiceValues();
+				if(Collections.max(attackerDiceValues) > Collections.max(defenderDiceValues)) {
+					battleWon();
+				}
+				else {
+					battleLost();
+				}
+			}
+		}
+		else if(noOfAttackingDicesSelected==1 && noOfAttackingArmies>0){
+			rollDice(attackerDiceValues);
+			attackView.getAttackDice1().setText(String.valueOf(attackerDiceValues.get(0)));
+			attackView.getAttackDice2().setText("");
+			attackView.getAttackDice3().setText("");
+			
+			if(noOfDefendingArmies>1 && noOfDefendingDicesSelected >1) {
+				rollDice(defenderDiceValues);
+				rollDice(defenderDiceValues);
+				attackView.getDefendDice1().setText(String.valueOf(defenderDiceValues.get(0)));
+				attackView.getDefendDice2().setText(String.valueOf(defenderDiceValues.get(1)));
+			}
+			else if(noOfDefendingDicesSelected==1) {
+				rollDice(defenderDiceValues);
+				attackView.getDefendDice1().setText(String.valueOf(defenderDiceValues.get(0)));
+				attackView.getDefendDice2().setText("");
+			}
+			if(Collections.max(attackerDiceValues) > Collections.max(defenderDiceValues))
+				battleWon();
+			else
+				battleLost();
+			storeDiceValues();
 		}
 		initiateDice();
 		return checkWarWon();
-	}
-	
+	}	
 	/** 
 	 * All Out Attack
 	 * @param attackingCountryName name of attacking country
 	 * @param defendingCountryName name of defending country
 	 * @return true if all out attack was successful else false
 	 */
-	public boolean allOutAttack(String attackingCountryName,String defendingCountryName){
-		
+	public boolean allOutAttack(String attackingCountryName,String defendingCountryName,int noOfAttackerDicesSelected,int noOfDefendingDicesSelected){
 		for(Player p:players){
 			for(Country c:p.getCountriesOwned()){
 				if(c.getCountryName().equals(attackingCountryName)){
@@ -253,14 +250,7 @@ public class AttackController implements ActionListener{
 		boolean won=false;
 		//// Check again
 		while(noOfAttackingArmies>0 && noOfDefendingArmies>0){
-			if(noOfAttackingArmies==1)
-				won=normalAttack(attackingCountryName, defendingCountryName,1);
-			else if(noOfAttackingArmies==2)
-				won=normalAttack(attackingCountryName, defendingCountryName,2);
-			else
-				won=normalAttack(attackingCountryName, defendingCountryName,3);
-			//noOfAttackingArmies = countryAttacking.getNoOfArmiesPresent()-1;
-			//noOfDefendingArmies = countryDefending.getNoOfArmiesPresent();
+				won=normalAttack(attackingCountryName, defendingCountryName,noOfAttackerDicesSelected,noOfDefendingDicesSelected);
 		}
 		return won;
 	}
@@ -322,7 +312,7 @@ public class AttackController implements ActionListener{
 			for(Continent c:map.getContinents()){
 				if(attacker.getCountriesOwned().containsAll(c.getCountriesPresent()) && !attacker.getContinentsOwned().contains(c)){
 					attacker.getContinentsOwned().add(c);
-					for(Player p :AttackView.getPlayer()) {
+					for(Player p :attackView.getPlayer()) {
 						if(p.getContinentsOwned().contains(c) && p!=attacker) {
 							p.getContinentsOwned().remove(c);
 						}
@@ -344,7 +334,7 @@ public class AttackController implements ActionListener{
 		diceValues=attackerDiceValues.toString();
 		diceValues=diceValues+"\n"+defenderDiceValues.toString();
 		attackerDiceCount=attackerDiceValues.size();
-		System.out.println("Dice output: "+diceValues);
+		System.out.println("Attacker: "+attackerDiceValues.toString()+"\nDefender: "+defenderDiceValues);
 		System.out.println();
 	}
 	
@@ -396,174 +386,182 @@ public class AttackController implements ActionListener{
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == AttackView.getSourceCountry()) {
-			if (AttackView.getSourceCountry().getItemCount() != 0) {
-				AttackView.getArmiesInDestination().setText("");
-				AttackView.getNoOfDice().removeAllItems();
-				AttackView.getNoOfDiceDefender().removeAllItems();
+		if(e.getSource() == attackView.getSourceCountry()) {
+			if (attackView.getSourceCountry().getItemCount() != 0) {
+				attackView.getArmiesInDestination().setText("");
+				attackView.getNoOfDice().removeAllItems();
+				attackView.getNoOfDiceDefender().removeAllItems();
 				destCountry = null;
-				String countryName = (String) AttackView.getSourceCountry().getSelectedItem();
-				sourCountry = AttackView.getMap().searchCountry(countryName);
-				AttackView.getArmiesInSource().setText(String.valueOf(sourCountry.getNoOfArmiesPresent()));
-				boolean check = AttackView.addDestCountries(sourCountry);
+				String countryName = (String) attackView.getSourceCountry().getSelectedItem();
+				sourCountry = attackView.getMap().searchCountry(countryName);
+				attackView.getArmiesInSource().setText(String.valueOf(sourCountry.getNoOfArmiesPresent()));
+				boolean check = attackView.addDestCountries(sourCountry);
 				if(check){
-					AttackView.getDestinationCountry().setSelectedIndex(0);
+					attackView.getDestinationCountry().setSelectedIndex(0);
 
-					String destinationSelected = (String) AttackView.getDestinationCountry().getSelectedItem();
-					destCountry = AttackView.getMap().searchCountry(destinationSelected);
+					String destinationSelected = (String) attackView.getDestinationCountry().getSelectedItem();
+					destCountry = attackView.getMap().searchCountry(destinationSelected);
 					System.out.println("AGGGGG :"+destCountry.getCountryName()+" String: "+destinationSelected);
-					AttackView.getArmiesInDestination().setText(String.valueOf(destCountry.getNoOfArmiesPresent()));
-					AttackView.selectDices();
-					AttackView.selectDefenderDice();
+					attackView.getArmiesInDestination().setText(String.valueOf(destCountry.getNoOfArmiesPresent()));
+					attackView.selectDices();
+					attackView.selectDefenderDice();
 				}
 				else{
-					AttackView.selectDices();
+					attackView.selectDices();
 				}
 			}
 		}
-		else if(e.getSource() == AttackView.getDestinationCountry()) {
-			if (AttackView.getDestinationCountry().getItemCount() != 0) {
-				AttackView.getNoOfDiceDefender().removeAllItems();
-				String destinationSelected = (String) AttackView.getDestinationCountry().getSelectedItem();
-				destCountry = AttackView.getMap().searchCountry(destinationSelected);
-				AttackView.getArmiesInDestination().setText(String.valueOf(destCountry.getNoOfArmiesPresent()));
-				AttackView.selectDefenderDice();
+		else if(e.getSource() == attackView.getDestinationCountry()) {
+			if (attackView.getDestinationCountry().getItemCount() != 0) {
+				attackView.getNoOfDiceDefender().removeAllItems();
+				String destinationSelected = (String) attackView.getDestinationCountry().getSelectedItem();
+				destCountry = attackView.getMap().searchCountry(destinationSelected);
+				attackView.getArmiesInDestination().setText(String.valueOf(destCountry.getNoOfArmiesPresent()));
+				attackView.selectDefenderDice();
 			}
 		
 		}
-		else if(e.getSource() == AttackView.getAttack()){
+		else if(e.getSource() == attackView.getAttack()){
 			
-			if(AttackView.getSourceCountry().getSelectedItem()==null) {
+			if(attackView.getSourceCountry().getSelectedItem()==null) {
 				JOptionPane.showMessageDialog(null, "Please select Source country");
 			}
-			else if(AttackView.getDestinationCountry().getSelectedItem()==null) {
+			else if(attackView.getDestinationCountry().getSelectedItem()==null) {
 				JOptionPane.showMessageDialog(null, "Please select target country");
 			}
-			else if(AttackView.getNoOfDice().getSelectedIndex()==-1) {
-				JOptionPane.showMessageDialog(null, "Please select number of dices");
+			else if(attackView.getNoOfDice().getSelectedIndex()==-1) {
+				JOptionPane.showMessageDialog(null, "Please select number of dices for attacker");
+			}
+			else if(attackView.getNoOfDiceDefender().getSelectedIndex()==-1) {
+				JOptionPane.showMessageDialog(null, "Please select number of dices for defender");
 			}
 			else {
 				System.out.println("Attack Button Pressed...");
 
 				//Attacking Country
-				String sSourceCountry=(String) AttackView.getSourceCountry().getSelectedItem();
+				String sSourceCountry=(String) attackView.getSourceCountry().getSelectedItem();
 				//Defender Country
-				String sDestinationCountry=(String) AttackView.getDestinationCountry().getSelectedItem();
+				String sDestinationCountry=(String) attackView.getDestinationCountry().getSelectedItem();
 
-				int DiceSelection=  Integer.parseInt((String)(AttackView.getNoOfDice().getSelectedItem()));
-				System.out.println("Player Name : "+AttackView.getPlayer()+"\n"+ "Source Country :"+ sSourceCountry+"\n"+ "Defender Country :" +sDestinationCountry+"\n"+ "No of Dices of Attacker : "+DiceSelection);
+				int attackerDiceSelection=  Integer.parseInt((String)(attackView.getNoOfDice().getSelectedItem()));
+				int defenderDiceSelection = Integer.parseInt((String)(attackView.getNoOfDiceDefender().getSelectedItem()));
+				System.out.println("Player Name : "+attackView.getPlayer()+"\n"+ "Source Country :"+ sSourceCountry+"\n"+ "Defender Country :" +sDestinationCountry+"\n"+ "No of Dices of Attacker : "+attackerDiceSelection);
 				
-				boolAttack=normalAttack(sSourceCountry,sDestinationCountry,DiceSelection);
+				boolAttack=normalAttack(sSourceCountry,sDestinationCountry,attackerDiceSelection, defenderDiceSelection);
 				if (boolAttack== true){
 					System.out.println("Normal Attack "+"terroitry won");
-					AttackView.getSourceCountry().removeAllItems();
-					AttackView.getArmiesInSource().setText("");
-					AttackView.getDestinationCountry().removeAllItems();
-					AttackView.getArmiesInDestination().setText("");
-					AttackView.getNoOfDice().removeAllItems();
-					AttackView.getNoOfDiceDefender().removeAllItems();
-					transferArmy(DiceSelection);	
-					AttackView.addCountryToBox(AttackView.getSourceCountry());
-					if(AttackView.getGameModel().getCurrPlayer().getCountriesOwned().size()==AttackView.getGameModel().getMapDetails().listOfCountryNames().size()) {
-						JOptionPane.showMessageDialog(null, AttackView.getPlayer()[AttackView.getCurrentPlayer()].getPlayerName()+" has won the game\n CONGRATULATIONS");
-						AttackView.dispose();
-						AttackView.getGameWindow().dispose();
+					attackView.getSourceCountry().removeAllItems();
+					attackView.getArmiesInSource().setText("");
+					attackView.getDestinationCountry().removeAllItems();
+					attackView.getArmiesInDestination().setText("");
+					attackView.getNoOfDice().removeAllItems();
+					attackView.getNoOfDiceDefender().removeAllItems();
+					transferArmy(attackerDiceSelection);	
+					attackView.addCountryToBox(attackView.getSourceCountry());
+					if(attackView.getGameModel().getCurrPlayer().getCountriesOwned().size()==attackView.getGameModel().getMapDetails().listOfCountryNames().size()) {
+						JOptionPane.showMessageDialog(null, attackView.getPlayer()[attackView.getCurrentPlayer()].getPlayerName()+" has won the game\n CONGRATULATIONS");
+						attackView.dispose();
+						attackView.getGameWindow().dispose();
 					}
-					if(AttackView.getSourceCountry().getSelectedItem()==null) {
-						JOptionPane.showMessageDialog(null, AttackView.getPlayer()[AttackView.getCurrentPlayer()].getPlayerName()+" has no country with armies more than one!!!");
-						AttackView.dispose();
+					if(attackView.getSourceCountry().getSelectedItem()==null) {
+						JOptionPane.showMessageDialog(null, attackView.getPlayer()[attackView.getCurrentPlayer()].getPlayerName()+" has no country with armies more than one!!!");
+						attackView.dispose();
 						int flag=0;
-						AttackView.getGameModel().getCurrPlayer().fortificationPhaseImplementation(AttackView.getMap(), AttackView.getPlayer(), AttackView.getGameWindow(),flag);
+						attackView.getGameModel().getCurrPlayer().fortificationPhaseImplementation(attackView.getMap(), attackView.getPlayer(), attackView.getGameWindow(),flag);
 
 					}
 				}
 				else{
 					System.out.println("Normal Attack "+"terroitry is not won");
-					AttackView.selectDices();
-					AttackView.selectDefenderDice();
-					AttackView.getNoOfDice().setSelectedIndex(-1);
-					AttackView.getNoOfDiceDefender().setSelectedIndex(-1);
-					AttackView.getArmiesInSource().setText(String.valueOf(sourCountry.getNoOfArmiesPresent()));
-					AttackView.getArmiesInDestination().setText(String.valueOf(destCountry.getNoOfArmiesPresent()));
+					attackView.selectDices();
+					attackView.selectDefenderDice();
+					attackView.getNoOfDice().setSelectedIndex(-1);
+					attackView.getNoOfDiceDefender().setSelectedIndex(-1);
+					attackView.getArmiesInSource().setText(String.valueOf(sourCountry.getNoOfArmiesPresent()));
+					attackView.getArmiesInDestination().setText(String.valueOf(destCountry.getNoOfArmiesPresent()));
 					if(sourCountry.getNoOfArmiesPresent()<=1) {
 						JOptionPane.showMessageDialog(null, "Source country contains only 1 army \n Player should select other country to attack!!!");
-						AttackView.addCountryToBox(AttackView.getSourceCountry());
-						AttackView.getDestinationCountry().removeAllItems();
-						AttackView.getArmiesInDestination().setText("");
+						attackView.addCountryToBox(attackView.getSourceCountry());
+						attackView.getDestinationCountry().removeAllItems();
+						attackView.getArmiesInDestination().setText("");
 					}
-					if(AttackView.getSourceCountry().getSelectedItem()==null) {
-						JOptionPane.showMessageDialog(null, AttackView.getPlayer()[AttackView.getCurrentPlayer()].getPlayerName()+" has no country with armies more than one!!!");
-						AttackView.dispose();
+					if(attackView.getSourceCountry().getSelectedItem()==null) {
+						JOptionPane.showMessageDialog(null, attackView.getPlayer()[attackView.getCurrentPlayer()].getPlayerName()+" has no country with armies more than one!!!");
+						attackView.dispose();
 						int flag = 0;
-						AttackView.getGameModel().getCurrPlayer().fortificationPhaseImplementation(AttackView.getMap(), AttackView.getPlayer(), AttackView.getGameWindow(),flag);
+						attackView.getGameModel().getCurrPlayer().fortificationPhaseImplementation(attackView.getMap(), attackView.getPlayer(), attackView.getGameWindow(),flag);
 					}
 				}
 				
 			}		
 		}
-		else if(e.getSource() == AttackView.getAllOutAttackbtn()){
-			if(AttackView.getSourceCountry().getSelectedItem()==null) {
+		else if(e.getSource() == attackView.getallOutAttackBtn()){
+			if(attackView.getSourceCountry().getSelectedItem()==null) {
 				JOptionPane.showMessageDialog(null, "Please select Source country");
 			}
-			else if(AttackView.getDestinationCountry().getSelectedItem()==null) {
+			else if(attackView.getDestinationCountry().getSelectedItem()==null) {
 				JOptionPane.showMessageDialog(null, "Please select target country");
 			}
-			else if(AttackView.getNoOfDice().getSelectedIndex()==-1) {
-				JOptionPane.showMessageDialog(null, "Please select number of dices");
+			else if(attackView.getNoOfDice().getSelectedIndex()==-1) {
+				JOptionPane.showMessageDialog(null, "Please select number of dices  for attacker");
 			}
-			
+			else if(attackView.getNoOfDiceDefender().getSelectedIndex()==-1) {
+				JOptionPane.showMessageDialog(null, "Please select number of dices for defender");
+			}
 			else {
 				System.out.println("All out attack button pressed");
 				//Attacking Country
-				String sSourceCountry=(String) AttackView.getSourceCountry().getSelectedItem();
+				String sSourceCountry=(String) attackView.getSourceCountry().getSelectedItem();
 				//Defender Country
-				String sDestinationCountry=(String) AttackView.getDestinationCountry().getSelectedItem();
-				System.out.println("Player Name : "+AttackView.getPlayer()+"\n"+ "Source Country :"+ sSourceCountry+"\n"+ "Defender Country :" +sDestinationCountry);
-				boolAttackAllout=allOutAttack(sSourceCountry,sDestinationCountry);
+				String sDestinationCountry=(String) attackView.getDestinationCountry().getSelectedItem();
+				int attackerDiceSelection=  Integer.parseInt((String)(attackView.getNoOfDice().getSelectedItem()));
+				int defenderDiceSelection = Integer.parseInt((String)(attackView.getNoOfDiceDefender().getSelectedItem()));
+				System.out.println("Player Name : "+attackView.getPlayer()+"\n"+ "Source Country :"+ sSourceCountry+"\n"+ "Defender Country :" +sDestinationCountry);
+				boolAttackAllOut=allOutAttack(sSourceCountry,sDestinationCountry,attackerDiceSelection,defenderDiceSelection);
 
-				if (boolAttackAllout== true){
+				if (boolAttackAllOut== true){
 					System.out.println("All out Attack "+" terriotry  won");
-					AttackView.getSourceCountry().removeAllItems();
-					AttackView.getArmiesInSource().setText("");
-					AttackView.getDestinationCountry().removeAllItems();
-					AttackView.getArmiesInDestination().setText("");
-					AttackView.getNoOfDice().removeAllItems();
-					AttackView.getNoOfDiceDefender().removeAllItems();
+					attackView.getSourceCountry().removeAllItems();
+					attackView.getArmiesInSource().setText("");
+					attackView.getDestinationCountry().removeAllItems();
+					attackView.getArmiesInDestination().setText("");
+					attackView.getNoOfDice().removeAllItems();
+					attackView.getNoOfDiceDefender().removeAllItems();
 					transferArmy(attackerDiceCount);	
-					AttackView.addCountryToBox(AttackView.getSourceCountry());
+					attackView.addCountryToBox(attackView.getSourceCountry());
 					System.out.println("chl pya");
-					if(AttackView.getGameModel().getCurrPlayer().getCountriesOwned().size()==AttackView.getGameModel().getMapDetails().listOfCountryNames().size()) {
-						JOptionPane.showMessageDialog(null, AttackView.getPlayer()[AttackView.getCurrentPlayer()].getPlayerName()+" has won the game\n CONGRATULATIONS");
-						AttackView.dispose();
-						AttackView.getGameWindow().dispose();
+					if(attackView.getGameModel().getCurrPlayer().getCountriesOwned().size()==attackView.getGameModel().getMapDetails().listOfCountryNames().size()) {
+						JOptionPane.showMessageDialog(null, attackView.getPlayer()[attackView.getCurrentPlayer()].getPlayerName()+" has won the game\n CONGRATULATIONS");
+						attackView.dispose();
+						attackView.getGameWindow().dispose();
 					}
-					if(AttackView.getSourceCountry().getSelectedItem()==null) {
-						JOptionPane.showMessageDialog(null, AttackView.getPlayer()[AttackView.getCurrentPlayer()].getPlayerName()+" has no country with armies more than one!!!");
-						AttackView.dispose();
+					if(attackView.getSourceCountry().getSelectedItem()==null) {
+						JOptionPane.showMessageDialog(null, attackView.getPlayer()[attackView.getCurrentPlayer()].getPlayerName()+" has no country with armies more than one!!!");
+						attackView.dispose();
 						int flag = 0;
-						AttackView.getGameModel().getCurrPlayer().fortificationPhaseImplementation(AttackView.getMap(), AttackView.getPlayer(), AttackView.getGameWindow(),flag);
+						attackView.getGameModel().getCurrPlayer().fortificationPhaseImplementation(attackView.getMap(), attackView.getPlayer(), attackView.getGameWindow(),flag);
 
 					}
 				}
 				else{
 					System.out.println("All out Attack "+" terriotry not won");
-					AttackView.selectDices();
-					AttackView.selectDefenderDice();
-					AttackView.getNoOfDice().setSelectedIndex(-1);
-					AttackView.getNoOfDiceDefender().setSelectedIndex(-1);
-					AttackView.getArmiesInSource().setText(String.valueOf(sourCountry.getNoOfArmiesPresent()));
-					AttackView.getArmiesInDestination().setText(String.valueOf(destCountry.getNoOfArmiesPresent()));
+					attackView.selectDices();
+					attackView.selectDefenderDice();
+					attackView.getNoOfDice().setSelectedIndex(-1);
+					attackView.getNoOfDiceDefender().setSelectedIndex(-1);
+					attackView.getArmiesInSource().setText(String.valueOf(sourCountry.getNoOfArmiesPresent()));
+					attackView.getArmiesInDestination().setText(String.valueOf(destCountry.getNoOfArmiesPresent()));
 					if(sourCountry.getNoOfArmiesPresent()<=1) {
 						//JOptionPane.showMessageDialog(null, "Source country contains only 1 army \n Player should select other country to attack!!!");
-						AttackView.addCountryToBox(AttackView.getSourceCountry());
-						AttackView.getDestinationCountry().removeAllItems();
-						AttackView.getArmiesInDestination().setText("");
+						attackView.addCountryToBox(attackView.getSourceCountry());
+						attackView.getDestinationCountry().removeAllItems();
+						attackView.getArmiesInDestination().setText("");
 					}
-					if(AttackView.getSourceCountry().getSelectedItem()==null) {
-						JOptionPane.showMessageDialog(null, AttackView.getPlayer()[AttackView.getCurrentPlayer()].getPlayerName()+" has no country with armies more than one!!!");
-						AttackView.dispose();
+					if(attackView.getSourceCountry().getSelectedItem()==null) {
+						JOptionPane.showMessageDialog(null, attackView.getPlayer()[attackView.getCurrentPlayer()].getPlayerName()+" has no country with armies more than one!!!");
+						attackView.dispose();
 						int flag = 0;
-						AttackView.getGameModel().getCurrPlayer().fortificationPhaseImplementation(AttackView.getMap(), AttackView.getPlayer(), AttackView.getGameWindow(),flag);
+						attackView.getGameModel().getCurrPlayer().fortificationPhaseImplementation(attackView.getMap(), attackView.getPlayer(), attackView.getGameWindow(),flag);
 						
 					}
 				}
@@ -571,10 +569,10 @@ public class AttackController implements ActionListener{
 			
 
 		}
-		else if(e.getSource() == AttackView.getFinish()) {
-			AttackView.dispose();
+		else if(e.getSource() == attackView.getFinish()) {
+			attackView.dispose();
 			int flag = 1;
-			AttackView.getGameModel().getCurrPlayer().fortificationPhaseImplementation(AttackView.getMap(), AttackView.getPlayer(), AttackView.getGameWindow(),flag);
+			attackView.getGameModel().getCurrPlayer().fortificationPhaseImplementation(attackView.getMap(), attackView.getPlayer(), attackView.getGameWindow(),flag);
 		}
 		
 	}

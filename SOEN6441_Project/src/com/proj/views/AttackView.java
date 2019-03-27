@@ -27,8 +27,8 @@ import com.proj.utilites.Constants;
  */
 public class AttackView extends JFrame implements ActionListener {
 	private JLabel noOfArmies;
-	private JLabel PlayerDicestrlbl;
-	private JLabel DefendersDicestrlbl;
+	private JLabel playerDiceStrLbl;
+	private JLabel defendersDiceStrLbl;
 	private JLabel source;
 	private JLabel destination;
 	private JLabel noOfDices;
@@ -40,24 +40,20 @@ public class AttackView extends JFrame implements ActionListener {
 	private JComboBox sourceCountry;
 	private JComboBox destinationCountry;
 	
-	private JComboBox sourceCountryArmiesddl;
-	private JComboBox destinationCountryArmiesddl;
 	
 	private JComboBox selectNoOfDices;
 	private JComboBox selectNoOfDiceDefender;
-	private JButton Attackbtn;
-	private JButton AllOutAttackbtn;
+	private JButton attackBtn;
+	private JButton allOutAttackBtn;
 	private JButton finish;
-	private JLabel PlayerDicelbl;
-	private JLabel DefenderDicelbl;
-	private JLabel PlayerDiceRandomAllocated;
-	private JLabel DefenderDiceRandomAllocated;
+	private JLabel playerDiceLbl;
+	private JLabel defenderDiceLbl;
 	private Map map;
 	private Player[] player;
 	private GameModelCreation gameModel;
 	private int currentPlayer;
 	private GameWindowScreen gameWindow;
-	private AttackController AttackController;
+	private AttackController attackController;
 	
 	private JLabel attackDice1;
 	private JLabel attackDice2;
@@ -163,34 +159,34 @@ public class AttackView extends JFrame implements ActionListener {
 	
 	/**
 	 * getter for AlloutAttack
-	 * @return AllOutAttackbtn
+	 * @return allOutAttackBtn
 	 */
-	public JButton getAllOutAttackbtn() {
-		return AllOutAttackbtn;
+	public JButton getallOutAttackBtn() {
+		return allOutAttackBtn;
 	}
 	
 	/**
-	 * setter for AllOutAttackbtn
-	 * @param AllOutAttackbtn name of button
+	 * setter for allOutAttackBtn
+	 * @param allOutAttackBtn name of button
 	 */
-	public void setAllOutAttackbtn(JButton AllOutAttackbtn) {
-		this.AllOutAttackbtn = AllOutAttackbtn;
+	public void setallOutAttackBtn(JButton allOutAttackBtn) {
+		this.allOutAttackBtn = allOutAttackBtn;
 	}
 	
 	/**
 	 * getter for Attack
-	 * @return Attackbtn
+	 * @return attackBtn
 	 */
 	public JButton getAttack() {
-		return Attackbtn;
+		return attackBtn;
 	}
 	
 	/**
 	 * setter for Attack
-	 * @param Attackbtn name of button
+	 * @param attackBtn name of button
 	 */
-	public void setAttack(JButton Attackbtn) {
-		this.Attackbtn = Attackbtn;
+	public void setAttack(JButton attackBtn) {
+		this.attackBtn = attackBtn;
 	}
 	
 	
@@ -399,15 +395,15 @@ public class AttackView extends JFrame implements ActionListener {
 	 * @return attack controller
 	 */
 	public AttackController getAttackController() {
-		return AttackController;
+		return attackController;
 	}
 	
 	/**
 	 * setter for attack controller
 	 * @param AttackController Object of AttackController class
 	 */
-	public void setAttackController(AttackController AttackController) {
-		this.AttackController = AttackController;
+	public void setAttackController(AttackController attackController) {
+		this.attackController = attackController;
 	}
 	
 	/**
@@ -455,7 +451,7 @@ public class AttackView extends JFrame implements ActionListener {
 		this.currentPlayer = currentPlayer;
 		this.gameWindow = gameWindowScreen;
 		this.gameModel = gameWindowScreen.getGameController().getGameModel();
-		AttackController = new AttackController(this);
+		attackController = new AttackController(this);
 		setTitle("******ATTACK PHASE******");
 		setResizable(false);
 		setSize(Constants.WIDTH + 300, Constants.HEIGHT);
@@ -495,13 +491,13 @@ public class AttackView extends JFrame implements ActionListener {
 		sourceCountry.setBounds(165, 150, 120, 35);
 		addCountryToBox(sourceCountry);
 		sourceCountry.setSelectedIndex(-1);
-		sourceCountry.addActionListener(AttackController);
+		sourceCountry.addActionListener(attackController);
 		add(sourceCountry);
 		
 		destinationCountry = new JComboBox();
 		destinationCountry.setBounds(315, 150, 100, 35);
 		add(destinationCountry);
-		destinationCountry.addActionListener(AttackController);
+		destinationCountry.addActionListener(attackController);
 		
 
 		selectNoOfDice = new JComboBox();
@@ -513,36 +509,36 @@ public class AttackView extends JFrame implements ActionListener {
 		selectNoOfDiceDefender.setBounds(465, 210, 100, 35);
 		add(selectNoOfDiceDefender);
 		
-		Attackbtn = new JButton("Attack");
-		Attackbtn.setBounds(615, 150, 100, 35);
-		Attackbtn.addActionListener(AttackController);
-		Attackbtn.addActionListener(this);
-		add(Attackbtn);
+		attackBtn = new JButton("Attack");
+		attackBtn.setBounds(615, 150, 100, 35);
+		attackBtn.addActionListener(attackController);
+		attackBtn.addActionListener(this);
+		add(attackBtn);
 		
-		AllOutAttackbtn = new JButton("All out Attack");
-		AllOutAttackbtn.setBounds(770, 150, 130, 35);
-		AllOutAttackbtn.addActionListener(AttackController);
-		AllOutAttackbtn.addActionListener(this);
-		add(AllOutAttackbtn);
+		allOutAttackBtn = new JButton("All out Attack");
+		allOutAttackBtn.setBounds(770, 150, 130, 35);
+		allOutAttackBtn.addActionListener(attackController);
+		allOutAttackBtn.addActionListener(this);
+		add(allOutAttackBtn);
 		
 		finish = new JButton("Finish");
 		finish.setBounds(500, 250, 130, 35);
-		finish.addActionListener(AttackController);
+		finish.addActionListener(attackController);
 		finish.addActionListener(this);
 		add(finish);
 		
 		ImageIcon PlayerDice = new ImageIcon("Images/Dice.jpg");
 		ImageIcon DefenderDice = new ImageIcon("Images/Dice.jpg");
 		
-		PlayerDicelbl=new JLabel("");
-		PlayerDicelbl.setIcon(PlayerDice);
-		PlayerDicelbl.setBounds(60, -40, 200, 200);
-		add(PlayerDicelbl);
+		playerDiceLbl=new JLabel("");
+		playerDiceLbl.setIcon(PlayerDice);
+		playerDiceLbl.setBounds(60, -40, 200, 200);
+		add(playerDiceLbl);
 		
-		DefenderDicelbl=new JLabel("");
-		DefenderDicelbl.setIcon(DefenderDice);
-		DefenderDicelbl.setBounds(780, -40, 200, 200);
-		add(DefenderDicelbl);
+		defenderDiceLbl=new JLabel("");
+		defenderDiceLbl.setIcon(DefenderDice);
+		defenderDiceLbl.setBounds(780, -40, 200, 200);
+		add(defenderDiceLbl);
 		
 		attackDice1 = new JLabel();
 		attackDice1.setBounds(400,40,50,20);
