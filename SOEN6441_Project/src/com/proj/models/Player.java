@@ -275,7 +275,6 @@ public class Player extends Observable{
 	/**
 	 * updates continents owned by player
 	 * 
-	 * @param number to indicate control value has to be assigned for which player
 	 * @param gameWindowScreen Object of GameWindowScreen class
 	 * @param gameMap Object of Map class
 	 */
@@ -335,6 +334,7 @@ public class Player extends Observable{
 	/**
 	 * Fortification phase Implementation
 	 * @param map Object of Map class
+	 * @param player Array Object of Player class
 	 * @param gameScreen Object of GameWindowScreen class
 	 * @param flag set to 1 if only 1 army present in country
 	 */

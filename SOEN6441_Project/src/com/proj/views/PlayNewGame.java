@@ -384,6 +384,7 @@ public class PlayNewGame extends JFrame implements ActionListener {
 	 * This method displays the game model window
 	 * @param sCarryMapForward Already edited map
 	 * @param player Array of Player objects
+	 * @param gameModel Object of GameModelCreation class
 	 */
 	public void GameModelWindowMade(Map sCarryMapForward, Player[] player, GameModelCreation gameModel) {
 		dispose();

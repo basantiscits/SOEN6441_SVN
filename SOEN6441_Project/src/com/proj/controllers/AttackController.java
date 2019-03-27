@@ -66,7 +66,8 @@ public class AttackController implements ActionListener{
 	 * Normal Attack
 	 * @param attackingCountryName name of attacking country
 	 * @param defendingCountryName name of defending country
-	 * @param noOfDicesSelected number of dice selected for attack
+	 * @param noOfAttackingDicesSelected number of attacking dices selected
+	 * @param noOfDefendingDicesSelected number of defending dices selected
 	 * @return true if war won else false
 	 * 
 	 */
@@ -221,6 +222,8 @@ public boolean normalAttack(String attackingCountryName,String defendingCountryN
 	 * All Out Attack
 	 * @param attackingCountryName name of attacking country
 	 * @param defendingCountryName name of defending country
+	 * @param noOfDefendingDicesSelected number of defending armies selected
+	 * @param noOfAttackerDicesSelected number of attacker dices selected
 	 * @return true if all out attack was successful else false
 	 */
 	public boolean allOutAttack(String attackingCountryName,String defendingCountryName,int noOfAttackerDicesSelected,int noOfDefendingDicesSelected){
@@ -248,7 +251,6 @@ public boolean normalAttack(String attackingCountryName,String defendingCountryN
 		noOfDefendingArmies=countryDefending.getNoOfArmiesPresent();
 		noOfAttackingArmies = countryAttacking.getNoOfArmiesPresent()-1;
 		boolean won=false;
-		//// Check again
 		while(noOfAttackingArmies>0 && noOfDefendingArmies>0){
 				won=normalAttack(attackingCountryName, defendingCountryName,noOfAttackerDicesSelected,noOfDefendingDicesSelected);
 		}
@@ -438,9 +440,7 @@ public boolean normalAttack(String attackingCountryName,String defendingCountryN
 			else {
 				System.out.println("Attack Button Pressed...");
 
-				//Attacking Country
 				String sSourceCountry=(String) attackView.getSourceCountry().getSelectedItem();
-				//Defender Country
 				String sDestinationCountry=(String) attackView.getDestinationCountry().getSelectedItem();
 
 				int attackerDiceSelection=  Integer.parseInt((String)(attackView.getNoOfDice().getSelectedItem()));
@@ -510,9 +510,7 @@ public boolean normalAttack(String attackingCountryName,String defendingCountryN
 			}
 			else {
 				System.out.println("All out attack button pressed");
-				//Attacking Country
 				String sSourceCountry=(String) attackView.getSourceCountry().getSelectedItem();
-				//Defender Country
 				String sDestinationCountry=(String) attackView.getDestinationCountry().getSelectedItem();
 				int attackerDiceSelection=  Integer.parseInt((String)(attackView.getNoOfDice().getSelectedItem()));
 				int defenderDiceSelection = Integer.parseInt((String)(attackView.getNoOfDiceDefender().getSelectedItem()));
@@ -552,7 +550,6 @@ public boolean normalAttack(String attackingCountryName,String defendingCountryN
 					attackView.getArmiesInSource().setText(String.valueOf(sourCountry.getNoOfArmiesPresent()));
 					attackView.getArmiesInDestination().setText(String.valueOf(destCountry.getNoOfArmiesPresent()));
 					if(sourCountry.getNoOfArmiesPresent()<=1) {
-						//JOptionPane.showMessageDialog(null, "Source country contains only 1 army \n Player should select other country to attack!!!");
 						attackView.addCountryToBox(attackView.getSourceCountry());
 						attackView.getDestinationCountry().removeAllItems();
 						attackView.getArmiesInDestination().setText("");
@@ -632,6 +629,12 @@ public boolean normalAttack(String attackingCountryName,String defendingCountryN
 			defender.addNoOfArmiesCountry();
 		}
 	}
+	
+	/**
+	 * Checks if attacker is valid
+	 * @param p Object of Player class
+	 * @return true if attacker is valid else false
+	 */
 	public boolean validAttacker(Player p) {
 		for(Country c:p.getCountriesOwned()) {
 			if(c.getNoOfArmiesPresent()>1) {

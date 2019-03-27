@@ -102,10 +102,7 @@ public class FortificationController implements ActionListener {
 				int army = Integer.valueOf(arm);
 
 				transferFortifyArmies(army,sourCountry,destCountry);
-/*				for (int i = 0; i < army; i++) {
-					sourCountry.removeNoOfArmiesCountry();
-					destCountry.addNoOfArmiesCountry();
-				}*/
+
 				if((fortifyView.getGameWindow().getGameController().getGameModel().getCurrPlayer()==fortifyView.getPlayer()[fortifyView.getPlayer().length-1]) && fortifyView.checkDraw()) {
 					JOptionPane.showMessageDialog(null, "No Player is eligible to attack \n MATCH DRAWN!!!");
 					fortifyView.getGameWindow().dispose();
@@ -158,6 +155,12 @@ public class FortificationController implements ActionListener {
 		}
 	}
 	
+	/**
+	 * Transfer fortified armies
+	 * @param army number of armies to be transferred
+	 * @param sCountry source country
+	 * @param tCountry destination country
+	 */
 	public void transferFortifyArmies(int army, Country sCountry, Country tCountry) {
 		for (int i = 0; i < army; i++) {
 			sCountry.removeNoOfArmiesCountry();

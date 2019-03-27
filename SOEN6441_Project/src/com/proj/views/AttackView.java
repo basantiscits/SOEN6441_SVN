@@ -103,7 +103,7 @@ public class AttackView extends JFrame implements ActionListener {
 	
 	/**
 	 * setter for attack dice
-	 * @param attackDice2 3rd dice value of attacker
+	 * @param attackDice3 3rd dice value of attacker
 	 */
 	public void setAttackDice3(JLabel attackDice3) {
 		this.attackDice3 = attackDice3;
@@ -135,7 +135,7 @@ public class AttackView extends JFrame implements ActionListener {
 	
 	/**
 	 * setter for defend dice
-	 * @param defendDice1 1st dice value of defender
+	 * @param defendDice2 2nd dice value of defender
 	 */
 	public void setDefendDice2(JLabel defendDice2) {
 		this.defendDice2 = defendDice2;
@@ -311,6 +311,10 @@ public class AttackView extends JFrame implements ActionListener {
 		return selectNoOfDice;
 	}
 	
+	/**
+	 * getter for number of dices of defender
+	 * @return selected number of dices of defender
+	 */
 	public JComboBox getNoOfDiceDefender() {
 		return selectNoOfDiceDefender;
 	}
@@ -400,7 +404,7 @@ public class AttackView extends JFrame implements ActionListener {
 	
 	/**
 	 * setter for attack controller
-	 * @param AttackController Object of AttackController class
+	 * @param attackController Object of AttackController class
 	 */
 	public void setAttackController(AttackController attackController) {
 		this.attackController = attackController;
@@ -563,6 +567,11 @@ public class AttackView extends JFrame implements ActionListener {
 
 		
 	}
+	
+	/**
+	 * Adds country to combo box 
+	 * @param country name of country to be added 
+	 */
 	public void addCountryToBox(JComboBox country) {
 		country.removeAllItems();
 		for(Country c : player[currentPlayer].getCountriesOwned()) {
@@ -575,6 +584,7 @@ public class AttackView extends JFrame implements ActionListener {
 	/**
 	 * Add destination countries
 	 * @param sourCountry source country
+	 * @return true if destination country contains country to be checked 
 	 */
 	public boolean addDestCountries(Country sourCountry) {
 		destinationCountry.removeAllItems();
@@ -600,6 +610,12 @@ public class AttackView extends JFrame implements ActionListener {
 		return false;
 	}
 	
+	/**
+	 * End Game 
+	 * @param p Object of Player class
+	 * @param gameMap game map
+	 * @return true if one player owns all countries in map else false
+	 */
 	public boolean endGame(Player p, Map gameMap) {
 		if(p.getCountriesOwned().size()==gameMap.listOfCountryNames().size()) {
 			return true;
@@ -607,6 +623,12 @@ public class AttackView extends JFrame implements ActionListener {
 		return false;
 	}
 	
+	/**
+	 * Returns list of countries
+	 * @param sourCountry source country
+	 * @param gameMap game map
+	 * @return list of countries
+	 */
 	public ArrayList<Country> targetCountries(Country sourCountry, Map gameMap) {
 		ArrayList<Country> countriesList = new ArrayList<Country>(); 
 		for(Continent c : gameMap.getContinents()) {

@@ -28,6 +28,7 @@ public class GameController implements ActionListener {
 	 * constructor for Game Controller
 	 * 
 	 * @param gameWindowScreen the game window screen
+	 * @param player Array object of Player class
 	 * @param gameMap the map of continents and countries
 	 */
 	public GameController(GameWindowScreen gameWindowScreen, Map gameMap, Player[] player) {
@@ -186,7 +187,9 @@ public class GameController implements ActionListener {
 		}
 	}
 	
-	
+	/**
+	 * exchange cards
+	 */
 	public void cardExchange(){
 		gameWindowScreen.cardExchangeView();
 	}

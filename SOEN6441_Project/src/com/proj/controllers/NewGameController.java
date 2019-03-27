@@ -31,14 +31,19 @@ public class NewGameController implements ActionListener {
 	private Map sCarryMapForward = new Map();
 	private Player[] player;
 	boolean sCopyisMapValid = true;
-
 	
-	
-	
+	/**
+	 * game model creation
+	 * @return game model
+	 */
 	public GameModelCreation getGameModel() {
 		return gameModel;
 	}
 
+	/**
+	 * setter for game model
+	 * @param gameModel Object of GameModelCreation class
+	 */
 	public void setGameModel(GameModelCreation gameModel) {
 		this.gameModel = gameModel;
 	}
@@ -46,8 +51,7 @@ public class NewGameController implements ActionListener {
 	/**
 	 * constructor for new game controller
 	 * 
-	 * @param playNewGame
-	 *            play new game object
+	 * @param playNewGame play new game object
 	 */
 	public NewGameController(PlayNewGame playNewGame) {
 		this.playNewGame = playNewGame;
@@ -118,6 +122,9 @@ public class NewGameController implements ActionListener {
 		}
 	}
 
+	/**
+	 * Providing game model to player
+	 */
 	public void providingGameModelToPlayer() {
 		for (Player players : player) {
 			players.setGameModel(gameModel);
@@ -125,6 +132,11 @@ public class NewGameController implements ActionListener {
 		
 	}
 	
+	/**
+	 * initialize number of armies
+	 * @param players Array object of Player class
+	 * @param noOfPlayers number of players
+	 */
 	public void initializeNumberOfArmies(Player[] players, int noOfPlayers) {
 		for (int j = 0; j < noOfPlayers; j++) {
 			int value = j + 1;

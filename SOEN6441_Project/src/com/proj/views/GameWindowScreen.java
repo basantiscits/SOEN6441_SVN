@@ -111,6 +111,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 	 * Game Window Screen constructor
 	 * @param gameMap Object of Map class
 	 * @param player Array object of Player class 
+	 * @param gameModel Object of GameModelCreation class
 	 */
 	public GameWindowScreen(Map gameMap, Player[] player, GameModelCreation gameModel) {
 		super("Game Window");
@@ -989,6 +990,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 	
 	/**
 	 * This method create table which displays the number of countries owned by players 
+	 * @param gameModel Object of GameModelCreation class
 	 */
 	public void playerStrengthTable(GameModelCreation gameModel) {
 		String countrySize = "Countries";
