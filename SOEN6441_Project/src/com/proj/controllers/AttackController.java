@@ -41,6 +41,7 @@ public class AttackController implements ActionListener{
 	private int attackerDiceCount;
 	private Map map;
 	private Country sourCountry, destCountry;
+	private boolean countryWon;
 	
 	/** 
 	 * attackView class constructor
@@ -55,6 +56,7 @@ public class AttackController implements ActionListener{
 		countryDefending=null;
 		noOfAttackingArmies=0;
 		noOfDefendingArmies=0;
+		countryWon=false;
 		attackerDiceValues=new ArrayList<Integer>();
 		defenderDiceValues=new ArrayList<Integer>();
 		this.players=attackView.getPlayer();
@@ -103,14 +105,14 @@ public class AttackController implements ActionListener{
 		if(noOfAttackingArmies<=0) {
 			return false;
 		}
-		if (noOfAttackingDicesSelected==3 && noOfAttackingArmies>2) {
+		if (noOfAttackingDicesSelected==3) {
 			rollDice(attackerDiceValues);
 			rollDice(attackerDiceValues);
 			rollDice(attackerDiceValues);
 			attackView.getAttackDice1().setText(String.valueOf(attackerDiceValues.get(0)));
 			attackView.getAttackDice2().setText(String.valueOf(attackerDiceValues.get(1)));
 			attackView.getAttackDice3().setText(String.valueOf(attackerDiceValues.get(2)));
-			if(noOfDefendingArmies>1 && noOfDefendingDicesSelected==2) {
+			if(noOfDefendingDicesSelected==2) {
 				rollDice(defenderDiceValues);
 				rollDice(defenderDiceValues);
 				attackView.getDefendDice1().setText(String.valueOf(defenderDiceValues.get(0)));
@@ -140,7 +142,7 @@ public class AttackController implements ActionListener{
 				}
 			}	
 			
-			else if(noOfDefendingDicesSelected == 1 || noOfDefendingArmies == 1) {
+			else {
 				rollDice(defenderDiceValues);
 				attackView.getDefendDice1().setText(String.valueOf(defenderDiceValues.get(0)));
 				attackView.getDefendDice2().setText("");
@@ -153,13 +155,13 @@ public class AttackController implements ActionListener{
 				}
 			}
 		}
-		else if(noOfAttackingDicesSelected==2 && noOfAttackingArmies>1) {
+		else if(noOfAttackingDicesSelected==2) {
 			rollDice(attackerDiceValues);
 			rollDice(attackerDiceValues);
 			attackView.getAttackDice1().setText(String.valueOf(attackerDiceValues.get(0)));
 			attackView.getAttackDice2().setText(String.valueOf(attackerDiceValues.get(1)));
 			attackView.getAttackDice3().setText("");
-			if(noOfDefendingArmies>1 && noOfDefendingDicesSelected==2) {
+			if(noOfDefendingDicesSelected==2) {
 				rollDice(defenderDiceValues);
 				rollDice(defenderDiceValues);
 				attackView.getDefendDice1().setText(String.valueOf(defenderDiceValues.get(0)));
@@ -188,7 +190,7 @@ public class AttackController implements ActionListener{
 					}
 				}
 			}
-			else if(noOfDefendingDicesSelected == 1 || noOfDefendingArmies == 1) {
+			else{
 				rollDice(defenderDiceValues);
 				attackView.getDefendDice1().setText(String.valueOf(defenderDiceValues.get(0)));
 				attackView.getDefendDice2().setText("");
@@ -201,19 +203,19 @@ public class AttackController implements ActionListener{
 				}
 			}
 		}
-		else if(noOfAttackingDicesSelected==1 && noOfAttackingArmies>0) {
+		else if(noOfAttackingDicesSelected==1) {
 			rollDice(attackerDiceValues);
 			attackView.getAttackDice1().setText(String.valueOf(attackerDiceValues.get(0)));
 			attackView.getAttackDice2().setText("");
 			attackView.getAttackDice3().setText("");
 			
-			if(noOfDefendingArmies>1 && noOfDefendingDicesSelected >1) {
+			if(noOfDefendingDicesSelected ==2) {
 				rollDice(defenderDiceValues);
 				rollDice(defenderDiceValues);
 				attackView.getDefendDice1().setText(String.valueOf(defenderDiceValues.get(0)));
 				attackView.getDefendDice2().setText(String.valueOf(defenderDiceValues.get(1)));
 			}
-			else if(noOfDefendingDicesSelected==1 || noOfDefendingArmies == 1) {
+			else {
 				rollDice(defenderDiceValues);
 				attackView.getDefendDice1().setText(String.valueOf(defenderDiceValues.get(0)));
 				attackView.getDefendDice2().setText("");
@@ -238,7 +240,7 @@ public class AttackController implements ActionListener{
 	 * @param noOfAttackerDicesSelected number of attacker dices selected
 	 * @return true if all out attack was successful else false
 	 */
-	public boolean allOutAttack(String attackingCountryName,String defendingCountryName,int noOfAttackerDicesSelected,int noOfDefendingDicesSelected) {
+	public boolean allOutAttack(String attackingCountryName,String defendingCountryName) {
 		for(Player p:players) {
 			for(Country c:p.getCountriesOwned()) {
 				if(c.getCountryName().equals(attackingCountryName)) {
@@ -264,7 +266,18 @@ public class AttackController implements ActionListener{
 		noOfAttackingArmies = countryAttacking.getNoOfArmiesPresent()-1;
 		boolean won=false;
 		while(noOfAttackingArmies>0 && noOfDefendingArmies>0) {
-				won=normalAttack(attackingCountryName, defendingCountryName,noOfAttackerDicesSelected,noOfDefendingDicesSelected);
+			if(noOfAttackingArmies==1 && noOfDefendingArmies==1)
+				won=normalAttack(attackingCountryName, defendingCountryName,1,1);
+			else if(noOfAttackingArmies==1 && noOfDefendingArmies>1)
+				won=normalAttack(attackingCountryName, defendingCountryName,1,2);
+			else if(noOfAttackingArmies==2 && noOfDefendingArmies==1)
+				won=normalAttack(attackingCountryName, defendingCountryName,2,1);
+			else if(noOfAttackingArmies==2 && noOfDefendingArmies>1)
+				won=normalAttack(attackingCountryName, defendingCountryName,2,2);
+			else if(noOfAttackingArmies>2 && noOfDefendingArmies==1)
+				won=normalAttack(attackingCountryName, defendingCountryName,3,1);
+			else if(noOfAttackingArmies>2 && noOfDefendingArmies>1)
+				won=normalAttack(attackingCountryName, defendingCountryName,3,2);
 		}
 		return won;
 	}
@@ -301,8 +314,7 @@ public class AttackController implements ActionListener{
 			System.out.println("WarWon");
 			attacker.addCountry(countryDefending);
 			defender.removeCountry(countryDefending);
-			attacker.getCardsOwned().add(Card.getNewCard());   
-			attacker.setNoOfCardsOwned(attacker.getNoOfCardsOwned()+1); 
+			countryWon=true;
 			if(defender.getCountriesOwned().size()==0) {
 				attacker.setNoOfCardsOwned(attacker.getNoOfCardsOwned() + defender.getCardsOwned().size());
 				attacker.getCardsOwned().addAll(defender.getCardsOwned());
@@ -524,7 +536,7 @@ public class AttackController implements ActionListener{
 				int attackerDiceSelection=  Integer.parseInt((String)(attackView.getNoOfDice().getSelectedItem()));
 				int defenderDiceSelection = Integer.parseInt((String)(attackView.getNoOfDiceDefender().getSelectedItem()));
 				System.out.println("Player Name : "+attackView.getPlayer()+"\n"+ "Source Country :"+ sSourceCountry+"\n"+ "Defender Country :" +sDestinationCountry);
-				boolAttackAllOut=allOutAttack(sSourceCountry,sDestinationCountry,attackerDiceSelection,defenderDiceSelection);
+				boolAttackAllOut=allOutAttack(sSourceCountry,sDestinationCountry);
 
 				if (boolAttackAllOut== true) {
 					System.out.println("All out Attack "+" terriotry  won");
@@ -573,6 +585,12 @@ public class AttackController implements ActionListener{
 			
 		}
 		else if(e.getSource() == attackView.getFinish()) {
+			
+			if(countryWon){
+			attacker.getCardsOwned().add(Card.getNewCard());   
+			attacker.setNoOfCardsOwned(attacker.getNoOfCardsOwned()+1); 
+			}
+			countryWon=false;
 			attackView.dispose();
 			int flag = 1;
 			attackView.getGameModel().getCurrPlayer().fortificationPhaseImplementation(attackView.getMap(), attackView.getPlayer(), attackView.getGameWindow(),flag);
