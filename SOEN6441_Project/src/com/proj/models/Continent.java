@@ -109,6 +109,4 @@ public class Continent extends Observable{
 		setChanged();
 		notifyObservers(this);
 	}
-	
-
 }

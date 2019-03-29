@@ -111,7 +111,6 @@ public class GameController implements ActionListener {
 	}
 
 
-
 	/**
 	 * action performed when reinforcement phase starts
 	 * 
@@ -176,7 +175,6 @@ public class GameController implements ActionListener {
 	 * @param country name of country
 	 */
 	public void updateGame(String country) {
-		
 		if(getGameModel().getCurrPlayer().getNoOfArmiesOwned()>0) {
 			getGameModel().getCurrPlayer().reduceArmyInPlayer();
 			for(Country c : getGameModel().getCurrPlayer().getCountriesOwned()) {

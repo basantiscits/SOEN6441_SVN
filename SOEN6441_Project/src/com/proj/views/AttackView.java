@@ -39,8 +39,6 @@ public class AttackView extends JFrame implements ActionListener {
 	private JLabel armiesInDestination;
 	private JComboBox sourceCountry;
 	private JComboBox destinationCountry;
-	
-	
 	private JComboBox selectNoOfDices;
 	private JComboBox selectNoOfDiceDefender;
 	private JButton attackBtn;
@@ -54,7 +52,6 @@ public class AttackView extends JFrame implements ActionListener {
 	private int currentPlayer;
 	private GameWindowScreen gameWindow;
 	private AttackController attackController;
-	
 	private JLabel attackDice1;
 	private JLabel attackDice2;
 	private JLabel attackDice3;
@@ -188,7 +185,6 @@ public class AttackView extends JFrame implements ActionListener {
 	public void setAttack(JButton attackBtn) {
 		this.attackBtn = attackBtn;
 	}
-	
 	
 	/**
 	 * getter for armies in source country
@@ -327,9 +323,6 @@ public class AttackView extends JFrame implements ActionListener {
 		this.selectNoOfDice = dice;
 	}
 	
-	
-
-	
 	/**
 	 * getter for map
 	 * @return map
@@ -460,12 +453,10 @@ public class AttackView extends JFrame implements ActionListener {
 		setResizable(false);
 		setSize(Constants.WIDTH + 300, Constants.HEIGHT);
 		setLayout(null);
-		setLocationRelativeTo(null);
-		
+		setLocationRelativeTo(null);	
 		playerName = new JLabel(player[currentPlayer].getPlayerName());
 		playerName.setBounds(55, 155, 100, 35);
 		add(playerName);
-		
 		source = new JLabel("Source Country");
 		source.setBounds(165, 120, 100, 30);
 		add(source);
@@ -503,11 +494,9 @@ public class AttackView extends JFrame implements ActionListener {
 		add(destinationCountry);
 		destinationCountry.addActionListener(attackController);
 		
-
 		selectNoOfDice = new JComboBox();
 		selectNoOfDice.setBounds(465, 150, 100, 35);
 		add(selectNoOfDice);
-		
 		
 		selectNoOfDiceDefender = new JComboBox();
 		selectNoOfDiceDefender.setBounds(465, 210, 100, 35);
@@ -564,8 +553,6 @@ public class AttackView extends JFrame implements ActionListener {
 		defendDice2.setBounds(450,60,50,20);
 		add(defendDice2);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);  
-
-		
 	}
 	
 	/**
@@ -592,7 +579,7 @@ public class AttackView extends JFrame implements ActionListener {
 		Country countryToBeChechked = null;
 		for(String c : sourCountry.getListOfNeighbours()) {
 			for(Continent continent:map.getContinents()){
-				for(Country country:continent.getCountriesPresent()){
+				for(Country country:continent.getCountriesPresent()) {
 					if(country.getCountryName().equalsIgnoreCase(c)) {
 						countryToBeChechked = country;
 					}
@@ -604,7 +591,7 @@ public class AttackView extends JFrame implements ActionListener {
 				System.out.println(c);
 			}
 		}
-		if(flag==1){
+		if(flag==1) {
 			return true;
 		}
 		return false;
@@ -676,20 +663,6 @@ public class AttackView extends JFrame implements ActionListener {
 	 * @param e Object of ActionEvent class
 	 */
 	@Override
-	public void actionPerformed(ActionEvent e) {
-	}
-
-
-	/**
-	 * Main method
-	 * @param args Command line arguments
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-
-	}
-
-	
+	public void actionPerformed(ActionEvent e) {}
 
 }

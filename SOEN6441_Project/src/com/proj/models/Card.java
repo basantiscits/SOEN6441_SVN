@@ -71,22 +71,17 @@ public class Card extends Observable {
 	 * getter for new card
 	 * @return Object of type Card
 	 */
-		public static Card getNewCard() {
-	
-			random = new Random();
-			int randomNum = random.nextInt((3 - 1) + 1) + 1;
-	
-			return new Card(++num, randomNum == 1 ? Type.INFANTRY : randomNum == 2 ? Type.CAVALRY : Type.ARTILLERY);
-	
-		}
-		
-		/**
-		 * Update changes
-		 */
-		public void updateChanges() {
-			setChanged();
-			notifyObservers(this);
+	public static Card getNewCard() {	
+		random = new Random();
+		int randomNum = random.nextInt((3 - 1) + 1) + 1;
+		return new Card(++num, randomNum == 1 ? Type.INFANTRY : randomNum == 2 ? Type.CAVALRY : Type.ARTILLERY);
 	}
-	
-
+		
+	/**
+	 * Update changes
+	 */
+	public void updateChanges() {
+		setChanged();
+		notifyObservers(this);
+	}
 }

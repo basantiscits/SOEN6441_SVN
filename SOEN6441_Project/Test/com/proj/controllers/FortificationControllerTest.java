@@ -16,7 +16,12 @@ import com.proj.models.Player;
 import com.proj.views.FortificationView;
 import com.proj.views.GameWindowScreen;
 
-
+/**
+ * GameControllerTest class
+ * @author Ofreish
+ * @since 18/03/2019
+ * @version 1.1
+ */
 public class FortificationControllerTest {
 	
 	
@@ -30,7 +35,9 @@ public class FortificationControllerTest {
 	private FortificationView fortifyView;
 	private int currentPlayer;
 	
-	
+	/**
+	 * This method initializes all the required data to complete the test
+	 */
 	@Before
 	public void before() {
 		player = new Player[3];
@@ -99,6 +106,9 @@ public class FortificationControllerTest {
 	@After
 	public void after() {}
 
+	/**
+	 * This test method checks the fortification method
+	 */
 	@Test
 	public void fortificationTest() {
 		fortifyView = new FortificationView(gameMap, player, currentPlayer, screen);

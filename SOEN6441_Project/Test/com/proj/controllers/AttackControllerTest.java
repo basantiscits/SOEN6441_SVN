@@ -17,6 +17,12 @@ import com.proj.models.Player;
 import com.proj.views.AttackView;
 import com.proj.views.GameWindowScreen;
 
+/**
+ * GameControllerTest class
+ * @author Ofreish
+ * @since 16/03/2019
+ * @version 1.1
+ */
 public class AttackControllerTest {
 	public Player defender;
 	public Player attacker;
@@ -28,7 +34,6 @@ public class AttackControllerTest {
 	private int attackerDiceCount;
 	private AttackView attackView;
 	private AttackController attackController;
-	
 	private Player[] player;
 	private Map gameMap;
 	private GameWindowScreen screen;
@@ -38,6 +43,9 @@ public class AttackControllerTest {
 	private Country India,Pakistan,Nepal,Bangladesh,Spain,France,Italy,England,SouthAfrica,Nigeria;
 	private ArrayList<Continent> continentList;
 
+	/**
+	 * This method initializes all the required data to complete the test
+	 */
 	@Before
 	public void before() {
 		player = new Player[3];
@@ -112,9 +120,11 @@ public class AttackControllerTest {
 
 	}
 	
+	/**
+	 * This test method checks battle won or lost depending upon the dice values
+	 */
 	@Test
 	public void checkDiceValuesTest() {
-		
 		attackView = new AttackView(gameMap, player, currentPlayer, screen);
 		attackController = new AttackController(attackView);
 		attackController.countryAttacking = India;
@@ -142,6 +152,9 @@ public class AttackControllerTest {
 		assertEquals(0,attackController.countryDefending.getNoOfArmiesPresent());
 	}
 	
+	/**
+	 * This test method checks the number of armies transferred
+	 */
 	@Test
 	public void numberOfArmiesTransferedTest() {
 		attackView = new AttackView(gameMap, player, currentPlayer, screen);
@@ -159,6 +172,9 @@ public class AttackControllerTest {
 		assertEquals(3,attackController.countryDefending.getNoOfArmiesPresent());
 	}
 	
+	/**
+	 * This test method checks the war won method
+	 */
 	@Test
 	public void warWonTest() {
 		attackView = new AttackView(gameMap, player, currentPlayer, screen);
@@ -187,7 +203,10 @@ public class AttackControllerTest {
 		System.out.println(check);
 		assertEquals(true,check);
 	}
-
+	
+	/**
+	 * This test method checks if the attacker is valid
+	 */
 	@Test
 	public void attackerValidTest() {
 		attackView = new AttackView(gameMap, player, currentPlayer, screen);
@@ -203,6 +222,9 @@ public class AttackControllerTest {
 
 	}
 	
+	/**
+	 * This test method checks if the defender is valid
+	 */
 	@Test
 	public void defenderValidTest() {
 		attackView = new AttackView(gameMap, player, currentPlayer, screen);
@@ -218,6 +240,9 @@ public class AttackControllerTest {
 
 	}
 	
+	/**
+	 * This test method checks if one player has all the countries of map
+	 */
 	@Test
 	public void endGameTest() {
 		attackView = new AttackView(gameMap, player, currentPlayer, screen);
