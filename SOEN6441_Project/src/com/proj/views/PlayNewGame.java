@@ -5,9 +5,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -21,13 +18,10 @@ import javax.swing.JTree;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.proj.controllers.NewGameController;
-import com.proj.models.Continent;
-import com.proj.models.Country;
 import com.proj.models.GameModelCreation;
 import com.proj.models.Map;
 import com.proj.models.Player;
 import com.proj.utilites.Constants;
-import com.proj.utilites.MapTools;
 
 /**
  * Play New Game class
@@ -36,13 +30,15 @@ import com.proj.utilites.MapTools;
  * @version 1.0
  */
 public class PlayNewGame extends JFrame implements ActionListener {
+	private PlayNewGame playNewGame;
 	private String sFileName = "";
-	private Player[] player ;
+//	private Player[] player ;
 	private String sLocationWhereFileisKept = "";
 	private String sAppendParam = "";
 	private JButton buttonbrowse;
 	private JComboBox<String> comboBoxSelectPlayer;
-	private String[] playersList = new String[] { "  --Select--  ","3", "4", "5" };
+	// Changes done and added 2 player game in combo box..
+	private String[] playersList = new String[] { "  --Select--  ", "2","3","4","5" };
 	private JTextField textFieldMap;
 	private JButton buttonPlayGame;
 	private String copyNoOfPlayers;
@@ -50,6 +46,15 @@ public class PlayNewGame extends JFrame implements ActionListener {
 	private JTree mapTree;
 	private JScrollPane treeScrollPane;
 	private NewGameController newGameController;
+	private String [] playerTypesBehaviour = new String[] { "Human", "Aggresive", "Benevolent", "Random", "Cheater" };
+	private JLabel labelPlayer1, labelPlayer2,labelPlayer3,labelPlayer4,labelPlayer5;
+	private JComboBox<String> comboBoxPlayer1;
+	private JComboBox<String> comboBoxPlayer2;
+	private JComboBox<String> comboBoxPlayer3;
+	private JComboBox<String> comboBoxPlayer4;
+	private JComboBox<String> comboBoxPlayer5;
+	
+	
 
 	/**
 	 * Play New Game constructor
@@ -89,9 +94,64 @@ public class PlayNewGame extends JFrame implements ActionListener {
 
 		buttonPlayGame = new JButton();
 		buttonPlayGame.setText("Play Now");
-		buttonPlayGame.setBounds(380, 400, 210, 30);
+		buttonPlayGame.setBounds(380, 600, 210, 30);
 		buttonPlayGame.addActionListener(newGameController);
 		add(buttonPlayGame);
+		
+		labelPlayer1 = new JLabel("Player1 : ");
+		labelPlayer1.setBounds(350, 220, 400, 180);
+		add(labelPlayer1);
+		labelPlayer1.setVisible(false);
+		
+		comboBoxPlayer1 = new JComboBox<String>(playerTypesBehaviour);
+		comboBoxPlayer1.setBounds(490, 295, 90, 30);
+		comboBoxPlayer1.addActionListener(newGameController);
+		add(comboBoxPlayer1);
+		comboBoxPlayer1.setVisible(false);
+		
+		 labelPlayer2 = new JLabel("Player 2 :  ");
+		labelPlayer2.setBounds(350, 270, 400, 180);
+		add(labelPlayer2);
+		labelPlayer2.setVisible(false);
+		
+		comboBoxPlayer2 = new JComboBox<String>(playerTypesBehaviour);
+		comboBoxPlayer2.setBounds(490, 345, 90, 30);
+		comboBoxPlayer2.addActionListener(newGameController);
+		add(comboBoxPlayer2);
+		comboBoxPlayer2.setVisible(false);
+		
+		 labelPlayer3 = new JLabel("Player 3 :  ");
+		labelPlayer3.setBounds(350, 320, 400, 180);
+		add(labelPlayer3);
+		labelPlayer3.setVisible(false);
+		
+		comboBoxPlayer3 = new JComboBox<String>(playerTypesBehaviour);
+		comboBoxPlayer3.setBounds(490, 395, 90, 30);
+		comboBoxPlayer3.addActionListener(newGameController);
+		add(comboBoxPlayer3);
+		comboBoxPlayer3.setVisible(false);
+		
+		 labelPlayer4 = new JLabel("Player 4 :  ");
+		labelPlayer4.setBounds(350, 370, 400, 180);
+		add(labelPlayer4);
+		labelPlayer4.setVisible(false);
+		
+		comboBoxPlayer4 = new JComboBox<String>(playerTypesBehaviour);
+		comboBoxPlayer4.setBounds(490, 445, 90, 30);
+		comboBoxPlayer4.addActionListener(newGameController);
+		add(comboBoxPlayer4);
+		comboBoxPlayer4.setVisible(false);
+		
+		 labelPlayer5 = new JLabel("Player 5 :  ");
+		labelPlayer5.setBounds(350, 420, 400, 180);
+		add(labelPlayer5);
+		labelPlayer5.setVisible(false);
+		
+		comboBoxPlayer5 = new JComboBox<String>(playerTypesBehaviour);
+		comboBoxPlayer5.setBounds(490, 495, 90, 30);
+		comboBoxPlayer5.addActionListener(newGameController);
+		add(comboBoxPlayer5);
+		comboBoxPlayer5.setVisible(false);
 
 
 		setTitle("******THE RISK GAME******");
@@ -171,22 +231,22 @@ public class PlayNewGame extends JFrame implements ActionListener {
 		finally {}
 		return sLocationWhereFileisKept;
 	}
-
-	/**
-	 * getter for Player
-	 * @return the player
-	 */
-	public Player[] getPlayer() {
-		return player;
-	}
-
-	/**
-	 * setter for Player
-	 * @param player the player to set
-	 */
-	public void setPlayer(Player[] player) {
-		this.player = player;
-	}
+//
+//	/**
+//	 * getter for Player
+//	 * @return the player
+//	 */
+//	public Player[] getPlayer() {
+//		return player;
+//	}
+//
+//	/**
+//	 * setter for Player
+//	 * @param player the player to set
+//	 */
+//	public void setPlayer(Player[] player) {
+//		this.player = player;
+//	}
 
 	/**
 	 * getter for Location of File
@@ -391,10 +451,140 @@ public class PlayNewGame extends JFrame implements ActionListener {
 		GameWindowScreen GameWindowScreen = new GameWindowScreen(sCarryMapForward,player,gameModel);
 		GameWindowScreen.setVisible(true);
 	}
+	
+	public JLabel getPlayerLable1() {
+		return labelPlayer1;
+	}
+	
+	public void setPlayerLable1(JLabel labelPlayer1) {
+		this.labelPlayer1 = labelPlayer1;
+	}
+	
+	public JLabel getPlayerLable2() {
+		return labelPlayer2;
+	}
+	
+	public void setPlayerLable2(JLabel labelPlayer2) {
+		this.labelPlayer2 = labelPlayer2;
+	}
+	
+	
+	public JLabel getPlayerLable3() {
+		return labelPlayer3;
+	}
+	
+	public void setPlayerLable3(JLabel labelPlayer3) {
+		this.labelPlayer3 = labelPlayer3;
+	}
+	
+	
+	public JLabel getPlayerLable4() {
+		return labelPlayer4;
+	}
+	
+	public void setPlayerLable4(JLabel labelPlayer4) {
+		this.labelPlayer4 = labelPlayer4;
+	}
+	
+	
+	public JLabel getPlayerLable5() {
+		return labelPlayer5;
+	}
+	
+	public void setPlayerLable5(JLabel labelPlayer5) {
+		this.labelPlayer5 = labelPlayer5;
+	}
 
+	public JComboBox<String> getComboBoxSelectPlayer1() {
+		return comboBoxPlayer1;
+	}
+
+
+	public void setComboBoxSelectPlayer1(JComboBox<String> comboBoxPlayer1) {
+		this.comboBoxPlayer1 = comboBoxPlayer1;
+	}
+	
+	public JComboBox<String> getComboBoxSelectPlayer2() {
+		return comboBoxPlayer2;
+	}
+
+
+	public void setComboBoxSelectPlayer2(JComboBox<String> comboBoxPlayer2) {
+		this.comboBoxPlayer2 = comboBoxPlayer2;
+	}
+	
+	public JComboBox<String> getComboBoxSelectPlayer3() {
+		return comboBoxPlayer3;
+	}
+
+
+	public void setComboBoxSelectPlayer3(JComboBox<String> comboBoxPlayer3) {
+		this.comboBoxPlayer3 = comboBoxPlayer3;
+	}
+	public JComboBox<String> getComboBoxSelectPlayer4() {
+		return comboBoxPlayer4;
+	}
+
+
+	public void setComboBoxSelectPlayer4(JComboBox<String> comboBoxPlayer4) {
+		this.comboBoxPlayer4 = comboBoxPlayer4;
+	}
+	public JComboBox<String> getComboBoxSelectPlayer5() {
+		return comboBoxPlayer5;
+	}
+
+
+	public void setComboBoxSelectPlayer5(JComboBox<String> comboBoxPlayer5) {
+		this.comboBoxPlayer5 = comboBoxPlayer5;
+	}
 	/**
 	 * Overridden method listening events not used
 	 */
 	@Override
-	public void actionPerformed(ActionEvent e) {}
+	public void actionPerformed(ActionEvent e) {
+		/*String iSelectedindexPlayerSelection = (String) comboBoxSelectPlayer.getSelectedItem();
+		if (e.getSource() == comboBoxSelectPlayer){
+			if (iSelectedindexPlayerSelection.trim().equalsIgnoreCase("2")){
+				labelPlayer1.setVisible(true);
+				comboBoxPlayer1.setVisible(true);
+				labelPlayer2.setVisible(true);
+				comboBoxPlayer2.setVisible(true);
+			}
+			else if (iSelectedindexPlayerSelection.trim().equalsIgnoreCase("3")){
+				labelPlayer1.setVisible(true);
+				comboBoxPlayer1.setVisible(true);
+				labelPlayer2.setVisible(true);
+				comboBoxPlayer2.setVisible(true);
+				labelPlayer3.setVisible(true);
+				comboBoxPlayer3.setVisible(true);
+			}
+           else if (iSelectedindexPlayerSelection.trim().equalsIgnoreCase("4")){
+        	   labelPlayer1.setVisible(true);
+				comboBoxPlayer1.setVisible(true);
+        	   labelPlayer2.setVisible(true);
+				comboBoxPlayer2.setVisible(true);
+				labelPlayer3.setVisible(true);
+				comboBoxPlayer3.setVisible(true);
+				labelPlayer4.setVisible(true);
+				comboBoxPlayer4.setVisible(true);
+			}
+           else if (iSelectedindexPlayerSelection.trim().equalsIgnoreCase("5")){
+        	   labelPlayer1.setVisible(true);
+				comboBoxPlayer1.setVisible(true);
+        	    labelPlayer2.setVisible(true);
+				comboBoxPlayer2.setVisible(true);
+				labelPlayer3.setVisible(true);
+				comboBoxPlayer3.setVisible(true);
+				labelPlayer4.setVisible(true);
+				comboBoxPlayer4.setVisible(true);
+				labelPlayer5.setVisible(true);
+				comboBoxPlayer5.setVisible(true);
+            }
+           else if (iSelectedindexPlayerSelection.trim().equalsIgnoreCase("  --Select--  ")){
+	
+            }
+				
+			
+		}*/
+	}
 }
