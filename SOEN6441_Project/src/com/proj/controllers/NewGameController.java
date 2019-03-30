@@ -116,6 +116,23 @@ public class NewGameController implements ActionListener {
 			playNewGame.getComboBoxSelectPlayer5().setVisible(true);
 			
 		}
+		else if(noOfPlayers.trim().equalsIgnoreCase("6"))
+		{
+			playNewGame.getPlayerLable1().setVisible(true);
+			playNewGame.getPlayerLable2().setVisible(true);
+			playNewGame.getPlayerLable3().setVisible(true);
+			playNewGame.getPlayerLable4().setVisible(true);
+			playNewGame.getPlayerLable5().setVisible(true);
+			playNewGame.getPlayerLable6().setVisible(true);
+			playNewGame.getComboBoxSelectPlayer1().setVisible(true);
+			playNewGame.getComboBoxSelectPlayer2().setVisible(true);
+			playNewGame.getComboBoxSelectPlayer3().setVisible(true);
+			playNewGame.getComboBoxSelectPlayer4().setVisible(true);
+			playNewGame.getComboBoxSelectPlayer5().setVisible(true);
+			playNewGame.getComboBoxSelectPlayer6().setVisible(true);
+			
+		}
+		
 			
 
 		if (event.getSource().equals(playNewGame.getButtonbrowse())) {

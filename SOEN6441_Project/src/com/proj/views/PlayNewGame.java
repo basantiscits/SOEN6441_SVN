@@ -38,7 +38,7 @@ public class PlayNewGame extends JFrame implements ActionListener {
 	private JButton buttonbrowse;
 	private JComboBox<String> comboBoxSelectPlayer;
 	// Changes done and added 2 player game in combo box..
-	private String[] playersList = new String[] { "  --Select--  ", "2","3","4","5" };
+	private String[] playersList = new String[] { "  --Select--  ", "2","3","4","5","6" };
 	private JTextField textFieldMap;
 	private JButton buttonPlayGame;
 	private String copyNoOfPlayers;
@@ -47,12 +47,13 @@ public class PlayNewGame extends JFrame implements ActionListener {
 	private JScrollPane treeScrollPane;
 	private NewGameController newGameController;
 	private String [] playerTypesBehaviour = new String[] { "Human", "Aggresive", "Benevolent", "Random", "Cheater" };
-	private JLabel labelPlayer1, labelPlayer2,labelPlayer3,labelPlayer4,labelPlayer5;
+	private JLabel labelPlayer1, labelPlayer2,labelPlayer3,labelPlayer4,labelPlayer5,labelPlayer6;
 	private JComboBox<String> comboBoxPlayer1;
 	private JComboBox<String> comboBoxPlayer2;
 	private JComboBox<String> comboBoxPlayer3;
 	private JComboBox<String> comboBoxPlayer4;
 	private JComboBox<String> comboBoxPlayer5;
+	private JComboBox<String> comboBoxPlayer6;
 	
 	
 
@@ -152,6 +153,17 @@ public class PlayNewGame extends JFrame implements ActionListener {
 		comboBoxPlayer5.addActionListener(newGameController);
 		add(comboBoxPlayer5);
 		comboBoxPlayer5.setVisible(false);
+		
+		labelPlayer6 = new JLabel("Player 6 :  ");
+	    labelPlayer6.setBounds(350, 470, 400, 180);
+	    add(labelPlayer6);
+	    labelPlayer6.setVisible(false);
+			
+		comboBoxPlayer6 = new JComboBox<String>(playerTypesBehaviour);
+		comboBoxPlayer6.setBounds(490, 545, 90, 30);
+		comboBoxPlayer6.addActionListener(newGameController);
+		add(comboBoxPlayer6);
+		comboBoxPlayer6.setVisible(false);
 
 
 		setTitle("******THE RISK GAME******");
@@ -494,6 +506,13 @@ public class PlayNewGame extends JFrame implements ActionListener {
 	public void setPlayerLable5(JLabel labelPlayer5) {
 		this.labelPlayer5 = labelPlayer5;
 	}
+	public JLabel getPlayerLable6() {
+		return labelPlayer6;
+	}
+	
+	public void setPlayerLable6(JLabel labelPlayer6) {
+		this.labelPlayer6 = labelPlayer6;
+	}
 
 	public JComboBox<String> getComboBoxSelectPlayer1() {
 		return comboBoxPlayer1;
@@ -529,6 +548,7 @@ public class PlayNewGame extends JFrame implements ActionListener {
 	public void setComboBoxSelectPlayer4(JComboBox<String> comboBoxPlayer4) {
 		this.comboBoxPlayer4 = comboBoxPlayer4;
 	}
+	
 	public JComboBox<String> getComboBoxSelectPlayer5() {
 		return comboBoxPlayer5;
 	}
@@ -536,6 +556,15 @@ public class PlayNewGame extends JFrame implements ActionListener {
 
 	public void setComboBoxSelectPlayer5(JComboBox<String> comboBoxPlayer5) {
 		this.comboBoxPlayer5 = comboBoxPlayer5;
+	}
+	
+	public JComboBox<String> getComboBoxSelectPlayer6() {
+		return comboBoxPlayer6;
+	}
+
+
+	public void setComboBoxSelectPlayer6(JComboBox<String> comboBoxPlayer6) {
+		this.comboBoxPlayer5 = comboBoxPlayer6;
 	}
 	/**
 	 * Overridden method listening events not used

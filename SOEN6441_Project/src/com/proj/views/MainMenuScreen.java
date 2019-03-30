@@ -55,6 +55,8 @@ public class MainMenuScreen extends JFrame {
 		JMenu fileMenu2 = new JMenu("Map Editor");
 		JMenu helpMenu = new JMenu("Help");
 		JMenu SubSubMenu = new JMenu("Play Game");
+		JMenu subSubMenuTournament = new JMenu("Tournament");
+		
 		JMenuItem PlayGame =  new JMenuItem(new AbstractAction("New Game") {
 			public void actionPerformed(ActionEvent e) {
 				PlayNewGame PlayGame = new PlayNewGame();
@@ -65,9 +67,26 @@ public class MainMenuScreen extends JFrame {
 		PlayGame.setToolTipText("New Game");
 		JMenuItem singlePlayer = new JMenuItem("Play Game");
 		singlePlayer.setToolTipText("Play Game");
+		
+		//JMenuItem MultiPlayer = new JMenuItem("Tournament");
+		JMenuItem MultiPlayer =  new JMenuItem(new AbstractAction("Tournament") {
+			public void actionPerformed(ActionEvent e) {
+				TournamentView tournamentMultiPlayer = new TournamentView();
+				tournamentMultiPlayer.setVisible(true);
+				dispose();
+			}
+		});
+		
+		MultiPlayer.setToolTipText("Tournament");
+		
 		JMenuItem exitMenuItem = new JMenuItem("Exit");
 		exitMenuItem.setToolTipText("Exit application");
+		
 		SubSubMenu.add(PlayGame);
+		SubSubMenu.add(MultiPlayer);
+		
+		
+		
 		JMenuItem newMap = new JMenuItem(new AbstractAction("Create New Map") {
 			public void actionPerformed(ActionEvent e) {
 				Map newMap=new Map();
@@ -103,7 +122,9 @@ public class MainMenuScreen extends JFrame {
 		exitMenuItem.addActionListener((event) -> System.exit(0));
 		SubSubMenu.addActionListener(new java.awt.event.ActionListener() {
 			@Override
+			
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				System.out.println(evt);
 				SubSubMenu.addActionListener(this);
 				add(btnLoadExisitingMaps);
 			}
@@ -122,6 +143,7 @@ public class MainMenuScreen extends JFrame {
 		menubar.add(Box.createHorizontalGlue());
 		menubar.add(helpMenu);
 		menubar.add(helpMenu);
+		//menubar.add();
 		setJMenuBar(menubar);
 	}
 }
