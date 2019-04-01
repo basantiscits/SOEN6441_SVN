@@ -35,13 +35,13 @@ public class TournamentView  extends JFrame implements ActionListener {
 	private JButton buttonbrowse5;
 	private JButton buttonPlayGameTournament;
 	private TournamentController tournamentController;
-	private String[] noOfMaps = new String[] {"1","2","3","4","5" };
-	private String[] playersList = new String[] {"2","3","4","5","6" };
-	private String [] playerTypesBehaviour = new String[] { "Human", "Aggresive", "Benevolent", "Random", "Cheater" };
-	private String[] noOfTurnsArray = new String[] { "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
+	private String[] noOfMaps = new String[] {"  --Select--  ","1","2","3","4","5" };
+	private String[] playersList = new String[] {"  --Select--  ","2","3","4","5","6" };
+	private String [] playerTypesBehaviour = new String[] {"  --Select--  ", "Human", "Aggresive", "Benevolent", "Random", "Cheater" };
+	private String[] noOfTurnsArray = new String[] {"  --Select--  ", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
 			"21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38",
 			"39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50" };
-	private String[] noOfGame = new String[] { "1", "2", "3", "4", "5" };
+	private String[] noOfGame = new String[] {"  --Select--  ", "1", "2", "3", "4", "5" };
 	
 	public  TournamentView(){
 		tournamentController = new TournamentController(this);
@@ -57,38 +57,44 @@ public class TournamentView  extends JFrame implements ActionListener {
 
 		comboBoxSelectMap = new JComboBox<String>(noOfMaps);
 		comboBoxSelectMap.setBounds(380, 90, 90, 30);
-		//comboBoxSelectMap.addActionListener(tournamentController);
+		comboBoxSelectMap.addActionListener(tournamentController);
 		add(comboBoxSelectMap);
 		
 		buttonbrowse1 = new JButton();
 		buttonbrowse1.setText("Browse Map 1");
 		buttonbrowse1.setBounds(40, 180, 120, 30);
-		//buttonbrowse1.addActionListener(tournamentController);
+		buttonbrowse1.addActionListener(tournamentController);
 		add(buttonbrowse1);
+		buttonbrowse1.setVisible(false);
 		
 		buttonbrowse2 = new JButton();
 		buttonbrowse2.setText("Browse Map 2");
 		buttonbrowse2.setBounds(200, 180, 120, 30);
-		//buttonbrowse1.addActionListener(tournamentController);
+		buttonbrowse2.addActionListener(tournamentController);
 		add(buttonbrowse2);
+		buttonbrowse2.setVisible(false);
 		
 		buttonbrowse3 = new JButton();
 		buttonbrowse3.setText("Browse Map 3");
 		buttonbrowse3.setBounds(360, 180, 120, 30);
-		//buttonbrowse1.addActionListener(tournamentController);
+		buttonbrowse3.addActionListener(tournamentController);
 		add(buttonbrowse3);
+		buttonbrowse3.setVisible(false);
 		
 		buttonbrowse4 = new JButton();
 		buttonbrowse4.setText("Browse Map 4");
 		buttonbrowse4.setBounds(520, 180, 120, 30);
-		//buttonbrowse1.addActionListener(tournamentController);
+		buttonbrowse4.addActionListener(tournamentController);
 		add(buttonbrowse4);
+		buttonbrowse4.setVisible(false);
+		
 		
 		buttonbrowse5 = new JButton();
 		buttonbrowse5.setText("Browse Map 5");
 		buttonbrowse5.setBounds(680, 180, 120, 30);
-		//buttonbrowse1.addActionListener(tournamentController);
+		buttonbrowse5.addActionListener(tournamentController);
 		add(buttonbrowse5);
+		buttonbrowse5.setVisible(false);
 		
 		JLabel labelSelectPlayer = new JLabel();
 		labelSelectPlayer.setText("Select the No. of Player to play :");
@@ -97,38 +103,44 @@ public class TournamentView  extends JFrame implements ActionListener {
 		
 		comboBoxSelectplayer = new JComboBox<String>(playersList);
 		comboBoxSelectplayer.setBounds(380, 270, 90, 30);
-		//comboBoxSelectMap.addActionListener(tournamentController);
+		comboBoxSelectplayer.addActionListener(tournamentController);
 		add(comboBoxSelectplayer);
 		
 		comboBoxBehaviourplayer1 = new JComboBox<String>(playerTypesBehaviour);
 		comboBoxBehaviourplayer1.setBounds(10, 350, 120, 30);
-		//comboBoxSelectMap.addActionListener(tournamentController);
+		comboBoxBehaviourplayer1.addActionListener(tournamentController);
 		add(comboBoxBehaviourplayer1);
+		comboBoxBehaviourplayer1.setVisible(false);
 		
 		comboBoxBehaviourplayer2 = new JComboBox<String>(playerTypesBehaviour);
 		comboBoxBehaviourplayer2.setBounds(170, 350, 120, 30);
-		//comboBoxSelectMap.addActionListener(tournamentController);
+		comboBoxBehaviourplayer2.addActionListener(tournamentController);
 		add(comboBoxBehaviourplayer2);
+		comboBoxBehaviourplayer2.setVisible(false);
 		
 		comboBoxBehaviourplayer3 = new JComboBox<String>(playerTypesBehaviour);
 		comboBoxBehaviourplayer3.setBounds(330, 350, 120, 30);
-		//comboBoxSelectMap.addActionListener(tournamentController);
+		comboBoxBehaviourplayer3.addActionListener(tournamentController);
 		add(comboBoxBehaviourplayer3);
+		comboBoxBehaviourplayer3.setVisible(false);
 		
 		comboBoxBehaviourplayer4 = new JComboBox<String>(playerTypesBehaviour);
 		comboBoxBehaviourplayer4.setBounds(490, 350, 120, 30);
-		//comboBoxSelectMap.addActionListener(tournamentController);
+		comboBoxBehaviourplayer4.addActionListener(tournamentController);
 		add(comboBoxBehaviourplayer4);
+		comboBoxBehaviourplayer4.setVisible(false);
 		
 		comboBoxBehaviourplayer5 = new JComboBox<String>(playerTypesBehaviour);
 		comboBoxBehaviourplayer5.setBounds(650, 350, 120, 30);
-		//comboBoxSelectMap.addActionListener(tournamentController);
+		comboBoxBehaviourplayer4.addActionListener(tournamentController);
 		add(comboBoxBehaviourplayer5);
+		comboBoxBehaviourplayer5.setVisible(false);
 		
 		comboBoxBehaviourplayer6 = new JComboBox<String>(playerTypesBehaviour);
 		comboBoxBehaviourplayer6.setBounds(810, 350, 120, 30);
-		//comboBoxSelectMap.addActionListener(tournamentController);
+		comboBoxBehaviourplayer6.addActionListener(tournamentController);
 		add(comboBoxBehaviourplayer6);
+		comboBoxBehaviourplayer6.setVisible(false);
 		
 		JLabel labelSelectNoOfGames = new JLabel();
 		labelSelectNoOfGames.setText("Select  No. of games :");
@@ -137,7 +149,7 @@ public class TournamentView  extends JFrame implements ActionListener {
 		
 		comboBoxSelectNoOfGames = new JComboBox<String>(noOfGame);
 		comboBoxSelectNoOfGames.setBounds(380, 440, 90, 30);
-		//comboBoxSelectMap.addActionListener(tournamentController);
+		comboBoxSelectNoOfGames.addActionListener(tournamentController);
 		add(comboBoxSelectNoOfGames);
 		
 		JLabel labelSelectNoOfTurns = new JLabel();
@@ -148,14 +160,14 @@ public class TournamentView  extends JFrame implements ActionListener {
 		
 		comboBoxSelectNoOfTurns = new JComboBox<String>(noOfTurnsArray);
 		comboBoxSelectNoOfTurns.setBounds(380, 500, 90, 30);
-		//comboBoxSelectMap.addActionListener(tournamentController);
+		comboBoxSelectNoOfTurns.addActionListener(tournamentController);
 		add(comboBoxSelectNoOfTurns);
 		
 		
 		buttonPlayGameTournament = new JButton();
 		buttonPlayGameTournament.setText("Play Tournament Now");
 		buttonPlayGameTournament.setBounds(380, 600, 210, 30);
-		//buttonPlayGameTournament.addActionListener(tournamentController);
+		buttonPlayGameTournament.addActionListener(tournamentController);
 		add(buttonPlayGameTournament);
 		
 
@@ -175,6 +187,172 @@ public class TournamentView  extends JFrame implements ActionListener {
 		});
 		
 	}
+	
+	public void setTournamentController(TournamentController TournamentController) {
+		this.tournamentController = TournamentController;
+	}
+	
+	public TournamentController getTournamentController() {
+		return tournamentController;
+	}
+	
+	public JComboBox<String> getComboBoxSelectMap() {
+		return comboBoxSelectMap;
+	}
+
+	
+	public void setComboBoxSelectMap(JComboBox<String> comboBoxSelectMap) {
+		this.comboBoxSelectMap = comboBoxSelectMap;
+	}
+	
+	public JComboBox<String> getComboBoxSelectNoOfPlayer() {
+		return comboBoxSelectplayer;
+	}
+
+	
+	public void setComboBoxSelectNoOfPlayer(JComboBox<String> comboBoxSelectplayer) {
+		this.comboBoxSelectplayer = comboBoxSelectplayer;
+	}
+	
+	
+	
+	
+	public JButton getbuttonbrowse1() {
+		return buttonbrowse1;
+	}
+	
+	
+
+
+	public void setbuttonbrowse1(JButton buttonbrowse1) {
+		this.buttonbrowse1 = buttonbrowse1;
+	}
+	
+	public JButton getbuttonbrowse2() {
+		return buttonbrowse2;
+	}
+
+
+	public void setbuttonbrowse2(JButton buttonbrowse2) {
+		this.buttonbrowse2 = buttonbrowse2;
+	}
+	
+	public JButton getbuttonbrowse3() {
+		return buttonbrowse3;
+	}
+
+
+	public void setbuttonbrowse3(JButton buttonbrowse3) {
+		this.buttonbrowse3 = buttonbrowse3;
+	}
+	
+	public JButton getbuttonbrowse4() {
+		return buttonbrowse4;
+	}
+
+
+	public void setbuttonbrowse4(JButton buttonbrowse4) {
+		this.buttonbrowse4 = buttonbrowse4;
+	}
+	
+	public JButton getbuttonbrowse5() {
+		return buttonbrowse5;
+	}
+
+
+	public void setbuttonbrowse5(JButton buttonbrowse5) {
+		this.buttonbrowse5 = buttonbrowse5;
+	}
+	
+	public JComboBox<String> getcomboBoxBehaviourplayer1() {
+		return comboBoxBehaviourplayer1;
+	}
+
+	
+	public void setcomboBoxBehaviourplayer1(JComboBox<String> comboBoxBehaviourplayer1) {
+		this.comboBoxBehaviourplayer1 = comboBoxBehaviourplayer1;
+	}
+	
+	public JComboBox<String> getcomboBoxBehaviourplayer2() {
+		return comboBoxBehaviourplayer2;
+	}
+
+	
+	public void setcomboBoxBehaviourplayer2(JComboBox<String> comboBoxBehaviourplayer2) {
+		this.comboBoxBehaviourplayer2 = comboBoxBehaviourplayer2;
+	}
+	
+	public JComboBox<String> getcomboBoxBehaviourplayer3() {
+		return comboBoxBehaviourplayer3;
+	}
+
+	
+	public void setcomboBoxBehaviourplayer3(JComboBox<String> comboBoxBehaviourplayer3) {
+		this.comboBoxBehaviourplayer3 = comboBoxBehaviourplayer3;
+	}
+	
+	public JComboBox<String> getcomboBoxBehaviourplayer4() {
+		return comboBoxBehaviourplayer4;
+	}
+
+	
+	public void setcomboBoxBehaviourplayer4(JComboBox<String> comboBoxBehaviourplayer4) {
+		this.comboBoxBehaviourplayer4 = comboBoxBehaviourplayer4;
+	}
+	
+	public JComboBox<String> getcomboBoxBehaviourplayer5() {
+		return comboBoxBehaviourplayer5;
+	}
+
+	
+	public void setcomboBoxBehaviourplayer5(JComboBox<String> comboBoxBehaviourplayer5) {
+		this.comboBoxBehaviourplayer5 = comboBoxBehaviourplayer5;
+	}
+	
+	public JComboBox<String> getcomboBoxBehaviourplayer6() {
+		return comboBoxBehaviourplayer6;
+	}
+
+	
+	public void setcomboBoxBehaviourplayer6(JComboBox<String> comboBoxBehaviourplayer6) {
+		this.comboBoxBehaviourplayer6 = comboBoxBehaviourplayer6;
+	}
+	
+	public JComboBox<String> getcomboBoxSelectNoOfTurns() {
+		return comboBoxSelectNoOfTurns;
+	}
+
+	
+	public void setcomboBoxSelectNoOfTurns(JComboBox<String> comboBoxSelectNoOfTurns) {
+		this.comboBoxSelectNoOfTurns = comboBoxSelectNoOfTurns;
+	}
+	
+	public JComboBox<String> getcomboBoxSelectNoOfGames() {
+		return comboBoxSelectNoOfGames;
+	}
+
+	
+	public void setcomboBoxSelectNoOfGames(JComboBox<String> comboBoxSelectNoOfGames) {
+		this.comboBoxSelectNoOfGames = comboBoxSelectNoOfGames;
+	}
+	
+	public void setbuttonPlayGameTournament(JButton buttonPlayGameTournament) {
+		this.buttonPlayGameTournament = buttonPlayGameTournament;
+	}
+	
+	public JButton getbuttonPlayGameTournament() {
+		return buttonPlayGameTournament;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
