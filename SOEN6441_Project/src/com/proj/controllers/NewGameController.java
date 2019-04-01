@@ -203,17 +203,22 @@ public class NewGameController implements ActionListener {
 	 *            number of players
 	 */
 	public void initializeNumberOfArmies(Player[] players, int noOfPlayers) {
-		for (int j = 0; j < noOfPlayers; j++) {
-			int value = j + 1;
-			players[j] = new Player("Player" + String.valueOf(value));
-			if (noOfPlayers == 3) {
-				players[j].setNoOfArmiesOwned(25);
-			} else if (noOfPlayers == 4) {
-				players[j].setNoOfArmiesOwned(20);
-			} else if (noOfPlayers == 5) {
-				players[j].setNoOfArmiesOwned(15);
+			for (int j = 0; j < noOfPlayers; j++) {
+				int value = j + 1;
+				players[j] = new Player("Player" + String.valueOf(value));
+				if (noOfPlayers == 3) {
+					players[j].setNoOfArmiesOwned(35);
+				}
+				else if (noOfPlayers == 4) {
+					players[j].setNoOfArmiesOwned(30);
+				}
+				else if (noOfPlayers == 5) {
+					players[j].setNoOfArmiesOwned(25);
+				}
+				else if (noOfPlayers == 6) {
+					players[j].setNoOfArmiesOwned(20);
+				}
 			}
-		}
 	}
 
 	/**
@@ -233,7 +238,27 @@ public class NewGameController implements ActionListener {
 		Player[] players = new Player[noOfPlayers];
 		int pickedNumber = 0;
 		Continent[] continents = new Continent[sCarryMapForward.getContinents().size()];
-		initializeNumberOfArmies(players, noOfPlayers);
+		if(noOfPlayers == 2) {
+			System.out.println("length: "+players.length);
+			Player []newList=new Player[noOfPlayers+1];
+			for (int j = 0; j < 2; j++) {
+				int value = j + 1;
+				newList[j] = new Player("Player" + String.valueOf(value));
+				newList[j].setNoOfArmiesOwned(40);
+			}
+			newList[2] = new Player("Neutral");
+			newList[2].setNoOfArmiesOwned(40);
+			for(Player p : newList) {
+				System.out.println("p1: "+p.getPlayerName());
+			}
+			players = newList;
+			for(Player p : players) {
+				System.out.println("p2: "+p.getPlayerName());
+			}
+		}
+		else {
+			initializeNumberOfArmies(players, noOfPlayers);
+		}
 		Random RandomAllocationCountries = new Random();
 		List<Country> countryModelList = new ArrayList<Country>();
 		List<Continent> continentModelList = new ArrayList<Continent>();
@@ -241,8 +266,11 @@ public class NewGameController implements ActionListener {
 		for (Continent continent : continentModelList) {
 			countryModelList.addAll(continent.getCountriesPresent());
 		}
+		if(players[0]==null) {
+			System.out.println("Yes Null");
+		}
 		while (!(countryModelList.isEmpty())) {
-			for (int count1 = 0; count1 < noOfPlayers; count1++) {
+			for (int count1 = 0; count1 < players.length; count1++) {
 				if (!(countryModelList.isEmpty())) {
 					pickedNumber = RandomAllocationCountries.nextInt(countryModelList.size());
 					Country countryModelTest = countryModelList.get(pickedNumber);

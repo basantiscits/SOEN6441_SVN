@@ -110,10 +110,16 @@ public class FortificationController implements ActionListener {
 				
 				fortifyView.getGameWindow().getGameController().getGameModel().incrementTurn();
 				fortifyView.getGameWindow().getGameController().getGameModel().changePlayer();
+				if(fortifyView.getGameWindow().getGameController().getGameModel().getCurrPlayer().getPlayerName().equalsIgnoreCase("Neutral")) {
+					System.out.println("No turn for neutral Player");
+					fortifyView.getGameWindow().getGameController().getGameModel().incrementTurn();
+					fortifyView.getGameWindow().getGameController().getGameModel().changePlayer();
+					fortifyView.getGameWindow().displayPlayer();
+				}
+				fortifyView.getGameWindow().displayPlayer();
 				fortifyView.getGameWindow().getArmyAllocation().setEnabled(true);
 				fortifyView.getGameWindow().getArmyAllocation().setText("Phase Change");
 				fortifyView.getGameWindow().getArmyAllocation().doClick();
-				fortifyView.getGameWindow().displayPlayer();
 				fortifyView.setVisible(false);
 				fortifyView.getGameWindow().getStartPhaseDefinedLabel().setText("Reinforcement Phase");
 				fortifyView.getGameWindow().getArmyAllocation().setEnabled(true);
@@ -140,10 +146,16 @@ public class FortificationController implements ActionListener {
 			
 			fortifyView.getGameWindow().getGameController().getGameModel().incrementTurn();
 			fortifyView.getGameWindow().getGameController().getGameModel().changePlayer();
+			if(fortifyView.getGameWindow().getGameController().getGameModel().getCurrPlayer().getPlayerName().equalsIgnoreCase("Neutral")) {
+				System.out.println("No turn for neutral Player");
+				fortifyView.getGameWindow().getGameController().getGameModel().incrementTurn();
+				fortifyView.getGameWindow().getGameController().getGameModel().changePlayer();
+				fortifyView.getGameWindow().displayPlayer();
+			}
+			fortifyView.getGameWindow().displayPlayer();
 			fortifyView.getGameWindow().getArmyAllocation().setEnabled(true);
 			fortifyView.getGameWindow().getArmyAllocation().setText("Phase Change");
 			fortifyView.getGameWindow().getArmyAllocation().doClick();
-			fortifyView.getGameWindow().displayPlayer();
 			fortifyView.setVisible(false);
 			
 			fortifyView.getGameWindow().getStartPhaseDefinedLabel().setText("Reinforcement Phase");

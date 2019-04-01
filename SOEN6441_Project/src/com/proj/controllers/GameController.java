@@ -134,8 +134,8 @@ public class GameController implements ActionListener {
 			
 		case "Reinforcement Phase":
 			updateGame((String) gameWindowScreen.getCountriesComboBox().getSelectedItem());
-			gameWindowScreen.reinforce();
 			gameWindowScreen.displayPlayer();
+			gameWindowScreen.reinforce();
 			break;
 			
 		case "Phase Change":

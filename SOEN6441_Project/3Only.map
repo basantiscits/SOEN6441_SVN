@@ -1,0 +1,11 @@
+[Map]
+author=Anonymous
+[Continents]
+Cont1=1
+cont2=1
+cont3=1
+[Territories]
+c1,0.0,0.0,Cont1,c2
+c2,0.0,0.0,cont2,c1,c3
+c3,0.0,0.0,cont3,c1,c2
+

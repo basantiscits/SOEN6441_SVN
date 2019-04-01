@@ -486,6 +486,18 @@ public class AttackController implements ActionListener{
 						attackView.dispose();
 						attackView.getGameWindow().dispose();
 					}
+					if(attackView.getGameModel().getPlayer()[2].getPlayerName().equals("Neutral")) {
+						if(attackView.getGameModel().getPlayer()[0].getCountriesOwned().size()==0) {
+							JOptionPane.showMessageDialog(null, attackView.getPlayer()[1].getPlayerName()+" has won the game\n CONGRATULATIONS");
+							attackView.dispose();
+							attackView.getGameWindow().dispose();
+						}
+						else if(attackView.getGameModel().getPlayer()[1].getCountriesOwned().size()==0) {
+							JOptionPane.showMessageDialog(null, attackView.getPlayer()[0].getPlayerName()+" has won the game\n CONGRATULATIONS");
+							attackView.dispose();
+							attackView.getGameWindow().dispose();
+						}
+					}
 					if(attackView.getSourceCountry().getSelectedItem()==null) {
 						JOptionPane.showMessageDialog(null, attackView.getPlayer()[attackView.getCurrentPlayer()].getPlayerName()+" has no country with armies more than one!!!");
 						attackView.dispose();
@@ -523,18 +535,18 @@ public class AttackController implements ActionListener{
 			else if(attackView.getDestinationCountry().getSelectedItem()==null) {
 				JOptionPane.showMessageDialog(null, "Please select target country");
 			}
-			else if(attackView.getNoOfDice().getSelectedIndex()==-1) {
+/*			else if(attackView.getNoOfDice().getSelectedIndex()==-1) {
 				JOptionPane.showMessageDialog(null, "Please select number of dices  for attacker");
 			}
 			else if(attackView.getNoOfDiceDefender().getSelectedIndex()==-1) {
 				JOptionPane.showMessageDialog(null, "Please select number of dices for defender");
-			}
+			}*/
 			else {
 				System.out.println("All out attack button pressed");
 				String sSourceCountry=(String) attackView.getSourceCountry().getSelectedItem();
 				String sDestinationCountry=(String) attackView.getDestinationCountry().getSelectedItem();
-				int attackerDiceSelection=  Integer.parseInt((String)(attackView.getNoOfDice().getSelectedItem()));
-				int defenderDiceSelection = Integer.parseInt((String)(attackView.getNoOfDiceDefender().getSelectedItem()));
+/*				int attackerDiceSelection=  Integer.parseInt((String)(attackView.getNoOfDice().getSelectedItem()));
+				int defenderDiceSelection = Integer.parseInt((String)(attackView.getNoOfDiceDefender().getSelectedItem()));*/
 				System.out.println("Player Name : "+attackView.getPlayer()+"\n"+ "Source Country :"+ sSourceCountry+"\n"+ "Defender Country :" +sDestinationCountry);
 				boolAttackAllOut=allOutAttack(sSourceCountry,sDestinationCountry);
 
@@ -553,6 +565,18 @@ public class AttackController implements ActionListener{
 						JOptionPane.showMessageDialog(null, attackView.getPlayer()[attackView.getCurrentPlayer()].getPlayerName()+" has won the game\n CONGRATULATIONS");
 						attackView.dispose();
 						attackView.getGameWindow().dispose();
+					}
+					if(attackView.getGameModel().getPlayer()[2].getPlayerName().equals("Neutral")) {
+						if(attackView.getGameModel().getPlayer()[0].getCountriesOwned().size()==0) {
+							JOptionPane.showMessageDialog(null, attackView.getPlayer()[1].getPlayerName()+" has won the game\n CONGRATULATIONS");
+							attackView.dispose();
+							attackView.getGameWindow().dispose();
+						}
+						else if(attackView.getGameModel().getPlayer()[1].getCountriesOwned().size()==0) {
+							JOptionPane.showMessageDialog(null, attackView.getPlayer()[0].getPlayerName()+" has won the game\n CONGRATULATIONS");
+							attackView.dispose();
+							attackView.getGameWindow().dispose();
+						}
 					}
 					if(attackView.getSourceCountry().getSelectedItem()==null) {
 						JOptionPane.showMessageDialog(null, attackView.getPlayer()[attackView.getCurrentPlayer()].getPlayerName()+" has no country with armies more than one!!!");

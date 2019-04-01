@@ -307,16 +307,22 @@ public class Player extends Observable{
 			}
 		}
 		
-		if(possibility==gameScreen.getGameController().getGameModel().getPlayer().length) {
+/*		if(possibility==gameScreen.getGameController().getGameModel().getPlayer().length) {
 			JOptionPane.showMessageDialog(null, "No Player is eligible for further Attack \n Match Drawn!!");
 			gameWindowScreen.dispose();
-		}
+		}*/
 		
 		if(!attackPossible()) {
 			this.setStatus(1);
 			JOptionPane.showMessageDialog(null, "Player is not eligible for Attack and fortification phase");
 			gameWindowScreen.getGameController().getGameModel().incrementTurn();
 			gameWindowScreen.getGameController().getGameModel().changePlayer();
+			if(gameWindowScreen.getGameController().getGameModel().getCurrPlayer().getPlayerName().equalsIgnoreCase("Neutral")) {
+				System.out.println("No turn for neutral Player");
+				gameWindowScreen.getGameController().getGameModel().incrementTurn();
+				gameWindowScreen.getGameController().getGameModel().changePlayer();
+				gameWindowScreen.displayPlayer();
+			}
 			gameWindowScreen.getArmyAllocation().setText("Phase Change");
 			gameWindowScreen.getArmyAllocation().doClick();
 			gameWindowScreen.displayPlayer();

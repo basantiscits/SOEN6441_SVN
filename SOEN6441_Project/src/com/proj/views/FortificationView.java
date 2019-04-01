@@ -404,13 +404,19 @@ public class FortificationView extends JFrame implements ActionListener {
 	 */
 	public void getDisposeMsg() {
 		JOptionPane.showMessageDialog(null,"Player has no country with armies more than one!!!\n Click Ok to finish Fortification Phase");
-
+/*
 		if(checkDraw()) {
 			JOptionPane.showMessageDialog(null, "No Player is eligible to attack \n MATCH DRAWN!!!");
 			getGameWindow().dispose();
-		}
+		}*/
 		getGameWindow().getGameController().getGameModel().incrementTurn();
 		getGameWindow().getGameController().getGameModel().changePlayer();
+		if(getGameWindow().getGameController().getGameModel().getCurrPlayer().getPlayerName().equalsIgnoreCase("Neutral")) {
+			System.out.println("No turn for neutral Player");
+			getGameWindow().getGameController().getGameModel().incrementTurn();
+			getGameWindow().getGameController().getGameModel().changePlayer();
+			getGameWindow().displayPlayer();
+		}
 		getGameWindow().getArmyAllocation().setEnabled(true);
 		getGameWindow().getArmyAllocation().setText("Phase Change");
 		getGameWindow().getArmyAllocation().doClick();

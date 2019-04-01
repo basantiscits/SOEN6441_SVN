@@ -305,7 +305,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 	 * Reinforcement phase
 	 */
 	public void reinforce() {
-		if (gameController.getGameModel().getCurrPlayer().getNoOfArmiesOwned() == 0) {
+		if (gameController.getGameModel().getCurrPlayer().getNoOfArmiesOwned() == 0 && !gameController.getGameModel().getCurrPlayer().getPlayerName().equals("Neutral")) {
 			displayPlayer();
 			gameController.getGameModel().getCurrPlayer().attackPhaseImplementation(gameController.getGameModel().getMapDetails(),gameController.getGameModel().getPlayer(),this);	
 		}
@@ -318,7 +318,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		addPlayerName(gameController.getGameModel().getCurrPlayer().getPlayerName());
 		addCountriesToBox(gameController.getGameModel().getCurrPlayer());
 		armiesAvailable.setText("Number of Armies Available:" + String.valueOf(gameController.getGameModel().getCurrPlayer().getNoOfArmiesOwned()));
-		noOfCardsLabel.setText("No of Cards Available: " + gameModel.getCurrPlayer().getNoOfCardsOwned());
+		noOfCardsLabel.setText("No of Cards Available: " + gameController.getGameModel().getCurrPlayer().getNoOfCardsOwned());
 	}
 
 	/**
