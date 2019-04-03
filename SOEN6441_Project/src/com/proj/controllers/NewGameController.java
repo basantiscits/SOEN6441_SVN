@@ -80,20 +80,48 @@ public class NewGameController implements ActionListener {
 		Map existingMap = new Map();
 		System.out.println("actionPerformed");
 		noOfPlayers = (String) playNewGame.getComboBoxSelectPlayer().getSelectedItem();
-		if (noOfPlayers.trim().equalsIgnoreCase("2")) {
+		if(noOfPlayers.equalsIgnoreCase("  --Select--  ")) {
+			playNewGame.getPlayerLable1().setVisible(false);
+			playNewGame.getPlayerLable2().setVisible(false);
+			playNewGame.getPlayerLable3().setVisible(false);
+			playNewGame.getPlayerLable4().setVisible(false);
+			playNewGame.getPlayerLable5().setVisible(false);
+			playNewGame.getPlayerLable6().setVisible(false);
+			playNewGame.getComboBoxSelectPlayer1().setVisible(false);
+			playNewGame.getComboBoxSelectPlayer2().setVisible(false);
+			playNewGame.getComboBoxSelectPlayer3().setVisible(false);
+			playNewGame.getComboBoxSelectPlayer4().setVisible(false);
+			playNewGame.getComboBoxSelectPlayer5().setVisible(false);
+			playNewGame.getComboBoxSelectPlayer6().setVisible(false);
+		}
+		else if (noOfPlayers.trim().equalsIgnoreCase("2")) {
 			playNewGame.getPlayerLable1().setVisible(true);
 			playNewGame.getPlayerLable2().setVisible(true);
+			playNewGame.getPlayerLable3().setVisible(false);
+			playNewGame.getPlayerLable4().setVisible(false);
+			playNewGame.getPlayerLable5().setVisible(false);
+			playNewGame.getPlayerLable6().setVisible(false);
 			playNewGame.getComboBoxSelectPlayer1().setVisible(true);
 			playNewGame.getComboBoxSelectPlayer2().setVisible(true);
+			playNewGame.getComboBoxSelectPlayer3().setVisible(false);
+			playNewGame.getComboBoxSelectPlayer4().setVisible(false);
+			playNewGame.getComboBoxSelectPlayer5().setVisible(false);
+			playNewGame.getComboBoxSelectPlayer6().setVisible(false);
 		}
 		else if(noOfPlayers.trim().equalsIgnoreCase("3"))
 		{
 			playNewGame.getPlayerLable1().setVisible(true);
 			playNewGame.getPlayerLable2().setVisible(true);
 			playNewGame.getPlayerLable3().setVisible(true);
+			playNewGame.getPlayerLable4().setVisible(false);
+			playNewGame.getPlayerLable5().setVisible(false);
+			playNewGame.getPlayerLable6().setVisible(false);
 			playNewGame.getComboBoxSelectPlayer1().setVisible(true);
 			playNewGame.getComboBoxSelectPlayer2().setVisible(true);
 			playNewGame.getComboBoxSelectPlayer3().setVisible(true);
+			playNewGame.getComboBoxSelectPlayer4().setVisible(false);
+			playNewGame.getComboBoxSelectPlayer5().setVisible(false);
+			playNewGame.getComboBoxSelectPlayer6().setVisible(false);
 		}
 		else if(noOfPlayers.trim().equalsIgnoreCase("4"))
 		{
@@ -101,10 +129,14 @@ public class NewGameController implements ActionListener {
 			playNewGame.getPlayerLable2().setVisible(true);
 			playNewGame.getPlayerLable3().setVisible(true);
 			playNewGame.getPlayerLable4().setVisible(true);
+			playNewGame.getPlayerLable5().setVisible(false);
+			playNewGame.getPlayerLable6().setVisible(false);
 			playNewGame.getComboBoxSelectPlayer1().setVisible(true);
 			playNewGame.getComboBoxSelectPlayer2().setVisible(true);
 			playNewGame.getComboBoxSelectPlayer3().setVisible(true);
 			playNewGame.getComboBoxSelectPlayer4().setVisible(true);
+			playNewGame.getComboBoxSelectPlayer5().setVisible(false);
+			playNewGame.getComboBoxSelectPlayer6().setVisible(false);
 			
 			
 		}
@@ -115,11 +147,13 @@ public class NewGameController implements ActionListener {
 			playNewGame.getPlayerLable3().setVisible(true);
 			playNewGame.getPlayerLable4().setVisible(true);
 			playNewGame.getPlayerLable5().setVisible(true);
+			playNewGame.getPlayerLable6().setVisible(false);
 			playNewGame.getComboBoxSelectPlayer1().setVisible(true);
 			playNewGame.getComboBoxSelectPlayer2().setVisible(true);
 			playNewGame.getComboBoxSelectPlayer3().setVisible(true);
 			playNewGame.getComboBoxSelectPlayer4().setVisible(true);
 			playNewGame.getComboBoxSelectPlayer5().setVisible(true);
+			playNewGame.getComboBoxSelectPlayer6().setVisible(false);
 			
 		}
 		else if(noOfPlayers.trim().equalsIgnoreCase("6"))
@@ -138,6 +172,7 @@ public class NewGameController implements ActionListener {
 			playNewGame.getComboBoxSelectPlayer6().setVisible(true);
 			
 		}
+
 		
 			
 
