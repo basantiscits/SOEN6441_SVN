@@ -46,7 +46,7 @@ public class PlayNewGame extends JFrame implements ActionListener {
 	private JTree mapTree;
 	private JScrollPane treeScrollPane;
 	private NewGameController newGameController;
-	private String [] playerTypesBehaviour = new String[] { "Human", "Aggresive", "Benevolent", "Random", "Cheater" };
+	private String [] playerTypesBehaviour = new String[] { "Human", "Aggressive", "Benevolent", "Random", "Cheater" };
 	private JLabel labelPlayer1, labelPlayer2,labelPlayer3,labelPlayer4,labelPlayer5,labelPlayer6;
 	private JComboBox<String> comboBoxPlayer1;
 	private JComboBox<String> comboBoxPlayer2;

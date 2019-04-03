@@ -25,6 +25,8 @@ public class Player extends Observable{
 	private int noOfCardsOwned = 0;
 	private List<Card> cardsOwned = new ArrayList<Card>();
 	private int cardsForArmies = 0;
+	private BehaviorStrategies strategy;
+	private PlayerType playerType;
 	private GameModelCreation gameModel;
 	private GameWindowScreen gameScreen;
 	
@@ -34,8 +36,9 @@ public class Player extends Observable{
 	 * constructor for Player class
 	 * @param string name of player
 	 */
-	public Player(String string) {
-		this.playerName = string;	
+	public Player(String string, PlayerType playerType) {
+		this.playerName = string;
+		this.playerType = playerType;
 		countriesOwned = new ArrayList<Country>();
 		cardsOwned=new ArrayList<Card>();
 		continentsOwned=new ArrayList<Continent>();
@@ -44,6 +47,30 @@ public class Player extends Observable{
 	
 	
 	
+	public BehaviorStrategies getStrategy() {
+		return strategy;
+	}
+
+
+
+	public void setStrategy(BehaviorStrategies strategy) {
+		this.strategy = strategy;
+	}
+
+
+
+	public PlayerType getPlayerType() {
+		return playerType;
+	}
+
+
+
+	public void setPlayerType(PlayerType playerType) {
+		this.playerType = playerType;
+	}
+
+
+
 	/**
 	 * getter for status
 	 * @return status whether won 
