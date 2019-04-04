@@ -6,7 +6,9 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import com.proj.models.GameModelCreation;
 import com.proj.models.Map;
+import com.proj.models.Player;
 import com.proj.utilites.MapTools;
 import com.proj.views.TournamentView;
 
@@ -27,12 +29,19 @@ public class TournamentController  implements ActionListener {
 	private String sPlayerBehaviour4="";
 	private String sPlayerBehaviour5="";
 	private String sPlayerBehaviour6="";
-	ArrayList<String>addFileName= new ArrayList<String>();
-	ArrayList<String>addPlayerBehaviourName= new ArrayList<String>();
+	ArrayList<String>addFileName;
+	ArrayList<String>addPlayerBehaviourName;
+	ArrayList<Map> maps;
+	Player players[];
+	NewGameController newGameController;
+	
 
 	public TournamentController(TournamentView tournamentView) {
 		// TODO Auto-generated constructor stub
 		this.tournamentView = tournamentView;
+		addFileName=new ArrayList<String>();
+		addPlayerBehaviourName=new ArrayList<String>();
+		maps=new ArrayList<Map>();
 	}
 
 	@Override
@@ -163,12 +172,13 @@ public class TournamentController  implements ActionListener {
 			else{
 				MapTools sFunctions = new MapTools();
 				sPathFileName1 = sFunctions.pickMapFile(existingMap);
-				addFileName.add(sPathFileName1);
 				if (sPathFileName1 == null) {
 				} else {
 					isMapValid1 = sFunctions.parseAndValidateMap(existingMap, Integer.parseInt(noOfPlayer));
 					if (isMapValid1) {
 						JOptionPane.showMessageDialog(null, "Map successfully loaded");
+						addFileName.add(sPathFileName1);
+						maps.add(existingMap);
 					} else {
 						JOptionPane.showMessageDialog(null, "Invalid Map selected");
 						System.out.println(existingMap.getErrorMessage());
@@ -188,12 +198,13 @@ public class TournamentController  implements ActionListener {
 			else{
 				MapTools sFunctions = new MapTools();
 				sPathFileName2 = sFunctions.pickMapFile(existingMap);
-				addFileName.add(sPathFileName2);
 				if (sPathFileName2 == null) {
 				} else {
 					isMapValid2 = sFunctions.parseAndValidateMap(existingMap, Integer.parseInt(noOfPlayer));
 					if (isMapValid2) {
 						JOptionPane.showMessageDialog(null, "Map successfully loaded");
+						addFileName.add(sPathFileName2);
+						maps.add(existingMap);
 					} else {
 						JOptionPane.showMessageDialog(null, "Invalid Map selected");
 						System.out.println(existingMap.getErrorMessage());
@@ -212,22 +223,20 @@ public class TournamentController  implements ActionListener {
 			else{
 				MapTools sFunctions = new MapTools();
 				sPathFileName3 = sFunctions.pickMapFile(existingMap);
-				addFileName.add(sPathFileName3);
 				if (sPathFileName3 == null) {
 				} else {
 					isMapValid3 = sFunctions.parseAndValidateMap(existingMap, Integer.parseInt(noOfPlayer));
 					if (isMapValid3) {
 						JOptionPane.showMessageDialog(null, "Map successfully loaded");
+						addFileName.add(sPathFileName3);
+						maps.add(existingMap);
 					} else {
 						JOptionPane.showMessageDialog(null, "Invalid Map selected");
 						System.out.println(existingMap.getErrorMessage());
 					}
 			}
-			}
-			
-		
-				
-	}
+			}		
+		}
 		if (event.getSource().equals(tournamentView.getbuttonbrowse4())) {
 			if (noOfPlayer.equals("  --Select--  ")) {
 				System.out.println("Select is pressed");
@@ -236,22 +245,20 @@ public class TournamentController  implements ActionListener {
 			else{
 				MapTools sFunctions = new MapTools();
 				sPathFileName4 = sFunctions.pickMapFile(existingMap);
-				addFileName.add(sPathFileName4);
 				if (sPathFileName4 == null) {
 				} else {
 					isMapValid4 = sFunctions.parseAndValidateMap(existingMap, Integer.parseInt(noOfPlayer));
 					if (isMapValid4) {
 						JOptionPane.showMessageDialog(null, "Map successfully loaded");
+						addFileName.add(sPathFileName4);
+						maps.add(existingMap);
 					} else {
 						JOptionPane.showMessageDialog(null, "Invalid Map selected");
 						System.out.println(existingMap.getErrorMessage());
 					}
 			}
-			}
-			
-		
-				
-	}
+			}		
+		}
 		if (event.getSource().equals(tournamentView.getbuttonbrowse5())) {
 			if (noOfPlayer.equals("  --Select--  ")) {
 				System.out.println("Select is pressed");
@@ -260,72 +267,89 @@ public class TournamentController  implements ActionListener {
 			else{
 				MapTools sFunctions = new MapTools();
 				sPathFileName5 = sFunctions.pickMapFile(existingMap);
-				addFileName.add(sPathFileName5);
 				if (sPathFileName5 == null) {
 				} else {
 					isMapValid5 = sFunctions.parseAndValidateMap(existingMap, Integer.parseInt(noOfPlayer));
 					if (isMapValid5) {
 						JOptionPane.showMessageDialog(null, "Map successfully loaded");
+						addFileName.add(sPathFileName5);
+						maps.add(existingMap);
 					} else {
 						JOptionPane.showMessageDialog(null, "Invalid Map selected");
 						System.out.println(existingMap.getErrorMessage());
 					}
 			}
-			}
-			
-		
-				
-	}
+			}		
+		}
 		if (event.getSource().equals(tournamentView.getbuttonPlayGameTournament())) {
-			if (noOfMaps.equals("  --Select--  ")) {
-				//System.out.println("Select is pressed :no of Maps");
-				JOptionPane.showMessageDialog(null, "Please select no. of Map to play game");
+			if(checkParameters()){
+				intitiateTournament();
 			}
 			else{
-				if (noOfPlayer.equals("  --Select--  ")) {
-					//System.out.println("Select is pressed no Of Player");
-					JOptionPane.showMessageDialog(null, "Please select no. of Players to play game");
-				}
-				else
-				{
-					if (noOfGames.equals("  --Select--  ")) {
-						//System.out.println("Select is pressed : no of Games");
-						JOptionPane.showMessageDialog(null, "Please select no. of games");
-					}
-					else
-					{
-						if (noOfTurns.equals("  --Select--  ")) {
-							//System.out.println("Select is pressed no of turns");
-							JOptionPane.showMessageDialog(null, "Please select no. of turns");
-						}
-					}
-					
-				}
-				
+				JOptionPane.showMessageDialog(null, "Reselect required parameters.");
 			}
-			//validation for no of maps selected == browse button file uploaded array count
-			isFileChecked=fncCheckFileUploaded(noOfMaps);
-			if(isFileChecked==false){
-				JOptionPane.showMessageDialog(null, "Please upload all the Map file in the window");
-			}
-			
-			
-			//validation for no of player == no of player in drop down string array count
-		isPlayerAdded=fncCheckPlayerBehaviour(noOfPlayer);
-			if(isPlayerAdded==false){
-				JOptionPane.showMessageDialog(null, "Please select all the player combo box in the window");
-			}
-			
-			
-			
-			
+		}
 		
-			
-			
-		}
-		}
+	}
+	
+	private void intitiateTournament() {
+		// TODO Auto-generated method stub
+		String strategies[]=addPlayerBehaviourName.toArray(new String[0]);
+			players=new Player[Integer.parseInt(noOfPlayer)];
+			newGameController=new NewGameController();
+			for(Map m: maps){
+				players=newGameController.initializingPlayerModels(Integer.parseInt(noOfPlayer), m , strategies );
+				for (int i=0;i<Integer.parseInt(noOfGames);i++){
+					GameModelCreation newGame=new GameModelCreation(m,players);
+					//Method to play game
+					for(Player p:players){
+						System.out.println(p.getStrategy().getClass());
+					}
+				}
+			}
+		
+	}
 
-	private boolean fncCheckPlayerBehaviour(String noOfPlayer2) {
+	private boolean checkParameters(){
+		if (noOfMaps.equals("  --Select--  ")) {
+			//System.out.println("Select is pressed :no of Maps");
+			JOptionPane.showMessageDialog(null, "Please select no. of Map to play game");
+			return false;
+		}
+		if (noOfPlayer.equals("  --Select--  ")) {
+			//System.out.println("Select is pressed no Of Player");
+			JOptionPane.showMessageDialog(null, "Please select no. of Players to play game");
+			return false;
+		}
+		if (noOfGames.equals("  --Select--  ")) {
+			//System.out.println("Select is pressed : no of Games");
+			JOptionPane.showMessageDialog(null, "Please select no. of games");
+			return false;
+		}
+		if (noOfTurns.equals("  --Select--  ")) {
+			//System.out.println("Select is pressed no of turns");
+			JOptionPane.showMessageDialog(null, "Please select no. of turns");
+			return false;
+		}
+		if(addFileName.size()!=Integer.parseInt(noOfMaps)){
+			System.out.println(addFileName);
+			JOptionPane.showMessageDialog(null, "Not all maps are successfully loaded");
+			addFileName.clear();
+			maps.clear();
+			return false;
+		}
+		fncCheckPlayerBehaviour();
+		if(addPlayerBehaviourName.size()!=Integer.parseInt(noOfPlayer)){
+			JOptionPane.showMessageDialog(null, "Not all players are selected.");
+			addPlayerBehaviourName.clear();
+			return false;
+		}
+		return true;
+	
+	}
+	
+ 
+	private void fncCheckPlayerBehaviour() {
 		// TODO Auto-generated method stub
 		boolean isReturnBehaviour;
 		addPlayerBehaviourName.clear();
@@ -354,17 +378,17 @@ public class TournamentController  implements ActionListener {
 			addPlayerBehaviourName.add(sPlayerBehaviour6);
 		}
 		
-		System.out.println("No of File selected in player behaviour : " +addPlayerBehaviourName.size());
-		if(noOfPlayer2.equals(String.valueOf(addPlayerBehaviourName.size())))
-		{
-			isReturnBehaviour=true;
-		}
-		else
-		{
-			isReturnBehaviour=false;
-		}
-		
-		return isReturnBehaviour;
+//		System.out.println("No of File selected in player behaviour : " +addPlayerBehaviourName.size());
+//		if(noOfPlayer2.equals(String.valueOf(addPlayerBehaviourName.size())))
+//		{
+//			isReturnBehaviour=true;
+//		}
+//		else
+//		{
+//			isReturnBehaviour=false;
+//		}
+//		
+//		return isReturnBehaviour;
 	}
 
 	private boolean fncCheckFileUploaded(String noOfMapsSelected) {
@@ -384,3 +408,5 @@ public class TournamentController  implements ActionListener {
 		return isReturn;
 	}
 }
+
+	

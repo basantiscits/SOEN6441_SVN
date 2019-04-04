@@ -66,6 +66,9 @@ public class NewGameController implements ActionListener {
 	public NewGameController(PlayNewGame playNewGame) {
 		this.playNewGame = playNewGame;
 	}
+	public NewGameController(){
+		
+	}
 
 	/**
 	 * action performed to successfully load map, select number of players
@@ -322,7 +325,7 @@ public class NewGameController implements ActionListener {
 				newList[j] = new Player("Player" + String.valueOf(value),playerTypes[j]);
 				newList[j].setNoOfArmiesOwned(40);
 			}
-			newList[2] = new Player("Neutral",PlayerType.Human);
+			newList[2] = new Player("Neutral",PlayerType.Aggressive);
 			newList[2].setNoOfArmiesOwned(40);
 			for(Player p : newList) {
 				System.out.println("p1: "+p.getPlayerName());
