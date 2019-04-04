@@ -1,5 +1,8 @@
 package com.proj.models;
 
+import java.util.ArrayList;
+
+import com.proj.controllers.AttackController;
 
 public class Aggressive implements BehaviorStrategies {
 
@@ -43,8 +46,60 @@ public class Aggressive implements BehaviorStrategies {
 	@Override
 	public void attackPhase(GameModelCreation gameModel) {
 		// TODO Auto-generated method stub
-		Country country = maxArmiesInCountry(gameModel.getCurrPlayer());
+		Player attacker=gameModel.getCurrPlayer();
+		Country attackingCountry = maxArmiesInCountry(gameModel.getCurrPlayer());
+		ArrayList<Country> defendingCountries=new ArrayList<Country>();
+		int flag =0;
+		Country countryToBeChecked = null;
+		for(String c : attackingCountry.getListOfNeighbours()) {
+			for(Continent continent:gameModel.getMapDetails().getContinents()){
+				for(Country country:continent.getCountriesPresent()) {
+					if(country.getCountryName().equalsIgnoreCase(c)) {
+						countryToBeChecked = country;
+					}
+				}
+			}
+			if(!attacker.getCountriesOwned().contains(countryToBeChecked)) {
+				defendingCountries.add(countryToBeChecked);
+				flag=1;
+				System.out.println(c);
+			}
+		}
+		if(flag==1){
+			AttackController attack=new AttackController(gameModel);
+			while(defendingCountries.size()>0){
+				if(!attack.allOutAttack(attackingCountry.getCountryName(), defendingCountries.get(0).getCountryName())){
+					break;
+				}
+				else{
+					attack.numberOfArmiesTransfered(attack.attackerDiceCount, attackingCountry, defendingCountries.get(0));
+					defendingCountries.remove(0);	
+				}
+			}
+			if(attack.countryWon){
+				attacker.getCardsOwned().add(Card.getNewCard());   
+				attacker.setNoOfCardsOwned(gameModel.getCurrPlayer().getNoOfCardsOwned()+1);
+			}
+		}		
 		
+		if(gameModel.getPlayer().length==1){
+			System.out.println("Game Won by "+attacker.getPlayerName()+" "+attacker.getStrategy().getClass());
+			return;
+		}
+		if(attacker.getNoOfCardsOwned()==5){
+			//Cards to implemented
+			attacker.setCardsForArmies(gameModel.getCurrPlayer().getCardsForArmies() + 5);
+			attacker.setNoOfArmiesOwned(gameModel.getCurrPlayer().getNoOfArmiesOwned() + gameModel.getCurrPlayer().getCardsForArmies());
+			Card initialCard=attacker.getCardsOwned().get(0);
+			for(Card card: attacker.getCardsOwned())
+			{
+				if(initialCard==card){
+					attacker.getCardsOwned().remove(card);
+					attacker.setNoOfCardsOwned(gameModel.getCurrPlayer().getNoOfCardsOwned()-1);
+				}
+			}
+		}
+		fortificationPhase(gameModel);
 	}
 
 	@Override

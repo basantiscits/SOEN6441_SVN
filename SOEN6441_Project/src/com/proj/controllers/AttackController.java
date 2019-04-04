@@ -14,6 +14,7 @@ import com.proj.views.FortificationView;
 import com.proj.models.Card;
 import com.proj.models.Continent;
 import com.proj.models.Country;
+import com.proj.models.GameModelCreation;
 import com.proj.models.Map;
 import com.proj.models.Player;
 
@@ -38,10 +39,10 @@ public class AttackController implements ActionListener{
 	public String diceValues;
 	boolean boolAttackAllOut;
 	boolean boolAttack;
-	private int attackerDiceCount;
+	public int attackerDiceCount;
 	private Map map;
 	private Country sourCountry, destCountry;
-	private boolean countryWon;
+	public boolean countryWon;
 	
 	/** 
 	 * attackView class constructor
@@ -61,6 +62,22 @@ public class AttackController implements ActionListener{
 		defenderDiceValues=new ArrayList<Integer>();
 		this.players=attackView.getGameModel().getPlayer();
 		this.map=attackView.getGameModel().getMapDetails();
+		attackerDiceCount=0;
+	}
+	
+	public AttackController(GameModelCreation gameModel){
+		diceRoll=new Random();
+		defender=null;
+		attacker=null;
+		countryAttacking=null;
+		countryDefending=null;
+		noOfAttackingArmies=0;
+		noOfDefendingArmies=0;
+		countryWon=false;
+		attackerDiceValues=new ArrayList<Integer>();
+		defenderDiceValues=new ArrayList<Integer>();
+		this.players=gameModel.getPlayer();
+		this.map=gameModel.getMapDetails();
 		attackerDiceCount=0;
 	}
 	
