@@ -318,26 +318,21 @@ public class Player extends Observable{
 	 * @param playersArray Array object of Player class
 	 * @param gameWindowScreen Object of GameWindowScreen class
 	 */
-	public void attackPhaseImplementation(Map gameMap, Player[] playersArray, GameWindowScreen gameWindowScreen) {
+	public void attackPhaseImplementation(GameModelCreation gameModel, GameWindowScreen gameWindowScreen) {
 		this.gameScreen = gameWindowScreen;
 		gameWindowScreen.getArmyAllocation().setEnabled(false);
 		int index = 0 ;
-		for(int i=0; i < playersArray.length;i++) {
-			if(this == playersArray[i]) {
+		for(int i=0; i < gameModel.getPlayer().length;i++) {
+			if(this == gameModel.getPlayer()[i]) {
 				index = i;
 			}
 		}
 		int possibility = 0;
-		for(Player p : gameScreen.getGameController().getGameModel().getPlayer()) {
+		for(Player p : gameModel.getPlayer()) {
 			if(p.getStatus()==1) {
 				possibility++;
 			}
 		}
-		
-/*		if(possibility==gameScreen.getGameController().getGameModel().getPlayer().length) {
-			JOptionPane.showMessageDialog(null, "No Player is eligible for further Attack \n Match Drawn!!");
-			gameWindowScreen.dispose();
-		}*/
 		
 		if(!attackPossible()) {
 			this.setStatus(1);
@@ -358,8 +353,9 @@ public class Player extends Observable{
 
 		}
 		else {
+			gameModel.setGameState(2);
 			gameWindowScreen.getStartPhaseDefinedLabel().setText("Attack Phase");
-			AttackView attackPhase = new AttackView(gameMap,playersArray, index ,gameWindowScreen);
+			AttackView attackPhase = new AttackView(gameModel);
 			attackPhase.setVisible(true);
 		}
 	}
@@ -371,16 +367,16 @@ public class Player extends Observable{
 	 * @param gameScreen Object of GameWindowScreen class
 	 * @param flag set to 1 if only 1 army present in country
 	 */
-	public void fortificationPhaseImplementation(Map map, Player[] player, GameWindowScreen gameScreen, int flag) {
+	public void fortificationPhaseImplementation(GameModelCreation gameModel, int flag) {
 		int index = 0 ;
-		for(int i=0; i < player.length;i++) {
-			if(this == player[i]) {
+		for(int i=0; i < gameModel.getPlayer().length;i++) {
+			if(this == gameModel.getPlayer()[i]) {
 				index = i;
 			}
 		}
-		
-		gameScreen.getStartPhaseDefinedLabel().setText("Fortification Phase");
-		FortificationView FV = new FortificationView(map, player, index, gameScreen);
+
+		gameModel.setGameState(3);
+		FortificationView FV = new FortificationView(gameModel);
 		FV.setVisible(true);
 		if(flag == 0) {
 			FV.getDisposeMsg();

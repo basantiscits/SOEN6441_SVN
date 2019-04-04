@@ -2,6 +2,8 @@ package com.proj.models;
 
 import java.util.Observable;
 
+import com.proj.views.GameWindowScreen;
+
 /**
  * Game model creation class
  * @author Ofreish
@@ -13,6 +15,28 @@ public class GameModelCreation extends Observable{
 	private Player currPlayer;
 	private Map mapDetails;
 	private int turn;
+	private int gameState = 0;
+	private GameWindowScreen gameScreen;
+
+	
+	public GameWindowScreen getGameScreen() {
+		return gameScreen;
+	}
+
+	public void setGameScreen(GameWindowScreen gameScreen) {
+		this.gameScreen = gameScreen;
+	}
+	
+	
+
+	public int getGameState() {
+		return gameState;
+	}
+
+	public void setGameState(int gameState) {
+		this.gameState = gameState;
+		updateChanges();
+	}
 
 	/**
 	 * constructor of Game Model Creation

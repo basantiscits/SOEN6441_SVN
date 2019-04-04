@@ -32,7 +32,6 @@ import com.proj.utilites.Constants;
 public class PlayNewGame extends JFrame implements ActionListener {
 	private PlayNewGame playNewGame;
 	private String sFileName = "";
-//	private Player[] player ;
 	private String sLocationWhereFileisKept = "";
 	private String sAppendParam = "";
 	private JButton buttonbrowse;
@@ -110,7 +109,7 @@ public class PlayNewGame extends JFrame implements ActionListener {
 		add(comboBoxPlayer1);
 		comboBoxPlayer1.setVisible(false);
 		
-		 labelPlayer2 = new JLabel("Player 2 :  ");
+		labelPlayer2 = new JLabel("Player 2 :  ");
 		labelPlayer2.setBounds(350, 270, 400, 180);
 		add(labelPlayer2);
 		labelPlayer2.setVisible(false);
@@ -121,7 +120,7 @@ public class PlayNewGame extends JFrame implements ActionListener {
 		add(comboBoxPlayer2);
 		comboBoxPlayer2.setVisible(false);
 		
-		 labelPlayer3 = new JLabel("Player 3 :  ");
+		labelPlayer3 = new JLabel("Player 3 :  ");
 		labelPlayer3.setBounds(350, 320, 400, 180);
 		add(labelPlayer3);
 		labelPlayer3.setVisible(false);
@@ -132,7 +131,7 @@ public class PlayNewGame extends JFrame implements ActionListener {
 		add(comboBoxPlayer3);
 		comboBoxPlayer3.setVisible(false);
 		
-		 labelPlayer4 = new JLabel("Player 4 :  ");
+		labelPlayer4 = new JLabel("Player 4 :  ");
 		labelPlayer4.setBounds(350, 370, 400, 180);
 		add(labelPlayer4);
 		labelPlayer4.setVisible(false);
@@ -143,7 +142,7 @@ public class PlayNewGame extends JFrame implements ActionListener {
 		add(comboBoxPlayer4);
 		comboBoxPlayer4.setVisible(false);
 		
-		 labelPlayer5 = new JLabel("Player 5 :  ");
+		labelPlayer5 = new JLabel("Player 5 :  ");
 		labelPlayer5.setBounds(350, 420, 400, 180);
 		add(labelPlayer5);
 		labelPlayer5.setVisible(false);
@@ -243,22 +242,6 @@ public class PlayNewGame extends JFrame implements ActionListener {
 		finally {}
 		return sLocationWhereFileisKept;
 	}
-//
-//	/**
-//	 * getter for Player
-//	 * @return the player
-//	 */
-//	public Player[] getPlayer() {
-//		return player;
-//	}
-//
-//	/**
-//	 * setter for Player
-//	 * @param player the player to set
-//	 */
-//	public void setPlayer(Player[] player) {
-//		this.player = player;
-//	}
 
 	/**
 	 * getter for Location of File
@@ -460,7 +443,7 @@ public class PlayNewGame extends JFrame implements ActionListener {
 	 */
 	public void GameModelWindowMade(Map sCarryMapForward, Player[] player, GameModelCreation gameModel) {
 		dispose();
-		GameWindowScreen GameWindowScreen = new GameWindowScreen(sCarryMapForward,player,gameModel);
+		GameWindowScreen GameWindowScreen = new GameWindowScreen(/*sCarryMapForward,player,*/gameModel);
 		GameWindowScreen.setVisible(true);
 	}
 	

@@ -442,19 +442,16 @@ public class AttackView extends JFrame implements ActionListener {
 	 * @param currentPlayer current player
 	 * @param gameWindowScreen Object of GameWindowScreen class
 	 */
-	public AttackView(Map gameMap, Player[] playersArry, int currentPlayer, GameWindowScreen gameWindowScreen) {
-		this.map = gameMap;
-		this.player = playersArry;
-		this.currentPlayer = currentPlayer;
-		this.gameWindow = gameWindowScreen;
-		this.gameModel = gameWindowScreen.getGameController().getGameModel();
+	public AttackView(GameModelCreation gameModel) {
+
+		this.gameModel = gameModel;
 		attackController = new AttackController(this);
 		setTitle("******ATTACK PHASE******");
 		setResizable(false);
 		setSize(Constants.WIDTH + 300, Constants.HEIGHT);
 		setLayout(null);
 		setLocationRelativeTo(null);	
-		playerName = new JLabel(player[currentPlayer].getPlayerName());
+		playerName = new JLabel(gameModel.getCurrPlayer().getPlayerName());
 		playerName.setBounds(55, 155, 100, 35);
 		add(playerName);
 		source = new JLabel("Source Country");
@@ -561,7 +558,7 @@ public class AttackView extends JFrame implements ActionListener {
 	 */
 	public void addCountryToBox(JComboBox country) {
 		country.removeAllItems();
-		for(Country c : player[currentPlayer].getCountriesOwned()) {
+		for(Country c : gameModel.getCurrPlayer().getCountriesOwned()) {
 			if(c.getNoOfArmiesPresent()>1) {
 				country.addItem(c.getCountryName());
 			}
@@ -578,14 +575,14 @@ public class AttackView extends JFrame implements ActionListener {
 		int flag =0;
 		Country countryToBeChechked = null;
 		for(String c : sourCountry.getListOfNeighbours()) {
-			for(Continent continent:map.getContinents()){
+			for(Continent continent:gameModel.getMapDetails().getContinents()){
 				for(Country country:continent.getCountriesPresent()) {
 					if(country.getCountryName().equalsIgnoreCase(c)) {
 						countryToBeChechked = country;
 					}
 				}
 			}
-			if(!(player[currentPlayer].getCountriesOwned().contains(countryToBeChechked))) {
+			if(!gameModel.getCurrPlayer().getCountriesOwned().contains(countryToBeChechked)) {
 				destinationCountry.addItem(c);
 				flag=1;
 				System.out.println(c);

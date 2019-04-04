@@ -103,28 +103,30 @@ public class FortificationController implements ActionListener {
 
 				transferFortifyArmies(army,sourCountry,destCountry);
 
-				if((fortifyView.getGameWindow().getGameController().getGameModel().getCurrPlayer()==fortifyView.getPlayer()[fortifyView.getPlayer().length-1]) && fortifyView.checkDraw()) {
+				if((fortifyView.getGameModel().getCurrPlayer()==fortifyView.getPlayer()[fortifyView.getPlayer().length-1]) && fortifyView.checkDraw()) {
 					JOptionPane.showMessageDialog(null, "No Player is eligible to attack \n MATCH DRAWN!!!");
-					fortifyView.getGameWindow().dispose();
+					fortifyView.getGameModel().setGameState(10);
+					fortifyView.getGameModel().getGameScreen().dispose();
 				}
 				
-				fortifyView.getGameWindow().getGameController().getGameModel().incrementTurn();
-				fortifyView.getGameWindow().getGameController().getGameModel().changePlayer();
-				if(fortifyView.getGameWindow().getGameController().getGameModel().getCurrPlayer().getPlayerName().equalsIgnoreCase("Neutral")) {
+				fortifyView.getGameModel().incrementTurn();
+				fortifyView.getGameModel().changePlayer();
+				if(fortifyView.getGameModel().getCurrPlayer().getPlayerName().equalsIgnoreCase("Neutral")) {
 					System.out.println("No turn for neutral Player");
-					fortifyView.getGameWindow().getGameController().getGameModel().incrementTurn();
-					fortifyView.getGameWindow().getGameController().getGameModel().changePlayer();
-					fortifyView.getGameWindow().displayPlayer();
+					fortifyView.getGameModel().incrementTurn();
+					fortifyView.getGameModel().changePlayer();
+					fortifyView.getGameModel().getGameScreen().displayPlayer();
 				}
-				fortifyView.getGameWindow().displayPlayer();
-				fortifyView.getGameWindow().getArmyAllocation().setEnabled(true);
-				fortifyView.getGameWindow().getArmyAllocation().setText("Phase Change");
-				fortifyView.getGameWindow().getArmyAllocation().doClick();
+				fortifyView.getGameModel().getGameScreen().displayPlayer();
+				fortifyView.getGameModel().getGameScreen().getArmyAllocation().setEnabled(true);
+				fortifyView.getGameModel().getGameScreen().getArmyAllocation().setText("Phase Change");
+				fortifyView.getGameModel().getGameScreen().getArmyAllocation().doClick();
 				fortifyView.setVisible(false);
-				fortifyView.getGameWindow().getStartPhaseDefinedLabel().setText("Reinforcement Phase");
-				fortifyView.getGameWindow().getArmyAllocation().setEnabled(true);
+				fortifyView.getGameModel().setGameState(1);
+				fortifyView.getGameModel().getGameScreen().getStartPhaseDefinedLabel().setText("Reinforcement Phase");
+				fortifyView.getGameModel().getGameScreen().getArmyAllocation().setEnabled(true);
 				fortifyView.dispose();
-				fortifyView.getGameWindow().getGameController().cardExchange();
+				fortifyView.getGameModel().getGameScreen().getGameController().cardExchange();
 				
 			} 
 			else if (sourCountry == null) {
@@ -141,29 +143,30 @@ public class FortificationController implements ActionListener {
 			
 			if(fortifyView.checkDraw()) {
 				JOptionPane.showMessageDialog(null, "No Player is eligible to attack \n MATCH DRAWN!!!");
-				fortifyView.getGameWindow().dispose();
+				fortifyView.getGameModel().setGameState(10);
+				fortifyView.getGameModel().getGameScreen().dispose();
 			}
 			
-			fortifyView.getGameWindow().getGameController().getGameModel().incrementTurn();
-			fortifyView.getGameWindow().getGameController().getGameModel().changePlayer();
-			if(fortifyView.getGameWindow().getGameController().getGameModel().getCurrPlayer().getPlayerName().equalsIgnoreCase("Neutral")) {
+			fortifyView.getGameModel().incrementTurn();
+			fortifyView.getGameModel().changePlayer();
+			if(fortifyView.getGameModel().getCurrPlayer().getPlayerName().equalsIgnoreCase("Neutral")) {
 				System.out.println("No turn for neutral Player");
-				fortifyView.getGameWindow().getGameController().getGameModel().incrementTurn();
-				fortifyView.getGameWindow().getGameController().getGameModel().changePlayer();
-				fortifyView.getGameWindow().displayPlayer();
+				fortifyView.getGameModel().incrementTurn();
+				fortifyView.getGameModel().changePlayer();
+				fortifyView.getGameModel().getGameScreen().displayPlayer();
 			}
-			fortifyView.getGameWindow().displayPlayer();
-			fortifyView.getGameWindow().getArmyAllocation().setEnabled(true);
-			fortifyView.getGameWindow().getArmyAllocation().setText("Phase Change");
-			fortifyView.getGameWindow().getArmyAllocation().doClick();
+			fortifyView.getGameModel().getGameScreen().displayPlayer();
+			fortifyView.getGameModel().getGameScreen().getArmyAllocation().setEnabled(true);
+			fortifyView.getGameModel().getGameScreen().getArmyAllocation().setText("Phase Change");
+			fortifyView.getGameModel().getGameScreen().getArmyAllocation().doClick();
 			fortifyView.setVisible(false);
-			
-			fortifyView.getGameWindow().getStartPhaseDefinedLabel().setText("Reinforcement Phase");
-			fortifyView.getGameWindow().getArmyAllocation().setEnabled(true);
+			fortifyView.getGameModel().setGameState(1);
+			fortifyView.getGameModel().getGameScreen().getStartPhaseDefinedLabel().setText("Reinforcement Phase");
+			fortifyView.getGameModel().getGameScreen().getArmyAllocation().setEnabled(true);
 			fortifyView.dispose();
 			
-			System.out.println("Player name after fortification: -"+fortifyView.getGameWindow().getGameController().getGameModel().getCurrPlayer().getPlayerName());
-			fortifyView.getGameWindow().getGameController().cardExchange();
+			System.out.println("Player name after fortification: -"+fortifyView.getGameModel().getGameScreen().getGameController().getGameModel().getCurrPlayer().getPlayerName());
+			fortifyView.getGameModel().getGameScreen().getGameController().cardExchange();
 		}
 	}
 	

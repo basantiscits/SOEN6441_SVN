@@ -59,8 +59,8 @@ public class AttackController implements ActionListener{
 		countryWon=false;
 		attackerDiceValues=new ArrayList<Integer>();
 		defenderDiceValues=new ArrayList<Integer>();
-		this.players=attackView.getPlayer();
-		this.map=attackView.getMap();
+		this.players=attackView.getGameModel().getPlayer();
+		this.map=attackView.getGameModel().getMapDetails();
 		attackerDiceCount=0;
 	}
 	
@@ -328,17 +328,17 @@ public class AttackController implements ActionListener{
 				}
 				players=newList;
 			}
-			Continent continentName = map.searchContinent(countryDefending);
-			for(Continent c : map.getContinents()) {
+			Continent continentName = attackView.getGameModel().getMapDetails().searchContinent(countryDefending);
+			for(Continent c : attackView.getGameModel().getMapDetails().getContinents()) {
 				if(defender.getContinentsOwned().contains(continentName)) {
 					defender.getContinentsOwned().remove(continentName);
 				}
 			}
 			
-			for(Continent c:map.getContinents()) {
+			for(Continent c:attackView.getGameModel().getMapDetails().getContinents()) {
 				if(attacker.getCountriesOwned().containsAll(c.getCountriesPresent()) && !attacker.getContinentsOwned().contains(c)) {
 					attacker.getContinentsOwned().add(c);
-					for(Player p :attackView.getPlayer()) {
+					for(Player p :attackView.getGameModel().getPlayer()) {
 						if(p.getContinentsOwned().contains(c) && p!=attacker) {
 							p.getContinentsOwned().remove(c);
 						}
@@ -418,14 +418,14 @@ public class AttackController implements ActionListener{
 				attackView.getNoOfDiceDefender().removeAllItems();
 				destCountry = null;
 				String countryName = (String) attackView.getSourceCountry().getSelectedItem();
-				sourCountry = attackView.getMap().searchCountry(countryName);
+				sourCountry = attackView.getGameModel().getMapDetails().searchCountry(countryName);
 				attackView.getArmiesInSource().setText(String.valueOf(sourCountry.getNoOfArmiesPresent()));
 				boolean check = attackView.addDestCountries(sourCountry);
 				if(check) {
 					attackView.getDestinationCountry().setSelectedIndex(0);
 
 					String destinationSelected = (String) attackView.getDestinationCountry().getSelectedItem();
-					destCountry = attackView.getMap().searchCountry(destinationSelected);
+					destCountry = attackView.getGameModel().getMapDetails().searchCountry(destinationSelected);
 					System.out.println("AGGGGG :"+destCountry.getCountryName()+" String: "+destinationSelected);
 					attackView.getArmiesInDestination().setText(String.valueOf(destCountry.getNoOfArmiesPresent()));
 					attackView.selectDices();
@@ -440,7 +440,7 @@ public class AttackController implements ActionListener{
 			if (attackView.getDestinationCountry().getItemCount() != 0) {
 				attackView.getNoOfDiceDefender().removeAllItems();
 				String destinationSelected = (String) attackView.getDestinationCountry().getSelectedItem();
-				destCountry = attackView.getMap().searchCountry(destinationSelected);
+				destCountry = attackView.getGameModel().getMapDetails().searchCountry(destinationSelected);
 				attackView.getArmiesInDestination().setText(String.valueOf(destCountry.getNoOfArmiesPresent()));
 				attackView.selectDefenderDice();
 			}
@@ -468,7 +468,7 @@ public class AttackController implements ActionListener{
 
 				int attackerDiceSelection=  Integer.parseInt((String)(attackView.getNoOfDice().getSelectedItem()));
 				int defenderDiceSelection = Integer.parseInt((String)(attackView.getNoOfDiceDefender().getSelectedItem()));
-				System.out.println("Player Name : "+attackView.getPlayer()+"\n"+ "Source Country :"+ sSourceCountry+"\n"+ "Defender Country :" +sDestinationCountry+"\n"+ "No of Dices of Attacker : "+attackerDiceSelection);
+				System.out.println("Player Name : "+attackView.getGameModel().getCurrPlayer()+"\n"+ "Source Country :"+ sSourceCountry+"\n"+ "Defender Country :" +sDestinationCountry+"\n"+ "No of Dices of Attacker : "+attackerDiceSelection);
 				
 				boolAttack=normalAttack(sSourceCountry,sDestinationCountry,attackerDiceSelection, defenderDiceSelection);
 				if (boolAttack== true) {
@@ -482,27 +482,27 @@ public class AttackController implements ActionListener{
 					transferArmy(attackerDiceSelection);	
 					attackView.addCountryToBox(attackView.getSourceCountry());
 					if(attackView.getGameModel().getCurrPlayer().getCountriesOwned().size()==attackView.getGameModel().getMapDetails().listOfCountryNames().size()) {
-						JOptionPane.showMessageDialog(null, attackView.getPlayer()[attackView.getCurrentPlayer()].getPlayerName()+" has won the game\n CONGRATULATIONS");
+						JOptionPane.showMessageDialog(null, attackView.getGameModel().getCurrPlayer().getPlayerName()+" has won the game\n CONGRATULATIONS");
 						attackView.dispose();
-						attackView.getGameWindow().dispose();
+						attackView.getGameModel().getGameScreen().dispose();
 					}
 					if(attackView.getGameModel().getPlayer()[2].getPlayerName().equals("Neutral")) {
 						if(attackView.getGameModel().getPlayer()[0].getCountriesOwned().size()==0) {
-							JOptionPane.showMessageDialog(null, attackView.getPlayer()[1].getPlayerName()+" has won the game\n CONGRATULATIONS");
+							JOptionPane.showMessageDialog(null, attackView.getGameModel().getCurrPlayer().getPlayerName()+" has won the game\n CONGRATULATIONS");
 							attackView.dispose();
-							attackView.getGameWindow().dispose();
+							attackView.getGameModel().getGameScreen().dispose();
 						}
 						else if(attackView.getGameModel().getPlayer()[1].getCountriesOwned().size()==0) {
-							JOptionPane.showMessageDialog(null, attackView.getPlayer()[0].getPlayerName()+" has won the game\n CONGRATULATIONS");
+							JOptionPane.showMessageDialog(null, attackView.getGameModel().getCurrPlayer().getPlayerName()+" has won the game\n CONGRATULATIONS");
 							attackView.dispose();
-							attackView.getGameWindow().dispose();
+							attackView.getGameModel().getGameScreen().dispose();
 						}
 					}
 					if(attackView.getSourceCountry().getSelectedItem()==null) {
-						JOptionPane.showMessageDialog(null, attackView.getPlayer()[attackView.getCurrentPlayer()].getPlayerName()+" has no country with armies more than one!!!");
+						JOptionPane.showMessageDialog(null, attackView.getGameModel().getCurrPlayer().getPlayerName()+" has no country with armies more than one!!!");
 						attackView.dispose();
 						int flag=0;
-						attackView.getGameModel().getCurrPlayer().fortificationPhaseImplementation(attackView.getMap(), attackView.getPlayer(), attackView.getGameWindow(),flag);
+						attackView.getGameModel().getCurrPlayer().fortificationPhaseImplementation(attackView.getGameModel(),flag);
 					}
 				}
 				else {
@@ -520,10 +520,10 @@ public class AttackController implements ActionListener{
 						attackView.getArmiesInDestination().setText("");
 					}
 					if(attackView.getSourceCountry().getSelectedItem()==null) {
-						JOptionPane.showMessageDialog(null, attackView.getPlayer()[attackView.getCurrentPlayer()].getPlayerName()+" has no country with armies more than one!!!");
+						JOptionPane.showMessageDialog(null,attackView.getGameModel().getCurrPlayer().getPlayerName()+" has no country with armies more than one!!!");
 						attackView.dispose();
 						int flag = 0;
-						attackView.getGameModel().getCurrPlayer().fortificationPhaseImplementation(attackView.getMap(), attackView.getPlayer(), attackView.getGameWindow(),flag);
+						attackView.getGameModel().getCurrPlayer().fortificationPhaseImplementation(attackView.getGameModel(),flag);
 					}
 				}
 			}		
@@ -535,19 +535,12 @@ public class AttackController implements ActionListener{
 			else if(attackView.getDestinationCountry().getSelectedItem()==null) {
 				JOptionPane.showMessageDialog(null, "Please select target country");
 			}
-/*			else if(attackView.getNoOfDice().getSelectedIndex()==-1) {
-				JOptionPane.showMessageDialog(null, "Please select number of dices  for attacker");
-			}
-			else if(attackView.getNoOfDiceDefender().getSelectedIndex()==-1) {
-				JOptionPane.showMessageDialog(null, "Please select number of dices for defender");
-			}*/
+
 			else {
 				System.out.println("All out attack button pressed");
 				String sSourceCountry=(String) attackView.getSourceCountry().getSelectedItem();
 				String sDestinationCountry=(String) attackView.getDestinationCountry().getSelectedItem();
-/*				int attackerDiceSelection=  Integer.parseInt((String)(attackView.getNoOfDice().getSelectedItem()));
-				int defenderDiceSelection = Integer.parseInt((String)(attackView.getNoOfDiceDefender().getSelectedItem()));*/
-				System.out.println("Player Name : "+attackView.getPlayer()+"\n"+ "Source Country :"+ sSourceCountry+"\n"+ "Defender Country :" +sDestinationCountry);
+				System.out.println("Player Name : "+attackView.getGameModel().getCurrPlayer()+"\n"+ "Source Country :"+ sSourceCountry+"\n"+ "Defender Country :" +sDestinationCountry);
 				boolAttackAllOut=allOutAttack(sSourceCountry,sDestinationCountry);
 
 				if (boolAttackAllOut== true) {
@@ -562,27 +555,27 @@ public class AttackController implements ActionListener{
 					attackView.addCountryToBox(attackView.getSourceCountry());
 					System.out.println("chl pya");
 					if(attackView.getGameModel().getCurrPlayer().getCountriesOwned().size()==attackView.getGameModel().getMapDetails().listOfCountryNames().size()) {
-						JOptionPane.showMessageDialog(null, attackView.getPlayer()[attackView.getCurrentPlayer()].getPlayerName()+" has won the game\n CONGRATULATIONS");
+						JOptionPane.showMessageDialog(null, attackView.getGameModel().getCurrPlayer().getPlayerName()+" has won the game\n CONGRATULATIONS");
 						attackView.dispose();
-						attackView.getGameWindow().dispose();
+						attackView.getGameModel().getGameScreen().dispose();
 					}
 					if(attackView.getGameModel().getPlayer()[2].getPlayerName().equals("Neutral")) {
 						if(attackView.getGameModel().getPlayer()[0].getCountriesOwned().size()==0) {
-							JOptionPane.showMessageDialog(null, attackView.getPlayer()[1].getPlayerName()+" has won the game\n CONGRATULATIONS");
+							JOptionPane.showMessageDialog(null,attackView.getGameModel().getCurrPlayer()+" has won the game\n CONGRATULATIONS");
 							attackView.dispose();
-							attackView.getGameWindow().dispose();
+							attackView.getGameModel().getGameScreen().dispose();
 						}
 						else if(attackView.getGameModel().getPlayer()[1].getCountriesOwned().size()==0) {
-							JOptionPane.showMessageDialog(null, attackView.getPlayer()[0].getPlayerName()+" has won the game\n CONGRATULATIONS");
+							JOptionPane.showMessageDialog(null, attackView.getGameModel().getCurrPlayer()+" has won the game\n CONGRATULATIONS");
 							attackView.dispose();
-							attackView.getGameWindow().dispose();
+							attackView.getGameModel().getGameScreen().dispose();
 						}
 					}
 					if(attackView.getSourceCountry().getSelectedItem()==null) {
-						JOptionPane.showMessageDialog(null, attackView.getPlayer()[attackView.getCurrentPlayer()].getPlayerName()+" has no country with armies more than one!!!");
+						JOptionPane.showMessageDialog(null, attackView.getGameModel().getCurrPlayer().getPlayerName()+" has no country with armies more than one!!!");
 						attackView.dispose();
 						int flag = 0;
-						attackView.getGameModel().getCurrPlayer().fortificationPhaseImplementation(attackView.getMap(), attackView.getPlayer(), attackView.getGameWindow(),flag);
+						attackView.getGameModel().getCurrPlayer().fortificationPhaseImplementation(attackView.getGameModel(),flag);
 					}
 				}
 				else {
@@ -599,10 +592,10 @@ public class AttackController implements ActionListener{
 						attackView.getArmiesInDestination().setText("");
 					}
 					if(attackView.getSourceCountry().getSelectedItem()==null) {
-						JOptionPane.showMessageDialog(null, attackView.getPlayer()[attackView.getCurrentPlayer()].getPlayerName()+" has no country with armies more than one!!!");
+						JOptionPane.showMessageDialog(null, attackView.getGameModel().getCurrPlayer().getPlayerName()+" has no country with armies more than one!!!");
 						attackView.dispose();
 						int flag = 0;
-						attackView.getGameModel().getCurrPlayer().fortificationPhaseImplementation(attackView.getMap(), attackView.getPlayer(), attackView.getGameWindow(),flag);	
+						attackView.getGameModel().getCurrPlayer().fortificationPhaseImplementation(attackView.getGameModel(),flag);	
 					}
 				}
 			}
@@ -617,7 +610,7 @@ public class AttackController implements ActionListener{
 			countryWon=false;
 			attackView.dispose();
 			int flag = 1;
-			attackView.getGameModel().getCurrPlayer().fortificationPhaseImplementation(attackView.getMap(), attackView.getPlayer(), attackView.getGameWindow(),flag);
+			attackView.getGameModel().getCurrPlayer().fortificationPhaseImplementation(attackView.getGameModel(),flag);
 		}
 	}
 	

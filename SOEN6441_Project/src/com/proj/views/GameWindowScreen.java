@@ -113,19 +113,17 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 	 * @param player Array object of Player class 
 	 * @param gameModel Object of GameModelCreation class
 	 */
-	public GameWindowScreen(Map gameMap, Player[] player, GameModelCreation gameModel) {
+	public GameWindowScreen(GameModelCreation gameModel) {
 		super("Game Window");
-		this.gameMap = gameMap;
-		this.player = player;
 		this.gameModel = gameModel;
-		for (Player p : player) {
+		for (Player p : gameModel.getPlayer()) {
 			p.addObserver(this);
 			for(Country c :p.getCountriesOwned()) {
 				c.addObserver(this);
 			}
 		}
 		
-		gameController = new GameController(this, gameMap, player);
+		gameController = new GameController(this, gameModel);
 		gameController.getGameModel().addObserver(this);
 		
 		setSize(Constants.MAP_EDITOR_WIDTH, Constants.MAP_EDITOR_HEIGHT);
@@ -199,7 +197,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		playerDominationPanel.setBackground(Color.lightGray);
 		playerDominationPanel.setLayout(new FlowLayout());
 		
-		playerDominationLabel = new JLabel("Players "+gameMap.getName()+ " Domination View");
+		playerDominationLabel = new JLabel("Players "+gameModel.getMapDetails().getName()+ " Domination View");
 		playerDominationLabel.setFont(new Font("dialog", 1, 11));
 		playerDominationPanel.setBorder(blackline);
 		playerDominationPanel.add(playerDominationLabel);
@@ -208,12 +206,12 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		tableHeader = new JPanel();
 		tableHeader.setBounds(startUpScrollPane.getBounds().x + (int) (startUpScrollPane.getBounds().getWidth()),playerDominationPanel.getBounds().y + (int) (playerDominationPanel.getBounds().getHeight())+5, 320, 25);
 
-		tableHeaderLabel = new JLabel("Map contains " + gameMap.listOfContinentNames().size()+" Continents and  "+ gameMap.listOfCountryNames().size()+" Countries");
+		tableHeaderLabel = new JLabel("Map contains " + gameModel.getMapDetails().listOfContinentNames().size()+" Continents and  "+ gameModel.getMapDetails().listOfCountryNames().size()+" Countries");
 		tableHeaderLabel.setFont(new Font("dialog", 1, 15));
 		tableHeader.add(tableHeaderLabel);
 		
 		
-		tableHeaderLabel = new JLabel("Total Countries " + gameMap.listOfCountryNames().size());
+		tableHeaderLabel = new JLabel("Total Countries " + gameModel.getMapDetails().listOfCountryNames().size());
 		tableHeaderLabel.setFont(new Font("dialog", 1, 15));
 		tableHeaderLabel.setBorder(blackline);
 		tableHeader.add(tableHeaderLabel);
@@ -224,15 +222,14 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		progressBarPanel = new JPanel();
 		progressBarPanel.setBounds((strengthPane.getBounds().x + (int) (strengthPane.getBounds().getWidth())),tableHeader.getBounds().y + (int) (tableHeader.getBounds().getHeight()), (int) (200),frameSize.height - 500);
 		
-
-		currentPlayerName = new JLabel(player[currentPlayer].getPlayerName());
+		currentPlayerName = new JLabel(gameModel.getCurrPlayer().getPlayerName());
 		currentPlayerName.setBounds(50, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 20,100, 30);
 		add(currentPlayerName);
 
 		countriesComboBox = new JComboBox();
 		countriesComboBox.setBounds(150, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 20,150, 30);
 		add(countriesComboBox);
-		addCountriesToBox(player[currentPlayer]);
+		addCountriesToBox(gameModel.getCurrPlayer());
 		
 		
 		cardExchangePanel = new JPanel();
@@ -276,7 +273,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		armyAllocation.addActionListener(gameController);
 		add(armyAllocation);
 
-		armiesAvailable = new JLabel("Number of Armies Available:" + String.valueOf(player[currentPlayer].getNoOfArmiesOwned()));
+		armiesAvailable = new JLabel("Number of Armies Available:" + String.valueOf(gameModel.getCurrPlayer().getNoOfArmiesOwned()));
 		armiesAvailable.setBounds(600, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 20,200, 30);
 		
 		noOfCardsLabel = new JLabel("No of Cards Available: " + gameModel.getCurrPlayer().getNoOfCardsOwned() );
@@ -297,7 +294,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		addProgressBar(gameController.getGameModel());
 		
 		displayPlayer();
-		gameController.getGameModel().incrementTurn();
+		gameModel.incrementTurn();
 		
 	}
 
@@ -305,9 +302,9 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 	 * Reinforcement phase
 	 */
 	public void reinforce() {
-		if (gameController.getGameModel().getCurrPlayer().getNoOfArmiesOwned() == 0 && !gameController.getGameModel().getCurrPlayer().getPlayerName().equals("Neutral")) {
+		if (gameModel.getCurrPlayer().getNoOfArmiesOwned() == 0 && !gameModel.getCurrPlayer().getPlayerName().equals("Neutral")) {
 			displayPlayer();
-			gameController.getGameModel().getCurrPlayer().attackPhaseImplementation(gameController.getGameModel().getMapDetails(),gameController.getGameModel().getPlayer(),this);	
+			gameModel.getCurrPlayer().attackPhaseImplementation(gameModel,this);	
 		}
 	}
 
@@ -315,10 +312,23 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 	 * Displays number of armies available
 	 */
 	public void displayPlayer() {
-		addPlayerName(gameController.getGameModel().getCurrPlayer().getPlayerName());
-		addCountriesToBox(gameController.getGameModel().getCurrPlayer());
-		armiesAvailable.setText("Number of Armies Available:" + String.valueOf(gameController.getGameModel().getCurrPlayer().getNoOfArmiesOwned()));
-		noOfCardsLabel.setText("No of Cards Available: " + gameController.getGameModel().getCurrPlayer().getNoOfCardsOwned());
+		addPlayerName(gameModel.getCurrPlayer().getPlayerName());
+		addCountriesToBox(gameModel.getCurrPlayer());
+		armiesAvailable.setText("Number of Armies Available:" + String.valueOf(gameModel.getCurrPlayer().getNoOfArmiesOwned()));
+		noOfCardsLabel.setText("No of Cards Available: " + gameModel.getCurrPlayer().getNoOfCardsOwned());
+		if(gameModel.getGameState()==0) {
+			getStartPhaseDefinedLabel().setText("StartUp Phase");
+		}
+		else if(gameModel.getGameState()==1) {
+			getStartPhaseDefinedLabel().setText("Reinforcement Phase");
+		}
+		else if(gameModel.getGameState()==2) {
+			getStartPhaseDefinedLabel().setText("Attack Phase");
+		}
+		else if(gameModel.getGameState()==3) {
+			getStartPhaseDefinedLabel().setText("Fortification Phase");
+		}
+
 	}
 
 	/**
@@ -326,7 +336,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 	 */
 	public void countriesMatrix() {
 		System.out.println("inside countriesMAtrix");
-		countries = gameMap.listOfCountryNames();
+		countries = gameModel.getMapDetails().listOfCountryNames();
 		int noOfCountries = countries.size();
 		DefaultTableModel dtm = new DefaultTableModel(noOfCountries, noOfCountries) {
 			private static final long serialVersionUID = 1L;
@@ -363,7 +373,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		tableMatrix.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		scrollPane.getViewport().removeAll();
 		scrollPane.getViewport().add(tableMatrix);
-		for (Continent currentContinent : gameMap.getContinents()) {
+		for (Continent currentContinent : gameModel.getMapDetails().getContinents()) {
 			for (Country currentCountry : currentContinent.getCountriesPresent()) {
 				int row_length = data.length;
 				int column_length = data[0].length;
@@ -388,8 +398,8 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 	 * This method create Tree with all the continents and countries
 	 */
 	public void createTree() {
-		DefaultMutableTreeNode top = new DefaultMutableTreeNode("Map - " + gameMap.getName() + "");
-		for (Continent continent : gameMap.getContinents()) {
+		DefaultMutableTreeNode top = new DefaultMutableTreeNode("Map - " + gameModel.getMapDetails().getName() + "");
+		for (Continent continent : gameModel.getMapDetails().getContinents()) {
 			DefaultMutableTreeNode branch = new DefaultMutableTreeNode(continent.getContinentName());
 			for (Country country : continent.getCountriesPresent()) {
 				DefaultMutableTreeNode subBranch = new DefaultMutableTreeNode(country.getCountryName());
@@ -975,7 +985,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 	 */
 	public void createStartUpTree() {
 		DefaultMutableTreeNode top = new DefaultMutableTreeNode("Initial Allocation");
-		for (Player P : player) {
+		for (Player P : gameModel.getPlayer()) {
 			DefaultMutableTreeNode branch = new DefaultMutableTreeNode(P.getPlayerName());
 			for (Country C : P.getCountriesOwned()) {
 				DefaultMutableTreeNode subBranch = new DefaultMutableTreeNode(
@@ -1005,7 +1015,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 					data[i][j] = gameModel.getPlayer()[i].getPlayerName();
 				} 
 				else if(j==1){
-					data[i][j] = String.valueOf(gameModel.getPlayer()[i].getCountriesOwned().size()+"  ("+ (int) (((double) gameModel.getPlayer()[i].getCountriesOwned().size()/gameMap.listOfCountryNames().size()) * 100)+"%)");
+					data[i][j] = String.valueOf(gameModel.getPlayer()[i].getCountriesOwned().size()+"  ("+ (int) (((double) gameModel.getPlayer()[i].getCountriesOwned().size()/gameModel.getMapDetails().listOfCountryNames().size()) * 100)+"%)");
 				}
 				else if(j==2){
 					data[i][j] = String.valueOf(gameModel.getPlayer()[i].getContinentsOwned().size());
@@ -1062,9 +1072,6 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 	 */
 	public void cardExchangeView() {	
 		
-		gameModel = gameController.getGameModel();
-	
-	
 		cardExchangeFrame.setTitle(gameModel.getCurrPlayer().getPlayerName());
 		
 		
@@ -1077,14 +1084,8 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 			 	 doExchangeCardsNow();
 			 } 
 		}
-		else if(gameModel.getCurrPlayer().getNoOfCardsOwned()<3) {
-			
-			//exchangeButton.setEnabled(false);
-			//doExchangeCardsNow();
+		else if(gameModel.getCurrPlayer().getNoOfCardsOwned()<3) {}
 
-		}
-		
-		
 		else {
 			cardExchangeFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);  
 			exchangeButton.setEnabled(true);
@@ -1288,7 +1289,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		Player[] players = gameModel.getPlayer();
 		for (int i = 0; i < players.length; i++) {
 			progressBar = new JProgressBar();
-			int value = (int) (((double) players[i].getCountriesOwned().size()/gameMap.listOfCountryNames().size()) * 100);
+			int value = (int) (((double) players[i].getCountriesOwned().size()/gameModel.getMapDetails().listOfCountryNames().size()) * 100);
 
 			progressBar.setValue(value);
 

@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 
 import com.proj.controllers.FortificationController;
 import com.proj.models.Country;
+import com.proj.models.GameModelCreation;
 import com.proj.models.Map;
 import com.proj.models.Player;
 import com.proj.utilites.Constants;
@@ -36,9 +37,20 @@ public class FortificationView extends JFrame implements ActionListener {
 	private Map map;
 	private Player[] player;
 	private int currentPlayer;
-	private GameWindowScreen gameWindow;
+	private GameModelCreation gameModel;
 	private FortificationController fortificationController;
 	
+	
+	
+	
+	public GameModelCreation getGameModel() {
+		return gameModel;
+	}
+
+	public void setGameModel(GameModelCreation gameModel) {
+		this.gameModel = gameModel;
+	}
+
 	/**
 	 * getter for source country
 	 * @return source country
@@ -230,23 +242,7 @@ public class FortificationView extends JFrame implements ActionListener {
 	public void setCurrentPlayer(int currentPlayer) {
 		this.currentPlayer = currentPlayer;
 	}
-	
-	/**
-	 * getter for Game Window
-	 * @return game window
-	 */
-	public GameWindowScreen getGameWindow() {
-		return gameWindow;
-	}
 
-	/**
-	 * setter for Game Window
-	 * @param gameWindow object of type GameWindowScreen
-	 */
-	public void setGameWindow(GameWindowScreen gameWindow) {
-		this.gameWindow = gameWindow;
-	}
-	
 	/**
 	 * getter for Fortification Controller
 	 * @return Fortification Controller
@@ -270,21 +266,20 @@ public class FortificationView extends JFrame implements ActionListener {
 	 * @param currentPlayer current player
 	 * @param gameWindow Object of GameWindowScreen class
 	 */
-	public FortificationView(Map map, Player[] player, int currentPlayer, GameWindowScreen gameWindow) {
-		this.map = map;
-		this.player = player;
-		this.currentPlayer = currentPlayer;
-		this.gameWindow = gameWindow;
-		gameWindow.getArmyAllocation().setEnabled(false);
+	public FortificationView(GameModelCreation gameModel) {
+		this.map = gameModel.getMapDetails();
+		this.player = gameModel.getPlayer();
+		this.gameModel = gameModel;
 		setTitle("Fortification Phase");
 		setResizable(false);
 		setSize(Constants.WIDTH + 300, Constants.HEIGHT);
 		setLayout(null);
 		setLocationRelativeTo(null);
 		fortificationController = new FortificationController(this);
-		playerName = new JLabel(player[currentPlayer].getPlayerName());
+		playerName = new JLabel(gameModel.getCurrPlayer().getPlayerName());
 		playerName.setBounds(15, 150, 100, 35);
 		add(playerName);
+		
 		source = new JLabel("Source Country");
 		source.setBounds(165, 120, 100, 35);
 		add(source);
@@ -339,7 +334,7 @@ public class FortificationView extends JFrame implements ActionListener {
 	 */
 	public void addCountryToBox(JComboBox country) {
 		country.removeAllItems();
-		for(Country c : player[currentPlayer].getCountriesOwned()) {
+		for(Country c : gameModel.getCurrPlayer().getCountriesOwned()) {
 			country.addItem(c.getCountryName());
 		}
 	}
@@ -350,7 +345,7 @@ public class FortificationView extends JFrame implements ActionListener {
 	 */
 	public void addDestCountries(Country sourCountry) {
 		destinationCountry.removeAllItems();
-		for(Country c : player[currentPlayer].getCountriesOwned()) {
+		for(Country c : gameModel.getCurrPlayer().getCountriesOwned()) {
 			if(sourCountry.getListOfNeighbours().contains(c.getCountryName())) {
 				destinationCountry.addItem(c.getCountryName());
 			}
@@ -404,26 +399,20 @@ public class FortificationView extends JFrame implements ActionListener {
 	 */
 	public void getDisposeMsg() {
 		JOptionPane.showMessageDialog(null,"Player has no country with armies more than one!!!\n Click Ok to finish Fortification Phase");
-/*
-		if(checkDraw()) {
-			JOptionPane.showMessageDialog(null, "No Player is eligible to attack \n MATCH DRAWN!!!");
-			getGameWindow().dispose();
-		}*/
-		getGameWindow().getGameController().getGameModel().incrementTurn();
-		getGameWindow().getGameController().getGameModel().changePlayer();
-		if(getGameWindow().getGameController().getGameModel().getCurrPlayer().getPlayerName().equalsIgnoreCase("Neutral")) {
+		gameModel.incrementTurn();
+		gameModel.changePlayer();
+		if(gameModel.getCurrPlayer().getPlayerName().equalsIgnoreCase("Neutral")) {
 			System.out.println("No turn for neutral Player");
-			getGameWindow().getGameController().getGameModel().incrementTurn();
-			getGameWindow().getGameController().getGameModel().changePlayer();
-			getGameWindow().displayPlayer();
+			gameModel.incrementTurn();
+			gameModel.changePlayer();
 		}
-		getGameWindow().getArmyAllocation().setEnabled(true);
-		getGameWindow().getArmyAllocation().setText("Phase Change");
-		getGameWindow().getArmyAllocation().doClick();
+		gameModel.getGameScreen().getArmyAllocation().setEnabled(true);
+		gameModel.getGameScreen().getArmyAllocation().setText("Phase Change");
+		gameModel.getGameScreen().getArmyAllocation().doClick();
 		setVisible(false);
-		getGameWindow().getStartPhaseDefinedLabel().setText("Reinforcement Phase");
-		getGameWindow().displayPlayer();
-		getGameWindow().getArmyAllocation().setEnabled(true);
+		gameModel.getGameScreen().getStartPhaseDefinedLabel().setText("Reinforcement Phase");
+		gameModel.getGameScreen().displayPlayer();
+		gameModel.getGameScreen().getArmyAllocation().setEnabled(true);
 		dispose();
 		
 	}
@@ -433,8 +422,8 @@ public class FortificationView extends JFrame implements ActionListener {
 	 * @return true if all players have 1 army left else false
 	 */
 	public boolean checkDraw() {
-		for(Player p : getGameWindow().getPlayer()) {
-			if(!(p.getCountriesOwned().size()==getGameWindow().getGameController().getGameModel().armiesAllocated(p))) {
+		for(Player p : gameModel.getPlayer()) {
+			if(!(p.getCountriesOwned().size()==gameModel.armiesAllocated(p))) {
 				return false;
 			}
 		}
