@@ -126,14 +126,14 @@ public class AttackController implements ActionListener{
 			rollDice(attackerDiceValues);
 			rollDice(attackerDiceValues);
 			rollDice(attackerDiceValues);
-			attackView.getAttackDice1().setText(String.valueOf(attackerDiceValues.get(0)));
+/*			attackView.getAttackDice1().setText(String.valueOf(attackerDiceValues.get(0)));
 			attackView.getAttackDice2().setText(String.valueOf(attackerDiceValues.get(1)));
-			attackView.getAttackDice3().setText(String.valueOf(attackerDiceValues.get(2)));
+			attackView.getAttackDice3().setText(String.valueOf(attackerDiceValues.get(2)));*/
 			if(noOfDefendingDicesSelected==2) {
 				rollDice(defenderDiceValues);
 				rollDice(defenderDiceValues);
-				attackView.getDefendDice1().setText(String.valueOf(defenderDiceValues.get(0)));
-				attackView.getDefendDice2().setText(String.valueOf(defenderDiceValues.get(1)));
+/*				attackView.getDefendDice1().setText(String.valueOf(defenderDiceValues.get(0)));
+				attackView.getDefendDice2().setText(String.valueOf(defenderDiceValues.get(1)));*/
 				storeDiceValues();
 				if(Collections.max(attackerDiceValues) > Collections.max(defenderDiceValues)) {
 					battleWon();
@@ -161,8 +161,8 @@ public class AttackController implements ActionListener{
 			
 			else {
 				rollDice(defenderDiceValues);
-				attackView.getDefendDice1().setText(String.valueOf(defenderDiceValues.get(0)));
-				attackView.getDefendDice2().setText("");
+				/*attackView.getDefendDice1().setText(String.valueOf(defenderDiceValues.get(0)));*/
+				//attackView.getDefendDice2().setText("");
 				storeDiceValues();
 				if(Collections.max(attackerDiceValues) > Collections.max(defenderDiceValues)) {
 					battleWon();
@@ -175,14 +175,14 @@ public class AttackController implements ActionListener{
 		else if(noOfAttackingDicesSelected==2) {
 			rollDice(attackerDiceValues);
 			rollDice(attackerDiceValues);
-			attackView.getAttackDice1().setText(String.valueOf(attackerDiceValues.get(0)));
+/*			attackView.getAttackDice1().setText(String.valueOf(attackerDiceValues.get(0)));
 			attackView.getAttackDice2().setText(String.valueOf(attackerDiceValues.get(1)));
-			attackView.getAttackDice3().setText("");
+			attackView.getAttackDice3().setText("");*/
 			if(noOfDefendingDicesSelected==2) {
 				rollDice(defenderDiceValues);
 				rollDice(defenderDiceValues);
-				attackView.getDefendDice1().setText(String.valueOf(defenderDiceValues.get(0)));
-				attackView.getDefendDice2().setText(String.valueOf(defenderDiceValues.get(1)));
+/*				attackView.getDefendDice1().setText(String.valueOf(defenderDiceValues.get(0)));
+				attackView.getDefendDice2().setText(String.valueOf(defenderDiceValues.get(1)));*/
 				storeDiceValues();
 				if(Collections.max(attackerDiceValues) > Collections.max(defenderDiceValues)) {
 					battleWon();
@@ -209,8 +209,8 @@ public class AttackController implements ActionListener{
 			}
 			else{
 				rollDice(defenderDiceValues);
-				attackView.getDefendDice1().setText(String.valueOf(defenderDiceValues.get(0)));
-				attackView.getDefendDice2().setText("");
+				/*attackView.getDefendDice1().setText(String.valueOf(defenderDiceValues.get(0)));*/
+				//attackView.getDefendDice2().setText("");
 				storeDiceValues();
 				if(Collections.max(attackerDiceValues) > Collections.max(defenderDiceValues)) {
 					battleWon();
@@ -222,20 +222,20 @@ public class AttackController implements ActionListener{
 		}
 		else if(noOfAttackingDicesSelected==1) {
 			rollDice(attackerDiceValues);
-			attackView.getAttackDice1().setText(String.valueOf(attackerDiceValues.get(0)));
+/*			attackView.getAttackDice1().setText(String.valueOf(attackerDiceValues.get(0)));
 			attackView.getAttackDice2().setText("");
-			attackView.getAttackDice3().setText("");
+			attackView.getAttackDice3().setText("");*/
 			
 			if(noOfDefendingDicesSelected ==2) {
 				rollDice(defenderDiceValues);
 				rollDice(defenderDiceValues);
-				attackView.getDefendDice1().setText(String.valueOf(defenderDiceValues.get(0)));
-				attackView.getDefendDice2().setText(String.valueOf(defenderDiceValues.get(1)));
+/*				attackView.getDefendDice1().setText(String.valueOf(defenderDiceValues.get(0)));
+				attackView.getDefendDice2().setText(String.valueOf(defenderDiceValues.get(1)));*/
 			}
 			else {
 				rollDice(defenderDiceValues);
-				attackView.getDefendDice1().setText(String.valueOf(defenderDiceValues.get(0)));
-				attackView.getDefendDice2().setText("");
+/*				attackView.getDefendDice1().setText(String.valueOf(defenderDiceValues.get(0)));
+				attackView.getDefendDice2().setText("");*/
 			}
 			if(Collections.max(attackerDiceValues) > Collections.max(defenderDiceValues)) {
 				battleWon();
@@ -345,17 +345,15 @@ public class AttackController implements ActionListener{
 				}
 				players=newList;
 			}
-			Continent continentName = attackView.getGameModel().getMapDetails().searchContinent(countryDefending);
-			for(Continent c : attackView.getGameModel().getMapDetails().getContinents()) {
-				if(defender.getContinentsOwned().contains(continentName)) {
-					defender.getContinentsOwned().remove(continentName);
-				}
+			Continent continentName = map.searchContinent(countryDefending);
+			if(defender.getContinentsOwned().contains(continentName)) {
+				defender.getContinentsOwned().remove(continentName);
 			}
 			
-			for(Continent c:attackView.getGameModel().getMapDetails().getContinents()) {
+			for(Continent c : map.getContinents()) {
 				if(attacker.getCountriesOwned().containsAll(c.getCountriesPresent()) && !attacker.getContinentsOwned().contains(c)) {
 					attacker.getContinentsOwned().add(c);
-					for(Player p :attackView.getGameModel().getPlayer()) {
+					for(Player p : players) {
 						if(p.getContinentsOwned().contains(c) && p!=attacker) {
 							p.getContinentsOwned().remove(c);
 						}
@@ -373,9 +371,9 @@ public class AttackController implements ActionListener{
 	 * stores attacker and defender dice values in a list
 	 */
 	private void storeDiceValues() {
-		diceValues=attackerDiceValues.toString();
-		diceValues=diceValues+"\n"+defenderDiceValues.toString();
-		attackerDiceCount=attackerDiceValues.size();
+		diceValues = attackerDiceValues.toString();
+		diceValues = diceValues+"   "+defenderDiceValues.toString();
+		attackerDiceCount = attackerDiceValues.size();
 		System.out.println("Attacker: "+attackerDiceValues.toString()+"\nDefender: "+defenderDiceValues);
 		System.out.println();
 	}
@@ -488,6 +486,7 @@ public class AttackController implements ActionListener{
 				System.out.println("Player Name : "+attackView.getGameModel().getCurrPlayer()+"\n"+ "Source Country :"+ sSourceCountry+"\n"+ "Defender Country :" +sDestinationCountry+"\n"+ "No of Dices of Attacker : "+attackerDiceSelection);
 				
 				boolAttack=normalAttack(sSourceCountry,sDestinationCountry,attackerDiceSelection, defenderDiceSelection);
+				attackView.getAttackDice1().setText(diceValues);
 				if (boolAttack== true) {
 					System.out.println("Normal Attack "+"terroitry won");
 					attackView.getSourceCountry().removeAllItems();
@@ -559,7 +558,7 @@ public class AttackController implements ActionListener{
 				String sDestinationCountry=(String) attackView.getDestinationCountry().getSelectedItem();
 				System.out.println("Player Name : "+attackView.getGameModel().getCurrPlayer()+"\n"+ "Source Country :"+ sSourceCountry+"\n"+ "Defender Country :" +sDestinationCountry);
 				boolAttackAllOut=allOutAttack(sSourceCountry,sDestinationCountry);
-
+				attackView.getAttackDice1().setText(diceValues);
 				if (boolAttackAllOut== true) {
 					System.out.println("All out Attack "+" terriotry  won");
 					attackView.getSourceCountry().removeAllItems();

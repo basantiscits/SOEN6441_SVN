@@ -105,7 +105,7 @@ public class FortificationController implements ActionListener {
 
 				if((fortifyView.getGameModel().getCurrPlayer()==fortifyView.getPlayer()[fortifyView.getPlayer().length-1]) && fortifyView.checkDraw()) {
 					JOptionPane.showMessageDialog(null, "No Player is eligible to attack \n MATCH DRAWN!!!");
-					fortifyView.getGameModel().setGameState(10);
+					//fortifyView.getGameModel().setGameState(10);
 					fortifyView.getGameModel().getGameScreen().dispose();
 				}
 				
@@ -123,8 +123,8 @@ public class FortificationController implements ActionListener {
 				fortifyView.getGameModel().getGameScreen().getArmyAllocation().doClick();
 				fortifyView.setVisible(false);
 				fortifyView.getGameModel().setGameState(1);
-				fortifyView.getGameModel().getGameScreen().getStartPhaseDefinedLabel().setText("Reinforcement Phase");
-				fortifyView.getGameModel().getGameScreen().getArmyAllocation().setEnabled(true);
+/*				fortifyView.getGameModel().getGameScreen().getStartPhaseDefinedLabel().setText("Reinforcement Phase");
+				fortifyView.getGameModel().getGameScreen().getArmyAllocation().setEnabled(true);*/
 				fortifyView.dispose();
 				fortifyView.getGameModel().getGameScreen().getGameController().cardExchange();
 				
@@ -161,8 +161,8 @@ public class FortificationController implements ActionListener {
 			fortifyView.getGameModel().getGameScreen().getArmyAllocation().doClick();
 			fortifyView.setVisible(false);
 			fortifyView.getGameModel().setGameState(1);
-			fortifyView.getGameModel().getGameScreen().getStartPhaseDefinedLabel().setText("Reinforcement Phase");
-			fortifyView.getGameModel().getGameScreen().getArmyAllocation().setEnabled(true);
+/*			fortifyView.getGameModel().getGameScreen().getStartPhaseDefinedLabel().setText("Reinforcement Phase");
+			fortifyView.getGameModel().getGameScreen().getArmyAllocation().setEnabled(true);*/
 			fortifyView.dispose();
 			
 			System.out.println("Player name after fortification: -"+fortifyView.getGameModel().getGameScreen().getGameController().getGameModel().getCurrPlayer().getPlayerName());

@@ -89,7 +89,7 @@ public class GameModelCreation extends Observable{
 			turn = 0;
 		}
 		turn++;
-		updateChanges();
+		//updateChanges();
 	}
 	
 	/**
@@ -102,6 +102,7 @@ public class GameModelCreation extends Observable{
 		}
 		else {
 			currPlayer = player[turn-1];
+
 		}
 		
 		if(currPlayer.getCountriesOwned().size()==0) {

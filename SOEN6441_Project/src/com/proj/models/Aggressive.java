@@ -9,12 +9,15 @@ public class Aggressive implements BehaviorStrategies {
 	@Override
 	public void startUpPhase(GameModelCreation gameModel) {
 		// TODO Auto-generated method stub
-		Country country = gameModel.getCurrPlayer().getCountriesOwned().get(0);
+		//Country country = gameModel.getCurrPlayer().getCountriesOwned().get(0);
+		System.out.println("StartUp Turn1: "+gameModel.getTurn());
+		Country country = maxArmiesInCountry(gameModel.getCurrPlayer());
+		System.out.println("Name in Aggressive startUp: "+gameModel.getCurrPlayer().getPlayerName());
 		if ( gameModel.getCurrPlayer().getNoOfArmiesOwned() > 0) {
 			country.addNoOfArmiesCountry();
 			gameModel.getCurrPlayer().reduceArmyInPlayer();
 		}
-		
+		System.out.println("StartUp phase done for aggressive");
 	}
 	
 	private Country maxArmiesInCountry(Player player) {
@@ -32,13 +35,16 @@ public class Aggressive implements BehaviorStrategies {
 
 	@Override
 	public void reinforcementPhase(GameModelCreation gameModel) {
+		System.out.println("Reinforcement Turn1: "+gameModel.getTurn());
 		// TODO Auto-generated method stub
 		Country country = maxArmiesInCountry(gameModel.getCurrPlayer());
+		System.out.println("OFREISH COUNTRY Reinforcement: "+country.getCountryName() );
 		while(gameModel.getCurrPlayer().getNoOfArmiesOwned()>0) {
 			country.addNoOfArmiesCountry();
 			gameModel.getCurrPlayer().reduceArmyInPlayer();
 		}
 		gameModel.setGameState(2);
+		System.out.println("Reinforcement phase done for aggressive");
 		attackPhase(gameModel);
 		
 	}
@@ -46,6 +52,7 @@ public class Aggressive implements BehaviorStrategies {
 	@Override
 	public void attackPhase(GameModelCreation gameModel) {
 		// TODO Auto-generated method stub
+		System.out.println("Attack Turn1: "+gameModel.getTurn());
 		Player attacker=gameModel.getCurrPlayer();
 		Country attackingCountry = maxArmiesInCountry(gameModel.getCurrPlayer());
 		ArrayList<Country> defendingCountries=new ArrayList<Country>();
@@ -72,7 +79,7 @@ public class Aggressive implements BehaviorStrategies {
 					break;
 				}
 				else{
-					attack.numberOfArmiesTransfered(attack.attackerDiceCount, attackingCountry, defendingCountries.get(0));
+					attack.numberOfArmiesTransfered(1, attackingCountry, defendingCountries.get(0));
 					defendingCountries.remove(0);	
 				}
 			}
@@ -99,16 +106,19 @@ public class Aggressive implements BehaviorStrategies {
 				}
 			}
 		}
+		System.out.println("Attack phase done for aggressive");
 		fortificationPhase(gameModel);
+		
 	}
 
 	@Override
 	public void fortificationPhase(GameModelCreation gameModel) {
 		// TODO Auto-generated method stub
-		
+		System.out.println("Fortification Turn1: "+gameModel.getTurn());
 		Country mainCountry = maxArmiesInCountry(gameModel.getCurrPlayer());
+		System.out.println("Player name1: "+gameModel.getCurrPlayer().getPlayerName());
 		//List<Country> neighbors = mainCountry.
-		
+		System.out.println("OFRESIH COUNTRY IN FORTIFICATION: "+mainCountry.getCountryName());
 		
 		for(Country c : gameModel.getCurrPlayer().getCountriesOwned()) {
 			if (mainCountry.getListOfNeighbours().contains(c.getCountryName())) {
@@ -119,9 +129,16 @@ public class Aggressive implements BehaviorStrategies {
 			}
 		}
 		
+		System.out.println("Player name2: "+gameModel.getCurrPlayer().getPlayerName());
+		System.out.println("Aggressive Turn1: "+gameModel.getTurn());
 		gameModel.incrementTurn();
+		System.out.println("Aggressive Turn2: "+gameModel.getTurn());
 		gameModel.changePlayer();
+		System.out.println("Player name3: "+gameModel.getCurrPlayer().getPlayerName());
 		gameModel.setGameState(1);
+		System.out.println("Player name4: "+gameModel.getCurrPlayer().getPlayerName());
+		gameModel.getCurrPlayer().intializeReinforcementArmies(gameModel);
+		System.out.println("Fortification phase done for aggressive");
 	}
 
 }

@@ -44,6 +44,7 @@ import com.proj.models.Country;
 import com.proj.models.GameModelCreation;
 import com.proj.models.Map;
 import com.proj.models.Player;
+import com.proj.models.PlayerType;
 import com.proj.utilites.Constants;
 
 /**
@@ -293,9 +294,8 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		playerStrengthTable(gameController.getGameModel());
 		addProgressBar(gameController.getGameModel());
 		
-		displayPlayer();
 		gameModel.incrementTurn();
-		
+		displayPlayer();
 	}
 
 	/**
@@ -312,10 +312,31 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 	 * Displays number of armies available
 	 */
 	public void displayPlayer() {
-		addPlayerName(gameModel.getCurrPlayer().getPlayerName());
-		addCountriesToBox(gameModel.getCurrPlayer());
-		armiesAvailable.setText("Number of Armies Available:" + String.valueOf(gameModel.getCurrPlayer().getNoOfArmiesOwned()));
-		noOfCardsLabel.setText("No of Cards Available: " + gameModel.getCurrPlayer().getNoOfCardsOwned());
+		
+		if(gameModel.getGameState() == 10) {
+			JOptionPane.showMessageDialog(null, gameModel.getCurrPlayer().getPlayerName() + " has Won the Game !! Congratulations !!!");
+			dispose();
+		}
+		
+		else if ((gameModel.getGameState() == 0) && gameModel.getCurrPlayer().getPlayerType() != PlayerType.Human) {
+			if ( gameModel.getCurrPlayer().getNoOfArmiesOwned() > 0) {
+				gameModel.getCurrPlayer().initialArmyAllocation(gameModel);
+			}
+
+		}
+		
+		else if((gameModel.getGameState()==1) && (gameModel.getCurrPlayer().getPlayerType()!=PlayerType.Human)) {
+			gameModel.getCurrPlayer().intializeReinforcementArmies(gameModel);
+		}
+		
+		
+		if(gameModel.getCurrPlayer().getPlayerType() == PlayerType.Human) {
+			addPlayerName(gameModel.getCurrPlayer().getPlayerName());
+			addCountriesToBox(gameModel.getCurrPlayer());
+			armiesAvailable.setText("Number of Armies Available:" + String.valueOf(gameModel.getCurrPlayer().getNoOfArmiesOwned()));
+			noOfCardsLabel.setText("No of Cards Available: " + gameModel.getCurrPlayer().getNoOfCardsOwned());
+		}
+		
 		if(gameModel.getGameState()==0) {
 			getStartPhaseDefinedLabel().setText("StartUp Phase");
 		}
@@ -1265,10 +1286,17 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 	 */
 	@Override
 	public void update(Observable type, Object object) {
-		createStartUpTree();
-		playerStrengthTable(gameController.getGameModel());
-		addProgressBar(gameController.getGameModel());
-		displayPlayer();
+		if(object instanceof GameModelCreation) {
+			playerStrengthTable(gameController.getGameModel());
+			addProgressBar(gameController.getGameModel());
+			displayPlayer();
+			createStartUpTree();
+		}
+		else {
+			playerStrengthTable(gameController.getGameModel());
+			addProgressBar(gameController.getGameModel());
+			createStartUpTree();
+		}
 		
 	}
 	

@@ -223,10 +223,10 @@ public class NewGameController implements ActionListener {
 							comboSelectedPlayers[3] = (String) playNewGame.getComboBoxSelectPlayer4().getSelectedItem();
 						}
 						if (Integer.parseInt(noOfPlayers) >= 5) {
-							comboSelectedPlayers[5] = (String) playNewGame.getComboBoxSelectPlayer5().getSelectedItem();
+							comboSelectedPlayers[4] = (String) playNewGame.getComboBoxSelectPlayer5().getSelectedItem();
 						}
 						if (Integer.parseInt(noOfPlayers) == 6) {
-							comboSelectedPlayers[6] = (String) playNewGame.getComboBoxSelectPlayer6().getSelectedItem();
+							comboSelectedPlayers[5] = (String) playNewGame.getComboBoxSelectPlayer6().getSelectedItem();
 						}
 						player = initializingPlayerModels(Integer.parseInt(noOfPlayers), sCarryMapForward, comboSelectedPlayers);
 						this.gameModel = new GameModelCreation(sCarryMapForward, player);

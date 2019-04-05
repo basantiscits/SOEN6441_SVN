@@ -286,7 +286,7 @@ public class Player extends Observable{
 	 * @param gameMap Object of Map class
 	 * @param gameWindowScreen Object of GameWindowScreen class
 	 */
-	public void intializeReinforcementArmies(GameWindowScreen gameWindowScreen, Map gameMap) {
+	public void intializeReinforcementArmies(GameModelCreation gameModel) {
 		
 		long armies = Math.round(Math.floor(getCountriesOwned().size() / 3));
 		if(armies > 3) {
@@ -295,7 +295,10 @@ public class Player extends Observable{
 		else {
 			incrementNoOfArmiesOwned(3);
 		}
-		updateContinentsOwned(gameMap, gameWindowScreen);
+		updateContinentsOwned(gameModel);
+		System.out.println("Armies after reinforcement1: "+gameModel.getCurrPlayer().getNoOfArmiesOwned()+" "+gameModel.getCurrPlayer().getPlayerName());
+		System.out.println("Armies after reinforcement2: "+ getNoOfArmiesOwned() + " "+getPlayerName());
+		getStrategy().reinforcementPhase(gameModel);
 		
 	}
 	
@@ -305,7 +308,7 @@ public class Player extends Observable{
 	 * @param gameWindowScreen Object of GameWindowScreen class
 	 * @param gameMap Object of Map class
 	 */
-	public void updateContinentsOwned( Map gameMap, GameWindowScreen gameWindowScreen) {
+	public void updateContinentsOwned(GameModelCreation gameModel) {
 		
 		for(Continent cont:continentsOwned) {
 			incrementNoOfArmiesOwned(cont.getControlValue());
@@ -358,6 +361,14 @@ public class Player extends Observable{
 			AttackView attackPhase = new AttackView(gameModel);
 			attackPhase.setVisible(true);
 		}
+	}
+	
+	
+	
+	public void initialArmyAllocation(GameModelCreation gameModel) {
+		getStrategy().startUpPhase(gameModel);
+		gameModel.incrementTurn();
+		gameModel.changePlayer();
 	}
 	
 	/**

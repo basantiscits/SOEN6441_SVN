@@ -84,9 +84,7 @@ public class GameController implements ActionListener {
 			updateGame((String) gameWindowScreen.getCountriesComboBox().getSelectedItem());
 			getGameModel().incrementTurn();
 			getGameModel().changePlayer();
-			gameWindowScreen.displayPlayer();
 			if (checkStartUpEnd()) {
-				gameModel.setGameState(1);
 				gameModel.setCurrPlayer(gameModel.getPlayer()[0]);
 				gameWindowScreen.getArmyAllocation().setText("Phase Change");
 				gameWindowScreen.getArmyAllocation().doClick();
@@ -102,7 +100,7 @@ public class GameController implements ActionListener {
 		case "Phase Change":
 			gameWindowScreen.getStartPhaseDefinedLabel().setText("Reinforcement Phase");
 			gameWindowScreen.getArmyAllocation().setText("Reinforcement Phase");
-			gameModel.getCurrPlayer().intializeReinforcementArmies(gameWindowScreen, gameModel.getMapDetails());
+			gameModel.getCurrPlayer().intializeReinforcementArmies(gameModel);
 			gameWindowScreen.displayPlayer();
 			break;
 		

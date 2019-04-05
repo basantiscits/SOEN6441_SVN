@@ -531,7 +531,7 @@ public class AttackView extends JFrame implements ActionListener {
 		add(defenderDiceLbl);
 		
 		attackDice1 = new JLabel();
-		attackDice1.setBounds(400,40,50,20);
+		attackDice1.setBounds(400,40,200,30);
 		add(attackDice1);
 
 		attackDice2 = new JLabel();
