@@ -29,6 +29,7 @@ public class Player extends Observable{
 	private PlayerType playerType;
 	private GameModelCreation gameModel;
 	private GameWindowScreen gameScreen;
+	public Country randomCountry;
 	
 	
 	
