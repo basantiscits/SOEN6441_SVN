@@ -119,7 +119,7 @@ public class AttackController implements ActionListener{
 			return true;
 		}
 	
-		if(noOfAttackingArmies<=0) {
+		if(noOfAttackingArmies<=0 || noOfDefendingArmies<=0) {
 			return false;
 		}
 		if (noOfAttackingDicesSelected==3) {
