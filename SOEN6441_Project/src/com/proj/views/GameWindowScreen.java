@@ -108,6 +108,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 	private JButton exchangeButt;
 	private JFrame viewCardFrame;
 	private JLabel noOfCardsLabel;
+	private JButton SaveButton; 
 	/**
 	 * Game Window Screen constructor
 	 * @param gameMap Object of Map class
@@ -264,9 +265,12 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		viewCardFrame.setSize(Constants.WIDTH-400, Constants.HEIGHT);
 		viewCardFrame.setLayout(null);
 		viewCardFrame.setLocationRelativeTo(listOfCards);
-
-		
 		exchangeButton.addActionListener(this);
+		
+		
+		
+		
+		
 		
 
 		armyAllocation = new JButton("Place Army");
@@ -280,6 +284,14 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		noOfCardsLabel = new JLabel("No of Cards Available: " + gameModel.getCurrPlayer().getNoOfCardsOwned() );
 		noOfCardsLabel.setBounds(600, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 80,200, 30);
 		add(noOfCardsLabel);
+		
+		SaveButton = new JButton("Save Button");
+		SaveButton.setBounds(200,150,100,50);
+		//SaveButton = new JButton("Save Current Game");
+		SaveButton.setBounds(400, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 130,200, 30);
+		SaveButton.addActionListener(gameController);
+		add(SaveButton);
+		
 		
 		add(armiesAvailable);
 		add(scrollPane);
@@ -1001,6 +1013,15 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		this.gameController = gameController;
 	}
 
+	public JButton getSaveGame() {
+		return SaveButton;
+	}
+
+	
+	public void setgetSaveGame(JButton SaveButton) {
+		this.SaveButton = SaveButton;
+	}
+
 	/**
 	 * This method create tree with players and the countries owned by them and corresponding armies in particular country
 	 */
@@ -1385,6 +1406,12 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 	@Override
 	public void windowOpened(WindowEvent e) {
 		// TODO Auto-generated method stub
+		
+	}
+
+	public void saveExistingGame(GameModelCreation gameModel2, String sSaveFileName) {
+		// TODO Auto-generated method stub
+		System.out.println("Hi Basant  : " +sSaveFileName);
 		
 	}
 		
