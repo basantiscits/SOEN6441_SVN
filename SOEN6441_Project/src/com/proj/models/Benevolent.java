@@ -3,6 +3,8 @@ package com.proj.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import com.proj.controllers.AttackController;
 
 public class Benevolent implements BehaviorStrategies {
@@ -63,6 +65,13 @@ public class Benevolent implements BehaviorStrategies {
 			System.out.println("Game Won by "+attacker.getPlayerName()+" "+attacker.getStrategy().getClass());
 			return;
 		}
+		if(gameModel.getPlayer().length==1){
+			System.out.println("Game Won by "+attacker.getPlayerName()+" "+attacker.getStrategy().getClass());
+			JOptionPane.showMessageDialog(null, attacker.getPlayerName()+" won the game!!! CONGRATULATION!!!");
+			//gameModel.getGameScreen()attacker;
+			gameModel.getGameScreen().dispose();
+		}
+		
 		if(attacker.getNoOfCardsOwned()>4){
 			//Cards to implemented
 			attacker.setCardsForArmies(attacker.getCardsForArmies() + 5);

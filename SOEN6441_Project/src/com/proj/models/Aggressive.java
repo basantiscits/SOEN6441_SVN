@@ -3,6 +3,8 @@ package com.proj.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import com.proj.controllers.AttackController;
 
 public class Aggressive implements BehaviorStrategies {
@@ -92,7 +94,9 @@ public class Aggressive implements BehaviorStrategies {
 		
 		if(gameModel.getPlayer().length==1){
 			System.out.println("Game Won by "+attacker.getPlayerName()+" "+attacker.getStrategy().getClass());
-			return;
+			JOptionPane.showMessageDialog(null, attacker.getPlayerName()+" won the game!!! CONGRATULATION!!!");
+			//gameModel.getGameScreen()attacker;
+			gameModel.getGameScreen().dispose();
 		}
 		if(attacker.getNoOfCardsOwned()>4){
 			//Cards to implemented
