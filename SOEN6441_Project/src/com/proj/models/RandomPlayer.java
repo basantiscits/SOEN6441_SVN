@@ -1,6 +1,7 @@
 package com.proj.models;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import com.proj.controllers.AttackController;
@@ -100,20 +101,24 @@ public class RandomPlayer implements BehaviorStrategies {
 		}
 		if(attacker.getNoOfCardsOwned()>4){
 			//Cards to implemented
-			attacker.setCardsForArmies(gameModel.getCurrPlayer().getCardsForArmies() + 5);
-			attacker.setNoOfArmiesOwned(gameModel.getCurrPlayer().getNoOfArmiesOwned() + gameModel.getCurrPlayer().getCardsForArmies());
+			attacker.setCardsForArmies(attacker.getCardsForArmies() + 5);
+			attacker.setNoOfArmiesOwned(attacker.getNoOfArmiesOwned() + gameModel.getCurrPlayer().getCardsForArmies());
 			Card initialCard=attacker.getCardsOwned().get(0);
 			int count=0;
+			List<Card> cards=new ArrayList<Card>();
 			for(Card card: attacker.getCardsOwned())
 			{
 				if(initialCard==card){
-					attacker.getCardsOwned().remove(card);
-					attacker.setNoOfCardsOwned(gameModel.getCurrPlayer().getNoOfCardsOwned()-1);
+					cards.add(card);
 					count++;
 				}
 				if(count==3){
 					break;
 				}
+			}
+			for(Card card:cards){
+				attacker.getCardsOwned().remove(card);
+				attacker.setNoOfCardsOwned(attacker.getNoOfCardsOwned()-1);
 			}
 		}
 		fortificationPhase(gameModel);

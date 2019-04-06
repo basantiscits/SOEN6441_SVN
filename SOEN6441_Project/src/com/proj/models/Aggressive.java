@@ -1,6 +1,7 @@
 package com.proj.models;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.proj.controllers.AttackController;
 
@@ -54,7 +55,7 @@ public class Aggressive implements BehaviorStrategies {
 		// TODO Auto-generated method stub
 		System.out.println("Attack Turn1: "+gameModel.getTurn());
 		Player attacker=gameModel.getCurrPlayer();
-		Country attackingCountry = maxArmiesInCountry(gameModel.getCurrPlayer());
+		Country attackingCountry = maxArmiesInCountry(attacker);
 		ArrayList<Country> defendingCountries=new ArrayList<Country>();
 		int flag =0;
 		Country countryToBeChecked = null;
@@ -79,13 +80,13 @@ public class Aggressive implements BehaviorStrategies {
 					break;
 				}
 				else{
-					attack.numberOfArmiesTransfered(1, attackingCountry, defendingCountries.get(0));
+					attack.numberOfArmiesTransfered(attack.attackerDiceCount, attackingCountry, defendingCountries.get(0));
 					defendingCountries.remove(0);	
 				}
 			}
 			if(attack.countryWon){
 				attacker.getCardsOwned().add(Card.getNewCard());   
-				attacker.setNoOfCardsOwned(gameModel.getCurrPlayer().getNoOfCardsOwned()+1);
+				attacker.setNoOfCardsOwned(attacker.getNoOfCardsOwned()+1);
 			}
 		}		
 		
@@ -95,22 +96,28 @@ public class Aggressive implements BehaviorStrategies {
 		}
 		if(attacker.getNoOfCardsOwned()>4){
 			//Cards to implemented
-			attacker.setCardsForArmies(gameModel.getCurrPlayer().getCardsForArmies() + 5);
-			attacker.setNoOfArmiesOwned(gameModel.getCurrPlayer().getNoOfArmiesOwned() + gameModel.getCurrPlayer().getCardsForArmies());
+			attacker.setCardsForArmies(attacker.getCardsForArmies() + 5);
+			attacker.setNoOfArmiesOwned(attacker.getNoOfArmiesOwned() + gameModel.getCurrPlayer().getCardsForArmies());
 			Card initialCard=attacker.getCardsOwned().get(0);
 			int count=0;
+			List<Card> cards=new ArrayList<Card>();
 			for(Card card: attacker.getCardsOwned())
 			{
 				if(initialCard==card){
-					attacker.getCardsOwned().remove(card);
-					attacker.setNoOfCardsOwned(gameModel.getCurrPlayer().getNoOfCardsOwned()-1);
+					cards.add(card);
 					count++;
 				}
 				if(count==3){
 					break;
 				}
 			}
+			for(Card card:cards){
+				attacker.getCardsOwned().remove(card);
+				attacker.setNoOfCardsOwned(attacker.getNoOfCardsOwned()-1);
+			}
 		}
+		
+		
 		System.out.println("Attack phase done for aggressive");
 		fortificationPhase(gameModel);
 		
