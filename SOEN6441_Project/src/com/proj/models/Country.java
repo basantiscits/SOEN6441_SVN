@@ -12,7 +12,7 @@ import java.util.Observable;
  */
 public class Country extends Observable{
 	private String countryName;
-	private String ownedBy;
+	private Player ownedBy;
 	private int noOfArmiesPresent;
 	private List <String> listOfNeighbours;
 	private double longitude;
@@ -60,7 +60,7 @@ public class Country extends Observable{
 	 * getter for owned by
 	 * @return owned by
 	 */
-	public String getOwnedBy() {
+	public Player getOwnedBy() {
 		return ownedBy;
 	}
 	
@@ -68,7 +68,7 @@ public class Country extends Observable{
 	 * setter for owned by
 	 * @param ownedBy owned by
 	 */
-	public void setOwnedBy(String ownedBy) {
+	public void setOwnedBy(Player ownedBy) {
 		this.ownedBy = ownedBy;
 		updateChanges();
 	}
@@ -143,10 +143,10 @@ public class Country extends Observable{
 	 * setter for owned by
 	 * @param owner object of Player class
 	 */
-	public void setOwnedBy(Player owner) {
+/*	public void setOwnedBy(Player owner) {
 		this.ownedBy = ownedBy;
 		updateChanges();
-	}
+	}*/
 
 	/**
 	 * incrementing number of armies present

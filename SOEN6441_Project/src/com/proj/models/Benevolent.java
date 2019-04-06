@@ -29,6 +29,8 @@ public class Benevolent implements BehaviorStrategies {
 	@Override
 	public void reinforcementPhase(GameModelCreation gameModel) {
 		// TODO Auto-generated method stub
+		//System.out.println("armies1 in reinforce: "+gameModel.getCurrPlayer().getNoOfArmiesOwned());
+		//int flag = 0;
 		while (gameModel.getCurrPlayer().getNoOfArmiesOwned() > 0) {
 			Country country = gameModel.getCurrPlayer().getCountriesOwned().get(0);
 			int noOfArmies = country.getNoOfArmiesPresent();
@@ -38,13 +40,15 @@ public class Benevolent implements BehaviorStrategies {
 					noOfArmies = country.getNoOfArmiesPresent();
 				}
 			}
-
+			//flag++;
 			country.addNoOfArmiesCountry();
 			gameModel.getCurrPlayer().reduceArmyInPlayer();
 
 		}
 		
 		gameModel.setGameState(2);
+/*		System.out.println("flag in reinforce: "+flag);
+		System.out.println("armies2 in reinforce: "+gameModel.getCurrPlayer().getNoOfArmiesOwned());*/
 		System.out.println("Reinforcement phase done for benevolent");
 		attackPhase(gameModel);
 		
@@ -53,6 +57,7 @@ public class Benevolent implements BehaviorStrategies {
 	@Override
 	public void attackPhase(GameModelCreation gameModel) {
 		// TODO Auto-generated method stub
+		//System.out.println("armies1 in attack: "+gameModel.getCurrPlayer().getNoOfArmiesOwned());
 		Player attacker=gameModel.getCurrPlayer();
 		if(gameModel.getPlayer().length==1){
 			System.out.println("Game Won by "+attacker.getPlayerName()+" "+attacker.getStrategy().getClass());
@@ -80,6 +85,7 @@ public class Benevolent implements BehaviorStrategies {
 				attacker.setNoOfCardsOwned(attacker.getNoOfCardsOwned()-1);
 			}
 		}
+		//System.out.println("armies2 in attack: "+gameModel.getCurrPlayer().getNoOfArmiesOwned());
 		fortificationPhase(gameModel);	
 	}
 	
@@ -99,17 +105,25 @@ public class Benevolent implements BehaviorStrategies {
 	@Override
 	public void fortificationPhase(GameModelCreation gameModel) {
 		// TODO Auto-generated method stub
-		
+		System.out.println("armies1 in fortify: "+gameModel.getCurrPlayer().getNoOfArmiesOwned());
 		Country minCountry = minArmiesInCountry(gameModel.getCurrPlayer());
-		
+/*		ArrayList<Country> countryList = new ArrayList<Country>();
 		for(String cName : minCountry.getListOfNeighbours()) {
 			Country c = gameModel.getMapDetails().searchCountry(cName);
-			if(c.getNoOfArmiesPresent() > minCountry.getNoOfArmiesPresent() ) {
+			if(c.getOwnedBy().) {
+				
+			}
+		}*/
+		for(String cName : minCountry.getListOfNeighbours()) {
+			Country c = gameModel.getMapDetails().searchCountry(cName);
+			if(c.getNoOfArmiesPresent() > minCountry.getNoOfArmiesPresent() && c.getOwnedBy().getPlayerName().equals(gameModel.getCurrPlayer().getPlayerName())) {
+/*				System.out.println("minCountry: "+minCountry.getCountryName());
+				System.out.println("c: "+c.getCountryName());*/
 				minCountry.addNoOfArmiesCountry();
 				c.removeNoOfArmiesCountry();
 			}
 		}
-
+		//System.out.println("armies2 in fortify: "+gameModel.getCurrPlayer().getNoOfArmiesOwned());
 		
 		gameModel.incrementTurn();
 		gameModel.changePlayer();

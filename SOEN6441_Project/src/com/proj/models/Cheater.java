@@ -21,13 +21,15 @@ public class Cheater implements BehaviorStrategies {
 	@Override
 	public void reinforcementPhase(GameModelCreation gameModel) {
 		// TODO Auto-generated method stub
+		System.out.println("armies1 in reinforce: "+gameModel.getCurrPlayer().getNoOfArmiesOwned());
 		gameModel.getCurrPlayer().setNoOfArmiesOwned(0);
 		
 		for(Country country : gameModel.getCurrPlayer().getCountriesOwned()) {
 			int armies = country.getNoOfArmiesPresent()*2;
 			country.setNoOfArmiesPresent(armies);
+			System.out.println("armies1 in reinforceinside: "+country.getCountryName()+" : "+country.getNoOfArmiesPresent());
 		}
-		
+		System.out.println("armies2 in reinforce: "+gameModel.getCurrPlayer().getNoOfArmiesOwned());
 		gameModel.setGameState(2);
 		System.out.println("Reinforcement phase done for cheater");
 		attackPhase(gameModel);
@@ -37,6 +39,7 @@ public class Cheater implements BehaviorStrategies {
 	@Override
 	public void attackPhase(GameModelCreation gameModel) {
 		// TODO Auto-generated method stub
+		System.out.println("armies1 in Attack: "+gameModel.getCurrPlayer().getNoOfArmiesOwned());
 		boolean playerRemoved=false;
 		Player newList[] = null;
 		ArrayList<Player> newPlayerList=new ArrayList<Player>();
@@ -142,22 +145,31 @@ public class Cheater implements BehaviorStrategies {
 				attacker.setNoOfCardsOwned(attacker.getNoOfCardsOwned()-1);
 			}
 		}
+		System.out.println("armies2 in attack: "+gameModel.getCurrPlayer().getNoOfArmiesOwned());
 		fortificationPhase(gameModel);
 	}
 
 	@Override
 	public void fortificationPhase(GameModelCreation gameModel) {
 		// TODO Auto-generated method stub
+		System.out.println("armies1 in fortify: "+gameModel.getCurrPlayer().getNoOfArmiesOwned());
+		for(Country c : gameModel.getCurrPlayer().getCountriesOwned()) {
+			System.out.println("Armies before: "+c.getCountryName()+" : "+c.getNoOfArmiesPresent());
+		}
 		for(Country playerCountry : gameModel.getCurrPlayer().getCountriesOwned()) {
 			for(String neighborCountry : playerCountry.getListOfNeighbours()) {
 				Country c = gameModel.getMapDetails().searchCountry(neighborCountry);
-				if(!gameModel.getCurrPlayer().getPlayerName().equals(c.getOwnedBy())) {
+				if(!gameModel.getCurrPlayer().getPlayerName().equals(c.getOwnedBy().getPlayerName())) {
 					int armies = playerCountry.getNoOfArmiesPresent()*2;
 					playerCountry.setNoOfArmiesPresent(armies);
+					break;
 				}
 			}
 		}
-		
+		for(Country c : gameModel.getCurrPlayer().getCountriesOwned()) {
+			System.out.println("Armies after: "+c.getCountryName()+" : "+c.getNoOfArmiesPresent());
+		}
+		System.out.println("armies2 in fortify: "+gameModel.getCurrPlayer().getNoOfArmiesOwned());
 		gameModel.incrementTurn();
 		gameModel.changePlayer();
 		gameModel.setGameState(1);
