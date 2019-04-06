@@ -3,19 +3,34 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import com.proj.controllers.AttackController;
-
 public class Cheater implements BehaviorStrategies {
 
 	@Override
 	public void startUpPhase(GameModelCreation gameModel) {
 		// TODO Auto-generated method stub
+		if (gameModel.getCurrPlayer().getNoOfArmiesOwned() > 0) {
+			for (Country country : gameModel.getCurrPlayer().getCountriesOwned()) {
+				country.addNoOfArmiesCountry();
+			}
+			gameModel.getCurrPlayer().reduceArmyInPlayer();
+		}
+		
 		
 	}
 
 	@Override
 	public void reinforcementPhase(GameModelCreation gameModel) {
 		// TODO Auto-generated method stub
+		gameModel.getCurrPlayer().setNoOfArmiesOwned(0);
+		
+		for(Country country : gameModel.getCurrPlayer().getCountriesOwned()) {
+			int armies = country.getNoOfArmiesPresent()*2;
+			country.setNoOfArmiesPresent(armies);
+		}
+		
+		gameModel.setGameState(2);
+		System.out.println("Reinforcement phase done for cheater");
+		attackPhase(gameModel);
 		
 	}
 
@@ -133,6 +148,20 @@ public class Cheater implements BehaviorStrategies {
 	@Override
 	public void fortificationPhase(GameModelCreation gameModel) {
 		// TODO Auto-generated method stub
+		for(Country playerCountry : gameModel.getCurrPlayer().getCountriesOwned()) {
+			for(String neighborCountry : playerCountry.getListOfNeighbours()) {
+				Country c = gameModel.getMapDetails().searchCountry(neighborCountry);
+				if(!gameModel.getCurrPlayer().getPlayerName().equals(c.getOwnedBy())) {
+					int armies = playerCountry.getNoOfArmiesPresent()*2;
+					playerCountry.setNoOfArmiesPresent(armies);
+				}
+			}
+		}
+		
+		gameModel.incrementTurn();
+		gameModel.changePlayer();
+		gameModel.setGameState(1);
+		//gameModel.getCurrPlayer().intializeReinforcementArmies(gameModel);
 		
 	}
 

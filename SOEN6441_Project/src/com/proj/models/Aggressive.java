@@ -119,6 +119,7 @@ public class Aggressive implements BehaviorStrategies {
 		
 		
 		System.out.println("Attack phase done for aggressive");
+		gameModel.setGameState(3);
 		fortificationPhase(gameModel);
 		
 	}
@@ -140,17 +141,10 @@ public class Aggressive implements BehaviorStrategies {
 				}
 			}
 		}
-		
-		System.out.println("Player name2: "+gameModel.getCurrPlayer().getPlayerName());
-		System.out.println("Aggressive Turn1: "+gameModel.getTurn());
 		gameModel.incrementTurn();
-		System.out.println("Aggressive Turn2: "+gameModel.getTurn());
 		gameModel.changePlayer();
-		System.out.println("Player name3: "+gameModel.getCurrPlayer().getPlayerName());
 		gameModel.setGameState(1);
-		System.out.println("Player name4: "+gameModel.getCurrPlayer().getPlayerName());
-		gameModel.getCurrPlayer().intializeReinforcementArmies(gameModel);
-		System.out.println("Fortification phase done for aggressive");
+		//gameModel.getCurrPlayer().intializeReinforcementArmies(gameModel);
 	}
 
 }

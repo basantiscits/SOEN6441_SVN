@@ -318,14 +318,14 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 			dispose();
 		}
 		
-		else if ((gameModel.getGameState() == 0) && gameModel.getCurrPlayer().getPlayerType() != PlayerType.Human) {
+		else if ((gameModel.getGameState() == 0) && (gameModel.getCurrPlayer().getPlayerType()!=PlayerType.Human)) {
 			if ( gameModel.getCurrPlayer().getNoOfArmiesOwned() > 0) {
 				gameModel.getCurrPlayer().initialArmyAllocation(gameModel);
 			}
 
 		}
 		
-		else if((gameModel.getGameState()==1) && (gameModel.getCurrPlayer().getPlayerType()!=PlayerType.Human)) {
+		else if((gameModel.getGameState()==1) && (gameModel.getCurrPlayer().getPlayerType()!=PlayerType.Human) && !gameModel.getCurrPlayer().getPlayerName().equals("Neutral")) {
 			gameModel.getCurrPlayer().intializeReinforcementArmies(gameModel);
 		}
 		

@@ -98,6 +98,7 @@ public class GameController implements ActionListener {
 			break;
 			
 		case "Phase Change":
+			gameModel.setGameState(1);
 			gameWindowScreen.getStartPhaseDefinedLabel().setText("Reinforcement Phase");
 			gameWindowScreen.getArmyAllocation().setText("Reinforcement Phase");
 			gameModel.getCurrPlayer().intializeReinforcementArmies(gameModel);
