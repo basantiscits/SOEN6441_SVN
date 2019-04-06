@@ -4,6 +4,9 @@ import java.awt.event.ActionEvent;
 
 import java.awt.event.ActionListener;
 
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+
 import com.proj.models.Continent;
 import com.proj.models.Country;
 import com.proj.models.GameModelCreation;
@@ -21,6 +24,8 @@ import com.proj.views.GameWindowScreen;
 public class GameController implements ActionListener {
 	private GameWindowScreen gameWindowScreen;
 	private GameModelCreation gameModel;
+	private String sSaveFileName="";
+
 
 	/**
 	 * constructor for Game Controller
@@ -107,8 +112,20 @@ public class GameController implements ActionListener {
 		
 		case "Cards":
 			gameWindowScreen.viewAvailableCards();
+			break;
+		case "Save Button":
+			sSaveFileName=FncSaveFileName();
+			gameWindowScreen.saveExistingGame(gameModel,sSaveFileName);
+			break;
 		}
 	}
+
+	private String FncSaveFileName() {
+		String sFilename="";
+		sFilename = JOptionPane.showInputDialog(null,"Enter the File name you want to save:",JOptionPane.OK_CANCEL_OPTION | JOptionPane.QUESTION_MESSAGE);
+		return sFilename;
+	}
+
 
 	/**
 	 * checks end of start up phase
