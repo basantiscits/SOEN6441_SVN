@@ -11,8 +11,10 @@ import org.junit.Test;
 import com.proj.models.Continent;
 import com.proj.models.Country;
 import com.proj.models.GameModelCreation;
+import com.proj.models.Human;
 import com.proj.models.Map;
 import com.proj.models.Player;
+import com.proj.models.PlayerType;
 import com.proj.views.GameWindowScreen;
 
 /**
@@ -30,6 +32,7 @@ public class GameControllerTest {
 	private Continent continent1,continent2,continent3;
 	private Country country1,country2,country3,country4,country5,country6,country7,country8,country9,country10;
 	private ArrayList<Continent> continentList;
+	private GameModelCreation gameModel;
 	
 	/**
 	 * This method initializes all the required data to complete the test
@@ -37,13 +40,16 @@ public class GameControllerTest {
 	@Before
 	public void before() {
 		player = new Player[3];
-		player[0] = new Player("Player1");
-		player[1] = new Player("Player2");
-		player[2] = new Player("Player3");
+		player[0] = new Player("Player1",PlayerType.Human);
+		player[1] = new Player("Player2",PlayerType.Human);
+		player[2] = new Player("Player3",PlayerType.Human);
+		player[0].setStrategy(new Human());
+		player[1].setStrategy(new Human());
+		player[2].setStrategy(new Human());
 		gameMap = new Map();
-		GameModelCreation gameModel = new GameModelCreation(gameMap,player);
-		screen = new GameWindowScreen(gameMap, player, gameModel);
-		controller = new GameController(screen, gameMap, player);
+		gameModel = new GameModelCreation(gameMap,player);
+		screen = new GameWindowScreen(gameModel);
+		controller = new GameController(screen, gameModel);
 		continent1 = new Continent();
 		continent1.setContinentName("Asia");
 		country1 = new Country("India",continent1);
@@ -107,9 +113,9 @@ public class GameControllerTest {
 	 */
 	@Test
 	public void intializeReinforcementArmiesTest() {
-		player[0].intializeReinforcementArmies(screen, gameMap);
-		player[1].intializeReinforcementArmies(screen, gameMap);
-		player[2].intializeReinforcementArmies(screen, gameMap);
+		player[0].intializeReinforcementArmies(gameModel);
+		player[1].intializeReinforcementArmies(gameModel);
+		player[2].intializeReinforcementArmies(gameModel);
 		System.out.println(player[0].getNoOfArmiesOwned()+" : "+player[1].getNoOfArmiesOwned()+" : "+player[2].getNoOfArmiesOwned());
 		assertEquals(3,player[0].getNoOfArmiesOwned());
 		assertEquals(3,player[1].getNoOfArmiesOwned());

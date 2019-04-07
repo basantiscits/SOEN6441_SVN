@@ -46,8 +46,6 @@ public class Player extends Observable{
 		updateChanges();
 	}
 	
-	
-	
 	public BehaviorStrategies getStrategy() {
 		return strategy;
 	}

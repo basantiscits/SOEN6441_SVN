@@ -34,8 +34,9 @@ public class RandomPlayer implements BehaviorStrategies {
 		// TODO Auto-generated method stub
 		while (gameModel.getCurrPlayer().getNoOfArmiesOwned() > 0) {
 			int limit = random.nextInt(gameModel.getCurrPlayer().getCountriesOwned().size());
-			if (limit == gameModel.getCurrPlayer().getCountriesOwned().size())
+			if (limit == gameModel.getCurrPlayer().getCountriesOwned().size()) {
 				limit = limit - 1;
+			}
 			Country country = gameModel.getCurrPlayer().getCountriesOwned().get(limit);
 			country.addNoOfArmiesCountry();
 			gameModel.getCurrPlayer().reduceArmyInPlayer();

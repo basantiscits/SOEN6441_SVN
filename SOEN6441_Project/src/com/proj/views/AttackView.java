@@ -316,7 +316,7 @@ public class AttackView extends JFrame implements ActionListener {
 	}
 	
 	/**
-	 * setter for numer of dice
+	 * setter for number of dice
 	 * @param dice combo box for number of dices
 	 */
 	public void setNoOfDice(JComboBox dice) {
