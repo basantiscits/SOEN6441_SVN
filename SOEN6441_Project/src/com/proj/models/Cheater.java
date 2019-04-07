@@ -4,14 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-
-<<<<<<< HEAD
-public class Cheater implements BehaviorStrategies,Serializable {
-=======
 import javax.swing.JOptionPane;
 
-public class Cheater implements BehaviorStrategies {
->>>>>>> 516cb7679251196e3593cb1c89e40a89c04f4436
+public class Cheater implements BehaviorStrategies,Serializable {
+
+
+
 
 	@Override
 	public void startUpPhase(GameModelCreation gameModel) {

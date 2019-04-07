@@ -1,6 +1,5 @@
 package com.proj.views;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
@@ -17,6 +16,7 @@ import javax.swing.JOptionPane;
 import com.proj.models.Map;
 import com.proj.utilites.Constants;
 import com.proj.utilites.MapTools;
+
 
 
 /**
@@ -66,8 +66,6 @@ public class MainMenuScreen extends JFrame {
 		});
 		PlayGame.setToolTipText("New Game");
 		JMenuItem singlePlayer = new JMenuItem("Play Game");
-		singlePlayer.setToolTipText("Play Game");
-		
 		//JMenuItem MultiPlayer = new JMenuItem("Tournament");
 		JMenuItem MultiPlayer =  new JMenuItem(new AbstractAction("Tournament") {
 			public void actionPerformed(ActionEvent e) {
@@ -77,13 +75,23 @@ public class MainMenuScreen extends JFrame {
 			}
 		});
 		
-		MultiPlayer.setToolTipText("Tournament");
+		singlePlayer.setToolTipText("Play Game");
+		JMenuItem UploadDeserializeMap =  new JMenuItem(new AbstractAction("Upload Exisiting Game") {
+			public void actionPerformed(ActionEvent e) {
+				UploadExistingGame UploadExistingGame = new UploadExistingGame();
+				UploadExistingGame.setVisible(true);
+				dispose();
+			}
+		});
+		UploadDeserializeMap.setToolTipText("Upload Exisiting Game");
 		
+		MultiPlayer.setToolTipText("Tournament");
 		JMenuItem exitMenuItem = new JMenuItem("Exit");
 		exitMenuItem.setToolTipText("Exit application");
 		
 		SubSubMenu.add(PlayGame);
 		SubSubMenu.add(MultiPlayer);
+		SubSubMenu.add(UploadDeserializeMap);
 		
 		
 		

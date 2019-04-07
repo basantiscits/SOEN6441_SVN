@@ -42,7 +42,7 @@ public class MapTools implements Serializable {
 			chooser.setDialogTitle("Choose Map file");
 			chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 			chooser.setAcceptAllFileFilterUsed(false);
-			chooser.addChoosableFileFilter(new FileNameExtensionFilter("*.map", "map"));
+			chooser.addChoosableFileFilter(new FileNameExtensionFilter("*.map", "map","*.bin", "bin"));
 			if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 				importFileName = chooser.getSelectedFile().getAbsolutePath();
 				if (importFileName.trim().isEmpty()) {
