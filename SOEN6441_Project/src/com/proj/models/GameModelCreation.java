@@ -89,6 +89,7 @@ public class GameModelCreation extends Observable implements Serializable{
 		if(turn == player.length) {
 			turn = 0;
 		}
+		System.out.println("Turn: "+turn);
 		turn++;
 		//updateChanges();
 	}
@@ -127,7 +128,7 @@ public class GameModelCreation extends Observable implements Serializable{
 	 */
 	public void setPlayer(Player[] player) {
 		this.player = player;
-		updateChanges();
+		//updateChanges();
 	}
 
 	/**

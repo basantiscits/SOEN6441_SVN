@@ -1186,12 +1186,14 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		cardViewLabel.setSize(500,100);
 		displayCards();
 		listOfCards.setBounds(80,100, 75,150); 
-		if(gameModel.getCurrPlayer().getNoOfCardsOwned()<5) cardExchangeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		if(gameModel.getCurrPlayer().getNoOfCardsOwned()<5) {
+			cardExchangeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		}
 		viewCardFrame.setTitle("View Cards");
 		
 		viewCardFrame.add(listOfCards);
-		 viewCardFrame.add(cardViewLabel);
-		 viewCardFrame.setVisible(true);
+		viewCardFrame.add(cardViewLabel);
+		viewCardFrame.setVisible(true);
 		
 		
 		
@@ -1338,9 +1340,14 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		Color color3 = new Color(88, 43, 97);
 		Color color4 = new Color(67, 89, 67);
 		Color color5 = new Color(11, 78, 80);
+		Color color6 = new Color(45, 71, 83);
 		
+		Color[] colorArray = {color1,color2,color3,color4,color5,color6};
+	
 		Player[] players = gameModel.getPlayer();
+		//System.out.println("Player: "+players.length);
 		for (int i = 0; i < players.length; i++) {
+			//System.out.println("Player: "+players[i].getPlayerName());
 			progressBar = new JProgressBar();
 			int value = (int) (((double) players[i].getCountriesOwned().size()/gameModel.getMapDetails().listOfCountryNames().size()) * 100);
 
@@ -1361,6 +1368,9 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 			}
 			else if (i == 4) {
 				progressBar.setForeground(color5);
+			}
+			else if (i == 5) {
+				progressBar.setForeground(color6);
 			}
 			Border border = BorderFactory.createTitledBorder(players[i].getPlayerName());
 			progressBar.setBorder(border);

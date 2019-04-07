@@ -16,6 +16,7 @@ import com.proj.models.GameModelCreation;
 import com.proj.models.Map;
 import com.proj.models.Player;
 import com.proj.views.AttackView;
+import com.proj.models.PlayerType;
 
 /**
  * Attack Controller Class
@@ -42,12 +43,14 @@ public class AttackController implements ActionListener, Serializable{
 	private Map map;
 	private Country sourCountry, destCountry;
 	public boolean countryWon;
+	private GameModelCreation gameModel;
 	
 	/** 
 	 * attackView class constructor
 	 * @param attackView attack view object
 	 */
 	public AttackController(AttackView attackView) {
+		gameModel = attackView.getGameModel();
 		this.attackView=attackView;
 		diceRoll=new Random();
 		defender=null;
@@ -75,6 +78,7 @@ public class AttackController implements ActionListener, Serializable{
 		countryWon=false;
 		attackerDiceValues=new ArrayList<Integer>();
 		defenderDiceValues=new ArrayList<Integer>();
+		this.gameModel = gameModel;
 		this.players=gameModel.getPlayer();
 		this.map=gameModel.getMapDetails();
 		attackerDiceCount=0;
@@ -331,6 +335,16 @@ public class AttackController implements ActionListener, Serializable{
 			attacker.addCountry(countryDefending);
 			defender.removeCountry(countryDefending);
 			countryWon=true;
+			int val1 = 0;
+			int val2 = 0;
+			for(int i=0; i<players.length; i++) {
+				if(attacker==players[i]) {
+					val1=i;
+				}
+				if(defender==players[i]) {
+					val2=i;
+				}
+			}
 			if(defender.getCountriesOwned().size()==0) {
 				attacker.setNoOfCardsOwned(attacker.getNoOfCardsOwned() + defender.getCardsOwned().size());
 				attacker.getCardsOwned().addAll(defender.getCardsOwned());
@@ -343,7 +357,23 @@ public class AttackController implements ActionListener, Serializable{
 					newList[k++]=p;
 				}
 				players=newList;
-				attackView.getGameModel().setPlayer(players);
+				if(newList!=null) {
+					for(Player p:newList) {
+						System.out.println("Player in new List: "+p);
+					}
+					for(Player p:players) {
+						System.out.println("Player in players: "+p);
+					}
+				}
+				if(players!=null) {
+					gameModel.setPlayer(players); ///??
+				}
+				else {
+					System.out.println("Null si");
+				}
+				if(val2<val1) {
+					attackView.getGameModel().setTurn(attackView.getGameModel().getTurn()-1);
+				}
 			}
 			Continent continentName = map.searchContinent(countryDefending);
 			if(defender.getContinentsOwned().contains(continentName)) {
@@ -497,22 +527,29 @@ public class AttackController implements ActionListener, Serializable{
 					attackView.getNoOfDiceDefender().removeAllItems();
 					transferArmy(attackerDiceSelection);	
 					attackView.addCountryToBox(attackView.getSourceCountry());
+					int over = 0;
+					for(Player p : attackView.getGameModel().getPlayer()) {
+						if(p.getPlayerType()==PlayerType.Human) {
+							over = 1;
+						}
+					}
+					if(over != 1) {
+						JOptionPane.showMessageDialog(null,"All Human Lost!!! \n Game Over");
+						attackView.dispose();
+						attackView.getGameModel().getGameScreen().dispose();
+						System.exit(0);
+					}
 					if(attackView.getGameModel().getCurrPlayer().getCountriesOwned().size()==attackView.getGameModel().getMapDetails().listOfCountryNames().size()) {
 						JOptionPane.showMessageDialog(null, attackView.getGameModel().getCurrPlayer().getPlayerName()+" has won the game\n CONGRATULATIONS");
 						attackView.dispose();
 						attackView.getGameModel().getGameScreen().dispose();
+						return;
 					}
-					if(attackView.getGameModel().getPlayer()[2].getPlayerName().equals("Neutral")) {
-						if(attackView.getGameModel().getPlayer()[0].getCountriesOwned().size()==0) {
-							JOptionPane.showMessageDialog(null, attackView.getGameModel().getCurrPlayer().getPlayerName()+" has won the game\n CONGRATULATIONS");
-							attackView.dispose();
-							attackView.getGameModel().getGameScreen().dispose();
-						}
-						else if(attackView.getGameModel().getPlayer()[1].getCountriesOwned().size()==0) {
-							JOptionPane.showMessageDialog(null, attackView.getGameModel().getCurrPlayer().getPlayerName()+" has won the game\n CONGRATULATIONS");
-							attackView.dispose();
-							attackView.getGameModel().getGameScreen().dispose();
-						}
+
+					if(attackView.getGameModel().getPlayer()[1].getPlayerName().equals("Neutral")) {
+						JOptionPane.showMessageDialog(null, attackView.getGameModel().getPlayer()[0].getPlayerName()+" has won the game\n CONGRATULATIONS");
+						attackView.dispose();
+						attackView.getGameModel().getGameScreen().dispose();
 					}
 					if(attackView.getSourceCountry().getSelectedItem()==null) {
 						JOptionPane.showMessageDialog(null, attackView.getGameModel().getCurrPlayer().getPlayerName()+" has no country with armies more than one!!!");
@@ -570,22 +607,28 @@ public class AttackController implements ActionListener, Serializable{
 					transferArmy(attackerDiceCount);	
 					attackView.addCountryToBox(attackView.getSourceCountry());
 					System.out.println("chl pya");
+					int over = 0;
+					for(Player p : attackView.getGameModel().getPlayer()) {
+						if(p.getPlayerType()==PlayerType.Human) {
+							over = 1;
+						}
+					}
+					if(over != 1) {
+						JOptionPane.showMessageDialog(null,"All Human Lost!!! \n Game Over");
+						attackView.dispose();
+						attackView.getGameModel().getGameScreen().dispose();
+						System.exit(0);
+					}
 					if(attackView.getGameModel().getCurrPlayer().getCountriesOwned().size()==attackView.getGameModel().getMapDetails().listOfCountryNames().size()) {
 						JOptionPane.showMessageDialog(null, attackView.getGameModel().getCurrPlayer().getPlayerName()+" has won the game\n CONGRATULATIONS");
 						attackView.dispose();
 						attackView.getGameModel().getGameScreen().dispose();
+						return;
 					}
-					if(attackView.getGameModel().getPlayer()[2].getPlayerName().equals("Neutral")) {
-						if(attackView.getGameModel().getPlayer()[0].getCountriesOwned().size()==0) {
-							JOptionPane.showMessageDialog(null,attackView.getGameModel().getCurrPlayer()+" has won the game\n CONGRATULATIONS");
-							attackView.dispose();
-							attackView.getGameModel().getGameScreen().dispose();
-						}
-						else if(attackView.getGameModel().getPlayer()[1].getCountriesOwned().size()==0) {
-							JOptionPane.showMessageDialog(null, attackView.getGameModel().getCurrPlayer()+" has won the game\n CONGRATULATIONS");
-							attackView.dispose();
-							attackView.getGameModel().getGameScreen().dispose();
-						}
+					if(attackView.getGameModel().getPlayer()[1].getPlayerName().equals("Neutral")) {
+						JOptionPane.showMessageDialog(null, attackView.getGameModel().getPlayer()[0].getPlayerName()+" has won the game\n CONGRATULATIONS");
+						attackView.dispose();
+						attackView.getGameModel().getGameScreen().dispose();
 					}
 					if(attackView.getSourceCountry().getSelectedItem()==null) {
 						JOptionPane.showMessageDialog(null, attackView.getGameModel().getCurrPlayer().getPlayerName()+" has no country with armies more than one!!!");

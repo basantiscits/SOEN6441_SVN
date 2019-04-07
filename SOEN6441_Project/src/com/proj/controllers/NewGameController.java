@@ -228,6 +228,10 @@ public class NewGameController implements ActionListener, Serializable {
 						}
 						if (Integer.parseInt(noOfPlayers) == 6) {
 							comboSelectedPlayers[5] = (String) playNewGame.getComboBoxSelectPlayer6().getSelectedItem();
+							System.out.println("Andar a gya: "+(String) playNewGame.getComboBoxSelectPlayer6().getSelectedItem());
+						}
+						for(String s:comboSelectedPlayers) {
+							System.out.println("Array di value: "+s);
 						}
 						player = initializingPlayerModels(Integer.parseInt(noOfPlayers), sCarryMapForward, comboSelectedPlayers);
 						this.gameModel = new GameModelCreation(sCarryMapForward, player);
@@ -262,6 +266,10 @@ public class NewGameController implements ActionListener, Serializable {
 	 *            number of players
 	 */
 	public void initializeNumberOfArmies(PlayerType[] playerTypes, Player[] players, int noOfPlayers) {
+		System.out.println("noOfPlayers : 2"+noOfPlayers);
+		for(int i=0;i<playerTypes.length;i++) {
+			System.out.println("Main : "+i+" = "+playerTypes[i]);
+		}
 			for (int j = 0; j < noOfPlayers; j++) {
 				int value = j + 1;
 				players[j] = new Player("Player" + String.valueOf(value), playerTypes[j]);
@@ -296,6 +304,9 @@ public class NewGameController implements ActionListener, Serializable {
 					players[j].setNoOfArmiesOwned(20);
 				}
 			}
+			for(int i=0;i<noOfPlayers;i++) {
+				System.out.println("Ofreish1: "+i+" : "+players[i].getPlayerName()+" , "+players[i].getPlayerType());
+			}
 	}
 
 	/**
@@ -312,6 +323,7 @@ public class NewGameController implements ActionListener, Serializable {
 	 * @return players array object of type Player
 	 */
 	public Player[] initializingPlayerModels(int noOfPlayers, Map sCarryMapForward, String[] comboSelectedPlayers) {
+		System.out.println("noOfPlayers : 0"+noOfPlayers);
 		Player[] players = new Player[noOfPlayers];
 		int pickedNumber = 0;
 		Continent[] continents = new Continent[sCarryMapForward.getContinents().size()];
@@ -353,6 +365,11 @@ public class NewGameController implements ActionListener, Serializable {
 		}
 		else {
 			initializeNumberOfArmies(playerTypes, players, noOfPlayers);
+			
+		}
+		System.out.println("noOfPlayers: 3"+noOfPlayers);
+		for(int i=0;i<noOfPlayers;i++) {
+			System.out.println("Ofreish: "+i+" : "+players[i].getPlayerName()+" , "+players[i].getPlayerType());
 		}
 		Random RandomAllocationCountries = new Random();
 		List<Country> countryModelList = new ArrayList<Country>();
@@ -413,7 +430,7 @@ public class NewGameController implements ActionListener, Serializable {
 			playerTypes[4] = getPlayerType(comboSelectedPlayers[4]);
 		}
 		if(noOfPlayers == 6) {
-			playerTypes[5] = getPlayerType(comboSelectedPlayers[4]);
+			playerTypes[5] = getPlayerType(comboSelectedPlayers[5]);
 		}
 
 		return playerTypes;

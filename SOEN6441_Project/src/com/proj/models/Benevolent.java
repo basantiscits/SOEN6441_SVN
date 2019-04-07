@@ -62,15 +62,16 @@ public class Benevolent implements BehaviorStrategies, Serializable {
 		// TODO Auto-generated method stub
 		//System.out.println("armies1 in attack: "+gameModel.getCurrPlayer().getNoOfArmiesOwned());
 		Player attacker=gameModel.getCurrPlayer();
-		if(gameModel.getPlayer().length==1){
+/*		if(gameModel.getPlayer().length==1){
 			System.out.println("Game Won by "+attacker.getPlayerName()+" "+attacker.getStrategy().getClass());
 			return;
-		}
+		}*/
 		if(gameModel.getPlayer().length==1){
 			System.out.println("Game Won by "+attacker.getPlayerName()+" "+attacker.getStrategy().getClass());
+			gameModel.getGameScreen().dispose();
 			JOptionPane.showMessageDialog(null, attacker.getPlayerName()+" won the game!!! CONGRATULATION!!!");
 			//gameModel.getGameScreen()attacker;
-			gameModel.getGameScreen().dispose();
+			return;
 		}
 		
 		if(attacker.getNoOfCardsOwned()>4){
@@ -126,7 +127,7 @@ public class Benevolent implements BehaviorStrategies, Serializable {
 		}*/
 		for(String cName : minCountry.getListOfNeighbours()) {
 			Country c = gameModel.getMapDetails().searchCountry(cName);
-			if(c.getNoOfArmiesPresent() > minCountry.getNoOfArmiesPresent() && c.getOwnedBy().getPlayerName().equals(gameModel.getCurrPlayer().getPlayerName())) {
+			if(c.getNoOfArmiesPresent() > minCountry.getNoOfArmiesPresent() && gameModel.getCurrPlayer().getCountriesOwned().contains(c)) {
 /*				System.out.println("minCountry: "+minCountry.getCountryName());
 				System.out.println("c: "+c.getCountryName());*/
 				minCountry.addNoOfArmiesCountry();

@@ -95,9 +95,10 @@ public class Aggressive implements BehaviorStrategies, Serializable {
 		
 		if(gameModel.getPlayer().length==1){
 			System.out.println("Game Won by "+attacker.getPlayerName()+" "+attacker.getStrategy().getClass());
-			JOptionPane.showMessageDialog(null, attacker.getPlayerName()+" won the game!!! CONGRATULATION!!!");
-			//gameModel.getGameScreen()attacker;
 			gameModel.getGameScreen().dispose();
+			JOptionPane.showMessageDialog(null, attacker.getPlayerName()+" won the game!!! CONGRATULATION!!!");
+			return;
+			//gameModel.getGameScreen()attacker;
 		}
 		if(attacker.getNoOfCardsOwned()>4){
 			//Cards to implemented

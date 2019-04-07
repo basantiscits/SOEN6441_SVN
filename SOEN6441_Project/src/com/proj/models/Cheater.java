@@ -68,6 +68,16 @@ public class Cheater implements BehaviorStrategies, Serializable {
 				}
 				attacker.addCountry(defendingCountry);
 				defender.removeCountry(defendingCountry);
+				int val1 = 0;
+				int val2 = 0;
+				for(int i=0; i<players.length; i++) {
+					if(attacker==players[i]) {
+						val1=i;
+					}
+					if(defender==players[i]) {
+						val2=i;
+					}
+				}
 				if (defender.getCountriesOwned().size() == 0) {
 					attacker.setNoOfCardsOwned(attacker.getNoOfCardsOwned() + defender.getCardsOwned().size());
 					attacker.getCardsOwned().addAll(defender.getCardsOwned());
@@ -81,6 +91,10 @@ public class Cheater implements BehaviorStrategies, Serializable {
 					}
 					players=newList;
 					gameModel.setPlayer(players);
+					
+					if(val2<val1) {
+						gameModel.setTurn(gameModel.getTurn()-1);
+					}
 				}
 				Continent continentName = gameModel.getMapDetails().searchContinent(defendingCountry);
 				if (defender.getContinentsOwned().contains(continentName)) {
@@ -105,6 +119,20 @@ public class Cheater implements BehaviorStrategies, Serializable {
 		System.out.println(gameModel.getPlayer().length);
 		attacker.getCardsOwned().add(Card.getNewCard());   
 		attacker.setNoOfCardsOwned(attacker.getNoOfCardsOwned()+1);
+		
+		int over = 0;
+		for(Player p : gameModel.getPlayer()) {
+			if(p.getPlayerType()==PlayerType.Human) {
+				over = 1;
+			}
+		}
+		if(over != 1) {
+			JOptionPane.showMessageDialog(null,"All Human Lost!!! \n Game Over");
+			//attackView.dispose();
+			gameModel.getGameScreen().dispose();
+			System.exit(0);
+			//return;
+		}
 		
 		if(gameModel.getPlayer().length==1){
 			System.out.println("Game Won by "+attacker.getPlayerName()+" "+attacker.getStrategy().getClass());
@@ -149,7 +177,7 @@ public class Cheater implements BehaviorStrategies, Serializable {
 		for(Country playerCountry : gameModel.getCurrPlayer().getCountriesOwned()) {
 			for(String neighborCountry : playerCountry.getListOfNeighbours()) {
 				Country c = gameModel.getMapDetails().searchCountry(neighborCountry);
-				if(!gameModel.getCurrPlayer().getPlayerName().equals(c.getOwnedBy().getPlayerName())) {
+				if(!gameModel.getCurrPlayer().getCountriesOwned().contains(c)) {
 					int armies = playerCountry.getNoOfArmiesPresent()*2;
 					playerCountry.setNoOfArmiesPresent(armies);
 					break;

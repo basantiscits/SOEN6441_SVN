@@ -545,9 +545,9 @@ public class PlayNewGame extends JFrame implements ActionListener {
 		return comboBoxPlayer6;
 	}
 
-
+	// Basant bhaiiii
 	public void setComboBoxSelectPlayer6(JComboBox<String> comboBoxPlayer6) {
-		this.comboBoxPlayer5 = comboBoxPlayer6;
+		this.comboBoxPlayer6 = comboBoxPlayer6;
 	}
 	/**
 	 * Overridden method listening events not used

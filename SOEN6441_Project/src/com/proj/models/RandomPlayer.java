@@ -58,7 +58,13 @@ public class RandomPlayer implements BehaviorStrategies, Serializable {
 		Random randomAttacks=new Random();
 		Country randomDefendingCountry=null;
 		
-		Country attackingCountry=attacker.getCountriesOwned().get(randomCountry.nextInt(attacker.getCountriesOwned().size()));
+		//Ofreish
+		int limit = randomCountry.nextInt(attacker.getCountriesOwned().size());
+		if (limit == attacker.getCountriesOwned().size()) {
+			limit = limit - 1;
+		}
+		
+		Country attackingCountry=attacker.getCountriesOwned().get(limit);
 		int noOfAttacks=randomAttacks.nextInt(attackingCountry.getNoOfArmiesPresent()-1);
 		ArrayList<Country> defendingCountries=new ArrayList<Country>();
 		int flag =0;
@@ -79,7 +85,13 @@ public class RandomPlayer implements BehaviorStrategies, Serializable {
 		}
 		if(flag==1 && defendingCountries.size()>0){
 			AttackController attack=new AttackController(gameModel);
-			randomDefendingCountry=defendingCountries.get(randomCountry.nextInt(defendingCountries.size()-1));
+			//Ofreish
+			if((defendingCountries.size()-1)<1) {
+				randomDefendingCountry=defendingCountries.get(randomCountry.nextInt(1));
+			}
+			else {
+				randomDefendingCountry=defendingCountries.get(randomCountry.nextInt(defendingCountries.size()-1));
+			}
 			int noOfAttackingArmies=attackingCountry.getNoOfArmiesPresent()-1;
 			int noOfDefendingArmies=randomDefendingCountry.getNoOfArmiesPresent();
 			while(noOfAttacks>0 && noOfAttackingArmies>0 && noOfDefendingArmies>0){
@@ -124,9 +136,10 @@ public class RandomPlayer implements BehaviorStrategies, Serializable {
 		}
 		if(gameModel.getPlayer().length==1){
 			System.out.println("Game Won by "+attacker.getPlayerName()+" "+attacker.getStrategy().getClass());
+			gameModel.getGameScreen().dispose();
 			JOptionPane.showMessageDialog(null, attacker.getPlayerName()+" won the game!!! CONGRATULATION!!!");
 			//gameModel.getGameScreen()attacker;
-			gameModel.getGameScreen().dispose();
+			return;
 		}
 		if(attacker.getNoOfCardsOwned()>4){
 			//Cards to implemented
@@ -161,29 +174,30 @@ public class RandomPlayer implements BehaviorStrategies, Serializable {
 				countryList.add(c);
 			}
 		}
-		
-		int limit1 = random.nextInt(countryList.size());
-		if (limit1 == countryList.size()) {
-			limit1 = limit1 - 1;
-		}
-		
-		Country sourceCountry = countryList.get(limit1);
-		
-		ArrayList<String> neighbourList = new ArrayList<String>();
-		neighbourList.addAll(sourceCountry.getListOfNeighbours());
-		
-		int limit2 = random.nextInt(neighbourList.size());
-		if (limit2 == neighbourList.size()) {
-			limit2 = limit2 - 1;
-		}
-		
-		String destinationCountryName = neighbourList.get(limit2);
-		Country destinationCountry = gameModel.getMapDetails().searchCountry(destinationCountryName);
-		
-		int armies = random.nextInt(sourceCountry.getNoOfArmiesPresent()-1);
-		for(int i = 0; i < armies; i++) {
-			sourceCountry.removeNoOfArmiesCountry();
-			destinationCountry.addNoOfArmiesCountry();
+		if(countryList.size()>0) {
+			int limit1 = random.nextInt(countryList.size());
+			if (limit1 == countryList.size()) {
+				limit1 = limit1 - 1;
+			}
+			
+			Country sourceCountry = countryList.get(limit1);
+			
+			ArrayList<String> neighbourList = new ArrayList<String>();
+			neighbourList.addAll(sourceCountry.getListOfNeighbours());
+			
+			int limit2 = random.nextInt(neighbourList.size());
+			if (limit2 == neighbourList.size()) {
+				limit2 = limit2 - 1;
+			}
+			
+			String destinationCountryName = neighbourList.get(limit2);
+			Country destinationCountry = gameModel.getMapDetails().searchCountry(destinationCountryName);
+			
+			int armies = random.nextInt(sourceCountry.getNoOfArmiesPresent()-1);
+			for(int i = 0; i < armies; i++) {
+				sourceCountry.removeNoOfArmiesCountry();
+				destinationCountry.addNoOfArmiesCountry();
+			}
 		}
 		gameModel.incrementTurn();
 		gameModel.changePlayer();
