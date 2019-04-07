@@ -11,8 +11,10 @@ import org.junit.Test;
 import com.proj.models.Continent;
 import com.proj.models.Country;
 import com.proj.models.GameModelCreation;
+import com.proj.models.Human;
 import com.proj.models.Map;
 import com.proj.models.Player;
+import com.proj.models.PlayerType;
 import com.proj.views.FortificationView;
 import com.proj.views.GameWindowScreen;
 
@@ -34,6 +36,7 @@ public class FortificationControllerTest {
 	private ArrayList<Continent> continentList;
 	private FortificationView fortifyView;
 	private int currentPlayer;
+	GameModelCreation gameModel;
 	
 	/**
 	 * This method initializes all the required data to complete the test
@@ -41,13 +44,16 @@ public class FortificationControllerTest {
 	@Before
 	public void before() {
 		player = new Player[3];
-		player[0] = new Player("Player1");
-		player[1] = new Player("Player2");
-		player[2] = new Player("Player3");
+		player[0] = new Player("Player1",PlayerType.Human);
+		player[1] = new Player("Player2",PlayerType.Human);
+		player[2] = new Player("Player3",PlayerType.Human);
+		player[0].setStrategy(new Human());
+		player[1].setStrategy(new Human());
+		player[2].setStrategy(new Human());
 		gameMap = new Map();
-		GameModelCreation gameModel = new GameModelCreation(gameMap,player);
-		screen = new GameWindowScreen(gameMap, player, gameModel);
-		controller = new GameController(screen, gameMap, player);
+		gameModel = new GameModelCreation(gameMap,player);
+		screen = new GameWindowScreen(gameModel);
+		controller = new GameController(screen, gameModel);
 		continent1 = new Continent();
 		continent1.setContinentName("Asia");
 		country1 = new Country("India",continent1);
@@ -111,7 +117,7 @@ public class FortificationControllerTest {
 	 */
 	@Test
 	public void fortificationTest() {
-		fortifyView = new FortificationView(gameMap, player, currentPlayer, screen);
+		fortifyView = new FortificationView(gameModel);
 		FortificationController fortifyController = new FortificationController(fortifyView);
 		Country sourceCountry = player[0].getCountriesOwned().get(0);
 		Country destinationCountry = player[0].getCountriesOwned().get(1);

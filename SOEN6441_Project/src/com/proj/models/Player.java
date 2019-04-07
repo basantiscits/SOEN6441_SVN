@@ -47,8 +47,6 @@ public class Player extends Observable implements Serializable{
 		updateChanges();
 	}
 	
-	
-	
 	public BehaviorStrategies getStrategy() {
 		return strategy;
 	}

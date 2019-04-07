@@ -22,6 +22,7 @@ public class NewGameControllerTest {
 	static String ABSOULTE_PATH;
 	static PlayNewGame PLAY_NEW_GAME;
 	static NewGameController NEW_GAME_CONTROL;
+	String[] comboSelectedPlayers;
 	
 	/**
 	 * This method initializes all the required data to complete the test
@@ -30,7 +31,6 @@ public class NewGameControllerTest {
 	public static void setup() {
 		GAME_MAP = new Map();
 		ABSOULTE_PATH = new String();
-		String[] comboSelectedPlayer;
 		for (int i = 0; i < 6; i++) {
 			GAME_MAP = new Map();
 			ABSOULTE_PATH = new String();
@@ -53,11 +53,15 @@ public class NewGameControllerTest {
 	 */
 	@Test
 	public void threePlayerArmiesTest() {
-		Player player[] = NEW_GAME_CONTROL.initializingPlayerModels(3, GAME_MAP, null);
+		comboSelectedPlayers = new String[3];
+		comboSelectedPlayers[0] = "Human";
+		comboSelectedPlayers[1] = "Human";
+		comboSelectedPlayers[2] = "Human";
+		Player player[] = NEW_GAME_CONTROL.initializingPlayerModels(3, GAME_MAP, comboSelectedPlayers);
 		System.out.println(player[0].getNoOfArmiesOwned());
-		assertEquals(11, player[0].getNoOfArmiesOwned());
-		assertEquals(11, player[1].getNoOfArmiesOwned());
-		assertEquals(11, player[2].getNoOfArmiesOwned());
+		assertEquals(21, player[0].getNoOfArmiesOwned());
+		assertEquals(21, player[1].getNoOfArmiesOwned());
+		assertEquals(21, player[2].getNoOfArmiesOwned());
 	}
 	
 	/**
@@ -65,12 +69,17 @@ public class NewGameControllerTest {
 	 */
 	@Test
 	public void fourPlayerArmiesTest() {
-		Player player[] = NEW_GAME_CONTROL.initializingPlayerModels(4, GAME_MAP, null);
+		comboSelectedPlayers = new String[4];
+		comboSelectedPlayers[0] = "Human";
+		comboSelectedPlayers[1] = "Human";
+		comboSelectedPlayers[2] = "Human";
+		comboSelectedPlayers[3] = "Human";
+		Player player[] = NEW_GAME_CONTROL.initializingPlayerModels(4, GAME_MAP, comboSelectedPlayers);
 		System.out.println(player[0].getNoOfArmiesOwned());
-		assertEquals(9, player[0].getNoOfArmiesOwned());
-		assertEquals(9, player[1].getNoOfArmiesOwned());
-		assertEquals(10, player[2].getNoOfArmiesOwned());
-		assertEquals(10, player[3].getNoOfArmiesOwned());
+		assertEquals(19, player[0].getNoOfArmiesOwned());
+		assertEquals(19, player[1].getNoOfArmiesOwned());
+		assertEquals(20, player[2].getNoOfArmiesOwned());
+		assertEquals(20, player[3].getNoOfArmiesOwned());
 	}
 	
 	/**
@@ -78,13 +87,19 @@ public class NewGameControllerTest {
 	 */
 	@Test
 	public void fivePlayerArmiesTest() {
-		Player player[] = NEW_GAME_CONTROL.initializingPlayerModels(5, GAME_MAP, null);
+		comboSelectedPlayers = new String[5];
+		comboSelectedPlayers[0] = "Human";
+		comboSelectedPlayers[1] = "Human";
+		comboSelectedPlayers[2] = "Human";
+		comboSelectedPlayers[3] = "Human";
+		comboSelectedPlayers[4] = "Human";
+		Player player[] = NEW_GAME_CONTROL.initializingPlayerModels(5, GAME_MAP, comboSelectedPlayers);
 		System.out.println(player[0].getNoOfArmiesOwned());
-		assertEquals(6, player[0].getNoOfArmiesOwned());
-		assertEquals(6, player[1].getNoOfArmiesOwned());
-		assertEquals(7, player[2].getNoOfArmiesOwned());
-		assertEquals(7, player[3].getNoOfArmiesOwned());
-		assertEquals(7, player[4].getNoOfArmiesOwned());
+		assertEquals(16, player[0].getNoOfArmiesOwned());
+		assertEquals(16, player[1].getNoOfArmiesOwned());
+		assertEquals(17, player[2].getNoOfArmiesOwned());
+		assertEquals(17, player[3].getNoOfArmiesOwned());
+		assertEquals(17, player[4].getNoOfArmiesOwned());
 	}
 
 	/**
@@ -92,7 +107,11 @@ public class NewGameControllerTest {
 	 */
 	@Test
 	public void threePlayerCountriesTest() {
-		Player player[] = NEW_GAME_CONTROL.initializingPlayerModels(3, GAME_MAP, null);
+		comboSelectedPlayers = new String[3];
+		comboSelectedPlayers[0] = "Human";
+		comboSelectedPlayers[1] = "Human";
+		comboSelectedPlayers[2] = "Human";
+		Player player[] = NEW_GAME_CONTROL.initializingPlayerModels(3, GAME_MAP, comboSelectedPlayers);
 		System.out.println(player[0].getCountriesOwned().size());
 		assertEquals(14, player[0].getCountriesOwned().size());
 		assertEquals(14, player[1].getCountriesOwned().size());
@@ -104,7 +123,12 @@ public class NewGameControllerTest {
 	 */
 	@Test
 	public void fourPlayerCountriesTest() {
-		Player player[] = NEW_GAME_CONTROL.initializingPlayerModels(4, GAME_MAP, null);
+		comboSelectedPlayers = new String[4];
+		comboSelectedPlayers[0] = "Human";
+		comboSelectedPlayers[1] = "Human";
+		comboSelectedPlayers[2] = "Human";
+		comboSelectedPlayers[3] = "Human";
+		Player player[] = NEW_GAME_CONTROL.initializingPlayerModels(4, GAME_MAP, comboSelectedPlayers);
 		System.out.println(player[0].getCountriesOwned().size());
 		assertEquals(11, player[0].getCountriesOwned().size());
 		assertEquals(11, player[1].getCountriesOwned().size());
@@ -117,7 +141,13 @@ public class NewGameControllerTest {
 	 */
 	@Test
 	public void fivePlayerCountriesTest() {
-		Player player[] = NEW_GAME_CONTROL.initializingPlayerModels(5, GAME_MAP, null);
+		comboSelectedPlayers = new String[5];
+		comboSelectedPlayers[0] = "Human";
+		comboSelectedPlayers[1] = "Human";
+		comboSelectedPlayers[2] = "Human";
+		comboSelectedPlayers[3] = "Human";
+		comboSelectedPlayers[4] = "Human";
+		Player player[] = NEW_GAME_CONTROL.initializingPlayerModels(5, GAME_MAP, comboSelectedPlayers);
 		System.out.println(player[0].getCountriesOwned().size());
 		assertEquals(9, player[0].getCountriesOwned().size());
 		assertEquals(9, player[1].getCountriesOwned().size());

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+
 import com.proj.controllers.AttackController;
 
 public class RandomPlayer implements BehaviorStrategies, Serializable {
@@ -33,8 +35,9 @@ public class RandomPlayer implements BehaviorStrategies, Serializable {
 		// TODO Auto-generated method stub
 		while (gameModel.getCurrPlayer().getNoOfArmiesOwned() > 0) {
 			int limit = random.nextInt(gameModel.getCurrPlayer().getCountriesOwned().size());
-			if (limit == gameModel.getCurrPlayer().getCountriesOwned().size())
+			if (limit == gameModel.getCurrPlayer().getCountriesOwned().size()) {
 				limit = limit - 1;
+			}
 			Country country = gameModel.getCurrPlayer().getCountriesOwned().get(limit);
 			country.addNoOfArmiesCountry();
 			gameModel.getCurrPlayer().reduceArmyInPlayer();
@@ -55,26 +58,26 @@ public class RandomPlayer implements BehaviorStrategies, Serializable {
 		Random randomAttacks=new Random();
 		Country randomDefendingCountry=null;
 		
-		Country attackingCountry=attacker.randomCountry;
+		Country attackingCountry=attacker.getCountriesOwned().get(randomCountry.nextInt(attacker.getCountriesOwned().size()));
 		int noOfAttacks=randomAttacks.nextInt(attackingCountry.getNoOfArmiesPresent()-1);
 		ArrayList<Country> defendingCountries=new ArrayList<Country>();
 		int flag =0;
 		Country countryToBeChecked = null;
-		for(String c : attackingCountry.getListOfNeighbours()) {
+		for(String n:attackingCountry.getListOfNeighbours()){
 			for(Continent continent:gameModel.getMapDetails().getContinents()){
-				for(Country country:continent.getCountriesPresent()) {
-					if(country.getCountryName().equalsIgnoreCase(c)) {
-						countryToBeChecked = country;
+				for(Country neighbour:continent.getCountriesPresent()){
+					if( neighbour.getCountryName().equalsIgnoreCase(n)){
+						for(Player p:gameModel.getPlayer()){
+							if(p.getCountriesOwned().contains(neighbour) && p!=attacker){
+								flag=1;
+								defendingCountries.add(neighbour);
+							}
+						}
 					}
 				}
 			}
-			if(!attacker.getCountriesOwned().contains(countryToBeChecked)) {
-				defendingCountries.add(countryToBeChecked);
-				flag=1;
-				System.out.println(c);
-			}
 		}
-		if(flag==1){
+		if(flag==1 && defendingCountries.size()>0){
 			AttackController attack=new AttackController(gameModel);
 			randomDefendingCountry=defendingCountries.get(randomCountry.nextInt(defendingCountries.size()-1));
 			int noOfAttackingArmies=attackingCountry.getNoOfArmiesPresent()-1;
@@ -108,7 +111,7 @@ public class RandomPlayer implements BehaviorStrategies, Serializable {
 					defenderDiceCount=randomDiceCount.nextInt(2)+1;
 				}
 				if(attack.normalAttack(attackingCountry.getCountryName(), randomDefendingCountry.getCountryName(), attackerDiceCount, defenderDiceCount)){
-					attack.numberOfArmiesTransfered(attack.attackerDiceCount, attackingCountry, defendingCountries.get(0));
+					attack.numberOfArmiesTransfered(attack.attackerDiceCount, attackingCountry, randomDefendingCountry);
 					defendingCountries.remove(0);	
 					attacker.getCardsOwned().add(Card.getNewCard());   
 					attacker.setNoOfCardsOwned(gameModel.getCurrPlayer().getNoOfCardsOwned()+1);
@@ -121,7 +124,9 @@ public class RandomPlayer implements BehaviorStrategies, Serializable {
 		}
 		if(gameModel.getPlayer().length==1){
 			System.out.println("Game Won by "+attacker.getPlayerName()+" "+attacker.getStrategy().getClass());
-			return;
+			JOptionPane.showMessageDialog(null, attacker.getPlayerName()+" won the game!!! CONGRATULATION!!!");
+			//gameModel.getGameScreen()attacker;
+			gameModel.getGameScreen().dispose();
 		}
 		if(attacker.getNoOfCardsOwned()>4){
 			//Cards to implemented
@@ -172,7 +177,7 @@ public class RandomPlayer implements BehaviorStrategies, Serializable {
 			limit2 = limit2 - 1;
 		}
 		
-		String destinationCountryName = neighbourList.get(limit1);
+		String destinationCountryName = neighbourList.get(limit2);
 		Country destinationCountry = gameModel.getMapDetails().searchCountry(destinationCountryName);
 		
 		int armies = random.nextInt(sourceCountry.getNoOfArmiesPresent()-1);

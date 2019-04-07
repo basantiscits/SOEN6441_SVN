@@ -2,9 +2,16 @@
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
+<<<<<<< HEAD
 public class Cheater implements BehaviorStrategies,Serializable {
+=======
+import javax.swing.JOptionPane;
+
+public class Cheater implements BehaviorStrategies {
+>>>>>>> 516cb7679251196e3593cb1c89e40a89c04f4436
 
 	@Override
 	public void startUpPhase(GameModelCreation gameModel) {
@@ -45,63 +52,56 @@ public class Cheater implements BehaviorStrategies,Serializable {
 		Player newList[] = null;
 		ArrayList<Player> newPlayerList=new ArrayList<Player>();
 		Player attacker=gameModel.getCurrPlayer();
-		ArrayList<Country> defendingCountries=new ArrayList<Country>();
-		int flag =0;
-		Country countryToBeChecked = null;
+		HashSet<Country> defendingCountries=new HashSet<Country>();
 		for(Country c:attacker.getCountriesOwned()){
 			for(String n:c.getListOfNeighbours()){
-				for(Continent continent:gameModel.getMapDetails().getContinents()){
-					for(Country neighbour:continent.getCountriesPresent()){
-						if(neighbour.getCountryName().equalsIgnoreCase(n)){
-							countryToBeChecked=neighbour;
-						}
-					}
+				Country neighbour=gameModel.getMapDetails().searchCountry(n);
+				if(!attacker.getCountriesOwned().contains(neighbour)){
+					defendingCountries.add(neighbour);
 				}
 			}
-			if(!attacker.getCountriesOwned().contains(countryToBeChecked)) {
-				defendingCountries.add(countryToBeChecked);
-				flag=1;
-				System.out.println(c);
-			}
 		}
-		if(flag==1){
-			for(Country defendingCountry:defendingCountries){
-				for(Player defender:gameModel.getPlayer()) {
-					for(Country c:defender.getCountriesOwned()) {
-						if(c==defendingCountry) {
-							attacker.addCountry(defendingCountry);
-							defender.removeCountry(defendingCountry);
-							if(defender.getCountriesOwned().size()==0) {
-								attacker.setNoOfCardsOwned(attacker.getNoOfCardsOwned() + defender.getCardsOwned().size());
-								attacker.getCardsOwned().addAll(defender.getCardsOwned());
-								int k=0;
-								playerRemoved=true;
-								for(Player p:gameModel.getPlayer()) {
-									if(p==defender) {
-										continue;
-									}
-									newPlayerList.add(p);
-								}
+		if(defendingCountries.size()>0){
+			for (Country defendingCountry : defendingCountries) {
+				Player defender=null;
+				for(Player p:gameModel.getPlayer()){
+					if(p.getCountriesOwned().contains(defendingCountry)){
+						defender=p;
+						break;
+					}
+				}
+				attacker.addCountry(defendingCountry);
+				defender.removeCountry(defendingCountry);
+				if (defender.getCountriesOwned().size() == 0) {
+					attacker.setNoOfCardsOwned(attacker.getNoOfCardsOwned() + defender.getCardsOwned().size());
+					attacker.getCardsOwned().addAll(defender.getCardsOwned());
+					playerRemoved = true;
+					for (Player p : gameModel.getPlayer()) {
+						if (p.getCountriesOwned().size()==0) {
+							continue;
+						}
+						newPlayerList.add(p);
+					}
+					newList=new Player[newPlayerList.size()];
+					int i=0;
+					for(Player p:newPlayerList){
+						newList[i++]=p;
+					}
+					gameModel.setPlayer(newList);
+				}
+				Continent continentName = gameModel.getMapDetails().searchContinent(defendingCountry);
+				if (defender.getContinentsOwned().contains(continentName)) {
+					defender.getContinentsOwned().remove(continentName);
+				}
+
+				for (Continent cont : gameModel.getMapDetails().getContinents()) {
+					if (attacker.getCountriesOwned().containsAll(cont.getCountriesPresent())
+							&& !attacker.getContinentsOwned().contains(cont)) {
+						attacker.getContinentsOwned().add(cont);
+						for (Player p : gameModel.getPlayer()) {
+							if (p.getContinentsOwned().contains(cont) && p != attacker) {
+								p.getContinentsOwned().remove(cont);
 							}
-							Continent continentName = gameModel.getMapDetails().searchContinent(defendingCountry);
-								if(defender.getContinentsOwned().contains(continentName)) {
-									defender.getContinentsOwned().remove(continentName);
-								}
-							
-							
-							for(Continent cont:gameModel.getMapDetails().getContinents()) {
-								if(attacker.getCountriesOwned().containsAll(cont.getCountriesPresent()) && !attacker.getContinentsOwned().contains(c)) {
-									attacker.getContinentsOwned().add(cont);
-									for(Player p :gameModel.getPlayer()) {
-										if(p.getContinentsOwned().contains(c) && p!=attacker) {
-											p.getContinentsOwned().remove(c);
-										}
-									}
-								}
-							}
-							
-							
-							break;
 						}
 					}
 				}
@@ -111,19 +111,28 @@ public class Cheater implements BehaviorStrategies,Serializable {
 		
 		attacker.getCardsOwned().add(Card.getNewCard());   
 		attacker.setNoOfCardsOwned(attacker.getNoOfCardsOwned()+1);
-		if(playerRemoved){
-			newList=new Player[newPlayerList.size()];
-			int i=0;
-			for(Player p:newPlayerList){
-				newList[i++]=p;
-			}
-			gameModel.setPlayer(newList);
-		}
+//		if(playerRemoved){
+//			for (Player p : gameModel.getPlayer()) {
+//				if (p.getCountriesOwned().size()==0) {
+//					continue;
+//				}
+//				newPlayerList.add(p);
+//			}
+//			newList=new Player[newPlayerList.size()];
+//			int i=0;
+//			for(Player p:newPlayerList){
+//				newList[i++]=p;
+//			}
+//			gameModel.setPlayer(newList);
+//		}
 		
 		if(gameModel.getPlayer().length==1){
 			System.out.println("Game Won by "+attacker.getPlayerName()+" "+attacker.getStrategy().getClass());
-			return;
+			JOptionPane.showMessageDialog(null, attacker.getPlayerName()+" won the game!!! CONGRATULATION!!!");
+			//gameModel.getGameScreen()attacker;
+			gameModel.getGameScreen().dispose();
 		}
+		System.out.println("Ofreish : "+attacker.getNoOfCardsOwned());
 		if(attacker.getNoOfCardsOwned()>4){
 			//Cards to implemented
 			attacker.setCardsForArmies(attacker.getCardsForArmies() + 5);

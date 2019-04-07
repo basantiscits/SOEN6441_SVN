@@ -12,8 +12,10 @@ import org.junit.Test;
 import com.proj.models.Continent;
 import com.proj.models.Country;
 import com.proj.models.GameModelCreation;
+import com.proj.models.Human;
 import com.proj.models.Map;
 import com.proj.models.Player;
+import com.proj.models.PlayerType;
 import com.proj.views.AttackView;
 import com.proj.views.GameWindowScreen;
 
@@ -42,6 +44,7 @@ public class AttackControllerTest {
 	private Continent Asia,Europe,Africa;
 	private Country India,Pakistan,Nepal,Bangladesh,Spain,France,Italy,England,SouthAfrica,Nigeria;
 	private ArrayList<Continent> continentList;
+	GameModelCreation gameModel;
 
 	/**
 	 * This method initializes all the required data to complete the test
@@ -49,13 +52,16 @@ public class AttackControllerTest {
 	@Before
 	public void before() {
 		player = new Player[3];
-		player[0] = new Player("Player1");
-		player[1] = new Player("Player2");
-		player[2] = new Player("Player3");
+		player[0] = new Player("Player1",PlayerType.Human);
+		player[1] = new Player("Player2",PlayerType.Human);
+		player[2] = new Player("Player3",PlayerType.Human);
+		player[0].setStrategy(new Human());
+		player[1].setStrategy(new Human());
+		player[2].setStrategy(new Human());
 		gameMap = new Map();
-		GameModelCreation gameModel = new GameModelCreation(gameMap,player);
-		screen = new GameWindowScreen(gameMap, player, gameModel);
-		controller = new GameController(screen, gameMap, player);
+		gameModel = new GameModelCreation(gameMap,player);
+		screen = new GameWindowScreen(gameModel);
+		controller = new GameController(screen, gameModel);
 		Asia = new Continent();
 		Asia.setContinentName("Asia");
 		India = new Country("India",Asia);
@@ -125,7 +131,7 @@ public class AttackControllerTest {
 	 */
 	@Test
 	public void checkDiceValuesTest() {
-		attackView = new AttackView(gameMap, player, currentPlayer, screen);
+		attackView = new AttackView(gameModel);
 		attackController = new AttackController(attackView);
 		attackController.countryAttacking = India;
 		attackController.countryDefending = Pakistan;
@@ -157,7 +163,7 @@ public class AttackControllerTest {
 	 */
 	@Test
 	public void numberOfArmiesTransferedTest() {
-		attackView = new AttackView(gameMap, player, currentPlayer, screen);
+		attackView = new AttackView(gameModel);
 		attackController = new AttackController(attackView);
 		attackController.countryAttacking = India;
 		attackController.countryDefending = Pakistan;
@@ -177,7 +183,7 @@ public class AttackControllerTest {
 	 */
 	@Test
 	public void warWonTest() {
-		attackView = new AttackView(gameMap, player, currentPlayer, screen);
+		attackView = new AttackView(gameModel);
 		attackController = new AttackController(attackView);
 		attackController.countryAttacking = India;
 		attackController.countryDefending = Pakistan;
@@ -209,7 +215,7 @@ public class AttackControllerTest {
 	 */
 	@Test
 	public void attackerValidTest() {
-		attackView = new AttackView(gameMap, player, currentPlayer, screen);
+		attackView = new AttackView(gameModel);
 		attackController = new AttackController(attackView);
 		attackController.attacker=player[0];
 		attackController.defender=player[1];
@@ -227,7 +233,7 @@ public class AttackControllerTest {
 	 */
 	@Test
 	public void defenderValidTest() {
-		attackView = new AttackView(gameMap, player, currentPlayer, screen);
+		attackView = new AttackView(gameModel);
 		attackController = new AttackController(attackView);
 		attackController.attacker=player[0];
 		attackController.defender=player[1];
@@ -245,7 +251,7 @@ public class AttackControllerTest {
 	 */
 	@Test
 	public void endGameTest() {
-		attackView = new AttackView(gameMap, player, currentPlayer, screen);
+		attackView = new AttackView(gameModel);
 		attackController = new AttackController(attackView);
 		attackController.attacker=player[2];
 		attackController.defender=player[1];
