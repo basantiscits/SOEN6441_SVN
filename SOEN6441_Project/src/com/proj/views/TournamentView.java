@@ -22,8 +22,6 @@ public class TournamentView  extends JFrame implements ActionListener {
 	private JComboBox<String> comboBoxBehaviourplayer2;
 	private JComboBox<String> comboBoxBehaviourplayer3;
 	private JComboBox<String> comboBoxBehaviourplayer4;
-	private JComboBox<String> comboBoxBehaviourplayer5;
-	private JComboBox<String> comboBoxBehaviourplayer6;
 	
 	private JComboBox<String> comboBoxSelectNoOfGames;
 	private JComboBox<String> comboBoxSelectNoOfTurns;
@@ -36,7 +34,7 @@ public class TournamentView  extends JFrame implements ActionListener {
 	private JButton buttonPlayGameTournament;
 	private TournamentController tournamentController;
 	private String[] noOfMaps = new String[] {"  --Select--  ","1","2","3","4","5" };
-	private String[] playersList = new String[] {"  --Select--  ","2","3","4","5","6" };
+	private String[] playersList = new String[] {"  --Select--  ","2","3","4" };
 	private String [] playerTypesBehaviour = new String[] {"  --Select--  ", "Aggressive", "Benevolent", "Random", "Cheater" };
 	private String[] noOfTurnsArray = new String[] {"  --Select--  ", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
 			"21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38",
@@ -130,17 +128,9 @@ public class TournamentView  extends JFrame implements ActionListener {
 		add(comboBoxBehaviourplayer4);
 		comboBoxBehaviourplayer4.setVisible(false);
 		
-		comboBoxBehaviourplayer5 = new JComboBox<String>(playerTypesBehaviour);
-		comboBoxBehaviourplayer5.setBounds(650, 350, 120, 30);
-		comboBoxBehaviourplayer4.addActionListener(tournamentController);
-		add(comboBoxBehaviourplayer5);
-		comboBoxBehaviourplayer5.setVisible(false);
 		
-		comboBoxBehaviourplayer6 = new JComboBox<String>(playerTypesBehaviour);
-		comboBoxBehaviourplayer6.setBounds(810, 350, 120, 30);
-		comboBoxBehaviourplayer6.addActionListener(tournamentController);
-		add(comboBoxBehaviourplayer6);
-		comboBoxBehaviourplayer6.setVisible(false);
+		comboBoxBehaviourplayer4.addActionListener(tournamentController);
+		
 		
 		JLabel labelSelectNoOfGames = new JLabel();
 		labelSelectNoOfGames.setText("Select  No. of games :");
@@ -300,23 +290,7 @@ public class TournamentView  extends JFrame implements ActionListener {
 		this.comboBoxBehaviourplayer4 = comboBoxBehaviourplayer4;
 	}
 	
-	public JComboBox<String> getcomboBoxBehaviourplayer5() {
-		return comboBoxBehaviourplayer5;
-	}
-
 	
-	public void setcomboBoxBehaviourplayer5(JComboBox<String> comboBoxBehaviourplayer5) {
-		this.comboBoxBehaviourplayer5 = comboBoxBehaviourplayer5;
-	}
-	
-	public JComboBox<String> getcomboBoxBehaviourplayer6() {
-		return comboBoxBehaviourplayer6;
-	}
-
-	
-	public void setcomboBoxBehaviourplayer6(JComboBox<String> comboBoxBehaviourplayer6) {
-		this.comboBoxBehaviourplayer6 = comboBoxBehaviourplayer6;
-	}
 	
 	public JComboBox<String> getcomboBoxSelectNoOfTurns() {
 		return comboBoxSelectNoOfTurns;
