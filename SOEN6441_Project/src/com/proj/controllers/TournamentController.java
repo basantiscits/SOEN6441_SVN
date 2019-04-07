@@ -11,6 +11,7 @@ import com.proj.models.GameModelCreation;
 import com.proj.models.Map;
 import com.proj.models.Player;
 import com.proj.utilites.MapTools;
+import com.proj.views.GameWindowScreen;
 import com.proj.views.TournamentView;
 
 public class TournamentController  implements ActionListener, Serializable {
@@ -65,8 +66,6 @@ public class TournamentController  implements ActionListener, Serializable {
 		sPlayerBehaviour2=(String) tournamentView.getcomboBoxBehaviourplayer2().getSelectedItem();
 		sPlayerBehaviour3=(String) tournamentView.getcomboBoxBehaviourplayer3().getSelectedItem();
 		sPlayerBehaviour4=(String) tournamentView.getcomboBoxBehaviourplayer4().getSelectedItem();
-		sPlayerBehaviour5=(String) tournamentView.getcomboBoxBehaviourplayer5().getSelectedItem();
-		sPlayerBehaviour6=(String) tournamentView.getcomboBoxBehaviourplayer6().getSelectedItem();
 		
 		
 		System.out.println("No of Maps Selected : "+noOfMaps);
@@ -120,24 +119,20 @@ public class TournamentController  implements ActionListener, Serializable {
 			tournamentView.getcomboBoxBehaviourplayer2().setVisible(false);
 			tournamentView.getcomboBoxBehaviourplayer3().setVisible(false);
 			tournamentView.getcomboBoxBehaviourplayer4().setVisible(false);
-			tournamentView.getcomboBoxBehaviourplayer5().setVisible(false);
-			tournamentView.getcomboBoxBehaviourplayer6().setVisible(false);
+			
 		}
        else if(noOfPlayer.trim().equalsIgnoreCase("2")){
 			tournamentView.getcomboBoxBehaviourplayer1().setVisible(true);
 			tournamentView.getcomboBoxBehaviourplayer2().setVisible(true);
 			tournamentView.getcomboBoxBehaviourplayer3().setVisible(false);
 			tournamentView.getcomboBoxBehaviourplayer4().setVisible(false);
-			tournamentView.getcomboBoxBehaviourplayer5().setVisible(false);
-			tournamentView.getcomboBoxBehaviourplayer6().setVisible(false);
+			
 		}
 		else if(noOfPlayer.trim().equalsIgnoreCase("3")){
 			tournamentView.getcomboBoxBehaviourplayer1().setVisible(true);
 			tournamentView.getcomboBoxBehaviourplayer2().setVisible(true);
 			tournamentView.getcomboBoxBehaviourplayer3().setVisible(true);
 			tournamentView.getcomboBoxBehaviourplayer4().setVisible(false);
-			tournamentView.getcomboBoxBehaviourplayer5().setVisible(false);
-			tournamentView.getcomboBoxBehaviourplayer6().setVisible(false);
 			
 		}
         else if(noOfPlayer.trim().equalsIgnoreCase("4")){
@@ -145,8 +140,7 @@ public class TournamentController  implements ActionListener, Serializable {
 			tournamentView.getcomboBoxBehaviourplayer2().setVisible(true);
 			tournamentView.getcomboBoxBehaviourplayer3().setVisible(true);
 			tournamentView.getcomboBoxBehaviourplayer4().setVisible(true);
-			tournamentView.getcomboBoxBehaviourplayer5().setVisible(false);
-			tournamentView.getcomboBoxBehaviourplayer6().setVisible(false);
+			
 			
 		}
         else if(noOfPlayer.trim().equalsIgnoreCase("5")){
@@ -154,16 +148,14 @@ public class TournamentController  implements ActionListener, Serializable {
 			tournamentView.getcomboBoxBehaviourplayer2().setVisible(true);
 			tournamentView.getcomboBoxBehaviourplayer3().setVisible(true);
 			tournamentView.getcomboBoxBehaviourplayer4().setVisible(true);
-			tournamentView.getcomboBoxBehaviourplayer5().setVisible(true);
-			tournamentView.getcomboBoxBehaviourplayer6().setVisible(false);
+			
 		}
         else if(noOfPlayer.trim().equalsIgnoreCase("6")){
         	tournamentView.getcomboBoxBehaviourplayer1().setVisible(true);
 			tournamentView.getcomboBoxBehaviourplayer2().setVisible(true);
 			tournamentView.getcomboBoxBehaviourplayer3().setVisible(true);
 			tournamentView.getcomboBoxBehaviourplayer4().setVisible(true);
-			tournamentView.getcomboBoxBehaviourplayer5().setVisible(true);
-			tournamentView.getcomboBoxBehaviourplayer6().setVisible(true);
+			
 		}
 		if (event.getSource().equals(tournamentView.getbuttonbrowse1())) {
 			if (noOfPlayer.equals("  --Select--  ")) {
@@ -299,9 +291,10 @@ public class TournamentController  implements ActionListener, Serializable {
 			players=new Player[Integer.parseInt(noOfPlayer)];
 			newGameController=new NewGameController();
 			for(Map m: maps){
-				players=newGameController.initializingPlayerModels(Integer.parseInt(noOfPlayer), m , strategies );
 				for (int i=0;i<Integer.parseInt(noOfGames);i++){
+					players=newGameController.initializingPlayerModels(Integer.parseInt(noOfPlayer), m , strategies );
 					GameModelCreation newGame=new GameModelCreation(m,players);
+					GameWindowScreen g=new GameWindowScreen(newGame);
 					//Method to play game
 					for(Player p:players){
 						System.out.println(p.getStrategy().getClass());
@@ -370,14 +363,7 @@ public class TournamentController  implements ActionListener, Serializable {
 		{
 			addPlayerBehaviourName.add(sPlayerBehaviour4);
 		}
-		if(sPlayerBehaviour5!=("  --Select--  "))
-		{
-			addPlayerBehaviourName.add(sPlayerBehaviour5);
-		}
-		if(sPlayerBehaviour6!=("  --Select--  "))
-		{
-			addPlayerBehaviourName.add(sPlayerBehaviour6);
-		}
+		
 		
 //		System.out.println("No of File selected in player behaviour : " +addPlayerBehaviourName.size());
 //		if(noOfPlayer2.equals(String.valueOf(addPlayerBehaviourName.size())))
