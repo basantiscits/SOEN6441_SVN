@@ -1,9 +1,10 @@
  package com.proj.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cheater implements BehaviorStrategies {
+public class Cheater implements BehaviorStrategies,Serializable {
 
 	@Override
 	public void startUpPhase(GameModelCreation gameModel) {

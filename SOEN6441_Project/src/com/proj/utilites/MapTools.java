@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -25,7 +26,7 @@ import com.proj.models.Map;
  * @since 30 Jan 2019
  * @version 1.0
  */
-public class MapTools {
+public class MapTools implements Serializable {
 	
 	/**
 	 * This map checks the .map extension of given map file

@@ -1,6 +1,6 @@
 package com.proj.models;
 
-public interface BehaviorStrategies {
+public interface BehaviorStrategies  {
 	
 	
 	public void startUpPhase(GameModelCreation gameModel);

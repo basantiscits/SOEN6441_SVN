@@ -2,6 +2,7 @@ package com.proj.controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.*;
 
@@ -30,7 +31,7 @@ import com.proj.views.PlayNewGame;
  * @since 10 Feb 2019
  * @version 1.0
  */
-public class NewGameController implements ActionListener {
+public class NewGameController implements ActionListener, Serializable {
 	private PlayNewGame playNewGame;
 	private GameModelCreation gameModel;
 	private String noOfPlayers;

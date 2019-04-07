@@ -1,11 +1,12 @@
 package com.proj.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.proj.controllers.AttackController;
 
-public class Benevolent implements BehaviorStrategies {
+public class Benevolent implements BehaviorStrategies,Serializable{
 
 	@Override
 	public void startUpPhase(GameModelCreation gameModel) {

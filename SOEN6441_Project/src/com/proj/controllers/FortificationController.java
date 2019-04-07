@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.Serializable;
 
 import javax.swing.JOptionPane;
 
@@ -17,7 +18,7 @@ import com.proj.views.MainMenuScreen;
  * @since 25 Feb 2019
  * @version 1.0
  */
-public class FortificationController implements ActionListener {
+public class FortificationController implements ActionListener, Serializable {
 
 	private FortificationView fortifyView;
 

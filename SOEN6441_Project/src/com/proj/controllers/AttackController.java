@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 
 import javax.swing.JOptionPane;
 
@@ -24,7 +25,7 @@ import com.proj.models.Player;
  * @since 9 Mar 2019
  * @version 1.1
  */
-public class AttackController implements ActionListener{
+public class AttackController implements ActionListener, Serializable{
 	private AttackView attackView;
 	public Random diceRoll;
 	public ArrayList<Integer> attackerDiceValues;

@@ -1,12 +1,13 @@
 package com.proj.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import com.proj.controllers.AttackController;
 
-public class RandomPlayer implements BehaviorStrategies {
+public class RandomPlayer implements BehaviorStrategies, Serializable {
 
 	private Random random = new Random();
 	

@@ -3,6 +3,8 @@ package com.proj.controllers;
 import java.awt.event.ActionEvent;
 
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.Serializable;
 
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -21,7 +23,7 @@ import com.proj.views.GameWindowScreen;
  * @since 23 Feb 2019
  * @version 1.0
  */
-public class GameController implements ActionListener {
+public class GameController implements ActionListener, Serializable {
 	private GameWindowScreen gameWindowScreen;
 	private GameModelCreation gameModel;
 	private String sSaveFileName="";
@@ -115,7 +117,12 @@ public class GameController implements ActionListener {
 			break;
 		case "Save Button":
 			sSaveFileName=FncSaveFileName();
-			gameWindowScreen.saveExistingGame(gameModel,sSaveFileName);
+			try {
+				gameWindowScreen.saveExistingGame(gameModel,sSaveFileName);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			break;
 		}
 	}

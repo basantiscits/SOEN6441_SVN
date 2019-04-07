@@ -2,6 +2,7 @@ package com.proj.controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,7 @@ import com.proj.views.MapEditor;
  * @since 4 Feb 2019
  * @version 1.0
  */
-public class MapEditorController implements ActionListener {
+public class MapEditorController implements ActionListener, Serializable {
 	private Continent continent;
 	private com.proj.views.MapEditor mapEditorView;
 	private Map gameMap;

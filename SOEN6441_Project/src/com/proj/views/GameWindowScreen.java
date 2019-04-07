@@ -11,6 +11,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -53,7 +57,7 @@ import com.proj.utilites.Constants;
  * @since 10 Feb 2019
  * @version 1.0
  */
-public class GameWindowScreen extends JFrame implements ActionListener,Observer, WindowListener {
+public class GameWindowScreen extends JFrame implements ActionListener,Observer, WindowListener  {
 	private int currentPlayer = 0;
 	public Player[] player;
 	private JLabel countriesLabel;
@@ -1409,9 +1413,17 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		
 	}
 
-	public void saveExistingGame(GameModelCreation gameModel2, String sSaveFileName) {
-		// TODO Auto-generated method stub
+	public void saveExistingGame(GameModelCreation gameModel2, String sSaveFileName) throws FileNotFoundException, IOException {
+		// TODO Auto-generated method stubs
 		System.out.println("Hi Basant  : " +sSaveFileName);
+		
+		FileOutputStream fs = new FileOutputStream("./Saved Games/"+sSaveFileName+".bin");
+		ObjectOutputStream os = new ObjectOutputStream(fs);
+		
+		os.writeObject(gameModel);
+		os.flush();
+		fs.close();
+		
 		
 	}
 		
