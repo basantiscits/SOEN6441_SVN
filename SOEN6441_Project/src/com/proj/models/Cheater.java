@@ -1,15 +1,12 @@
  package com.proj.models;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+
 import javax.swing.JOptionPane;
 
-public class Cheater implements BehaviorStrategies,Serializable {
-
-
-
+public class Cheater implements BehaviorStrategies {
 
 	@Override
 	public void startUpPhase(GameModelCreation gameModel) {
@@ -48,7 +45,7 @@ public class Cheater implements BehaviorStrategies,Serializable {
 		System.out.println("armies1 in Attack: "+gameModel.getCurrPlayer().getNoOfArmiesOwned());
 		boolean playerRemoved=false;
 		Player newList[] = null;
-		ArrayList<Player> newPlayerList=new ArrayList<Player>();
+		Player[] players=gameModel.getPlayer();
 		Player attacker=gameModel.getCurrPlayer();
 		HashSet<Country> defendingCountries=new HashSet<Country>();
 		for(Country c:attacker.getCountriesOwned()){
@@ -73,19 +70,16 @@ public class Cheater implements BehaviorStrategies,Serializable {
 				if (defender.getCountriesOwned().size() == 0) {
 					attacker.setNoOfCardsOwned(attacker.getNoOfCardsOwned() + defender.getCardsOwned().size());
 					attacker.getCardsOwned().addAll(defender.getCardsOwned());
-					playerRemoved = true;
-					for (Player p : gameModel.getPlayer()) {
-						if (p.getCountriesOwned().size()==0) {
+					int i=0;
+					newList=new Player[players.length-1];
+					for(Player p:players){
+						if(defender==p){
 							continue;
 						}
-						newPlayerList.add(p);
-					}
-					newList=new Player[newPlayerList.size()];
-					int i=0;
-					for(Player p:newPlayerList){
 						newList[i++]=p;
 					}
-					gameModel.setPlayer(newList);
+					players=newList;
+					gameModel.setPlayer(players);
 				}
 				Continent continentName = gameModel.getMapDetails().searchContinent(defendingCountry);
 				if (defender.getContinentsOwned().contains(continentName)) {
@@ -106,23 +100,10 @@ public class Cheater implements BehaviorStrategies,Serializable {
 			}
 		}
 		
-		
+		System.out.println(players.length);
+		System.out.println(gameModel.getPlayer().length);
 		attacker.getCardsOwned().add(Card.getNewCard());   
 		attacker.setNoOfCardsOwned(attacker.getNoOfCardsOwned()+1);
-//		if(playerRemoved){
-//			for (Player p : gameModel.getPlayer()) {
-//				if (p.getCountriesOwned().size()==0) {
-//					continue;
-//				}
-//				newPlayerList.add(p);
-//			}
-//			newList=new Player[newPlayerList.size()];
-//			int i=0;
-//			for(Player p:newPlayerList){
-//				newList[i++]=p;
-//			}
-//			gameModel.setPlayer(newList);
-//		}
 		
 		if(gameModel.getPlayer().length==1){
 			System.out.println("Game Won by "+attacker.getPlayerName()+" "+attacker.getStrategy().getClass());

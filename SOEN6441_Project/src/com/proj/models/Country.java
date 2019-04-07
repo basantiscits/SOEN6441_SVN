@@ -1,6 +1,5 @@
 package com.proj.models;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -11,7 +10,7 @@ import java.util.Observable;
  * @since 12 Feb 2019
  * @version 1.0
  */
-public class Country extends Observable implements Serializable{
+public class Country extends Observable{
 	private String countryName;
 	private Player ownedBy;
 	private int noOfArmiesPresent;

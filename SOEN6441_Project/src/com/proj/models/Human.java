@@ -1,8 +1,6 @@
 package com.proj.models;
 
-import java.io.Serializable;
-
-public class Human implements BehaviorStrategies,Serializable {
+public class Human implements BehaviorStrategies {
 
 	@Override
 	public void startUpPhase(GameModelCreation gameModel) {

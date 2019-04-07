@@ -1,6 +1,5 @@
 package com.proj.models;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -9,7 +8,7 @@ import javax.swing.JOptionPane;
 
 import com.proj.controllers.AttackController;
 
-public class RandomPlayer implements BehaviorStrategies, Serializable {
+public class RandomPlayer implements BehaviorStrategies {
 
 	private Random random = new Random();
 	

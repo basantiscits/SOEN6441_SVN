@@ -2,7 +2,6 @@ package com.proj.controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -14,7 +13,7 @@ import com.proj.utilites.MapTools;
 import com.proj.views.GameWindowScreen;
 import com.proj.views.TournamentView;
 
-public class TournamentController  implements ActionListener, Serializable {
+public class TournamentController  implements ActionListener {
 	private TournamentView tournamentView;
 	private String noOfMaps;
 	private String noOfPlayer;
