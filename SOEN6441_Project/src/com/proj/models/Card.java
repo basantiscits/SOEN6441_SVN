@@ -1,5 +1,6 @@
 package com.proj.models;
 
+import java.io.Serializable;
 import java.util.Observable;
 import java.util.Random;
 
@@ -9,7 +10,7 @@ import java.util.Random;
  * @since 11 Mar 2019
  * @version 1.1
  */
-public class Card extends Observable {
+public class Card extends Observable implements Serializable {
 
 	private int cardId;
 	private Type typeOfCard;

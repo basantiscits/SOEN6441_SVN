@@ -1,12 +1,13 @@
  package com.proj.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
 import javax.swing.JOptionPane;
 
-public class Cheater implements BehaviorStrategies {
+public class Cheater implements BehaviorStrategies, Serializable {
 
 	@Override
 	public void startUpPhase(GameModelCreation gameModel) {

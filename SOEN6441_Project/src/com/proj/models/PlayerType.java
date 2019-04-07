@@ -1,5 +1,7 @@
 package com.proj.models;
 
-public enum PlayerType {
+import java.io.Serializable;
+
+public enum PlayerType implements Serializable{
 	Human,Aggressive,Benevolent,Random,Cheater
 }

@@ -42,14 +42,15 @@ public class MapTools implements Serializable {
 			chooser.setDialogTitle("Choose Map file");
 			chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 			chooser.setAcceptAllFileFilterUsed(false);
-			chooser.addChoosableFileFilter(new FileNameExtensionFilter("*.map", "map","*.bin", "bin"));
+			chooser.addChoosableFileFilter(new FileNameExtensionFilter("*.map", "map","bin"));
 			if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 				importFileName = chooser.getSelectedFile().getAbsolutePath();
 				if (importFileName.trim().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "File name invalid");
 				} 
 				else {
-					if (importFileName.trim().substring(importFileName.length() - 4).equals(".map")) {
+					if (importFileName.trim().substring(importFileName.length() - 4).equals(".map") || 
+							importFileName.trim().substring(importFileName.length() - 4).equals(".bin")) {
 						File f = new File(importFileName);
 						gameMap.setName(f.getName());
 						gameMap.setPath(importFileName.substring(0, importFileName.lastIndexOf("\\")));

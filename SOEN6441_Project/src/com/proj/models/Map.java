@@ -1,5 +1,6 @@
 package com.proj.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -9,7 +10,7 @@ import java.util.Observable;
  * @since 5 Feb 2019
  * @version 1.0
  */
-public class Map extends Observable{
+public class Map extends Observable implements Serializable{
 	private String name;
 	private String authorName;
 	private String path;

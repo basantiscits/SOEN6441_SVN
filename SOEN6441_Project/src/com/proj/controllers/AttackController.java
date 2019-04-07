@@ -1,22 +1,21 @@
 package com.proj.controllers;
 
 import java.awt.event.ActionEvent;
-
+import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
-import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-import com.proj.views.AttackView;
-import com.proj.views.FortificationView;
 import com.proj.models.Card;
 import com.proj.models.Continent;
 import com.proj.models.Country;
 import com.proj.models.GameModelCreation;
 import com.proj.models.Map;
 import com.proj.models.Player;
+import com.proj.views.AttackView;
 
 /**
  * Attack Controller Class
@@ -24,7 +23,7 @@ import com.proj.models.Player;
  * @since 9 Mar 2019
  * @version 1.1
  */
-public class AttackController implements ActionListener{
+public class AttackController implements ActionListener, Serializable{
 	private AttackView attackView;
 	public Random diceRoll;
 	public ArrayList<Integer> attackerDiceValues;
