@@ -9,14 +9,15 @@ import java.util.Random;
 
 import javax.swing.JOptionPane;
 
-import com.proj.models.Card;
+
 import com.proj.models.Continent;
 import com.proj.models.Country;
 import com.proj.models.GameModelCreation;
 import com.proj.models.Map;
 import com.proj.models.Player;
-import com.proj.views.AttackView;
 import com.proj.models.PlayerType;
+import com.proj.views.AttackView;
+import com.proj.models.Card;
 
 /**
  * Attack Controller Class

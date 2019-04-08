@@ -1,6 +1,7 @@
 package com.proj.models;
 
 import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -10,6 +11,8 @@ import javax.swing.JOptionPane;
 import com.proj.views.AttackView;
 import com.proj.views.FortificationView;
 import com.proj.views.GameWindowScreen;
+import com.proj.models.Card;
+import com.proj.models.PlayerType;
 
 /**
  * The Player class
