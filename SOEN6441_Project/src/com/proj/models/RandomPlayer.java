@@ -70,6 +70,7 @@ public class RandomPlayer implements BehaviorStrategies, Serializable {
 			}
 			
 			Country attackingCountry = availableAttackingCountries.get(limit);
+			System.out.println("attackingCountry: "+attackingCountry.getCountryName());
 			int noOfAttacks = randomAttacks.nextInt(attackingCountry.getNoOfArmiesPresent()-1);
 			ArrayList<Country> defendingCountries=new ArrayList<Country>();
 			int flag =0;
@@ -88,6 +89,9 @@ public class RandomPlayer implements BehaviorStrategies, Serializable {
 					}
 				}
 			}
+			for(Country c : defendingCountries) {
+				System.out.println(c.getCountryName());
+			}
 			if(flag==1 && defendingCountries.size()>0){
 				AttackController attack=new AttackController(gameModel);
 				if((defendingCountries.size()-1)<1) {
@@ -96,6 +100,7 @@ public class RandomPlayer implements BehaviorStrategies, Serializable {
 				else {
 					randomDefendingCountry=defendingCountries.get(randomCountry.nextInt(defendingCountries.size()-1));
 				}
+				
 				int noOfAttackingArmies=attackingCountry.getNoOfArmiesPresent()-1;
 				int noOfDefendingArmies=randomDefendingCountry.getNoOfArmiesPresent();
 				while(noOfAttacks>0 && noOfAttackingArmies>0 && noOfDefendingArmies>0){
@@ -126,6 +131,8 @@ public class RandomPlayer implements BehaviorStrategies, Serializable {
 						attackerDiceCount=randomDiceCount.nextInt(3)+1;
 						defenderDiceCount=randomDiceCount.nextInt(2)+1;
 					}
+					System.out.println("attackingCountry: "+attackingCountry.getCountryName());
+					System.out.println("randomDefendingCountry: "+randomDefendingCountry.getCountryName());
 					if(attack.normalAttack(attackingCountry.getCountryName(), randomDefendingCountry.getCountryName(), attackerDiceCount, defenderDiceCount)){
 						attack.numberOfArmiesTransfered(attack.attackerDiceCount, attackingCountry, randomDefendingCountry);
 						defendingCountries.remove(0);	
@@ -167,6 +174,15 @@ public class RandomPlayer implements BehaviorStrategies, Serializable {
 				attacker.setNoOfCardsOwned(attacker.getNoOfCardsOwned()-1);
 			}
 		}
+		System.out.println("Inside Random attack");
+		for(Player p : gameModel.getPlayer()) {
+			System.out.print("Player: "+p.getPlayerName()+" , "+p.getPlayerType()+" , "+p.getNoOfArmiesOwned()+" , ");
+			for(Country c : p.getCountriesOwned()) {
+				System.out.print(c.getCountryName()+"["+c.getNoOfArmiesPresent()+"]");
+			}
+			System.out.println();
+		}
+		
 		fortificationPhase(gameModel);
 	}
 	@Override
@@ -182,27 +198,49 @@ public class RandomPlayer implements BehaviorStrategies, Serializable {
 			if (limit1 == countryList.size()) {
 				limit1 = limit1 - 1;
 			}
-			
-			Country sourceCountry = countryList.get(limit1);
-			
-			ArrayList<String> neighbourList = new ArrayList<String>();
-			neighbourList.addAll(sourceCountry.getListOfNeighbours());
-			
-			int limit2 = random.nextInt(neighbourList.size());
-			if (limit2 == neighbourList.size()) {
-				limit2 = limit2 - 1;
+			for(Country c : countryList) {
+				System.out.println("String name as country source: "+c.getCountryName());
 			}
+			Country sourceCountry = countryList.get(limit1);
+			System.out.println("Fort random source : "+sourceCountry.getCountryName()+" , "+sourceCountry.getNoOfArmiesPresent());
+			ArrayList<Country> neighbourList = new ArrayList<Country>();
+			//neighbourList.addAll(sourceCountry.getListOfNeighbours());
 			
-			String destinationCountryName = neighbourList.get(limit2);
-			Country destinationCountry = gameModel.getMapDetails().searchCountry(destinationCountryName);
-			
-			if(sourceCountry.getNoOfArmiesPresent()>1) {
-				int armies = random.nextInt(sourceCountry.getNoOfArmiesPresent()-1);
-				for(int i = 0; i < armies; i++) {
-					sourceCountry.removeNoOfArmiesCountry();
-					destinationCountry.addNoOfArmiesCountry();
+			for(String c : sourceCountry.getListOfNeighbours()) {
+				Country count = gameModel.getMapDetails().searchCountry(c);
+				if(gameModel.getCurrPlayer().getCountriesOwned().contains(count)) {
+					neighbourList.add(count);
 				}
 			}
+			
+			if(neighbourList.size()>0) {
+				int limit2 = random.nextInt(neighbourList.size());
+				if (limit2 == neighbourList.size()) {
+					limit2 = limit2 - 1;
+				}
+				for(Country c : neighbourList) {
+					System.out.println("Country name as country neihbor: "+c.getCountryName());
+				}
+				Country destinationCountry = neighbourList.get(limit2);
+				//Country destinationCountry = gameModel.getMapDetails().searchCountry(destinationCountryName);
+				System.out.println("Fort random target : "+destinationCountry.getCountryName()+" , "+destinationCountry.getNoOfArmiesPresent());
+				if(sourceCountry.getNoOfArmiesPresent()>1) {
+					int armies = random.nextInt(sourceCountry.getNoOfArmiesPresent()-1);
+					System.out.println("Transfer army: "+armies);
+					for(int i = 0; i < armies; i++) {
+						sourceCountry.removeNoOfArmiesCountry();
+						destinationCountry.addNoOfArmiesCountry();
+					}
+				}
+			}
+			}
+		System.out.println("Fortification finish");
+		for(Player p : gameModel.getPlayer()) {
+			System.out.print("Player: "+p.getPlayerName()+" , "+p.getPlayerType()+" , "+p.getNoOfArmiesOwned()+" , ");
+			for(Country c : p.getCountriesOwned()) {
+				System.out.print(c.getCountryName()+"["+c.getNoOfArmiesPresent()+"]");
+			}
+			System.out.println();
 		}
 		gameModel.incrementTurn();
 		gameModel.changePlayer();

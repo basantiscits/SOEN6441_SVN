@@ -196,10 +196,14 @@ public class Cheater implements BehaviorStrategies, Serializable {
 				}
 			}
 		}
-		for(Country c : gameModel.getCurrPlayer().getCountriesOwned()) {
-			System.out.println("Armies after: "+c.getCountryName()+" : "+c.getNoOfArmiesPresent());
+		System.out.println("Fortification finish");
+		for(Player p : gameModel.getPlayer()) {
+			System.out.print("Player: "+p.getPlayerName()+" , "+p.getPlayerType()+" , "+p.getNoOfArmiesOwned()+" , ");
+			for(Country c : p.getCountriesOwned()) {
+				System.out.print(c.getCountryName()+"["+c.getNoOfArmiesPresent()+"]");
+			}
+			System.out.println();
 		}
-		System.out.println("armies2 in fortify: "+gameModel.getCurrPlayer().getNoOfArmiesOwned());
 		gameModel.incrementTurn();
 		gameModel.changePlayer();
 		gameModel.setGameState(1);

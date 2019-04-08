@@ -187,9 +187,11 @@ public class TournamentController  implements ActionListener, Serializable {
 						JOptionPane.showMessageDialog(null, "Invalid Map selected");
 						System.out.println(existingMap.getErrorMessage());
 					}
+
 			    }
 			}				
-	}
+		}
+
 		
 		if (event.getSource().equals(tournamentView.getbuttonbrowse2())) {
 			if (noOfPlayer.equals("  --Select--  ")) {
@@ -210,9 +212,11 @@ public class TournamentController  implements ActionListener, Serializable {
 						JOptionPane.showMessageDialog(null, "Invalid Map selected");
 						System.out.println(existingMap.getErrorMessage());
 					}
+
 			     }
 			}				
-	}
+
+		}		
 		if (event.getSource().equals(tournamentView.getbuttonbrowse3())) {
 			if (noOfPlayer.equals("  --Select--  ")) {
 				System.out.println("Select is pressed");
@@ -221,8 +225,8 @@ public class TournamentController  implements ActionListener, Serializable {
 			else{
 				MapTools sFunctions = new MapTools();
 				sPathFileName3 = sFunctions.pickMapFile(existingMap);
-				if (sPathFileName3 == null) {
-				} else {
+				if (sPathFileName3 == null) {}
+				else {
 					isMapValid3 = sFunctions.parseAndValidateMap(existingMap, Integer.parseInt(noOfPlayer));
 					if (isMapValid3) {
 						JOptionPane.showMessageDialog(null, "Map successfully loaded");
@@ -232,8 +236,8 @@ public class TournamentController  implements ActionListener, Serializable {
 						JOptionPane.showMessageDialog(null, "Invalid Map selected");
 						System.out.println(existingMap.getErrorMessage());
 					}
-			}
-			}		
+				}
+			}	
 		}
 		if (event.getSource().equals(tournamentView.getbuttonbrowse4())) {
 			if (noOfPlayer.equals("  --Select--  ")) {
@@ -243,18 +247,19 @@ public class TournamentController  implements ActionListener, Serializable {
 			else{
 				MapTools sFunctions = new MapTools();
 				sPathFileName4 = sFunctions.pickMapFile(existingMap);
-				if (sPathFileName4 == null) {
-				} else {
+				if (sPathFileName4 == null) {} 
+				else {
 					isMapValid4 = sFunctions.parseAndValidateMap(existingMap, Integer.parseInt(noOfPlayer));
 					if (isMapValid4) {
 						JOptionPane.showMessageDialog(null, "Map successfully loaded");
 						addFileName.add(sPathFileName4);
 						maps.add(existingMap);
-					} else {
+					}
+					else {
 						JOptionPane.showMessageDialog(null, "Invalid Map selected");
 						System.out.println(existingMap.getErrorMessage());
 					}
-			}
+				}
 			}		
 		}
 		if (event.getSource().equals(tournamentView.getbuttonbrowse5())) {
@@ -262,22 +267,23 @@ public class TournamentController  implements ActionListener, Serializable {
 				System.out.println("Select is pressed");
 				JOptionPane.showMessageDialog(null, "Please select no. of Players to play game");
 			}
-			else{
+			else {
 				MapTools sFunctions = new MapTools();
 				sPathFileName5 = sFunctions.pickMapFile(existingMap);
-				if (sPathFileName5 == null) {
-				} else {
+				if (sPathFileName5 == null) {}
+				else {
 					isMapValid5 = sFunctions.parseAndValidateMap(existingMap, Integer.parseInt(noOfPlayer));
 					if (isMapValid5) {
 						JOptionPane.showMessageDialog(null, "Map successfully loaded");
 						addFileName.add(sPathFileName5);
 						maps.add(existingMap);
-					} else {
+					} 
+					else {
 						JOptionPane.showMessageDialog(null, "Invalid Map selected");
 						System.out.println(existingMap.getErrorMessage());
 					}
-			}
-			}		
+				}
+			}	
 		}
 		if (event.getSource().equals(tournamentView.getbuttonPlayGameTournament())) {
 			if(checkParameters()){
@@ -287,13 +293,13 @@ public class TournamentController  implements ActionListener, Serializable {
 				JOptionPane.showMessageDialog(null, "Reselect required parameters.");
 			}
 		}
-		
 	}
 	
 	/**
 	 * initiate tournament
 	 */
 	private void intitiateTournament() {
+		ArrayList<String> result = new ArrayList<String>();
 		System.out.println("*********************OFREISH*******************************");		
 		String strategies[]=addPlayerBehaviourName.toArray(new String[0]);
 		System.out.println("Strategies Names: ");
@@ -333,11 +339,7 @@ public class TournamentController  implements ActionListener, Serializable {
 					}
 					System.out.println("Value of p: "+p);
 				}
-				
-				while(gameModelCreation.getPlayer().length>1) {
-					gameModelCreation.getCurrPlayer().intializeReinforcementArmies(gameModelCreation);
-				}
-				
+				System.out.println("*******************************************************************************************************");
 				for(Player p : players) {
 					System.out.print("Player: "+p.getPlayerName()+" , "+p.getPlayerType()+" , "+p.getNoOfArmiesOwned()+" , ");
 					for(Country c : p.getCountriesOwned()) {
@@ -345,12 +347,53 @@ public class TournamentController  implements ActionListener, Serializable {
 					}
 					System.out.println();
 				}
-				
-				for(Player p:players){
-					System.out.println(p.getStrategy().getClass());
+				//int turns = Integer.parseInt(noOfTurns);
+				int turns = Integer.parseInt(noOfPlayer)*Integer.parseInt(noOfTurns);
+				while(gameModelCreation.getPlayer().length>1 && turns>0 ) {
+					gameModelCreation.getCurrPlayer().intializeReinforcementArmies(gameModelCreation);
+					System.out.println("Main Turn : "+turns);
+					turns--;
 				}
+
+				
+			//	for(Player p : players) {
+				//System.out.println(gameModelCreation.getCurrPlayer().getPlayerName());
+				System.out.println("*******************************************************************************************************");
+				for(Player p : gameModelCreation.getPlayer()) {
+
+					System.out.print("Player: "+p.getPlayerName()+" , "+p.getPlayerType()+" , "+p.getNoOfArmiesOwned()+" , ");
+					for(Country c : p.getCountriesOwned()) {
+						System.out.print(c.getCountryName()+"["+c.getNoOfArmiesPresent()+"]");
+					}
+					System.out.println();
+				}
+				
+
+				//for(Player p:players){
+
+				if(gameModelCreation.getPlayer().length == 1) {
+					result.add(gameModelCreation.getPlayer()[0].getPlayerType().toString());
+				}
+				else {
+					result.add("Draw");
+				}
+				
+				
+				//Method to play game
+	/*			for(Player p:players){
+>>>>>>> Stashed changes
+					System.out.println(p.getStrategy().getClass());
+				}*/
+				System.out.println("******************************************NEXT GAME******************************************************************");
+				
 			}
+			System.out.println("******************************************NEXT MAP******************************************************************");
 		}
+		System.out.println();
+		for(String s : result) {
+			System.out.print(s+" , ");
+		}
+		System.exit(0);
 		
 	}
 

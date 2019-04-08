@@ -100,6 +100,7 @@ public class Aggressive implements BehaviorStrategies, Serializable {
 					break;
 				}
 				else{
+					System.out.println("Transfer army in aggressive : "+attack.attackerDiceCount);
 					attack.numberOfArmiesTransfered(attack.attackerDiceCount, attackingCountry, defendingCountries.get(0));
 					defendingCountries.remove(0);	
 				}
@@ -110,12 +111,17 @@ public class Aggressive implements BehaviorStrategies, Serializable {
 			}
 		}		
 		
-		if(gameModel.getPlayer().length==1){
+/*		if(gameModel.getPlayer().length==1){
 			System.out.println("Game Won by "+attacker.getPlayerName()+" "+attacker.getStrategy().getClass());
 			gameModel.getGameScreen().dispose();
 			JOptionPane.showMessageDialog(null, attacker.getPlayerName()+" won the game!!! CONGRATULATION!!!");
 			return;
+<<<<<<< Updated upstream
 		}
+=======
+			//gameModel.getGameScreen()attacker;
+		}*/
+
 		if(attacker.getNoOfCardsOwned()>4){
 			attacker.setCardsForArmies(attacker.getCardsForArmies() + 5);
 			attacker.setNoOfArmiesOwned(attacker.getNoOfArmiesOwned() + gameModel.getCurrPlayer().getCardsForArmies());
@@ -137,7 +143,20 @@ public class Aggressive implements BehaviorStrategies, Serializable {
 				attacker.setNoOfCardsOwned(attacker.getNoOfCardsOwned()-1);
 			}
 		}
+
 		System.out.println("Attack phase done for aggressive");
+
+		System.out.println("Aggresive finish");
+		for(Player p : gameModel.getPlayer()) {
+			System.out.print("Player: "+p.getPlayerName()+" , "+p.getPlayerType()+" , "+p.getNoOfArmiesOwned()+" , ");
+			for(Country c : p.getCountriesOwned()) {
+				System.out.print(c.getCountryName()+"["+c.getNoOfArmiesPresent()+"]");
+			}
+			System.out.println();
+		}
+		
+		//System.out.println("Attack phase done for aggressive");
+
 		gameModel.setGameState(3);
 		fortificationPhase(gameModel);
 		
@@ -152,15 +171,30 @@ public class Aggressive implements BehaviorStrategies, Serializable {
 		System.out.println("Fortification Turn1: "+gameModel.getTurn());
 		Country mainCountry = maxArmiesInCountry(gameModel.getCurrPlayer());
 		System.out.println("Player name1: "+gameModel.getCurrPlayer().getPlayerName());
+
 		System.out.println("OFRESIH COUNTRY IN FORTIFICATION: "+mainCountry.getCountryName());
+
+		//List<Country> neighbors = mainCountry.
+		System.out.println("OFRESIH COUNTRY IN attack FORTIFICATION: "+mainCountry.getCountryName());
+
 		
 		for(Country c : gameModel.getCurrPlayer().getCountriesOwned()) {
+			System.out.println("Countries owned: "+c.getCountryName());
 			if (mainCountry.getListOfNeighbours().contains(c.getCountryName())) {
-				while(c.getNoOfArmiesPresent()>1) {
+				while(c.getNoOfArmiesPresent()>1 && c!=mainCountry) {
+					System.out.println("Countries: "+c.getCountryName());
 					mainCountry.addNoOfArmiesCountry();
 					c.removeNoOfArmiesCountry();
 				}
 			}
+		}
+		System.out.println("Fortification finish");
+		for(Player p : gameModel.getPlayer()) {
+			System.out.print("Player: "+p.getPlayerName()+" , "+p.getPlayerType()+" , "+p.getNoOfArmiesOwned()+" , ");
+			for(Country c : p.getCountriesOwned()) {
+				System.out.print(c.getCountryName()+"["+c.getNoOfArmiesPresent()+"]");
+			}
+			System.out.println();
 		}
 		gameModel.incrementTurn();
 		gameModel.changePlayer();
