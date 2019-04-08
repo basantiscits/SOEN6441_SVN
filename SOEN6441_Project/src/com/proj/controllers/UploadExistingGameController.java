@@ -14,23 +14,26 @@ import com.proj.utilites.MapTools;
 import com.proj.views.PlayNewGame;
 import com.proj.views.UploadExistingGame;
 
+/**
+ * Uploads Existing Game Controller
+ * @author Aman
+ * @since 20 Mar 2019
+ * @version 1.2
+ */
 public class UploadExistingGameController implements ActionListener, Serializable {
-	//private UploadExistingGameController UploadExistingGameController;
 	UploadExistingGame uploadExistingGame;
 	private String sPathFileName = "";
 
 	public UploadExistingGameController(UploadExistingGame uploadExistingGame) {
-		// TODO Auto-generated constructor stub
 		this.uploadExistingGame = uploadExistingGame;
 	}
 	
-	
-	
-
-
+	/**
+	 * Action performed
+	 * @param e Object of ActionEvent class
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		
 		if ((e.getSource()).equals(uploadExistingGame.getButtonbrowse())) {
             System.out.println("Browse Pressed");
@@ -52,19 +55,16 @@ public class UploadExistingGameController implements ActionListener, Serializabl
 			 try {
 					loadSavedGame();
 				} catch (ClassNotFoundException | IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-			// playNewGame.GameModelWindowMade(sCarryMapForward, player, gameModel);
-		}
-	
-		
+		}		
 	}
 
-
-
-
-
+	/**
+	 * Load saved game
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	private void loadSavedGame() throws IOException, ClassNotFoundException {
 		
 		System.out.println(sPathFileName);
@@ -75,12 +75,6 @@ public class UploadExistingGameController implements ActionListener, Serializabl
 		Player player[] = gameModel.getPlayer();
 		
 		PlayNewGame png = new PlayNewGame();
-		png.GameModelWindowMade(map, player, gameModel);
-	
-		
+		png.GameModelWindowMade(map, player, gameModel);	
 	}
-	
-	
-	
-
 }

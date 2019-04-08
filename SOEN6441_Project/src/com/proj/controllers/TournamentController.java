@@ -15,6 +15,12 @@ import com.proj.utilites.MapTools;
 import com.proj.views.GameWindowScreen;
 import com.proj.views.TournamentView;
 
+/**
+ * Tournament controller class
+ * @author Ofreish
+ * @since 20 Mar 2019
+ * @version 1.2
+ */
 public class TournamentController  implements ActionListener, Serializable {
 	private TournamentView tournamentView;
 	private String noOfMaps;
@@ -36,18 +42,24 @@ public class TournamentController  implements ActionListener, Serializable {
 	Player players[];
 	NewGameController newGameController;
 	
-
+	
+	/**
+	 * Constructor of Tournament Controller
+	 * @param tournamentView Object of TournamentView class
+	 */
 	public TournamentController(TournamentView tournamentView) {
-		// TODO Auto-generated constructor stub
 		this.tournamentView = tournamentView;
 		addFileName=new ArrayList<String>();
 		addPlayerBehaviourName=new ArrayList<String>();
 		maps=new ArrayList<Map>();
 	}
 
+	/**
+	 * Action performed
+	 * @param event Object of ActionEvent class
+	 */
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		// TODO Auto-generated method stub
 		boolean isFileChecked;
 		boolean isPlayerAdded;
 		boolean isMapValid1 = true;
@@ -175,11 +187,8 @@ public class TournamentController  implements ActionListener, Serializable {
 						JOptionPane.showMessageDialog(null, "Invalid Map selected");
 						System.out.println(existingMap.getErrorMessage());
 					}
-			}
-			}
-			
-		
-				
+			    }
+			}				
 	}
 		
 		if (event.getSource().equals(tournamentView.getbuttonbrowse2())) {
@@ -201,11 +210,8 @@ public class TournamentController  implements ActionListener, Serializable {
 						JOptionPane.showMessageDialog(null, "Invalid Map selected");
 						System.out.println(existingMap.getErrorMessage());
 					}
-			}
-			}
-			
-		
-				
+			     }
+			}				
 	}
 		if (event.getSource().equals(tournamentView.getbuttonbrowse3())) {
 			if (noOfPlayer.equals("  --Select--  ")) {
@@ -284,6 +290,9 @@ public class TournamentController  implements ActionListener, Serializable {
 		
 	}
 	
+	/**
+	 * initiate tournament
+	 */
 	private void intitiateTournament() {
 		System.out.println("*********************OFREISH*******************************");		
 		String strategies[]=addPlayerBehaviourName.toArray(new String[0]);
@@ -314,7 +323,6 @@ public class TournamentController  implements ActionListener, Serializable {
 				}
 				GameModelCreation gameModelCreation =new GameModelCreation(m,players);
 				providingGameModelToPlayer(players, gameModelCreation);
-				//GameWindowScreen game =new GameWindowScreen(gameModelCreation);
 				gameModelCreation.incrementTurn();
 				System.out.println("Player army : "+players[players.length-1].getNoOfArmiesOwned());
 				int army = players[players.length-1].getNoOfArmiesOwned();
@@ -329,7 +337,6 @@ public class TournamentController  implements ActionListener, Serializable {
 				while(gameModelCreation.getPlayer().length>1) {
 					gameModelCreation.getCurrPlayer().intializeReinforcementArmies(gameModelCreation);
 				}
-				//System.out.println(gameModelCreation.getCurrPlayer().getPlayerName());
 				
 				for(Player p : players) {
 					System.out.print("Player: "+p.getPlayerName()+" , "+p.getPlayerType()+" , "+p.getNoOfArmiesOwned()+" , ");
@@ -339,10 +346,6 @@ public class TournamentController  implements ActionListener, Serializable {
 					System.out.println();
 				}
 				
-				
-				
-				
-				//Method to play game
 				for(Player p:players){
 					System.out.println(p.getStrategy().getClass());
 				}
@@ -351,24 +354,24 @@ public class TournamentController  implements ActionListener, Serializable {
 		
 	}
 
+	/**
+	 * check parameters
+	 * @return false if no parameters are selected and true otherwise
+	 */
 	private boolean checkParameters(){
 		if (noOfMaps.equals("  --Select--  ")) {
-			//System.out.println("Select is pressed :no of Maps");
 			JOptionPane.showMessageDialog(null, "Please select no. of Map to play game");
 			return false;
 		}
 		if (noOfPlayer.equals("  --Select--  ")) {
-			//System.out.println("Select is pressed no Of Player");
 			JOptionPane.showMessageDialog(null, "Please select no. of Players to play game");
 			return false;
 		}
 		if (noOfGames.equals("  --Select--  ")) {
-			//System.out.println("Select is pressed : no of Games");
 			JOptionPane.showMessageDialog(null, "Please select no. of games");
 			return false;
 		}
 		if (noOfTurns.equals("  --Select--  ")) {
-			//System.out.println("Select is pressed no of turns");
 			JOptionPane.showMessageDialog(null, "Please select no. of turns");
 			return false;
 		}
@@ -389,6 +392,11 @@ public class TournamentController  implements ActionListener, Serializable {
 	
 	}
 	
+	/**
+	 * providing game model to player
+	 * @param player Array object of Player class
+	 * @param gameModel Object of GameModelCreation class
+	 */
 	public void providingGameModelToPlayer(Player[] player, GameModelCreation gameModel) {
 		for (Player players : player) {
 			players.setGameModel(gameModel);
@@ -396,8 +404,11 @@ public class TournamentController  implements ActionListener, Serializable {
 
 	}
  
+	/**
+	 * Function to check player behaviour
+	 * 
+	 */
 	private void fncCheckPlayerBehaviour() {
-		// TODO Auto-generated method stub
 		boolean isReturnBehaviour;
 		addPlayerBehaviourName.clear();
 		if(sPlayerBehaviour1!=("  --Select--  "))
@@ -419,8 +430,12 @@ public class TournamentController  implements ActionListener, Serializable {
 		
 	}
 
+	/**
+	 * Function to check the uploaded file
+	 * @param noOfMapsSelected number of maps selected
+	 * @return true if number of maps selected is equal to number of files chosed else false
+	 */
 	private boolean fncCheckFileUploaded(String noOfMapsSelected) {
-		// TODO Auto-generated method stub
 		boolean isReturn=false;
 		System.out.println("No of File added to browse button : " +addFileName.size());
 		if(noOfMapsSelected.equals(String.valueOf(addFileName.size())))
@@ -431,8 +446,6 @@ public class TournamentController  implements ActionListener, Serializable {
 		{
 			isReturn=false;
 		}
-		
-		
 		return isReturn;
 	}
 }
