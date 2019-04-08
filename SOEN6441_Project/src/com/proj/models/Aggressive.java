@@ -14,7 +14,7 @@ public class Aggressive implements BehaviorStrategies, Serializable {
 	public void startUpPhase(GameModelCreation gameModel) {
 		// TODO Auto-generated method stub
 		//Country country = gameModel.getCurrPlayer().getCountriesOwned().get(0);
-		System.out.println("StartUp Turn1: "+gameModel.getTurn());
+		//System.out.println("StartUp Turn1: "+gameModel.getTurn());
 		Country country = maxArmiesInCountry(gameModel.getCurrPlayer());
 		System.out.println("Name in Aggressive startUp: "+gameModel.getCurrPlayer().getPlayerName());
 		if ( gameModel.getCurrPlayer().getNoOfArmiesOwned() > 0) {
@@ -150,6 +150,14 @@ public class Aggressive implements BehaviorStrategies, Serializable {
 		gameModel.incrementTurn();
 		gameModel.changePlayer();
 		gameModel.setGameState(1);
+		if(gameModel.getCurrPlayer().getPlayerName().equalsIgnoreCase("Neutral")) {
+			System.out.println("No turn for neutral Player");
+			gameModel.incrementTurn();
+			gameModel.changePlayer();
+			gameModel.setGameState(1);
+		//	fortifyView.getGameModel().setGameState(1);
+			//fortifyView.getGameModel().getGameScreen().displayPlayer();
+		}
 		//gameModel.getCurrPlayer().intializeReinforcementArmies(gameModel);
 	}
 

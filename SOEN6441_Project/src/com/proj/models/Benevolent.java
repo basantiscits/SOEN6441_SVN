@@ -13,6 +13,7 @@ public class Benevolent implements BehaviorStrategies, Serializable {
 	@Override
 	public void startUpPhase(GameModelCreation gameModel) {
 		// TODO Auto-generated method stub
+		System.out.println("Name in Benevolent startUp: "+gameModel.getCurrPlayer().getPlayerName());
 		Country country = gameModel.getCurrPlayer().getCountriesOwned().get(0);
 		int countOfArmies = country.getNoOfArmiesPresent();
 		for (Country c : gameModel.getCurrPlayer().getCountriesOwned()) {
@@ -26,7 +27,7 @@ public class Benevolent implements BehaviorStrategies, Serializable {
 			country.addNoOfArmiesCountry();
 			gameModel.getCurrPlayer().reduceArmyInPlayer();
 		}
-		
+		System.out.println("StartUp phase done for Benevolent");
 	}
 
 	@Override
@@ -139,6 +140,14 @@ public class Benevolent implements BehaviorStrategies, Serializable {
 		gameModel.incrementTurn();
 		gameModel.changePlayer();
 		gameModel.setGameState(1);
+		if(gameModel.getCurrPlayer().getPlayerName().equalsIgnoreCase("Neutral")) {
+			System.out.println("No turn for neutral Player");
+			gameModel.incrementTurn();
+			gameModel.changePlayer();
+			gameModel.setGameState(1);
+		//	fortifyView.getGameModel().setGameState(1);
+			//fortifyView.getGameModel().getGameScreen().displayPlayer();
+		}
 		//gameModel.getCurrPlayer().intializeReinforcementArmies(gameModel);
 	}
 

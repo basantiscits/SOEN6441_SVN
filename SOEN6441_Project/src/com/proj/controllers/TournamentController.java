@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import com.proj.models.Country;
 import com.proj.models.GameModelCreation;
 import com.proj.models.Map;
 import com.proj.models.Player;
@@ -29,8 +30,6 @@ public class TournamentController  implements ActionListener, Serializable {
 	private String sPlayerBehaviour2="";
 	private String sPlayerBehaviour3="";
 	private String sPlayerBehaviour4="";
-	private String sPlayerBehaviour5="";
-	private String sPlayerBehaviour6="";
 	ArrayList<String>addFileName;
 	ArrayList<String>addPlayerBehaviourName;
 	ArrayList<Map> maps;
@@ -286,21 +285,69 @@ public class TournamentController  implements ActionListener, Serializable {
 	}
 	
 	private void intitiateTournament() {
-		// TODO Auto-generated method stub
+		System.out.println("*********************OFREISH*******************************");		
 		String strategies[]=addPlayerBehaviourName.toArray(new String[0]);
-			players=new Player[Integer.parseInt(noOfPlayer)];
-			newGameController=new NewGameController();
-			for(Map m: maps){
-				for (int i=0;i<Integer.parseInt(noOfGames);i++){
-					players=newGameController.initializingPlayerModels(Integer.parseInt(noOfPlayer), m , strategies );
-					GameModelCreation newGame=new GameModelCreation(m,players);
-					GameWindowScreen g=new GameWindowScreen(newGame);
-					//Method to play game
-					for(Player p:players){
-						System.out.println(p.getStrategy().getClass());
+		System.out.println("Strategies Names: ");
+		for(String s : strategies) {
+			System.out.println(s);
+		}
+		System.out.println("Map Names: ");
+		for(Map m : maps) {
+			System.out.println(m.getName());
+		}
+		System.out.println("No of players: "+noOfPlayer);
+		System.out.println("No of Games: "+noOfGames);
+		System.out.println("No of Maps: "+noOfMaps);
+		System.out.println("No of turns: "+noOfTurns);
+		players=new Player[Integer.parseInt(noOfPlayer)];
+		newGameController=new NewGameController();
+		for(Map m: maps){
+			for (int i=0;i<Integer.parseInt(noOfGames);i++){
+				players=newGameController.initializingPlayerModels(Integer.parseInt(noOfPlayer), m , strategies );
+				System.out.println("*********************************Player Details****************************************************");
+				for(Player p : players) {
+					System.out.print("Player: "+p.getPlayerName()+" , "+p.getPlayerType()+" , "+p.getNoOfArmiesOwned()+" , ");
+					for(Country c : p.getCountriesOwned()) {
+						System.out.print(c.getCountryName()+",");
 					}
+					System.out.println();
+				}
+				GameModelCreation gameModelCreation =new GameModelCreation(m,players);
+				providingGameModelToPlayer(players, gameModelCreation);
+				//GameWindowScreen game =new GameWindowScreen(gameModelCreation);
+				gameModelCreation.incrementTurn();
+				System.out.println("Player army : "+players[players.length-1].getNoOfArmiesOwned());
+				int army = players[players.length-1].getNoOfArmiesOwned();
+				for(int p = 0; p < army; p++) {
+					for(Player P : gameModelCreation.getPlayer()) {
+						P.initialArmyAllocation(gameModelCreation);
+						System.out.println("Player detail: "+gameModelCreation.getCurrPlayer().getPlayerName()+" : "+P.getPlayerName());
+					}
+					System.out.println("Value of p: "+p);
+				}
+				
+				while(gameModelCreation.getPlayer().length>1) {
+					gameModelCreation.getCurrPlayer().intializeReinforcementArmies(gameModelCreation);
+				}
+				//System.out.println(gameModelCreation.getCurrPlayer().getPlayerName());
+				
+				for(Player p : players) {
+					System.out.print("Player: "+p.getPlayerName()+" , "+p.getPlayerType()+" , "+p.getNoOfArmiesOwned()+" , ");
+					for(Country c : p.getCountriesOwned()) {
+						System.out.print(c.getCountryName()+"["+c.getNoOfArmiesPresent()+"]");
+					}
+					System.out.println();
+				}
+				
+				
+				
+				
+				//Method to play game
+				for(Player p:players){
+					System.out.println(p.getStrategy().getClass());
 				}
 			}
+		}
 		
 	}
 
@@ -342,6 +389,12 @@ public class TournamentController  implements ActionListener, Serializable {
 	
 	}
 	
+	public void providingGameModelToPlayer(Player[] player, GameModelCreation gameModel) {
+		for (Player players : player) {
+			players.setGameModel(gameModel);
+		}
+
+	}
  
 	private void fncCheckPlayerBehaviour() {
 		// TODO Auto-generated method stub
@@ -364,18 +417,6 @@ public class TournamentController  implements ActionListener, Serializable {
 			addPlayerBehaviourName.add(sPlayerBehaviour4);
 		}
 		
-		
-//		System.out.println("No of File selected in player behaviour : " +addPlayerBehaviourName.size());
-//		if(noOfPlayer2.equals(String.valueOf(addPlayerBehaviourName.size())))
-//		{
-//			isReturnBehaviour=true;
-//		}
-//		else
-//		{
-//			isReturnBehaviour=false;
-//		}
-//		
-//		return isReturnBehaviour;
 	}
 
 	private boolean fncCheckFileUploaded(String noOfMapsSelected) {

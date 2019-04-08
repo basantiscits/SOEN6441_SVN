@@ -30,7 +30,6 @@ public class Player extends Observable implements Serializable{
 	private PlayerType playerType;
 	private GameModelCreation gameModel;
 	private GameWindowScreen gameScreen;
-	public Country randomCountry;
 	
 	
 	
@@ -366,6 +365,7 @@ public class Player extends Observable implements Serializable{
 	
 	
 	public void initialArmyAllocation(GameModelCreation gameModel) {
+		System.out.println("Player da naam : "+gameModel.getCurrPlayer().getPlayerName());
 		getStrategy().startUpPhase(gameModel);
 		gameModel.incrementTurn();
 		gameModel.changePlayer();

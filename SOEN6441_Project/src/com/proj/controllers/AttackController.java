@@ -372,7 +372,7 @@ public class AttackController implements ActionListener, Serializable{
 					System.out.println("Null si");
 				}
 				if(val2<val1) {
-					attackView.getGameModel().setTurn(attackView.getGameModel().getTurn()-1);
+					gameModel.setTurn(gameModel.getTurn()-1);
 				}
 			}
 			Continent continentName = map.searchContinent(countryDefending);

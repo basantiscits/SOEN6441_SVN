@@ -204,16 +204,12 @@ public class TournamentView  extends JFrame implements ActionListener {
 		this.comboBoxSelectplayer = comboBoxSelectplayer;
 	}
 	
-	
-	
-	
+
 	public JButton getbuttonbrowse1() {
 		return buttonbrowse1;
 	}
 	
 	
-
-
 	public void setbuttonbrowse1(JButton buttonbrowse1) {
 		this.buttonbrowse1 = buttonbrowse1;
 	}

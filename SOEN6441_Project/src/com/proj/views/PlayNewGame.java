@@ -442,7 +442,7 @@ public class PlayNewGame extends JFrame implements ActionListener {
 	 * @param gameModel Object of GameModelCreation class
 	 */
 	public void GameModelWindowMade(Map sCarryMapForward, Player[] player, GameModelCreation gameModel) {
-		dispose();
+		dispose(); 
 		GameWindowScreen GameWindowScreen = new GameWindowScreen(gameModel);
 		GameWindowScreen.setVisible(true);
 	}

@@ -12,6 +12,7 @@ public class Cheater implements BehaviorStrategies, Serializable {
 	@Override
 	public void startUpPhase(GameModelCreation gameModel) {
 		// TODO Auto-generated method stub
+		System.out.println("Name in Cheater startUp: "+gameModel.getCurrPlayer().getPlayerName());
 		if (gameModel.getCurrPlayer().getNoOfArmiesOwned() > 0) {
 			for (Country country : gameModel.getCurrPlayer().getCountriesOwned()) {
 				country.addNoOfArmiesCountry();
@@ -19,7 +20,7 @@ public class Cheater implements BehaviorStrategies, Serializable {
 			gameModel.getCurrPlayer().reduceArmyInPlayer();
 		}
 		
-		
+		System.out.println("StartUp phase done for Cheater");
 	}
 
 	@Override
@@ -120,26 +121,28 @@ public class Cheater implements BehaviorStrategies, Serializable {
 		attacker.getCardsOwned().add(Card.getNewCard());   
 		attacker.setNoOfCardsOwned(attacker.getNoOfCardsOwned()+1);
 		
-		int over = 0;
-		for(Player p : gameModel.getPlayer()) {
-			if(p.getPlayerType()==PlayerType.Human) {
-				over = 1;
+		if(gameModel.getGameScreen()!=null) {
+			int over = 0;
+			for(Player p : gameModel.getPlayer()) {
+				if(p.getPlayerType()==PlayerType.Human) {
+					over = 1;
+				}
+			}
+			if(over != 1) {
+				JOptionPane.showMessageDialog(null,"All Human Lost!!! \n Game Over");
+				//attackView.dispose();
+				gameModel.getGameScreen().dispose();
+				System.exit(0);
+				//return;
 			}
 		}
-		if(over != 1) {
-			JOptionPane.showMessageDialog(null,"All Human Lost!!! \n Game Over");
-			//attackView.dispose();
-			gameModel.getGameScreen().dispose();
-			System.exit(0);
-			//return;
-		}
 		
-		if(gameModel.getPlayer().length==1){
+/*		if(gameModel.getPlayer().length==1){
 			System.out.println("Game Won by "+attacker.getPlayerName()+" "+attacker.getStrategy().getClass());
 			JOptionPane.showMessageDialog(null, attacker.getPlayerName()+" won the game!!! CONGRATULATION!!!");
 			//gameModel.getGameScreen()attacker;
 			gameModel.getGameScreen().dispose();
-		}
+		}*/
 		System.out.println("Ofreish : "+attacker.getNoOfCardsOwned());
 		if(attacker.getNoOfCardsOwned()>4){
 			//Cards to implemented
@@ -191,6 +194,14 @@ public class Cheater implements BehaviorStrategies, Serializable {
 		gameModel.incrementTurn();
 		gameModel.changePlayer();
 		gameModel.setGameState(1);
+		if(gameModel.getCurrPlayer().getPlayerName().equalsIgnoreCase("Neutral")) {
+			System.out.println("No turn for neutral Player");
+			gameModel.incrementTurn();
+			gameModel.changePlayer();
+			gameModel.setGameState(1);
+		//	fortifyView.getGameModel().setGameState(1);
+			//fortifyView.getGameModel().getGameScreen().displayPlayer();
+		}
 		//gameModel.getCurrPlayer().intializeReinforcementArmies(gameModel);
 		
 	}

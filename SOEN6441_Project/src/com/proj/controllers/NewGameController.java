@@ -79,7 +79,6 @@ public class NewGameController implements ActionListener, Serializable {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		
 		boolean isMapValid = true;
 		Map existingMap = new Map();
 		System.out.println("actionPerformed");
@@ -201,7 +200,7 @@ public class NewGameController implements ActionListener, Serializable {
 					sCarryMapForward = existingMap;
 					playNewGame.getTextFieldMap().setText(sPathFileName);
 				}
-			}
+			} 
 		} else if ((event.getSource()).equals(playNewGame.getButtonPlayGame())) {
 			System.out.println("Play Game Button");
 			noOfPlayers = (String) playNewGame.getComboBoxSelectPlayer().getSelectedItem();
@@ -231,20 +230,19 @@ public class NewGameController implements ActionListener, Serializable {
 							comboSelectedPlayers[5] = (String) playNewGame.getComboBoxSelectPlayer6().getSelectedItem();
 							System.out.println("Andar a gya: "+(String) playNewGame.getComboBoxSelectPlayer6().getSelectedItem());
 						}
-						for(String s:comboSelectedPlayers) {
+/*						for(String s:comboSelectedPlayers) {
 							System.out.println("Array di value: "+s);
-						}
+						}*/
 						List<String> list = Arrays.asList(comboSelectedPlayers);
-						if(list.contains("Human"))
-						{
+						if(list.contains("Human")) {
 							System.out.println("Player Conatains Human Behaviour");
 							player = initializingPlayerModels(Integer.parseInt(noOfPlayers), sCarryMapForward, comboSelectedPlayers);
 							this.gameModel = new GameModelCreation(sCarryMapForward, player);
 							providingGameModelToPlayer();
 							playNewGame.GameModelWindowMade(sCarryMapForward, player, gameModel);
 						}
-						else
-						{
+						else {
+							JOptionPane.showMessageDialog(null, "Please select one player as human");
 							System.out.println("Player does not Conatains Human Behaviour");
 						}
 					}
@@ -276,7 +274,7 @@ public class NewGameController implements ActionListener, Serializable {
 	 *            number of players
 	 */
 	public void initializeNumberOfArmies(PlayerType[] playerTypes, Player[] players, int noOfPlayers) {
-		System.out.println("noOfPlayers : 2"+noOfPlayers);
+		//System.out.println("noOfPlayers : 2"+noOfPlayers);
 		for(int i=0;i<playerTypes.length;i++) {
 			System.out.println("Main : "+i+" = "+playerTypes[i]);
 		}
@@ -314,9 +312,9 @@ public class NewGameController implements ActionListener, Serializable {
 					players[j].setNoOfArmiesOwned(20);
 				}
 			}
-			for(int i=0;i<noOfPlayers;i++) {
+/*			for(int i=0;i<noOfPlayers;i++) {
 				System.out.println("Ofreish1: "+i+" : "+players[i].getPlayerName()+" , "+players[i].getPlayerType());
-			}
+			}*/
 	}
 
 	/**
@@ -333,7 +331,7 @@ public class NewGameController implements ActionListener, Serializable {
 	 * @return players array object of type Player
 	 */
 	public Player[] initializingPlayerModels(int noOfPlayers, Map sCarryMapForward, String[] comboSelectedPlayers) {
-		System.out.println("noOfPlayers : 0"+noOfPlayers);
+		//System.out.println("noOfPlayers : 0"+noOfPlayers);
 		Player[] players = new Player[noOfPlayers];
 		int pickedNumber = 0;
 		Continent[] continents = new Continent[sCarryMapForward.getContinents().size()];
@@ -346,7 +344,7 @@ public class NewGameController implements ActionListener, Serializable {
 				newList[j] = new Player("Player" + String.valueOf(value),playerTypes[j]);
 				if (playerTypes[j] == PlayerType.Human) {
 					newList[j].setStrategy(new Human());
-				}
+				} 
 				else if (playerTypes[j] == PlayerType.Aggressive) {
 					newList[j].setStrategy(new Aggressive());
 				}
@@ -362,25 +360,25 @@ public class NewGameController implements ActionListener, Serializable {
 				newList[j].setNoOfArmiesOwned(40);
 
 			}
-			newList[2] = new Player("Neutral",PlayerType.Aggressive);
-			newList[2].setStrategy(new Aggressive());
+			newList[2] = new Player("Neutral",PlayerType.Human);
+			newList[2].setStrategy(new Human());
 			newList[2].setNoOfArmiesOwned(40);
-			for(Player p : newList) {
+/*			for(Player p : newList) {
 				System.out.println("p1: "+p.getPlayerName());
-			}
+			}*/
 			players = newList;
-			for(Player p : players) {
+/*			for(Player p : players) {
 				System.out.println("p2: "+p.getPlayerName());
-			}
+			}*/
 		}
 		else {
 			initializeNumberOfArmies(playerTypes, players, noOfPlayers);
 			
 		}
-		System.out.println("noOfPlayers: 3"+noOfPlayers);
+/*		System.out.println("noOfPlayers: 3"+noOfPlayers);
 		for(int i=0;i<noOfPlayers;i++) {
 			System.out.println("Ofreish: "+i+" : "+players[i].getPlayerName()+" , "+players[i].getPlayerType());
-		}
+		}*/
 		Random RandomAllocationCountries = new Random();
 		List<Country> countryModelList = new ArrayList<Country>();
 		List<Continent> continentModelList = new ArrayList<Continent>();

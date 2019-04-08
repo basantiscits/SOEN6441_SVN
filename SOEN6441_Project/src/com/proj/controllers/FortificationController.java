@@ -154,6 +154,7 @@ public class FortificationController implements ActionListener, Serializable {
 				System.out.println("No turn for neutral Player");
 				fortifyView.getGameModel().incrementTurn();
 				fortifyView.getGameModel().changePlayer();
+			//	fortifyView.getGameModel().setGameState(1);
 				fortifyView.getGameModel().getGameScreen().displayPlayer();
 			}
 			fortifyView.getGameModel().getGameScreen().displayPlayer();
@@ -161,7 +162,7 @@ public class FortificationController implements ActionListener, Serializable {
 			fortifyView.getGameModel().getGameScreen().getArmyAllocation().setText("Phase Change");
 			fortifyView.getGameModel().getGameScreen().getArmyAllocation().doClick();
 			fortifyView.setVisible(false);
-			fortifyView.getGameModel().setGameState(1);
+			//fortifyView.getGameModel().setGameState(1);
 /*			fortifyView.getGameModel().getGameScreen().getStartPhaseDefinedLabel().setText("Reinforcement Phase");
 			fortifyView.getGameModel().getGameScreen().getArmyAllocation().setEnabled(true);*/
 			fortifyView.dispose();

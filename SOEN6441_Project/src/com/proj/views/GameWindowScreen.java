@@ -133,7 +133,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		gameController.getGameModel().addObserver(this);
 		
 		setSize(Constants.MAP_EDITOR_WIDTH, Constants.MAP_EDITOR_HEIGHT);
-		setResizable(false);
+		setResizable(true);
 		setLocationRelativeTo(null);
 		addComponents();
 		addWindowListener(new WindowAdapter() {
@@ -290,9 +290,10 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		add(noOfCardsLabel);
 		
 		SaveButton = new JButton("Save Button");
-		SaveButton.setBounds(200,150,100,50);
+		//SaveButton.setBounds(200,150,100,50);
 		//SaveButton = new JButton("Save Current Game");
-		SaveButton.setBounds(400, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 130,200, 30);
+		SaveButton.setBounds(150, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 80,130, 30);
+		//SaveButton.setBounds(400, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 130,200, 30);
 		SaveButton.addActionListener(gameController);
 		add(SaveButton);
 		
@@ -320,6 +321,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 	public void reinforce() {
 		if (gameModel.getCurrPlayer().getNoOfArmiesOwned() == 0 && !gameModel.getCurrPlayer().getPlayerName().equals("Neutral")) {
 			displayPlayer();
+			System.out.println("Aaya bhai me dekhya");
 			gameModel.getCurrPlayer().attackPhaseImplementation(gameModel,this);	
 		}
 	}
@@ -329,13 +331,28 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 	 */
 	public void displayPlayer() {
 		
-		if(gameModel.getGameState() == 10) {
+		int over = 0;
+		for(Player p : gameModel.getPlayer()) {
+			if(p.getPlayerType()==PlayerType.Human) {
+				over = 1;
+			}
+		}
+		if(over != 1) {
+			JOptionPane.showMessageDialog(null,"All Human Lost!!! \n Game Over");
+			//attackView.dispose();
+			dispose();
+			System.exit(0);
+		}
+		
+		if(gameModel.getGameState() == 10) { 
 			JOptionPane.showMessageDialog(null, gameModel.getCurrPlayer().getPlayerName() + " has Won the Game !! Congratulations !!!");
 			dispose();
 		}
 		
 		else if ((gameModel.getGameState() == 0) && (gameModel.getCurrPlayer().getPlayerType()!=PlayerType.Human)) {
+			//System.out.println("Before if ");
 			if ( gameModel.getCurrPlayer().getNoOfArmiesOwned() > 0) {
+				//System.out.println("Inside if ");
 				gameModel.getCurrPlayer().initialArmyAllocation(gameModel);
 			}
 
@@ -1314,12 +1331,14 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 	@Override
 	public void update(Observable type, Object object) {
 		if(object instanceof GameModelCreation) {
+			//System.out.println("if ch ");
 			playerStrengthTable(gameController.getGameModel());
 			addProgressBar(gameController.getGameModel());
 			displayPlayer();
 			createStartUpTree();
 		}
 		else {
+			//System.out.println("else ch ");
 			playerStrengthTable(gameController.getGameModel());
 			addProgressBar(gameController.getGameModel());
 			createStartUpTree();

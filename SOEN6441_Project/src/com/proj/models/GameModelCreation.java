@@ -111,6 +111,7 @@ public class GameModelCreation extends Observable implements Serializable{
 			incrementTurn();
 			changePlayer();
 		}
+		System.out.println("Change Player: "+getCurrPlayer().getPlayerName());
 		updateChanges();
 	}
 	
@@ -171,6 +172,7 @@ public class GameModelCreation extends Observable implements Serializable{
 	 */
 	public void updateChanges() {
 		setChanged();
+		//System.out.println("Update Changes");
 		notifyObservers(this);
 	}
 }
