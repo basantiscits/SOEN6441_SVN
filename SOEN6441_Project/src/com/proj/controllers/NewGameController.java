@@ -79,6 +79,7 @@ public class NewGameController implements ActionListener, Serializable {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent event) {
+		
 		boolean isMapValid = true;
 		Map existingMap = new Map();
 		System.out.println("actionPerformed");
@@ -233,10 +234,19 @@ public class NewGameController implements ActionListener, Serializable {
 						for(String s:comboSelectedPlayers) {
 							System.out.println("Array di value: "+s);
 						}
-						player = initializingPlayerModels(Integer.parseInt(noOfPlayers), sCarryMapForward, comboSelectedPlayers);
-						this.gameModel = new GameModelCreation(sCarryMapForward, player);
-						providingGameModelToPlayer();
-						playNewGame.GameModelWindowMade(sCarryMapForward, player, gameModel);
+						List<String> list = Arrays.asList(comboSelectedPlayers);
+						if(list.contains("Human"))
+						{
+							System.out.println("Player Conatains Human Behaviour");
+							player = initializingPlayerModels(Integer.parseInt(noOfPlayers), sCarryMapForward, comboSelectedPlayers);
+							this.gameModel = new GameModelCreation(sCarryMapForward, player);
+							providingGameModelToPlayer();
+							playNewGame.GameModelWindowMade(sCarryMapForward, player, gameModel);
+						}
+						else
+						{
+							System.out.println("Player does not Conatains Human Behaviour");
+						}
 					}
 				}
 			} else {
