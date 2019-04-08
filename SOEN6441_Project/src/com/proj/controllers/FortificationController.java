@@ -106,7 +106,6 @@ public class FortificationController implements ActionListener, Serializable {
 
 				if((fortifyView.getGameModel().getCurrPlayer()==fortifyView.getPlayer()[fortifyView.getPlayer().length-1]) && fortifyView.checkDraw()) {
 					JOptionPane.showMessageDialog(null, "No Player is eligible to attack \n MATCH DRAWN!!!");
-					//fortifyView.getGameModel().setGameState(10);
 					fortifyView.getGameModel().getGameScreen().dispose();
 				}
 				
@@ -124,8 +123,6 @@ public class FortificationController implements ActionListener, Serializable {
 				fortifyView.getGameModel().getGameScreen().getArmyAllocation().doClick();
 				fortifyView.setVisible(false);
 				fortifyView.getGameModel().setGameState(1);
-/*				fortifyView.getGameModel().getGameScreen().getStartPhaseDefinedLabel().setText("Reinforcement Phase");
-				fortifyView.getGameModel().getGameScreen().getArmyAllocation().setEnabled(true);*/
 				fortifyView.dispose();
 				fortifyView.getGameModel().getGameScreen().getGameController().cardExchange();
 				
@@ -154,7 +151,6 @@ public class FortificationController implements ActionListener, Serializable {
 				System.out.println("No turn for neutral Player");
 				fortifyView.getGameModel().incrementTurn();
 				fortifyView.getGameModel().changePlayer();
-			//	fortifyView.getGameModel().setGameState(1);
 				fortifyView.getGameModel().getGameScreen().displayPlayer();
 			}
 			fortifyView.getGameModel().getGameScreen().displayPlayer();
@@ -162,9 +158,6 @@ public class FortificationController implements ActionListener, Serializable {
 			fortifyView.getGameModel().getGameScreen().getArmyAllocation().setText("Phase Change");
 			fortifyView.getGameModel().getGameScreen().getArmyAllocation().doClick();
 			fortifyView.setVisible(false);
-			//fortifyView.getGameModel().setGameState(1);
-/*			fortifyView.getGameModel().getGameScreen().getStartPhaseDefinedLabel().setText("Reinforcement Phase");
-			fortifyView.getGameModel().getGameScreen().getArmyAllocation().setEnabled(true);*/
 			fortifyView.dispose();
 			
 			System.out.println("Player name after fortification: -"+fortifyView.getGameModel().getGameScreen().getGameController().getGameModel().getCurrPlayer().getPlayerName());

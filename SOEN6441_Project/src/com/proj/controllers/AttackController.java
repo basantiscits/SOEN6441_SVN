@@ -130,14 +130,9 @@ public class AttackController implements ActionListener, Serializable{
 			rollDice(attackerDiceValues);
 			rollDice(attackerDiceValues);
 			rollDice(attackerDiceValues);
-/*			attackView.getAttackDice1().setText(String.valueOf(attackerDiceValues.get(0)));
-			attackView.getAttackDice2().setText(String.valueOf(attackerDiceValues.get(1)));
-			attackView.getAttackDice3().setText(String.valueOf(attackerDiceValues.get(2)));*/
 			if(noOfDefendingDicesSelected==2) {
 				rollDice(defenderDiceValues);
 				rollDice(defenderDiceValues);
-/*				attackView.getDefendDice1().setText(String.valueOf(defenderDiceValues.get(0)));
-				attackView.getDefendDice2().setText(String.valueOf(defenderDiceValues.get(1)));*/
 				storeDiceValues();
 				if(Collections.max(attackerDiceValues) > Collections.max(defenderDiceValues)) {
 					battleWon();
@@ -165,8 +160,6 @@ public class AttackController implements ActionListener, Serializable{
 			
 			else {
 				rollDice(defenderDiceValues);
-				/*attackView.getDefendDice1().setText(String.valueOf(defenderDiceValues.get(0)));*/
-				//attackView.getDefendDice2().setText("");
 				storeDiceValues();
 				if(Collections.max(attackerDiceValues) > Collections.max(defenderDiceValues)) {
 					battleWon();
@@ -179,14 +172,9 @@ public class AttackController implements ActionListener, Serializable{
 		else if(noOfAttackingDicesSelected==2) {
 			rollDice(attackerDiceValues);
 			rollDice(attackerDiceValues);
-/*			attackView.getAttackDice1().setText(String.valueOf(attackerDiceValues.get(0)));
-			attackView.getAttackDice2().setText(String.valueOf(attackerDiceValues.get(1)));
-			attackView.getAttackDice3().setText("");*/
 			if(noOfDefendingDicesSelected==2) {
 				rollDice(defenderDiceValues);
 				rollDice(defenderDiceValues);
-/*				attackView.getDefendDice1().setText(String.valueOf(defenderDiceValues.get(0)));
-				attackView.getDefendDice2().setText(String.valueOf(defenderDiceValues.get(1)));*/
 				storeDiceValues();
 				if(Collections.max(attackerDiceValues) > Collections.max(defenderDiceValues)) {
 					battleWon();
@@ -213,8 +201,6 @@ public class AttackController implements ActionListener, Serializable{
 			}
 			else{
 				rollDice(defenderDiceValues);
-				/*attackView.getDefendDice1().setText(String.valueOf(defenderDiceValues.get(0)));*/
-				//attackView.getDefendDice2().setText("");
 				storeDiceValues();
 				if(Collections.max(attackerDiceValues) > Collections.max(defenderDiceValues)) {
 					battleWon();
@@ -226,20 +212,13 @@ public class AttackController implements ActionListener, Serializable{
 		}
 		else if(noOfAttackingDicesSelected==1) {
 			rollDice(attackerDiceValues);
-/*			attackView.getAttackDice1().setText(String.valueOf(attackerDiceValues.get(0)));
-			attackView.getAttackDice2().setText("");
-			attackView.getAttackDice3().setText("");*/
 			
 			if(noOfDefendingDicesSelected ==2) {
 				rollDice(defenderDiceValues);
 				rollDice(defenderDiceValues);
-/*				attackView.getDefendDice1().setText(String.valueOf(defenderDiceValues.get(0)));
-				attackView.getDefendDice2().setText(String.valueOf(defenderDiceValues.get(1)));*/
 			}
 			else {
 				rollDice(defenderDiceValues);
-/*				attackView.getDefendDice1().setText(String.valueOf(defenderDiceValues.get(0)));
-				attackView.getDefendDice2().setText("");*/
 			}
 			if(Collections.max(attackerDiceValues) > Collections.max(defenderDiceValues)) {
 				battleWon();

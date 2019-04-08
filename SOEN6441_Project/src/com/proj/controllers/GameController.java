@@ -127,6 +127,10 @@ public class GameController implements ActionListener, Serializable {
 		}
 	}
 
+	/**
+	 * Saves file name
+	 * @return file name
+	 */
 	private String FncSaveFileName() {
 		String sFilename="";
 		sFilename = JOptionPane.showInputDialog(null,"Enter the File name you want to save:",JOptionPane.OK_CANCEL_OPTION | JOptionPane.QUESTION_MESSAGE);
