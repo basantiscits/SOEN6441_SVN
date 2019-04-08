@@ -141,15 +141,6 @@ public class Country extends Observable implements Serializable{
 	}
 
 	/**
-	 * setter for owned by
-	 * @param owner object of Player class
-	 */
-/*	public void setOwnedBy(Player owner) {
-		this.ownedBy = ownedBy;
-		updateChanges();
-	}*/
-
-	/**
 	 * incrementing number of armies present
 	 */
 	public void addNoOfArmiesCountry() {

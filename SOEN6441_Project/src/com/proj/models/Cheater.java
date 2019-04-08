@@ -7,11 +7,20 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+/**
+ * Class for Cheater player
+ * @author Basant
+ * @since 23 Mar 2019
+ * @version 1.2
+ */
 public class Cheater implements BehaviorStrategies, Serializable {
 
+	/**
+	 * start up phase
+	 * @param gameModel Object of GameModelCreation class
+	 */
 	@Override
 	public void startUpPhase(GameModelCreation gameModel) {
-		// TODO Auto-generated method stub
 		System.out.println("Name in Cheater startUp: "+gameModel.getCurrPlayer().getPlayerName());
 		if (gameModel.getCurrPlayer().getNoOfArmiesOwned() > 0) {
 			for (Country country : gameModel.getCurrPlayer().getCountriesOwned()) {
@@ -23,9 +32,12 @@ public class Cheater implements BehaviorStrategies, Serializable {
 		System.out.println("StartUp phase done for Cheater");
 	}
 
+	/**
+	 * reinforcement phase
+	 * @param gameModel Object of GameModelCreation class
+	 */
 	@Override
 	public void reinforcementPhase(GameModelCreation gameModel) {
-		// TODO Auto-generated method stub
 		System.out.println("armies1 in reinforce: "+gameModel.getCurrPlayer().getNoOfArmiesOwned());
 		gameModel.getCurrPlayer().setNoOfArmiesOwned(0);
 		
@@ -41,9 +53,12 @@ public class Cheater implements BehaviorStrategies, Serializable {
 		
 	}
 
+	/**
+	 * attack phase
+	 * @param gameModel Object of GameModelCreation class
+	 */
 	@Override
 	public void attackPhase(GameModelCreation gameModel) {
-		// TODO Auto-generated method stub
 		System.out.println("armies1 in Attack: "+gameModel.getCurrPlayer().getNoOfArmiesOwned());
 		boolean playerRemoved=false;
 		Player newList[] = null;
@@ -130,22 +145,13 @@ public class Cheater implements BehaviorStrategies, Serializable {
 			}
 			if(over != 1) {
 				JOptionPane.showMessageDialog(null,"All Human Lost!!! \n Game Over");
-				//attackView.dispose();
 				gameModel.getGameScreen().dispose();
 				System.exit(0);
-				//return;
 			}
 		}
 		
-/*		if(gameModel.getPlayer().length==1){
-			System.out.println("Game Won by "+attacker.getPlayerName()+" "+attacker.getStrategy().getClass());
-			JOptionPane.showMessageDialog(null, attacker.getPlayerName()+" won the game!!! CONGRATULATION!!!");
-			//gameModel.getGameScreen()attacker;
-			gameModel.getGameScreen().dispose();
-		}*/
 		System.out.println("Ofreish : "+attacker.getNoOfCardsOwned());
 		if(attacker.getNoOfCardsOwned()>4){
-			//Cards to implemented
 			attacker.setCardsForArmies(attacker.getCardsForArmies() + 5);
 			attacker.setNoOfArmiesOwned(attacker.getNoOfArmiesOwned() + gameModel.getCurrPlayer().getCardsForArmies());
 			Card initialCard=attacker.getCardsOwned().get(0);
@@ -170,9 +176,12 @@ public class Cheater implements BehaviorStrategies, Serializable {
 		fortificationPhase(gameModel);
 	}
 
+	/**
+	 * fortification phase
+	 * @param gameModel Object of GameModelCreation class
+	 */
 	@Override
 	public void fortificationPhase(GameModelCreation gameModel) {
-		// TODO Auto-generated method stub
 		System.out.println("armies1 in fortify: "+gameModel.getCurrPlayer().getNoOfArmiesOwned());
 		for(Country c : gameModel.getCurrPlayer().getCountriesOwned()) {
 			System.out.println("Armies before: "+c.getCountryName()+" : "+c.getNoOfArmiesPresent());
@@ -199,11 +208,6 @@ public class Cheater implements BehaviorStrategies, Serializable {
 			gameModel.incrementTurn();
 			gameModel.changePlayer();
 			gameModel.setGameState(1);
-		//	fortifyView.getGameModel().setGameState(1);
-			//fortifyView.getGameModel().getGameScreen().displayPlayer();
 		}
-		//gameModel.getCurrPlayer().intializeReinforcementArmies(gameModel);
-		
 	}
-
 }

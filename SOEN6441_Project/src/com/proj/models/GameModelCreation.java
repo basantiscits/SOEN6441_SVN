@@ -91,7 +91,6 @@ public class GameModelCreation extends Observable implements Serializable{
 		}
 		System.out.println("Turn: "+turn);
 		turn++;
-		//updateChanges();
 	}
 	
 	/**
@@ -172,7 +171,6 @@ public class GameModelCreation extends Observable implements Serializable{
 	 */
 	public void updateChanges() {
 		setChanged();
-		//System.out.println("Update Changes");
 		notifyObservers(this);
 	}
 }

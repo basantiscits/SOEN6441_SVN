@@ -8,13 +8,20 @@ import javax.swing.JOptionPane;
 
 import com.proj.controllers.AttackController;
 
+/**
+ * Class for Aggressive player
+ * @author Basant
+ * @since 23 Mar 2019
+ * @version 1.2
+ */
 public class Aggressive implements BehaviorStrategies, Serializable {
 
+	/**
+	 * start up phase
+	 * @param gameModel Object of GameModelCreation class
+	 */
 	@Override
 	public void startUpPhase(GameModelCreation gameModel) {
-		// TODO Auto-generated method stub
-		//Country country = gameModel.getCurrPlayer().getCountriesOwned().get(0);
-		//System.out.println("StartUp Turn1: "+gameModel.getTurn());
 		Country country = maxArmiesInCountry(gameModel.getCurrPlayer());
 		System.out.println("Name in Aggressive startUp: "+gameModel.getCurrPlayer().getPlayerName());
 		if ( gameModel.getCurrPlayer().getNoOfArmiesOwned() > 0) {
@@ -24,6 +31,11 @@ public class Aggressive implements BehaviorStrategies, Serializable {
 		System.out.println("StartUp phase done for aggressive");
 	}
 	
+	/**
+	 * maximum armies in country
+	 * @param player Object of Player class
+	 * @return country name
+	 */
 	private Country maxArmiesInCountry(Player player) {
 		Country country = player.getCountriesOwned().get(0);
 		int noOfArmies = country.getNoOfArmiesPresent();
@@ -33,14 +45,16 @@ public class Aggressive implements BehaviorStrategies, Serializable {
 				noOfArmies = c.getNoOfArmiesPresent();
 			}
 		}
-		return country;
-		
+		return country;	
 	}
 
+	/**
+	 * Reinforcement phase
+	 * @param gameModel Object of GameModelCreation class
+	 */
 	@Override
 	public void reinforcementPhase(GameModelCreation gameModel) {
 		System.out.println("Reinforcement Turn1: "+gameModel.getTurn());
-		// TODO Auto-generated method stub
 		Country country = maxArmiesInCountry(gameModel.getCurrPlayer());
 		System.out.println("OFREISH COUNTRY Reinforcement: "+country.getCountryName() );
 		while(gameModel.getCurrPlayer().getNoOfArmiesOwned()>0) {
@@ -53,9 +67,12 @@ public class Aggressive implements BehaviorStrategies, Serializable {
 		
 	}
 
+	/**
+	 * Attack phase
+	 * @param gameModel Object of GameModelCreation class
+	 */
 	@Override
 	public void attackPhase(GameModelCreation gameModel) {
-		// TODO Auto-generated method stub
 		System.out.println("Attack Turn1: "+gameModel.getTurn());
 		Player attacker=gameModel.getCurrPlayer();
 		Country attackingCountry = maxArmiesInCountry(attacker);
@@ -98,10 +115,8 @@ public class Aggressive implements BehaviorStrategies, Serializable {
 			gameModel.getGameScreen().dispose();
 			JOptionPane.showMessageDialog(null, attacker.getPlayerName()+" won the game!!! CONGRATULATION!!!");
 			return;
-			//gameModel.getGameScreen()attacker;
 		}
 		if(attacker.getNoOfCardsOwned()>4){
-			//Cards to implemented
 			attacker.setCardsForArmies(attacker.getCardsForArmies() + 5);
 			attacker.setNoOfArmiesOwned(attacker.getNoOfArmiesOwned() + gameModel.getCurrPlayer().getCardsForArmies());
 			Card initialCard=attacker.getCardsOwned().get(0);
@@ -122,21 +137,21 @@ public class Aggressive implements BehaviorStrategies, Serializable {
 				attacker.setNoOfCardsOwned(attacker.getNoOfCardsOwned()-1);
 			}
 		}
-		
-		
 		System.out.println("Attack phase done for aggressive");
 		gameModel.setGameState(3);
 		fortificationPhase(gameModel);
 		
 	}
 
+	/**
+	 * Fortification phase
+	 * @param gameModel Object of GameModelCreation class
+	 */
 	@Override
 	public void fortificationPhase(GameModelCreation gameModel) {
-		// TODO Auto-generated method stub
 		System.out.println("Fortification Turn1: "+gameModel.getTurn());
 		Country mainCountry = maxArmiesInCountry(gameModel.getCurrPlayer());
 		System.out.println("Player name1: "+gameModel.getCurrPlayer().getPlayerName());
-		//List<Country> neighbors = mainCountry.
 		System.out.println("OFRESIH COUNTRY IN FORTIFICATION: "+mainCountry.getCountryName());
 		
 		for(Country c : gameModel.getCurrPlayer().getCountriesOwned()) {
@@ -155,10 +170,6 @@ public class Aggressive implements BehaviorStrategies, Serializable {
 			gameModel.incrementTurn();
 			gameModel.changePlayer();
 			gameModel.setGameState(1);
-		//	fortifyView.getGameModel().setGameState(1);
-			//fortifyView.getGameModel().getGameScreen().displayPlayer();
 		}
-		//gameModel.getCurrPlayer().intializeReinforcementArmies(gameModel);
 	}
-
 }
