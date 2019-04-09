@@ -262,9 +262,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		exchangeButt.setBounds(400, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 80,100, 30);
 		exchangeButt.addActionListener(gameController);
 		add(exchangeButt);
-		
-		
-		
+			
 		viewCardFrame = new JFrame();
 		viewCardFrame.setResizable(false);
 		viewCardFrame.setSize(Constants.WIDTH-400, Constants.HEIGHT);
@@ -272,12 +270,6 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		viewCardFrame.setLocationRelativeTo(listOfCards);
 		exchangeButton.addActionListener(this);
 		
-		
-		
-		
-		
-		
-
 		armyAllocation = new JButton("Place Army");
 		armyAllocation.setBounds(400, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 20,100, 30);
 		armyAllocation.addActionListener(gameController);
@@ -291,13 +283,9 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		add(noOfCardsLabel);
 		
 		SaveButton = new JButton("Save Button");
-		//SaveButton.setBounds(200,150,100,50);
-		//SaveButton = new JButton("Save Current Game");
 		SaveButton.setBounds(150, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 80,130, 30);
-		//SaveButton.setBounds(400, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 130,200, 30);
 		SaveButton.addActionListener(gameController);
 		add(SaveButton);
-		
 		
 		add(armiesAvailable);
 		add(scrollPane);
@@ -340,7 +328,6 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		}
 		if(over != 1) {
 			JOptionPane.showMessageDialog(null,"All Human Lost!!! \n Game Over");
-			//attackView.dispose();
 			dispose();
 			System.exit(0);
 		}
@@ -351,9 +338,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		}
 		
 		else if ((gameModel.getGameState() == 0) && (gameModel.getCurrPlayer().getPlayerType()!=PlayerType.Human)) {
-			//System.out.println("Before if ");
 			if ( gameModel.getCurrPlayer().getNoOfArmiesOwned() > 0) {
-				//System.out.println("Inside if ");
 				gameModel.getCurrPlayer().initialArmyAllocation(gameModel);
 			}
 
@@ -1123,10 +1108,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 			}	
 		}
 		else if(i==JOptionPane.NO_OPTION) {
-			
-			
-		
-			
+						
 		}
 			
 	}
@@ -1156,8 +1138,6 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		    doExchangeCardsNow();
 		    
 			if(gameModel.getCurrPlayer().getNoOfCardsOwned()<5) cardExchangeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-		    
 		    
 		}
 	}
@@ -1168,11 +1148,10 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 	 */
 	public void doExchangeCardsNow() {
 		
-		if(gameModel.getCurrPlayer().getNoOfCardsOwned()<5)
+		if(gameModel.getCurrPlayer().getNoOfCardsOwned()<5) {
 			cardExchangeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
-		
-		
+		}
+			
 		cardsSelected = new ArrayList<String>();
 	
 		exchangeLabel = new JLabel();
@@ -1181,14 +1160,12 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		displayCards();
 		listOfCards.setBounds(100,100, 75,150); 
 		
-		 cardExchangeFrame.add(listOfCards);
-		 cardExchangeFrame.add(exchangeLabel);
-		 cardExchangeFrame.add(exchangeButton);
-		 cardExchangeFrame.setVisible(true);
-		 System.out.println("Again outside action performed");
+		cardExchangeFrame.add(listOfCards);
+		cardExchangeFrame.add(exchangeLabel);
+		cardExchangeFrame.add(exchangeButton);
+		cardExchangeFrame.setVisible(true);
+		System.out.println("Again outside action performed");
 		 
-		 
-		
 	}
 	
 	
@@ -1196,8 +1173,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 	 * This method displays all the available cards as to a particular user
 	 */
 	public void viewAvailableCards()
-	{
-		
+	{		
 		cardViewLabel = new JLabel();
 		cardViewLabel.setText("Cards Available :");
 		cardViewLabel.setLocation(70,10);
@@ -1212,8 +1188,6 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		viewCardFrame.add(listOfCards);
 		viewCardFrame.add(cardViewLabel);
 		viewCardFrame.setVisible(true);
-		
-		
 		
 	}
 	
@@ -1332,14 +1306,12 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 	@Override
 	public void update(Observable type, Object object) {
 		if(object instanceof GameModelCreation) {
-			//System.out.println("if ch ");
 			playerStrengthTable(gameController.getGameModel());
 			addProgressBar(gameController.getGameModel());
 			displayPlayer();
 			createStartUpTree();
 		}
 		else {
-			//System.out.println("else ch ");
 			playerStrengthTable(gameController.getGameModel());
 			addProgressBar(gameController.getGameModel());
 			createStartUpTree();
@@ -1365,9 +1337,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		Color[] colorArray = {color1,color2,color3,color4,color5,color6};
 	
 		Player[] players = gameModel.getPlayer();
-		//System.out.println("Player: "+players.length);
 		for (int i = 0; i < players.length; i++) {
-			//System.out.println("Player: "+players[i].getPlayerName());
 			progressBar = new JProgressBar();
 			int value = (int) (((double) players[i].getCountriesOwned().size()/gameModel.getMapDetails().listOfCountryNames().size()) * 100);
 
@@ -1399,52 +1369,79 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		}
 	}
 
+	
+	/**
+	 * window activated
+	 * @param e Object of WindowEvent class
+	 */
 	@Override
 	public void windowActivated(WindowEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * window closed
+	 * @param e Object of WindowEvent class
+	 */
 	@Override
 	public void windowClosed(WindowEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * window closing
+	 * @param e Object of WindowEvent class
+	 */
 	@Override
 	public void windowClosing(WindowEvent e) {
-		// TODO Auto-generated method stub
-	
 		doOnClose();
  
 	}
 
+	/**
+	 * window deactivated
+	 * @param e Object of WindowEvent class
+	 */
 	@Override
 	public void windowDeactivated(WindowEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * window deiconified
+	 * @param e Object of WindowEvent class
+	 */
 	@Override
 	public void windowDeiconified(WindowEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * window iconified
+	 * @param e Object of WindowEvent class
+	 */
 	@Override
 	public void windowIconified(WindowEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * window opened
+	 * @param e Object of WindowEvent class
+	 */
 	@Override
 	public void windowOpened(WindowEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * save existing game
+	 * @param gameModel2 Object of GameModelCreation class 
+	 * @param sSaveFileName name of file to be saved
+	 * @throws FileNotFoundException 
+	 * @throws IOException
+	 */
 	public void saveExistingGame(GameModelCreation gameModel2, String sSaveFileName) throws FileNotFoundException, IOException {
-		// TODO Auto-generated method stubs
 		System.out.println("Hi Basant  : " +sSaveFileName);
 		
 		FileOutputStream fs = new FileOutputStream("./Saved Games/"+sSaveFileName+".bin");
@@ -1453,8 +1450,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		os.writeObject(gameModel);
 		os.flush();
 		fs.close();
-		
-		
+				
 	}
 		
 		

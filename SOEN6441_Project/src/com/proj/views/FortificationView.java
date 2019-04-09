@@ -39,15 +39,20 @@ public class FortificationView extends JFrame implements ActionListener {
 	private int currentPlayer;
 	private GameModelCreation gameModel;
 	private FortificationController fortificationController;
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;	
 	
-	
-	
-	
+	/**
+	 * getter for game model
+	 * @return gameModel
+	 */
 	public GameModelCreation getGameModel() {
 		return gameModel;
 	}
 
+	/**
+	 * setter for game model
+	 * @param gameModel Object of GameModelCreation class
+	 */
 	public void setGameModel(GameModelCreation gameModel) {
 		this.gameModel = gameModel;
 	}
