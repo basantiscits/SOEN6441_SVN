@@ -146,6 +146,13 @@ public class AggressiveTest {
 		assertEquals(1,player[0].getNoOfCardsOwned());
 	}
 	
+
+	@Test
+	public void cardsAfterAttackPhaseTest(){
+		gameModel.getCurrPlayer().getStrategy().attackPhase(gameModel);
+
+		assertEquals(1,player[0].getNoOfCardsOwned());
+	}
 	
 
 	@Test
