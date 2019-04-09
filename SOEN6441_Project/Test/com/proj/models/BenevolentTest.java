@@ -14,7 +14,7 @@ import com.proj.models.PlayerType;
 
 public class BenevolentTest {
 
-	public class AggressiveTest {
+	
 		public Player defender;
 		public Player attacker;
 		public int noOfAttackingArmies;
@@ -95,6 +95,7 @@ public class BenevolentTest {
 			India.getListOfNeighbours().add("Pakistan");
 			India.getListOfNeighbours().add("Bangladesh");
 			Bangladesh.getListOfNeighbours().add("India");
+			India.getListOfNeighbours().add("Italy");
 			player[0].addCountry(India);
 			player[1].addCountry(Pakistan);
 			player[2].addCountry(Nepal);
@@ -119,9 +120,13 @@ public class BenevolentTest {
 		@Test
 		public void startUpPhaseTest() {
 			player[0].addArmyInPlayer();
+			//System.out.println("zdzfknskdfn"+player[0].getNoOfArmiesOwned());
 			gameModel.getCurrPlayer().getStrategy().startUpPhase(gameModel);
+		//	player[0].getStrategy().startUpPhase(gameModel);
 			assertEquals(5, India.getNoOfArmiesPresent());
-			assertEquals(2, Bangladesh.getNoOfArmiesPresent());
+			assertEquals(1, Bangladesh.getNoOfArmiesPresent());
+			assertEquals(1, Italy.getNoOfArmiesPresent());
+			System.out.println("zdzfknskdfn"+player[0].getNoOfArmiesOwned());
 			assertEquals(0, player[0].getNoOfArmiesOwned());
 		}
 
@@ -134,7 +139,8 @@ public class BenevolentTest {
 		public void reinforcementPhase() {
 			gameModel.getCurrPlayer().addArmyInPlayer();
 			gameModel.getCurrPlayer().getStrategy().reinforcementPhase(gameModel);
-			assertEquals(2, Bangladesh.getNoOfArmiesPresent());
+			assertEquals(4, Bangladesh.getNoOfArmiesPresent());
+			assertEquals(1, Italy.getNoOfArmiesPresent());
 			assertEquals(0, player[0].getNoOfArmiesOwned());
 		}
 
@@ -142,8 +148,9 @@ public class BenevolentTest {
 		public void attackPhaseTest() {
 
 			gameModel.getCurrPlayer().getStrategy().attackPhase(gameModel);
-			gameModel.getCurrPlayer().getStrategy().reinforcementPhase(gameModel);
-			assertEquals(5, India.getNoOfArmiesPresent());
+	//		gameModel.getCurrPlayer().getStrategy().reinforcementPhase(gameModel);
+			assertEquals(2, India.getNoOfArmiesPresent());
+			assertEquals(3, Italy.getNoOfArmiesPresent());
 
 			assertEquals(1, Bangladesh.getNoOfArmiesPresent());
 
@@ -155,12 +162,13 @@ public class BenevolentTest {
 			Bangladesh.addNoOfArmiesCountry();
 
 			assertEquals(5, India.getNoOfArmiesPresent());
-			assertEquals(1, Bangladesh.getNoOfArmiesPresent());
+			assertEquals(2, Bangladesh.getNoOfArmiesPresent());
 			gameModel.getCurrPlayer().getStrategy().fortificationPhase(gameModel);
-			assertEquals(5, India.getNoOfArmiesPresent());
-			assertEquals(1, Bangladesh.getNoOfArmiesPresent());
+			assertEquals(2, India.getNoOfArmiesPresent());
+			assertEquals(2, Bangladesh.getNoOfArmiesPresent());
+			assertEquals(3, Italy.getNoOfArmiesPresent());
 			assertEquals("Player2", gameModel.getCurrPlayer().getPlayerName());
 		}
 	}
 
-}
+
