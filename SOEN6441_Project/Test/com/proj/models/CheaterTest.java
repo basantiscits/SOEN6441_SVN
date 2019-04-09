@@ -1,18 +1,22 @@
 package com.proj.models;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+
 import java.util.ArrayList;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
 import com.proj.controllers.AttackController;
 import com.proj.controllers.GameController;
 import com.proj.views.AttackView;
 import com.proj.views.GameWindowScreen;
 
-public class AggressiveTest {
+public class CheaterTest {
+	
 	public Player defender;
 	public Player attacker;
 	public int noOfAttackingArmies;
@@ -39,10 +43,10 @@ public class AggressiveTest {
 	@Before
 	public void before() {
 		player = new Player[3];
-		player[0] = new Player("Player1",PlayerType.Aggressive);
+		player[0] = new Player("Player1",PlayerType.Cheater);
 		player[1] = new Player("Player2",PlayerType.Human);
 		player[2] = new Player("Player3",PlayerType.Human);
-		player[0].setStrategy(new Aggressive());
+		player[0].setStrategy(new Cheater());
 		player[1].setStrategy(new Human());
 		player[2].setStrategy(new Human());
 		gameMap = new Map();
@@ -130,31 +134,34 @@ public class AggressiveTest {
 		
 	}
 	
-	
 	@Test
 	public void reinforcementPhaseTest(){
-		gameModel.getCurrPlayer().addArmyInPlayer();
 		gameModel.getCurrPlayer().getStrategy().reinforcementPhase(gameModel);
-		assertEquals(1,Bangladesh.getNoOfArmiesPresent());
-		assertEquals(0,player[0].getNoOfArmiesOwned());
+		assertEquals(2,Bangladesh.getNoOfArmiesPresent());
+		assertEquals(10,India.getNoOfArmiesPresent());
 	}
-
 	
 	@Test
 	public void attackPhaseTest(){
+		assertTrue(player[1].getCountriesOwned().contains(Pakistan));
+		assertTrue(player[2].getCountriesOwned().contains(Nepal));
+		India.getListOfNeighbours().add("Nepal");
+		assertEquals(5,India.getNoOfArmiesPresent());
+		assertFalse(gameModel.getCurrPlayer().getCountriesOwned().contains(Pakistan));
+		assertFalse(gameModel.getCurrPlayer().getCountriesOwned().contains(Nepal));
 		gameModel.getCurrPlayer().getStrategy().attackPhase(gameModel);
+		assertEquals(5,India.getNoOfArmiesPresent());
 		assertTrue(player[0].getCountriesOwned().contains(Pakistan));
-		assertEquals(1,player[0].getNoOfCardsOwned());
+		assertTrue(player[0].getCountriesOwned().contains(Nepal));
 	}
 	
-	
-
 	@Test
 	public void fortificationPhaseTest(){
-		Bangladesh.addNoOfArmiesCountry();
-		assertEquals(2,Bangladesh.getNoOfArmiesPresent());
-		gameModel.getCurrPlayer().getStrategy().fortificationPhase(gameModel);
+		assertEquals(5,India.getNoOfArmiesPresent());
 		assertEquals(1,Bangladesh.getNoOfArmiesPresent());
-		assertEquals("Player2",gameModel.getCurrPlayer().getPlayerName());
-	}	
+		gameModel.getCurrPlayer().getStrategy().fortificationPhase(gameModel);
+		assertEquals(10,India.getNoOfArmiesPresent());
+		assertEquals(1,Bangladesh.getNoOfArmiesPresent());
+		assertEquals(player[1],gameModel.getCurrPlayer());
+	}
 }

@@ -24,15 +24,21 @@ public class Cheater implements BehaviorStrategies, Serializable {
 	 */
 	@Override
 	public void startUpPhase(GameModelCreation gameModel) {
-		System.out.println("Name in Cheater startUp: "+gameModel.getCurrPlayer().getPlayerName());
-		if (gameModel.getCurrPlayer().getNoOfArmiesOwned() > 0) {
-			for (Country country : gameModel.getCurrPlayer().getCountriesOwned()) {
-				country.addNoOfArmiesCountry();
+		System.out.println("Name in cheater startUp: "+gameModel.getCurrPlayer().getPlayerName());
+		Country country = gameModel.getCurrPlayer().getCountriesOwned().get(0);
+		int countOfArmies = country.getNoOfArmiesPresent();
+		for (Country c : gameModel.getCurrPlayer().getCountriesOwned()) {
+			if (countOfArmies >= c.getNoOfArmiesPresent()) {
+				country = c;
+				countOfArmies = country.getNoOfArmiesPresent();
 			}
+
+		}
+		if (gameModel.getCurrPlayer().getNoOfArmiesOwned() > 0) {
+			country.addNoOfArmiesCountry();
 			gameModel.getCurrPlayer().reduceArmyInPlayer();
 		}
-		
-		System.out.println("StartUp phase done for Cheater");
+		System.out.println("StartUp phase done for cheater");
 	}
 
 	/**
@@ -41,15 +47,15 @@ public class Cheater implements BehaviorStrategies, Serializable {
 	 */
 	@Override
 	public void reinforcementPhase(GameModelCreation gameModel) {
-		System.out.println("armies1 in reinforce: "+gameModel.getCurrPlayer().getNoOfArmiesOwned());
+		//System.out.println("armies1 in reinforce: "+gameModel.getCurrPlayer().getNoOfArmiesOwned());
 		gameModel.getCurrPlayer().setNoOfArmiesOwned(0);
 		
 		for(Country country : gameModel.getCurrPlayer().getCountriesOwned()) {
 			int armies = country.getNoOfArmiesPresent()*2;
 			country.setNoOfArmiesPresent(armies);
-			System.out.println("armies1 in reinforceinside: "+country.getCountryName()+" : "+country.getNoOfArmiesPresent());
+			//System.out.println("armies1 in reinforceinside: "+country.getCountryName()+" : "+country.getNoOfArmiesPresent());
 		}
-		System.out.println("armies2 in reinforce: "+gameModel.getCurrPlayer().getNoOfArmiesOwned());
+		//System.out.println("armies2 in reinforce: "+gameModel.getCurrPlayer().getNoOfArmiesOwned());
 		gameModel.setGameState(2);
 		System.out.println("Reinforcement phase done for cheater");
 		attackPhase(gameModel);
@@ -62,7 +68,7 @@ public class Cheater implements BehaviorStrategies, Serializable {
 	 */
 	@Override
 	public void attackPhase(GameModelCreation gameModel) {
-		System.out.println("armies1 in Attack: "+gameModel.getCurrPlayer().getNoOfArmiesOwned());
+		///System.out.println("armies1 in Attack: "+gameModel.getCurrPlayer().getNoOfArmiesOwned());
 		boolean playerRemoved=false;
 		Player newList[] = null;
 		Player[] players=gameModel.getPlayer();
@@ -153,7 +159,7 @@ public class Cheater implements BehaviorStrategies, Serializable {
 			}
 		}
 		
-		System.out.println("Ofreish : "+attacker.getNoOfCardsOwned());
+	//	System.out.println("Ofreish : "+attacker.getNoOfCardsOwned());
 		if(attacker.getNoOfCardsOwned()>4){
 			attacker.setCardsForArmies(attacker.getCardsForArmies() + 5);
 			attacker.setNoOfArmiesOwned(attacker.getNoOfArmiesOwned() + gameModel.getCurrPlayer().getCardsForArmies());
@@ -175,7 +181,7 @@ public class Cheater implements BehaviorStrategies, Serializable {
 				attacker.setNoOfCardsOwned(attacker.getNoOfCardsOwned()-1);
 			}
 		}
-		System.out.println("armies2 in attack: "+gameModel.getCurrPlayer().getNoOfArmiesOwned());
+		//System.out.println("armies2 in attack: "+gameModel.getCurrPlayer().getNoOfArmiesOwned());
 		fortificationPhase(gameModel);
 	}
 
@@ -185,10 +191,10 @@ public class Cheater implements BehaviorStrategies, Serializable {
 	 */
 	@Override
 	public void fortificationPhase(GameModelCreation gameModel) {
-		System.out.println("armies1 in fortify: "+gameModel.getCurrPlayer().getNoOfArmiesOwned());
-		for(Country c : gameModel.getCurrPlayer().getCountriesOwned()) {
+		//System.out.println("armies1 in fortify: "+gameModel.getCurrPlayer().getNoOfArmiesOwned());
+/*		for(Country c : gameModel.getCurrPlayer().getCountriesOwned()) {
 			System.out.println("Armies before: "+c.getCountryName()+" : "+c.getNoOfArmiesPresent());
-		}
+		}*/
 		for(Country playerCountry : gameModel.getCurrPlayer().getCountriesOwned()) {
 			for(String neighborCountry : playerCountry.getListOfNeighbours()) {
 				Country c = gameModel.getMapDetails().searchCountry(neighborCountry);
@@ -199,14 +205,14 @@ public class Cheater implements BehaviorStrategies, Serializable {
 				}
 			}
 		}
-		System.out.println("Fortification finish");
+/*		System.out.println("Fortification finish");
 		for(Player p : gameModel.getPlayer()) {
 			System.out.print("Player: "+p.getPlayerName()+" , "+p.getPlayerType()+" , "+p.getNoOfArmiesOwned()+" , ");
 			for(Country c : p.getCountriesOwned()) {
 				System.out.print(c.getCountryName()+"["+c.getNoOfArmiesPresent()+"]");
 			}
 			System.out.println();
-		}
+		}*/
 		gameModel.incrementTurn();
 		gameModel.changePlayer();
 		gameModel.setGameState(1);
