@@ -169,7 +169,6 @@ public class MapEditor extends JFrame {
 				for(i = 0;i<row_length;i++){
 					if(currentCountry.getCountryName().equalsIgnoreCase(data[i][0])) {
 						for(j = 1;j<column_length;j++){
-							//String neighbour = countryColumn[j];
 							if(!currentCountry.getListOfNeighbours().contains(countryColumn[j])) {	
 								tableMatrix.setValueAt("N", i, j);
 							}

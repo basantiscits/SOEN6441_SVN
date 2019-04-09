@@ -24,6 +24,7 @@ public class ToolBar extends JPanel{
 	private Continent continent;
 	private Country newCountry;
 	private static final long serialVersionUID = 1L;
+	
 	/**
 	 * constructor of tool bar class
 	 * @param mapEditorController object of MapEditorController class
