@@ -19,21 +19,35 @@ public class GameModelCreation extends Observable implements Serializable{
 	private int gameState = 0;
 	private GameWindowScreen gameScreen;
 
-	
+	/**
+	 * getter for game screen
+	 * @return game screen
+	 */
 	public GameWindowScreen getGameScreen() {
 		return gameScreen;
 	}
 
+	/**
+	 * setter for game screen
+	 * @param gameScreen Object of GameWindowScreen class
+	 */
 	public void setGameScreen(GameWindowScreen gameScreen) {
 		this.gameScreen = gameScreen;
 	}
 	
 	
-
+	/**
+	 * getter for game state
+	 * @return game state
+	 */
 	public int getGameState() {
 		return gameState;
 	}
 
+	/**
+	 * setter for game state
+	 * @param gameState game state
+	 */
 	public void setGameState(int gameState) {
 		this.gameState = gameState;
 		updateChanges();
@@ -128,7 +142,6 @@ public class GameModelCreation extends Observable implements Serializable{
 	 */
 	public void setPlayer(Player[] player) {
 		this.player = player;
-		//updateChanges();
 	}
 
 	/**

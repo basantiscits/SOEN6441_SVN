@@ -315,8 +315,6 @@ public class TournamentController  implements ActionListener, Serializable {
 		System.out.println("No of Games: "+noOfGames);
 		System.out.println("No of Maps: "+noOfMaps);
 		System.out.println("No of turns: "+noOfTurns);
-		//players=new Player[Integer.parseInt(noOfPlayer)];
-		//newGameController=new NewGameController();
 		Map m1;
 		int j=0;
 		ArrayList<Map> duplicateMap = new ArrayList<Map>();
@@ -339,14 +337,11 @@ public class TournamentController  implements ActionListener, Serializable {
 				GameModelCreation gameModelCreation =new GameModelCreation(m,players);
 				providingGameModelToPlayer(players, gameModelCreation);
 				gameModelCreation.incrementTurn();
-				//System.out.println("Player army : "+players[players.length-1].getNoOfArmiesOwned());
 				int army = players[players.length-1].getNoOfArmiesOwned();
 				for(int p = 0; p < army; p++) {
 					for(Player P : gameModelCreation.getPlayer()) {
 						P.initialArmyAllocation(gameModelCreation);
-						//System.out.println("Player detail: "+gameModelCreation.getCurrPlayer().getPlayerName()+" : "+P.getPlayerName());
 					}
-					//System.out.println("Value of p: "+p);
 				}
 				System.out.println("*******************************************************************************************************");
 				for(Player p : players) {
@@ -356,7 +351,6 @@ public class TournamentController  implements ActionListener, Serializable {
 					}
 					System.out.println();
 				}
-				//int turns = Integer.parseInt(noOfTurns);
 				int turns = Integer.parseInt(noOfTurns);
 				while(gameModelCreation.getPlayer().length>1 && turns*gameModelCreation.getPlayer().length>0 ) {
 					gameModelCreation.getCurrPlayer().intializeReinforcementArmies(gameModelCreation);
@@ -368,8 +362,6 @@ public class TournamentController  implements ActionListener, Serializable {
 				}
 
 				
-			//	for(Player p : players) {
-				//System.out.println(gameModelCreation.getCurrPlayer().getPlayerName());
 				System.out.println("*******************************************************************************************************");
 				for(Player p : gameModelCreation.getPlayer()) {
 
@@ -380,8 +372,6 @@ public class TournamentController  implements ActionListener, Serializable {
 					System.out.println();
 				}
 				
-
-				//for(Player p:players){
 
 				if(gameModelCreation.getPlayer().length == 1) {
 					result.add("For Map: "+m.getName()+",Game no.: "+(i+1)+" is won by "+gameModelCreation.getPlayer()[0].getPlayerType().toString());
@@ -401,12 +391,6 @@ public class TournamentController  implements ActionListener, Serializable {
 					}
 				}
 				
-				
-				//Method to play game
-	/*			for(Player p:players){
->>>>>>> Stashed changes
-					System.out.println(p.getStrategy().getClass());
-				}*/
 				System.out.println("******************************************NEXT GAME******************************************************************");
 				
 			}
@@ -499,7 +483,7 @@ public class TournamentController  implements ActionListener, Serializable {
 	/**
 	 * Function to check the uploaded file
 	 * @param noOfMapsSelected number of maps selected
-	 * @return true if number of maps selected is equal to number of files chosed else false
+	 * @return true if number of maps selected is equal to number of files chosen else false
 	 */
 	private boolean fncCheckFileUploaded(String noOfMapsSelected) {
 		boolean isReturn=false;

@@ -52,8 +52,7 @@ public class NewGameController implements ActionListener, Serializable {
 	/**
 	 * setter for game model
 	 * 
-	 * @param gameModel
-	 *            Object of GameModelCreation class
+	 * @param gameModel Object of GameModelCreation class
 	 */
 	public void setGameModel(GameModelCreation gameModel) {
 		this.gameModel = gameModel;
@@ -62,8 +61,7 @@ public class NewGameController implements ActionListener, Serializable {
 	/**
 	 * constructor for new game controller
 	 * 
-	 * @param playNewGame
-	 *            play new game object
+	 * @param playNewGame play new game object
 	 */
 	public NewGameController(PlayNewGame playNewGame) {
 		this.playNewGame = playNewGame;
@@ -73,8 +71,7 @@ public class NewGameController implements ActionListener, Serializable {
 	/**
 	 * action performed to successfully load map, select number of players
 	 * 
-	 * @param event
-	 *            action event that triggers the response
+	 * @param event action event that triggers the response
 	 * 
 	 */
 	@Override
