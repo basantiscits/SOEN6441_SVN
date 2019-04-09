@@ -14,7 +14,12 @@ import com.proj.controllers.NewGameController;
 import com.proj.controllers.TournamentController;
 import com.proj.utilites.Constants;
 
-
+/**
+ * TournamentView class
+ * @author Ofreish
+ * @since 28 Mar 2019
+ * @version 1.2
+ */
 public class TournamentView  extends JFrame implements ActionListener {
 	private JComboBox<String> comboBoxSelectMap;
 	private JComboBox<String> comboBoxSelectplayer;
@@ -42,6 +47,9 @@ public class TournamentView  extends JFrame implements ActionListener {
 			"39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50" };
 	private String[] noOfGame = new String[] {"  --Select--  ", "1", "2", "3", "4", "5" };
 	
+	/**
+	 * TournamentView constructor
+	 */
 	public  TournamentView(){
 		tournamentController = new TournamentController(this);
 		JLabel labelHeading = new JLabel();
@@ -179,155 +187,253 @@ public class TournamentView  extends JFrame implements ActionListener {
 		
 	}
 	
+	/**
+	 * setter for tournament controller
+	 * @param TournamentController Object of TournamentController class
+	 */
 	public void setTournamentController(TournamentController TournamentController) {
 		this.tournamentController = TournamentController;
 	}
 	
+	/**
+	 * getter for tournament controller
+	 * @return tournamentController
+	 */
 	public TournamentController getTournamentController() {
 		return tournamentController;
 	}
 	
+	/**
+	 * getter for combo box of selected map
+	 * @return comboBoxSelectMap
+	 */
 	public JComboBox<String> getComboBoxSelectMap() {
 		return comboBoxSelectMap;
 	}
 
-	
+	/**
+	 * setter for combo box of selected map
+	 * @param comboBoxSelectMap Object of JComboBox class
+	 */
 	public void setComboBoxSelectMap(JComboBox<String> comboBoxSelectMap) {
 		this.comboBoxSelectMap = comboBoxSelectMap;
 	}
 	
+	/**
+	 * getter for combo box of select number of players
+	 * @return comboBoxSelectplayer
+	 */
 	public JComboBox<String> getComboBoxSelectNoOfPlayer() {
 		return comboBoxSelectplayer;
 	}
 
-	
+	/**
+	 * setter for combo box of select number of players
+	 * @param comboBoxSelectplayer Object of JComboBox class
+	 */
 	public void setComboBoxSelectNoOfPlayer(JComboBox<String> comboBoxSelectplayer) {
 		this.comboBoxSelectplayer = comboBoxSelectplayer;
 	}
 	
-
+	/**
+	 * getter for button browse1
+	 * @return buttonbrowse1
+	 */
 	public JButton getbuttonbrowse1() {
 		return buttonbrowse1;
 	}
 	
-	
+	/**
+	 * setter for button browse1
+	 * @param buttonbrowse1 Object of JButton class 
+	 */
 	public void setbuttonbrowse1(JButton buttonbrowse1) {
 		this.buttonbrowse1 = buttonbrowse1;
 	}
 	
+	/**
+	 * getter for button browse2
+	 * @return buttonbrowse2
+	 */
 	public JButton getbuttonbrowse2() {
 		return buttonbrowse2;
 	}
 
-
+	/**
+	 * setter for button browse2
+	 * @param buttonbrowse1 Object of JButton class 
+	 */
 	public void setbuttonbrowse2(JButton buttonbrowse2) {
 		this.buttonbrowse2 = buttonbrowse2;
 	}
 	
+	/**
+	 * getter for button browse3
+	 * @return buttonbrowse3
+	 */
 	public JButton getbuttonbrowse3() {
 		return buttonbrowse3;
 	}
 
-
+	/**
+	 * setter for button browse3
+	 * @param buttonbrowse1 Object of JButton class 
+	 */
 	public void setbuttonbrowse3(JButton buttonbrowse3) {
 		this.buttonbrowse3 = buttonbrowse3;
 	}
 	
+	/**
+	 * getter for button browse4
+	 * @return buttonbrowse4
+	 */
 	public JButton getbuttonbrowse4() {
 		return buttonbrowse4;
 	}
 
-
+	/**
+	 * setter for button browse4
+	 * @param buttonbrowse1 Object of JButton class 
+	 */
 	public void setbuttonbrowse4(JButton buttonbrowse4) {
 		this.buttonbrowse4 = buttonbrowse4;
 	}
 	
+	/**
+	 * getter for button browse5
+	 * @return buttonbrowse5
+	 */
 	public JButton getbuttonbrowse5() {
 		return buttonbrowse5;
 	}
 
-
+	/**
+	 * setter for button browse5
+	 * @param buttonbrowse1 Object of JButton class 
+	 */
 	public void setbuttonbrowse5(JButton buttonbrowse5) {
 		this.buttonbrowse5 = buttonbrowse5;
 	}
 	
+	/**
+	 * getter for combo box behaviour of player 1
+	 * @return comboBoxBehaviourplayer1
+	 */
 	public JComboBox<String> getcomboBoxBehaviourplayer1() {
 		return comboBoxBehaviourplayer1;
 	}
 
-	
+	/**
+	 * setter for combo box behaviour of player 1
+	 * @param comboBoxBehaviourplayer1 Object of JComboBox class
+	 */
 	public void setcomboBoxBehaviourplayer1(JComboBox<String> comboBoxBehaviourplayer1) {
 		this.comboBoxBehaviourplayer1 = comboBoxBehaviourplayer1;
 	}
 	
+	/**
+	 * getter for combo box behaviour of player 2
+	 * @return comboBoxBehaviourplayer2
+	 */
 	public JComboBox<String> getcomboBoxBehaviourplayer2() {
 		return comboBoxBehaviourplayer2;
 	}
 
-	
+	/**
+	 * setter for combo box behaviour of player 2
+	 * @param comboBoxBehaviourplayer2 Object of JComboBox class
+	 */
 	public void setcomboBoxBehaviourplayer2(JComboBox<String> comboBoxBehaviourplayer2) {
 		this.comboBoxBehaviourplayer2 = comboBoxBehaviourplayer2;
 	}
 	
+	/**
+	 * getter for combo box behaviour of player 3
+	 * @return comboBoxBehaviourplayer3
+	 */
 	public JComboBox<String> getcomboBoxBehaviourplayer3() {
 		return comboBoxBehaviourplayer3;
 	}
 
-	
+	/**
+	 * setter for combo box behaviour of player 3
+	 * @param comboBoxBehaviourplayer3 Object of JComboBox class
+	 */
 	public void setcomboBoxBehaviourplayer3(JComboBox<String> comboBoxBehaviourplayer3) {
 		this.comboBoxBehaviourplayer3 = comboBoxBehaviourplayer3;
 	}
 	
+	/**
+	 * getter for combo box behaviour of player 4
+	 * @return comboBoxBehaviourplayer4
+	 */
 	public JComboBox<String> getcomboBoxBehaviourplayer4() {
 		return comboBoxBehaviourplayer4;
 	}
 
-	
+	/**
+	 * setter for combo box behaviour of player 4
+	 * @param comboBoxBehaviourplayer4 Object of JComboBox class
+	 */
 	public void setcomboBoxBehaviourplayer4(JComboBox<String> comboBoxBehaviourplayer4) {
 		this.comboBoxBehaviourplayer4 = comboBoxBehaviourplayer4;
 	}
 	
 	
-	
+	/**
+	 * getter for combo box of select number of turns
+	 * @return comboBoxSelectNoOfTurns
+	 */
 	public JComboBox<String> getcomboBoxSelectNoOfTurns() {
 		return comboBoxSelectNoOfTurns;
 	}
 
-	
+	/**
+	 * setter for combo box of select number of turns
+	 * @param comboBoxSelectNoOfTurns Object of JComboBox class
+	 */
 	public void setcomboBoxSelectNoOfTurns(JComboBox<String> comboBoxSelectNoOfTurns) {
 		this.comboBoxSelectNoOfTurns = comboBoxSelectNoOfTurns;
 	}
 	
+	/**
+	 * getter for combo box of select number of games
+	 * @return comboBoxSelectNoOfGames
+	 */
 	public JComboBox<String> getcomboBoxSelectNoOfGames() {
 		return comboBoxSelectNoOfGames;
 	}
 
-	
+	/**
+	 * setter for combo box of select number of games
+	 * @param comboBoxSelectNoOfGames Object of JComboBox class
+	 */
 	public void setcomboBoxSelectNoOfGames(JComboBox<String> comboBoxSelectNoOfGames) {
 		this.comboBoxSelectNoOfGames = comboBoxSelectNoOfGames;
 	}
 	
+	/**
+	 * setter for combo box of play game tournament button
+	 * @param buttonPlayGameTournament Object of JComboBox class
+	 */
 	public void setbuttonPlayGameTournament(JButton buttonPlayGameTournament) {
 		this.buttonPlayGameTournament = buttonPlayGameTournament;
 	}
 	
+	/**
+	 * getter for play game tournament button
+	 * @return buttonPlayGameTournament
+	 */
 	public JButton getbuttonPlayGameTournament() {
 		return buttonPlayGameTournament;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
+	/**
+	 * action performed
+	 * @param arg0 Object of ActionEvent class
+	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
