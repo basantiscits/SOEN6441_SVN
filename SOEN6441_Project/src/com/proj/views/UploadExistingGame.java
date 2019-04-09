@@ -15,6 +15,12 @@ import com.proj.controllers.NewGameController;
 import com.proj.controllers.UploadExistingGameController;
 import com.proj.utilites.Constants;
 
+/**
+ * UploadExistingGame class
+ * @author Ofreish
+ * @since 28 Mar 2019
+ * @version 1.2
+ */
 public class UploadExistingGame extends JFrame implements ActionListener {
 	private JTextField textFieldMap;
 	private JButton buttonPlayGame;
@@ -22,6 +28,9 @@ public class UploadExistingGame extends JFrame implements ActionListener {
 	private UploadExistingGameController uploadExistingGameController;
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * UploadExistingGame constructor
+	 */
 	public UploadExistingGame()
 	{
 
@@ -53,8 +62,6 @@ public class UploadExistingGame extends JFrame implements ActionListener {
 		buttonPlayGame.addActionListener(uploadExistingGameController);
 		add(buttonPlayGame);
 		
-		
-
 		setTitle("******THE RISK GAME******");
 		setResizable(false);
 		setSize(Constants.WIDTH + 300, Constants.HEIGHT + 300);
@@ -73,45 +80,75 @@ public class UploadExistingGame extends JFrame implements ActionListener {
 	}
 	
 	
-	
+	/**
+	 * action performed
+	 * @param e Object of ActionEvent class
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 	
+	/**
+	 * getter for upload existing game controller
+	 * @return uploadExistingGameController
+	 */
 	public UploadExistingGameController getUploadExistingGameController() {
 		return uploadExistingGameController;
 	}
 
-
+	/**
+	 * setter for upload existing game controller
+	 * @param uploadExistingGameController Object of UploadExistingGameController class
+	 */
 	public void setUploadExistingGameController(UploadExistingGameController uploadExistingGameController) {
 		this.uploadExistingGameController = uploadExistingGameController;
 	}
 
+	/**
+	 * getter for button browse
+	 * @return buttonbrowse
+	 */
 	public JButton getButtonbrowse() {
 		return buttonbrowse;
 	}
 
-	
+	/**
+	 * setter for button browse
+	 * @param buttonbrowse Object of JButton class
+	 */
 	public void setButtonbrowse(JButton buttonbrowse) {
 		this.buttonbrowse = buttonbrowse;
 	}
 	
+	/**
+	 * getter for button play game
+	 * @return buttonPlayGame
+	 */
 	public JButton getButtonPlayGame() {
 		return buttonPlayGame;
 	}
 
-	
+	/**
+	 * setter for button play game
+	 * @param buttonPlayGame Object of JButton class
+	 */
 	public void setButtonPlayGame(JButton buttonPlayGame) {
 		this.buttonPlayGame = buttonPlayGame;
 	}
 	
+	/**
+	 * getter for text field map
+	 * @return textFieldMap
+	 */
 	public JTextField getTextFieldMap() {
 		return textFieldMap;
 	}
 
-	
+	/**
+	 * setter for text field map
+	 * @param textFieldMap Object of JTextField class
+	 */
 	public void setTextFieldMap(JTextField textFieldMap) {
 		this.textFieldMap = textFieldMap;
 	}
