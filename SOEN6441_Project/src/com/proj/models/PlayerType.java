@@ -9,5 +9,7 @@ import java.io.Serializable;
  * @version 1.2
  */
 public enum PlayerType implements Serializable{
+	
 	Human,Aggressive,Benevolent,Random,Cheater
 }
+

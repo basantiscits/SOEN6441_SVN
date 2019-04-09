@@ -37,6 +37,7 @@ public class TournamentController  implements ActionListener, Serializable {
 	private String sPlayerBehaviour2="";
 	private String sPlayerBehaviour3="";
 	private String sPlayerBehaviour4="";
+	private static final long serialVersionUID = 1L;
 	ArrayList<String>addFileName;
 	ArrayList<String>addPlayerBehaviourName;
 	ArrayList<Map> maps;

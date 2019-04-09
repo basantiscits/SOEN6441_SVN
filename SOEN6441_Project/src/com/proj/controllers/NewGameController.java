@@ -39,6 +39,7 @@ public class NewGameController implements ActionListener, Serializable {
 	private Map sCarryMapForward = new Map();
 	private Player[] player;
 	boolean sCopyisMapValid = true;
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * game model creation

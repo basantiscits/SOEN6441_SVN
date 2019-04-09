@@ -16,6 +16,11 @@ import com.proj.controllers.AttackController;
  */
 public class Benevolent implements BehaviorStrategies, Serializable {
 
+	
+	private static final long serialVersionUID = 1L;
+	
+	
+	
 	/**
 	 * start up phase
 	 * @param gameModel Object of GameModelCreation class
