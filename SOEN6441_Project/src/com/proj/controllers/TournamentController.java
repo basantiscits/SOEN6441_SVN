@@ -24,26 +24,26 @@ import com.proj.views.TournamentView;
  */
 public class TournamentController  implements ActionListener, Serializable {
 	private TournamentView tournamentView;
-	private String noOfMaps;
-	private String noOfPlayer;
-	private String noOfGames;
-	private String noOfTurns;
+	public String noOfMaps;
+	public String noOfPlayer;
+	public String noOfGames;
+	public String noOfTurns;
 	private String sPathFileName1 = "";
 	private String sPathFileName2 = "";
 	private String sPathFileName3 = "";
 	private String sPathFileName4 = "";
 	private String sPathFileName5 = "";	
-	private String sPlayerBehaviour1="";
-	private String sPlayerBehaviour2="";
-	private String sPlayerBehaviour3="";
-	private String sPlayerBehaviour4="";
+	public String sPlayerBehaviour1="";
+	public String sPlayerBehaviour2="";
+	public String sPlayerBehaviour3="";
+	public String sPlayerBehaviour4="";
 	private static final long serialVersionUID = 1L;
-	ArrayList<String>addFileName;
-	ArrayList<String>addPlayerBehaviourName;
-	ArrayList<Map> maps;
-	Player players[];
-	NewGameController newGameController;
-	
+	public ArrayList<String>addFileName;
+	public ArrayList<String>addPlayerBehaviourName;
+	public ArrayList<Map> maps;
+	private Player players[];
+	public NewGameController newGameController;
+	public ArrayList<String> result;
 	
 	/**
 	 * Constructor of Tournament Controller
@@ -54,6 +54,17 @@ public class TournamentController  implements ActionListener, Serializable {
 		addFileName=new ArrayList<String>();
 		addPlayerBehaviourName=new ArrayList<String>();
 		maps=new ArrayList<Map>();
+		result=new ArrayList<String>();
+	}
+	
+	/**
+	 * Constructor of Tournament Controller test case
+	 */
+	public TournamentController() {
+		addFileName=new ArrayList<String>();
+		addPlayerBehaviourName=new ArrayList<String>();
+		maps=new ArrayList<Map>();
+		result = new ArrayList<String>();
 	}
 
 	/**
@@ -300,8 +311,7 @@ public class TournamentController  implements ActionListener, Serializable {
 	/**
 	 * initiate tournament
 	 */
-	private void intitiateTournament() {
-		ArrayList<String> result = new ArrayList<String>();
+	public void intitiateTournament() {
 		System.out.println("*********************OFREISH*******************************");		
 		String strategies[]=addPlayerBehaviourName.toArray(new String[0]);
 		System.out.println("Strategies Names: ");
@@ -401,7 +411,10 @@ public class TournamentController  implements ActionListener, Serializable {
 		for(String s : result) {
 			System.out.println(s);
 		}
-		System.exit(0);
+		
+		if(tournamentView!=null){
+			System.exit(0);
+		}
 		
 	}
 
@@ -409,7 +422,7 @@ public class TournamentController  implements ActionListener, Serializable {
 	 * check parameters
 	 * @return false if no parameters are selected and true otherwise
 	 */
-	private boolean checkParameters(){
+	public boolean checkParameters(){
 		if (noOfMaps.equals("  --Select--  ")) {
 			JOptionPane.showMessageDialog(null, "Please select no. of Map to play game");
 			return false;
