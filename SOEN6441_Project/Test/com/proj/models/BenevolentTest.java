@@ -158,6 +158,13 @@ public class BenevolentTest {
 		}
 
 		@Test
+		public void cardsAfterAttackPhaseTest() {
+
+			gameModel.getCurrPlayer().getStrategy().attackPhase(gameModel);
+			assertEquals(0, player[0].getNoOfCardsOwned());
+		}
+
+		@Test
 		public void fortificationPhaseTest() {
 			Bangladesh.addNoOfArmiesCountry();
 
