@@ -177,17 +177,40 @@ public class Aggressive implements BehaviorStrategies, Serializable {
 		//List<Country> neighbors = mainCountry.
 		System.out.println("OFRESIH COUNTRY IN attack FORTIFICATION: "+mainCountry.getCountryName());
 
-		
-		for(Country c : gameModel.getCurrPlayer().getCountriesOwned()) {
-			System.out.println("Countries owned: "+c.getCountryName());
-			if (mainCountry.getListOfNeighbours().contains(c.getCountryName())) {
-				while(c.getNoOfArmiesPresent()>1 && c!=mainCountry) {
-					System.out.println("Countries: "+c.getCountryName());
-					mainCountry.addNoOfArmiesCountry();
-					c.removeNoOfArmiesCountry();
+		Country maxCountry=null;
+		int maxCountryCount=0;
+		int initialCount=0;
+		for(Country c: gameModel.getCurrPlayer().getCountriesOwned()) {
+			if(c.getListOfNeighbours().contains(mainCountry.getCountryName()) && c!=mainCountry) {
+				initialCount=c.getNoOfArmiesPresent();
+				if(maxCountry==null) {
+					maxCountry=c;
+					maxCountryCount=c.getNoOfArmiesPresent();
+				}
+				else if(maxCountryCount<initialCount){
+					maxCountry=c;
+					maxCountryCount=c.getNoOfArmiesPresent();
 				}
 			}
 		}
+		
+		if(maxCountry !=null && maxCountryCount>1) {
+			while(maxCountry.getNoOfArmiesPresent()!=1){
+				mainCountry.addNoOfArmiesCountry();
+				maxCountry.removeNoOfArmiesCountry();	
+			}
+		}
+		
+//		for(Country c : gameModel.getCurrPlayer().getCountriesOwned()) {
+//			System.out.println("Countries owned: "+c.getCountryName());
+//			if (mainCountry.getListOfNeighbours().contains(c.getCountryName())) {
+//				while(c.getNoOfArmiesPresent()>1 && c!=mainCountry) {
+//					System.out.println("Countries: "+c.getCountryName());
+//					mainCountry.addNoOfArmiesCountry();
+//					c.removeNoOfArmiesCountry();
+//				}
+//			}
+//		}
 		System.out.println("Fortification finish");
 		for(Player p : gameModel.getPlayer()) {
 			System.out.print("Player: "+p.getPlayerName()+" , "+p.getPlayerType()+" , "+p.getNoOfArmiesOwned()+" , ");

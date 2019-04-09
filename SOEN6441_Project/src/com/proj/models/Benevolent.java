@@ -129,14 +129,45 @@ public class Benevolent implements BehaviorStrategies, Serializable {
 	public void fortificationPhase(GameModelCreation gameModel) {
 		System.out.println("armies1 in fortify: "+gameModel.getCurrPlayer().getNoOfArmiesOwned());
 		Country minCountry = minArmiesInCountry(gameModel.getCurrPlayer());
-		for(String cName : minCountry.getListOfNeighbours()) {
-			Country c = gameModel.getMapDetails().searchCountry(cName);
-			if(c.getNoOfArmiesPresent() > minCountry.getNoOfArmiesPresent() && gameModel.getCurrPlayer().getCountriesOwned().contains(c)) {
-				minCountry.addNoOfArmiesCountry();
-				c.removeNoOfArmiesCountry();
+		Country maxCountry=null;
+		int maxCountryCount=0;
+		int initialCount=0;
+		
+		for(Country c: gameModel.getCurrPlayer().getCountriesOwned()) {
+			if(c.getListOfNeighbours().contains(minCountry.getCountryName()) && c.getNoOfArmiesPresent() > minCountry.getNoOfArmiesPresent()) {
+				initialCount=c.getNoOfArmiesPresent();
+				if(maxCountry==null) {
+					maxCountry=c;
+					maxCountryCount=c.getNoOfArmiesPresent();
+				}
+				else if(maxCountryCount<initialCount){
+					maxCountry=c;
+					maxCountryCount=c.getNoOfArmiesPresent();
+				}
 			}
 		}
+		
+		if(maxCountry !=null && maxCountryCount>1) {
+			while(maxCountry.getNoOfArmiesPresent()>=minCountry.getNoOfArmiesPresent()){
+				minCountry.addNoOfArmiesCountry();
+				maxCountry.removeNoOfArmiesCountry();	
+			}
+		}
+		
+		
+		
+		
+//		for(String cName : minCountry.getListOfNeighbours()) {
+//			Country c = gameModel.getMapDetails().searchCountry(cName);
+//			if(c.getNoOfArmiesPresent() > minCountry.getNoOfArmiesPresent() && gameModel.getCurrPlayer().getCountriesOwned().contains(c)) {
+//				minCountry.addNoOfArmiesCountry();
+//				c.removeNoOfArmiesCountry();
+//			}
+//		}
 
+		
+		
+		
 		//System.out.println("armies2 in fortify: "+gameModel.getCurrPlayer().getNoOfArmiesOwned());
 		System.out.println("Fortification finish");
 		for(Player p : gameModel.getPlayer()) {
