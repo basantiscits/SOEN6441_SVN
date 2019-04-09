@@ -16,6 +16,7 @@ public class Card extends Observable implements Serializable {
 	private Type typeOfCard;
 	static int num = 0;
 	private static Random random;
+	private static final long serialVersionUID = 1L;
 	
 	/**
 	 * Constructor of Card class

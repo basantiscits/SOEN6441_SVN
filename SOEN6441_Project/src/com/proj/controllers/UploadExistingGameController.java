@@ -23,6 +23,7 @@ import com.proj.views.UploadExistingGame;
 public class UploadExistingGameController implements ActionListener, Serializable {
 	UploadExistingGame uploadExistingGame;
 	private String sPathFileName = "";
+	private static final long serialVersionUID = 1L;
 
 	public UploadExistingGameController(UploadExistingGame uploadExistingGame) {
 		this.uploadExistingGame = uploadExistingGame;
@@ -76,5 +77,6 @@ public class UploadExistingGameController implements ActionListener, Serializabl
 		
 		PlayNewGame png = new PlayNewGame();
 		png.GameModelWindowMade(map, player, gameModel);	
+		
 	}
 }

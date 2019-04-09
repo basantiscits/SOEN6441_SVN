@@ -105,6 +105,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 	
 	private JPanel progressBarPanel;
 	private JProgressBar progressBar;
+	private static final long serialVersionUID = 1L;
 	
 	
 	private JOptionPane exchangePane;

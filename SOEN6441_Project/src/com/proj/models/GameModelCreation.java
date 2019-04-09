@@ -18,6 +18,7 @@ public class GameModelCreation extends Observable implements Serializable{
 	private int turn;
 	private int gameState = 0;
 	private GameWindowScreen gameScreen;
+	private static final long serialVersionUID = 1L;
 
 	
 	public GameWindowScreen getGameScreen() {

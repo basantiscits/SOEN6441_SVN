@@ -1,4 +1,4 @@
- package com.proj.models;
+package com.proj.models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,6 +15,9 @@ import javax.swing.JOptionPane;
  */
 public class Cheater implements BehaviorStrategies, Serializable {
 
+	
+	private static final long serialVersionUID = 1L;
+	
 	/**
 	 * start up phase
 	 * @param gameModel Object of GameModelCreation class
