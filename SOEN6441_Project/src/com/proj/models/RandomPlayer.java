@@ -20,7 +20,7 @@ public class RandomPlayer implements BehaviorStrategies, Serializable {
 		if (limit == gameModel.getCurrPlayer().getCountriesOwned().size()) {
 			limit = limit - 1;
 		}
-
+ 
 		Country country = gameModel.getCurrPlayer().getCountriesOwned().get(limit);
 
 		if (gameModel.getCurrPlayer().getNoOfArmiesOwned() > 0) {
@@ -146,12 +146,13 @@ public class RandomPlayer implements BehaviorStrategies, Serializable {
 				}
 			}
 		}
-		
-		if(gameModel.getPlayer().length==1){
-			System.out.println("Game Won by "+attacker.getPlayerName()+" "+attacker.getStrategy().getClass());
-			gameModel.getGameScreen().dispose();
-			JOptionPane.showMessageDialog(null, attacker.getPlayerName()+" won the game!!! CONGRATULATION!!!");
-			return;
+		if(gameModel.getGameScreen()!=null) {
+			if(gameModel.getPlayer().length==1){
+				System.out.println("Game Won by "+attacker.getPlayerName()+" "+attacker.getStrategy().getClass());
+				gameModel.getGameScreen().dispose();
+				JOptionPane.showMessageDialog(null, attacker.getPlayerName()+" won the game!!! CONGRATULATION!!!");
+				return;
+			}
 		}
 		if(attacker.getNoOfCardsOwned()>4){
 			attacker.setCardsForArmies(attacker.getCardsForArmies() + 5);
@@ -234,14 +235,14 @@ public class RandomPlayer implements BehaviorStrategies, Serializable {
 				}
 			}
 			}
-		System.out.println("Fortification finish");
+/*		System.out.println("Fortification finish");
 		for(Player p : gameModel.getPlayer()) {
 			System.out.print("Player: "+p.getPlayerName()+" , "+p.getPlayerType()+" , "+p.getNoOfArmiesOwned()+" , ");
 			for(Country c : p.getCountriesOwned()) {
 				System.out.print(c.getCountryName()+"["+c.getNoOfArmiesPresent()+"]");
 			}
 			System.out.println();
-		}
+		}*/
 		gameModel.incrementTurn();
 		gameModel.changePlayer();
 		gameModel.setGameState(1);

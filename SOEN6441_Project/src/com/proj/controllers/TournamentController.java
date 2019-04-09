@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import com.proj.models.Continent;
 import com.proj.models.Country;
 import com.proj.models.GameModelCreation;
 import com.proj.models.Map;
@@ -314,30 +315,38 @@ public class TournamentController  implements ActionListener, Serializable {
 		System.out.println("No of Games: "+noOfGames);
 		System.out.println("No of Maps: "+noOfMaps);
 		System.out.println("No of turns: "+noOfTurns);
-		players=new Player[Integer.parseInt(noOfPlayer)];
-		newGameController=new NewGameController();
+		//players=new Player[Integer.parseInt(noOfPlayer)];
+		//newGameController=new NewGameController();
+		Map m1;
+		int j=0;
+		ArrayList<Map> duplicateMap = new ArrayList<Map>();
+		for(Map m : maps) {
+			duplicateMap.add(m);
+		}
 		for(Map m: maps){
 			for (int i=0;i<Integer.parseInt(noOfGames);i++){
+				players=new Player[Integer.parseInt(noOfPlayer)];
+				newGameController=new NewGameController();
 				players=newGameController.initializingPlayerModels(Integer.parseInt(noOfPlayer), m , strategies );
 				System.out.println("*********************************Player Details****************************************************");
 				for(Player p : players) {
 					System.out.print("Player: "+p.getPlayerName()+" , "+p.getPlayerType()+" , "+p.getNoOfArmiesOwned()+" , ");
 					for(Country c : p.getCountriesOwned()) {
-						System.out.print(c.getCountryName()+",");
+						System.out.print(c.getCountryName()+"("+c.getNoOfArmiesPresent()+"),");
 					}
 					System.out.println();
 				}
 				GameModelCreation gameModelCreation =new GameModelCreation(m,players);
 				providingGameModelToPlayer(players, gameModelCreation);
 				gameModelCreation.incrementTurn();
-				System.out.println("Player army : "+players[players.length-1].getNoOfArmiesOwned());
+				//System.out.println("Player army : "+players[players.length-1].getNoOfArmiesOwned());
 				int army = players[players.length-1].getNoOfArmiesOwned();
 				for(int p = 0; p < army; p++) {
 					for(Player P : gameModelCreation.getPlayer()) {
 						P.initialArmyAllocation(gameModelCreation);
-						System.out.println("Player detail: "+gameModelCreation.getCurrPlayer().getPlayerName()+" : "+P.getPlayerName());
+						//System.out.println("Player detail: "+gameModelCreation.getCurrPlayer().getPlayerName()+" : "+P.getPlayerName());
 					}
-					System.out.println("Value of p: "+p);
+					//System.out.println("Value of p: "+p);
 				}
 				System.out.println("*******************************************************************************************************");
 				for(Player p : players) {
@@ -348,11 +357,14 @@ public class TournamentController  implements ActionListener, Serializable {
 					System.out.println();
 				}
 				//int turns = Integer.parseInt(noOfTurns);
-				int turns = Integer.parseInt(noOfPlayer)*Integer.parseInt(noOfTurns);
-				while(gameModelCreation.getPlayer().length>1 && turns>0 ) {
+				int turns = Integer.parseInt(noOfTurns);
+				while(gameModelCreation.getPlayer().length>1 && turns*gameModelCreation.getPlayer().length>0 ) {
 					gameModelCreation.getCurrPlayer().intializeReinforcementArmies(gameModelCreation);
 					System.out.println("Main Turn : "+turns);
 					turns--;
+					if(turns==0) {
+						break;
+					}
 				}
 
 				
@@ -361,7 +373,7 @@ public class TournamentController  implements ActionListener, Serializable {
 				System.out.println("*******************************************************************************************************");
 				for(Player p : gameModelCreation.getPlayer()) {
 
-					System.out.print("Player: "+p.getPlayerName()+" , "+p.getPlayerType()+" , "+p.getNoOfArmiesOwned()+" , ");
+					System.out.print("Player: "+p.getPlayerName()+" , "+p.getPlayerType()+" , "+p.getNoOfArmiesOwned()+" , "+p.getCountriesOwned().size());
 					for(Country c : p.getCountriesOwned()) {
 						System.out.print(c.getCountryName()+"["+c.getNoOfArmiesPresent()+"]");
 					}
@@ -372,10 +384,21 @@ public class TournamentController  implements ActionListener, Serializable {
 				//for(Player p:players){
 
 				if(gameModelCreation.getPlayer().length == 1) {
-					result.add(gameModelCreation.getPlayer()[0].getPlayerType().toString());
+					result.add("For Map: "+m.getName()+",Game no.: "+(i+1)+" is won by "+gameModelCreation.getPlayer()[0].getPlayerType().toString());
 				}
 				else {
-					result.add("Draw");
+					result.add("For Map: "+m.getName()+",Game no.: "+(i+1)+" is "+"Draw");
+				}
+				gameModelCreation.setTurn(0);
+				gameModelCreation = null;
+				newGameController= null;
+				players=null;
+
+				for(Continent continent:m.getContinents()){
+					for(Country country:continent.getCountriesPresent()){
+						country.setNoOfArmiesPresent(0);
+						country.setOwnedBy(null);
+					}
 				}
 				
 				
@@ -389,9 +412,9 @@ public class TournamentController  implements ActionListener, Serializable {
 			}
 			System.out.println("******************************************NEXT MAP******************************************************************");
 		}
-		System.out.println();
+		System.out.println("Results: ");
 		for(String s : result) {
-			System.out.print(s+" , ");
+			System.out.println(s);
 		}
 		System.exit(0);
 		

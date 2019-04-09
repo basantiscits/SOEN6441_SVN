@@ -72,11 +72,13 @@ public class Benevolent implements BehaviorStrategies, Serializable {
 	@Override
 	public void attackPhase(GameModelCreation gameModel) {
 		Player attacker=gameModel.getCurrPlayer();
-		if(gameModel.getPlayer().length==1){
-			System.out.println("Game Won by "+attacker.getPlayerName()+" "+attacker.getStrategy().getClass());
-			gameModel.getGameScreen().dispose();
-			JOptionPane.showMessageDialog(null, attacker.getPlayerName()+" won the game!!! CONGRATULATION!!!");
-			return;
+		if(gameModel.getGameScreen()!=null) {
+			if(gameModel.getPlayer().length==1){
+				System.out.println("Game Won by "+attacker.getPlayerName()+" "+attacker.getStrategy().getClass());
+				gameModel.getGameScreen().dispose();
+				JOptionPane.showMessageDialog(null, attacker.getPlayerName()+" won the game!!! CONGRATULATION!!!");
+				return;
+			}
 		}
 		
 		if(attacker.getNoOfCardsOwned()>4){
@@ -169,14 +171,14 @@ public class Benevolent implements BehaviorStrategies, Serializable {
 		
 		
 		//System.out.println("armies2 in fortify: "+gameModel.getCurrPlayer().getNoOfArmiesOwned());
-		System.out.println("Fortification finish");
+/*		System.out.println("Fortification finish");
 		for(Player p : gameModel.getPlayer()) {
 			System.out.print("Player: "+p.getPlayerName()+" , "+p.getPlayerType()+" , "+p.getNoOfArmiesOwned()+" , ");
 			for(Country c : p.getCountriesOwned()) {
 				System.out.print(c.getCountryName()+"["+c.getNoOfArmiesPresent()+"]");
 			}
 			System.out.println();
-		}
+		}*/
 
 		gameModel.incrementTurn();
 		gameModel.changePlayer();
