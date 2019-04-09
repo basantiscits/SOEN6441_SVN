@@ -31,6 +31,10 @@ public class MainMenuScreen extends JFrame {
 	private JButton btnLoadExisitingMaps;
 	private JLabel RiskImage;
 	private MapEditor mapEditorView;
+	
+	/**
+	 * Constructor of MainMenuScreen class
+	 */
 	public MainMenuScreen() {
 		CreateMenuBar();
 		setTitle("********THE RISK GAME********");
@@ -66,7 +70,6 @@ public class MainMenuScreen extends JFrame {
 		});
 		PlayGame.setToolTipText("New Game");
 		JMenuItem singlePlayer = new JMenuItem("Play Game");
-		//JMenuItem MultiPlayer = new JMenuItem("Tournament");
 		JMenuItem MultiPlayer =  new JMenuItem(new AbstractAction("Tournament") {
 			public void actionPerformed(ActionEvent e) {
 				TournamentView tournamentMultiPlayer = new TournamentView();
@@ -91,9 +94,7 @@ public class MainMenuScreen extends JFrame {
 		
 		SubSubMenu.add(PlayGame);
 		SubSubMenu.add(MultiPlayer);
-		SubSubMenu.add(UploadDeserializeMap);
-		
-		
+		SubSubMenu.add(UploadDeserializeMap);	
 		
 		JMenuItem newMap = new JMenuItem(new AbstractAction("Create New Map") {
 			public void actionPerformed(ActionEvent e) {
@@ -151,7 +152,6 @@ public class MainMenuScreen extends JFrame {
 		menubar.add(Box.createHorizontalGlue());
 		menubar.add(helpMenu);
 		menubar.add(helpMenu);
-		//menubar.add();
 		setJMenuBar(menubar);
 	}
 }
