@@ -51,24 +51,37 @@ public class Player extends Observable implements Serializable{
 		updateChanges();
 	}
 	
+	/**
+	 * getter for strategy
+	 * @return strategy
+	 */
 	public BehaviorStrategies getStrategy() {
 		return strategy;
 	}
 
 
-
+	/**
+	 * setter for strategy
+	 * @param strategy Object of BehaviorStrategies class
+	 */
 	public void setStrategy(BehaviorStrategies strategy) {
 		this.strategy = strategy;
 	}
 
 
-
+	/**
+	 * getter for player type
+	 * @return player type
+	 */
 	public PlayerType getPlayerType() {
 		return playerType;
 	}
 
 
-
+	/**
+	 * setter for player type
+	 * @param playerType Object of PlayerType class
+	 */
 	public void setPlayerType(PlayerType playerType) {
 		this.playerType = playerType;
 	}
@@ -368,7 +381,10 @@ public class Player extends Observable implements Serializable{
 	}
 	
 	
-	
+	/**
+	 * initial army allocation
+	 * @param gameModel Object of GameModelCreation class
+	 */
 	public void initialArmyAllocation(GameModelCreation gameModel) {
 		System.out.println("Player da naam : "+gameModel.getCurrPlayer().getPlayerName());
 		getStrategy().startUpPhase(gameModel);

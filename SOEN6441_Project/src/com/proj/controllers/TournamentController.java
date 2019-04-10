@@ -24,27 +24,30 @@ import com.proj.views.TournamentView;
  */
 public class TournamentController  implements ActionListener, Serializable {
 	private TournamentView tournamentView;
-	private String noOfMaps;
-	private String noOfPlayer;
-	private String noOfGames;
-	private String noOfTurns;
+	public String noOfMaps;
+	public String noOfPlayer;
+	public String noOfGames;
+	public String noOfTurns;
 	private String sPathFileName1 = "";
 	private String sPathFileName2 = "";
 	private String sPathFileName3 = "";
 	private String sPathFileName4 = "";
 	private String sPathFileName5 = "";	
-	private String sPlayerBehaviour1="";
-	private String sPlayerBehaviour2="";
-	private String sPlayerBehaviour3="";
-	private String sPlayerBehaviour4="";
+
+	
+	public String sPlayerBehaviour1="";
+	public String sPlayerBehaviour2="";
+	public String sPlayerBehaviour3="";
+	public String sPlayerBehaviour4="";
 	private static final long serialVersionUID = 45443434343L;
 
-	ArrayList<String>addFileName;
-	ArrayList<String>addPlayerBehaviourName;
-	ArrayList<Map> maps;
-	Player players[];
-	NewGameController newGameController;
-	
+	public ArrayList<String>addFileName;
+	public ArrayList<String>addPlayerBehaviourName;
+	public ArrayList<Map> maps;
+	private Player players[];
+	public NewGameController newGameController;
+	public ArrayList<String> result;
+
 	
 	/**
 	 * Constructor of Tournament Controller
@@ -55,6 +58,17 @@ public class TournamentController  implements ActionListener, Serializable {
 		addFileName=new ArrayList<String>();
 		addPlayerBehaviourName=new ArrayList<String>();
 		maps=new ArrayList<Map>();
+		result=new ArrayList<String>();
+	}
+	
+	/**
+	 * Constructor of Tournament Controller test case
+	 */
+	public TournamentController() {
+		addFileName=new ArrayList<String>();
+		addPlayerBehaviourName=new ArrayList<String>();
+		maps=new ArrayList<Map>();
+		result = new ArrayList<String>();
 	}
 
 	/**
@@ -301,8 +315,7 @@ public class TournamentController  implements ActionListener, Serializable {
 	/**
 	 * initiate tournament
 	 */
-	private void intitiateTournament() {
-		ArrayList<String> result = new ArrayList<String>();
+	public void intitiateTournament() {
 		System.out.println("*********************OFREISH*******************************");		
 		String strategies[]=addPlayerBehaviourName.toArray(new String[0]);
 		System.out.println("Strategies Names: ");
@@ -317,8 +330,6 @@ public class TournamentController  implements ActionListener, Serializable {
 		System.out.println("No of Games: "+noOfGames);
 		System.out.println("No of Maps: "+noOfMaps);
 		System.out.println("No of turns: "+noOfTurns);
-		//players=new Player[Integer.parseInt(noOfPlayer)];
-		//newGameController=new NewGameController();
 		Map m1;
 		int j=0;
 		ArrayList<Map> duplicateMap = new ArrayList<Map>();
@@ -341,14 +352,11 @@ public class TournamentController  implements ActionListener, Serializable {
 				GameModelCreation gameModelCreation =new GameModelCreation(m,players);
 				providingGameModelToPlayer(players, gameModelCreation);
 				gameModelCreation.incrementTurn();
-				//System.out.println("Player army : "+players[players.length-1].getNoOfArmiesOwned());
 				int army = players[players.length-1].getNoOfArmiesOwned();
 				for(int p = 0; p < army; p++) {
 					for(Player P : gameModelCreation.getPlayer()) {
 						P.initialArmyAllocation(gameModelCreation);
-						//System.out.println("Player detail: "+gameModelCreation.getCurrPlayer().getPlayerName()+" : "+P.getPlayerName());
 					}
-					//System.out.println("Value of p: "+p);
 				}
 				System.out.println("*******************************************************************************************************");
 				for(Player p : players) {
@@ -358,7 +366,6 @@ public class TournamentController  implements ActionListener, Serializable {
 					}
 					System.out.println();
 				}
-				//int turns = Integer.parseInt(noOfTurns);
 				int turns = Integer.parseInt(noOfTurns);
 				while(gameModelCreation.getPlayer().length>1 && turns*gameModelCreation.getPlayer().length>0 ) {
 					gameModelCreation.getCurrPlayer().intializeReinforcementArmies(gameModelCreation);
@@ -370,8 +377,6 @@ public class TournamentController  implements ActionListener, Serializable {
 				}
 
 				
-			//	for(Player p : players) {
-				//System.out.println(gameModelCreation.getCurrPlayer().getPlayerName());
 				System.out.println("*******************************************************************************************************");
 				for(Player p : gameModelCreation.getPlayer()) {
 
@@ -382,8 +387,6 @@ public class TournamentController  implements ActionListener, Serializable {
 					System.out.println();
 				}
 				
-
-				//for(Player p:players){
 
 				if(gameModelCreation.getPlayer().length == 1) {
 					result.add("For Map: "+m.getName()+",Game no.: "+(i+1)+" is won by "+gameModelCreation.getPlayer()[0].getPlayerType().toString());
@@ -403,12 +406,6 @@ public class TournamentController  implements ActionListener, Serializable {
 					}
 				}
 				
-				
-				//Method to play game
-	/*			for(Player p:players){
->>>>>>> Stashed changes
-					System.out.println(p.getStrategy().getClass());
-				}*/
 				System.out.println("******************************************NEXT GAME******************************************************************");
 				
 			}
@@ -418,7 +415,10 @@ public class TournamentController  implements ActionListener, Serializable {
 		for(String s : result) {
 			System.out.println(s);
 		}
-		System.exit(0);
+		
+		if(tournamentView!=null){
+			System.exit(0);
+		}
 		
 	}
 
@@ -426,7 +426,7 @@ public class TournamentController  implements ActionListener, Serializable {
 	 * check parameters
 	 * @return false if no parameters are selected and true otherwise
 	 */
-	private boolean checkParameters(){
+	public boolean checkParameters(){
 		if (noOfMaps.equals("  --Select--  ")) {
 			JOptionPane.showMessageDialog(null, "Please select no. of Map to play game");
 			return false;
@@ -501,7 +501,7 @@ public class TournamentController  implements ActionListener, Serializable {
 	/**
 	 * Function to check the uploaded file
 	 * @param noOfMapsSelected number of maps selected
-	 * @return true if number of maps selected is equal to number of files chosed else false
+	 * @return true if number of maps selected is equal to number of files chosen else false
 	 */
 	private boolean fncCheckFileUploaded(String noOfMapsSelected) {
 		boolean isReturn=false;

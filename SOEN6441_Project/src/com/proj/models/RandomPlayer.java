@@ -9,12 +9,22 @@ import javax.swing.JOptionPane;
 
 import com.proj.controllers.AttackController;
 
+/**
+ * Random Player class 
+ * @author Ofreish
+ * @since 27 Mar 2019
+ * @version 1.2
+ */
 public class RandomPlayer implements BehaviorStrategies, Serializable {
 
 	private Random random = new Random();
 	private static final long serialVersionUID = 45443434343L;
 
 	
+	/**
+	 * start up phase
+	 * @param gameModel Object of GameModelCreation class
+	 */
 	@Override
 	public void startUpPhase(GameModelCreation gameModel) {
 		System.out.println("Name in Random startUp: "+gameModel.getCurrPlayer().getPlayerName());
@@ -33,6 +43,10 @@ public class RandomPlayer implements BehaviorStrategies, Serializable {
 		 
 	}
 
+	/**
+	 * reinforcement phase
+	 * @param gameModel Object of GameModelCreation class
+	 */
 	@Override
 	public void reinforcementPhase(GameModelCreation gameModel) {
 		while (gameModel.getCurrPlayer().getNoOfArmiesOwned() > 0) {
@@ -51,6 +65,10 @@ public class RandomPlayer implements BehaviorStrategies, Serializable {
 		
 	}
 
+	/**
+	 * attack phase
+	 * @param gameModel Object of GameModelCreation class
+	 */
 	@Override
 	public void attackPhase(GameModelCreation gameModel) {
 		Player attacker=gameModel.getCurrPlayer();
@@ -188,6 +206,11 @@ public class RandomPlayer implements BehaviorStrategies, Serializable {
 		
 		fortificationPhase(gameModel);
 	}
+	
+	/**
+	 * Fortification phase
+	 * @param gameModel Object of GameModelCreation class
+	 */
 	@Override
 	public void fortificationPhase(GameModelCreation gameModel) {
 		ArrayList<Country> countryList = new ArrayList<Country>();
@@ -207,7 +230,6 @@ public class RandomPlayer implements BehaviorStrategies, Serializable {
 			Country sourceCountry = countryList.get(limit1);
 			System.out.println("Fort random source : "+sourceCountry.getCountryName()+" , "+sourceCountry.getNoOfArmiesPresent());
 			ArrayList<Country> neighbourList = new ArrayList<Country>();
-			//neighbourList.addAll(sourceCountry.getListOfNeighbours());
 			
 			for(String c : sourceCountry.getListOfNeighbours()) {
 				Country count = gameModel.getMapDetails().searchCountry(c);
@@ -225,7 +247,6 @@ public class RandomPlayer implements BehaviorStrategies, Serializable {
 					System.out.println("Country name as country neihbor: "+c.getCountryName());
 				}
 				Country destinationCountry = neighbourList.get(limit2);
-				//Country destinationCountry = gameModel.getMapDetails().searchCountry(destinationCountryName);
 				System.out.println("Fort random target : "+destinationCountry.getCountryName()+" , "+destinationCountry.getNoOfArmiesPresent());
 				if(sourceCountry.getNoOfArmiesPresent()>1) {
 					int armies = random.nextInt(sourceCountry.getNoOfArmiesPresent()-1);
@@ -236,15 +257,7 @@ public class RandomPlayer implements BehaviorStrategies, Serializable {
 					}
 				}
 			}
-			}
-/*		System.out.println("Fortification finish");
-		for(Player p : gameModel.getPlayer()) {
-			System.out.print("Player: "+p.getPlayerName()+" , "+p.getPlayerType()+" , "+p.getNoOfArmiesOwned()+" , ");
-			for(Country c : p.getCountriesOwned()) {
-				System.out.print(c.getCountryName()+"["+c.getNoOfArmiesPresent()+"]");
-			}
-			System.out.println();
-		}*/
+		}
 		gameModel.incrementTurn();
 		gameModel.changePlayer();
 		gameModel.setGameState(1);

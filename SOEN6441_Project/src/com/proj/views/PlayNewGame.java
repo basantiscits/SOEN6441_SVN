@@ -36,7 +36,6 @@ public class PlayNewGame extends JFrame implements ActionListener {
 	private String sAppendParam = "";
 	private JButton buttonbrowse;
 	private JComboBox<String> comboBoxSelectPlayer;
-	// Changes done and added 2 player game in combo box..
 	private String[] playersList = new String[] { "  --Select--  ", "2","3","4","5","6" };
 	private JTextField textFieldMap;
 	private JButton buttonPlayGame;
@@ -449,158 +448,204 @@ public class PlayNewGame extends JFrame implements ActionListener {
 		GameWindowScreen.setVisible(true);
 	}
 	
-	
-	
+
+	/**
+	 * getter for player label
+	 * @return labelPlayer1
+	 */
 	public JLabel getPlayerLable1() {
 		return labelPlayer1;
 	}
 	
+	/**
+	 * setter for player label 1
+	 * @param labelPlayer1 player label 1
+	 */
 	public void setPlayerLable1(JLabel labelPlayer1) {
 		this.labelPlayer1 = labelPlayer1;
 	}
 	
+	/**
+	 * getter for player label 2
+	 * @return labelPlayer2
+	 */
 	public JLabel getPlayerLable2() {
 		return labelPlayer2;
 	}
 	
+	/**
+	 * setter for player label 2
+	 * @param labelPlayer1 player label 2
+	 */
 	public void setPlayerLable2(JLabel labelPlayer2) {
 		this.labelPlayer2 = labelPlayer2;
 	}
 	
-	
+	/**
+	 * getter for player label 3
+	 * @return labelPlayer3
+	 */
 	public JLabel getPlayerLable3() {
 		return labelPlayer3;
 	}
 	
+	/**
+	 * setter for player label 3
+	 * @param labelPlayer1 player label 3
+	 */
 	public void setPlayerLable3(JLabel labelPlayer3) {
 		this.labelPlayer3 = labelPlayer3;
 	}
 	
-	
+	/**
+	 * getter for player label 4
+	 * @return labelPlayer4
+	 */
 	public JLabel getPlayerLable4() {
 		return labelPlayer4;
 	}
 	
+	/**
+	 * setter for player label 4
+	 * @param labelPlayer1 player label 4
+	 */
 	public void setPlayerLable4(JLabel labelPlayer4) {
 		this.labelPlayer4 = labelPlayer4;
 	}
 	
-	
+	/**
+	 * getter for player label 5
+	 * @return labelPlayer5
+	 */
 	public JLabel getPlayerLable5() {
 		return labelPlayer5;
 	}
 	
+	/**
+	 * setter for player label 5
+	 * @param labelPlayer1 player label 5
+	 */
 	public void setPlayerLable5(JLabel labelPlayer5) {
 		this.labelPlayer5 = labelPlayer5;
 	}
+	
+	/**
+	 * getter for player label 6
+	 * @return labelPlayer6
+	 */
 	public JLabel getPlayerLable6() {
 		return labelPlayer6;
 	}
 	
+	/**
+	 * setter for player label 6
+	 * @param labelPlayer1 player label 6
+	 */
 	public void setPlayerLable6(JLabel labelPlayer6) {
 		this.labelPlayer6 = labelPlayer6;
 	}
 
+	/**
+	 * getter for combo box of select player 1
+	 * @return comboBoxPlayer1
+	 */
 	public JComboBox<String> getComboBoxSelectPlayer1() {
 		return comboBoxPlayer1;
 	}
 
-
+	/**
+	 * setter for combo box of select player 1
+	 * @param comboBoxPlayer1 Object of JComboBox class
+	 */
 	public void setComboBoxSelectPlayer1(JComboBox<String> comboBoxPlayer1) {
 		this.comboBoxPlayer1 = comboBoxPlayer1;
 	}
 	
+	/**
+	 * getter for combo box of select player 2
+	 * @return comboBoxPlayer2
+	 */
 	public JComboBox<String> getComboBoxSelectPlayer2() {
 		return comboBoxPlayer2;
 	}
 
-
+	/**
+	 * setter for combo box of select player 2
+	 * @param comboBoxPlayer2 Object of JComboBox class
+	 */
 	public void setComboBoxSelectPlayer2(JComboBox<String> comboBoxPlayer2) {
 		this.comboBoxPlayer2 = comboBoxPlayer2;
 	}
 	
+	/**
+	 * getter for combo box of select player 3
+	 * @return comboBoxPlayer3
+	 */
 	public JComboBox<String> getComboBoxSelectPlayer3() {
 		return comboBoxPlayer3;
 	}
 
-
+	/**
+	 * setter for combo box of select player 3
+	 * @param comboBoxPlayer3 Object of JComboBox class
+	 */
 	public void setComboBoxSelectPlayer3(JComboBox<String> comboBoxPlayer3) {
 		this.comboBoxPlayer3 = comboBoxPlayer3;
 	}
+	
+	/**
+	 * getter for combo box of select player 4
+	 * @return comboBoxPlayer4
+	 */
 	public JComboBox<String> getComboBoxSelectPlayer4() {
 		return comboBoxPlayer4;
 	}
 
-
+	/**
+	 * setter for combo box of select player 4
+	 * @param comboBoxPlayer4 Object of JComboBox class
+	 */
 	public void setComboBoxSelectPlayer4(JComboBox<String> comboBoxPlayer4) {
 		this.comboBoxPlayer4 = comboBoxPlayer4;
 	}
 	
+	/**
+	 * getter for combo box of select player 5
+	 * @return comboBoxPlayer5
+	 */
 	public JComboBox<String> getComboBoxSelectPlayer5() {
 		return comboBoxPlayer5;
 	}
 
-
+	/**
+	 * setter for combo box of select player 5
+	 * @param comboBoxPlayer5 Object of JComboBox class
+	 */
 	public void setComboBoxSelectPlayer5(JComboBox<String> comboBoxPlayer5) {
 		this.comboBoxPlayer5 = comboBoxPlayer5;
 	}
 	
+	/**
+	 * getter for combo box of select player 6
+	 * @return comboBoxPlayer6
+	 */
 	public JComboBox<String> getComboBoxSelectPlayer6() {
 		return comboBoxPlayer6;
 	}
 
-	// Basant bhaiiii
+	/**
+	 * setter for combo box of select player 6
+	 * @param comboBoxPlayer6 Object of JComboBox class
+	 */
 	public void setComboBoxSelectPlayer6(JComboBox<String> comboBoxPlayer6) {
 		this.comboBoxPlayer6 = comboBoxPlayer6;
 	}
+	
 	/**
 	 * Overridden method listening events not used
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		/*String iSelectedindexPlayerSelection = (String) comboBoxSelectPlayer.getSelectedItem();
-		if (e.getSource() == comboBoxSelectPlayer){
-			if (iSelectedindexPlayerSelection.trim().equalsIgnoreCase("2")){
-				labelPlayer1.setVisible(true);
-				comboBoxPlayer1.setVisible(true);
-				labelPlayer2.setVisible(true);
-				comboBoxPlayer2.setVisible(true);
-			}
-			else if (iSelectedindexPlayerSelection.trim().equalsIgnoreCase("3")){
-				labelPlayer1.setVisible(true);
-				comboBoxPlayer1.setVisible(true);
-				labelPlayer2.setVisible(true);
-				comboBoxPlayer2.setVisible(true);
-				labelPlayer3.setVisible(true);
-				comboBoxPlayer3.setVisible(true);
-			}
-           else if (iSelectedindexPlayerSelection.trim().equalsIgnoreCase("4")){
-        	   labelPlayer1.setVisible(true);
-				comboBoxPlayer1.setVisible(true);
-        	   labelPlayer2.setVisible(true);
-				comboBoxPlayer2.setVisible(true);
-				labelPlayer3.setVisible(true);
-				comboBoxPlayer3.setVisible(true);
-				labelPlayer4.setVisible(true);
-				comboBoxPlayer4.setVisible(true);
-			}
-           else if (iSelectedindexPlayerSelection.trim().equalsIgnoreCase("5")){
-        	   labelPlayer1.setVisible(true);
-				comboBoxPlayer1.setVisible(true);
-        	    labelPlayer2.setVisible(true);
-				comboBoxPlayer2.setVisible(true);
-				labelPlayer3.setVisible(true);
-				comboBoxPlayer3.setVisible(true);
-				labelPlayer4.setVisible(true);
-				comboBoxPlayer4.setVisible(true);
-				labelPlayer5.setVisible(true);
-				comboBoxPlayer5.setVisible(true);
-            }
-           else if (iSelectedindexPlayerSelection.trim().equalsIgnoreCase("  --Select--  ")){
-	
-            }
-				
-			
-		}*/
+		
 	}
 }
