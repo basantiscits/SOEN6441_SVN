@@ -12,6 +12,8 @@ public class App {
 	 * @param args command line arguments
 	 */
 	public static void main(String[] args) {
+		
+		System.setProperty("sun.io.serialization.extendedDebugInfo", "true");
 		MainMenuScreen screen = new MainMenuScreen();
 		screen.setVisible(true);	
 	}

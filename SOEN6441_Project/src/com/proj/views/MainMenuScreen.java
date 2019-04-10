@@ -1,6 +1,7 @@
 package com.proj.views;
 
 import java.awt.event.ActionEvent;
+import java.io.Serializable;
 
 import javax.swing.AbstractAction;
 import javax.swing.Box;
@@ -25,7 +26,7 @@ import com.proj.utilites.MapTools;
  * @since 7 Feb 2019
  * @version 1.0
  */
-public class MainMenuScreen extends JFrame {
+public class MainMenuScreen extends JFrame implements Serializable {
 	private static final long serialVersionUID = 45443434343L;
 
 	private MapTools mapTool;

@@ -16,6 +16,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.NotSerializableException;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -59,7 +60,7 @@ import com.proj.utilites.Constants;
  * @since 10 Feb 2019
  * @version 1.0
  */
-public class GameWindowScreen extends JFrame implements ActionListener, Observer, WindowListener {
+public class GameWindowScreen extends JFrame implements ActionListener, Observer, WindowListener, Serializable {
 	private int currentPlayer = 0;
 	public Player[] player;
 	private JLabel countriesLabel;
@@ -112,7 +113,7 @@ public class GameWindowScreen extends JFrame implements ActionListener, Observer
 
 	
 
-	private JOptionPane exchangePane;
+	private transient JOptionPane exchangePane;
 	private GameModelCreation gameModel;
 	private JButton exchangeButt;
 	private JFrame viewCardFrame;
@@ -164,7 +165,6 @@ public class GameWindowScreen extends JFrame implements ActionListener, Observer
 			}
 		}
 		
-		gameController = new GameController(this, gameModel);
 		gameController.getGameModel().addObserver(this);
 	}
 
@@ -1557,14 +1557,31 @@ public class GameWindowScreen extends JFrame implements ActionListener, Observer
 
 		FileOutputStream fs = new FileOutputStream("./Saved Games/" + sSaveFileName + ".bin");
 		ObjectOutputStream os = new ObjectOutputStream(fs);
-
 		try {
 		os.writeObject(gameModel);
 		}
+		
 		catch(NotSerializableException nse) {
-			System.out.println("Inside Catch");
+			System.out.println(nse.toString());
 		}
-	
+//		catch(NotSerializableException nse) {
+//			System.out.println("Inside Catch");
+//			
+//			for (Player p : gameModel.getPlayer()) {
+//				p.deleteObserver(this);
+//				for(Country c :p.getCountriesOwned()) {
+//					c.deleteObserver(this);
+//				}
+//			}
+//			
+//		
+//			gameController.getGameModel().deleteObserver(this);
+//			
+//			
+//			
+//			
+//		}
+//	
 		os.flush();
 		fs.close();
 		}

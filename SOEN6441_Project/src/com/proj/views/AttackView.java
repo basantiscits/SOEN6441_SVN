@@ -2,6 +2,7 @@ package com.proj.views;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +26,7 @@ import com.proj.utilites.Constants;
  * @since 12 Mar 2019
  * @version 1.1
  */
-public class AttackView extends JFrame implements ActionListener {
+public class AttackView extends JFrame implements ActionListener,Serializable {
 	private JLabel noOfArmies;
 	private JLabel playerDiceStrLbl;
 	private JLabel defendersDiceStrLbl;

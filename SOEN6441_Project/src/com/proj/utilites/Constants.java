@@ -1,13 +1,16 @@
 package com.proj.utilites;
 
+import java.io.Serializable;
+
 /**
  * The class of all constants
  * @author Arpit
  * @since 30 Jan 2019
  * @version 1.0
  */
-public class Constants {
+public class Constants implements Serializable{
 
+	private static final long serialVersionUID = 45443434343L;
 	/** 
 	 * The Constant WIDTH. 
 	 */

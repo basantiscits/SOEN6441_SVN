@@ -2,6 +2,7 @@ package com.proj.views;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -22,7 +23,7 @@ import com.proj.utilites.Constants;
  * @since 1 Feb 2019
  * @version 1.0
  */
-public class FortificationView extends JFrame implements ActionListener {
+public class FortificationView extends JFrame implements ActionListener, Serializable {
 	private JLabel source;
 	private JLabel destination;
 	private JLabel noOfArmies;

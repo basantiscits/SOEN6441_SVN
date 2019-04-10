@@ -1,6 +1,7 @@
 package com.proj.views;
 
 import java.awt.FlowLayout;
+import java.io.Serializable;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -15,7 +16,7 @@ import com.proj.models.Country;
  * @since 5 Feb 2019
  * @version 1.0
  */
-public class ToolBar extends JPanel{
+public class ToolBar extends JPanel implements Serializable{
 	private JButton addContinent;
 	private JButton removeContinent;
 	private JButton addCountries;

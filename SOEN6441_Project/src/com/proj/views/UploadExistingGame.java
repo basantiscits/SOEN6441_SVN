@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.Serializable;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -15,7 +16,7 @@ import com.proj.controllers.NewGameController;
 import com.proj.controllers.UploadExistingGameController;
 import com.proj.utilites.Constants;
 
-public class UploadExistingGame extends JFrame implements ActionListener {
+public class UploadExistingGame extends JFrame implements ActionListener, Serializable {
 	private JTextField textFieldMap;
 	private JButton buttonPlayGame;
 	private JButton buttonbrowse;

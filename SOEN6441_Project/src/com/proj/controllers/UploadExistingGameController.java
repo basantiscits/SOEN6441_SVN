@@ -73,14 +73,14 @@ public class UploadExistingGameController implements ActionListener, Serializabl
 		FileInputStream fs = new FileInputStream(sPathFileName);
 		ObjectInputStream os = new ObjectInputStream(fs);
 		GameModelCreation gameModel = (GameModelCreation)os.readObject();
-		Map map = gameModel.getMapDetails();
-		Player player[] = gameModel.getPlayer();
-		PlayNewGame png = new PlayNewGame();
-	//	gameModel.getGameScreen().addObserverWhenLoading();
-	//	gameModel.getGameScreen().setVisible(true);
+//		Map map = gameModel.getMapDetails();
+//		Player player[] = gameModel.getPlayer();
+//		PlayNewGame png = new PlayNewGame();
+		gameModel.getGameScreen().addObserverWhenLoading();
+		gameModel.getGameScreen().setVisible(true);
 		
 		System.out.println("Game Model State: " + gameModel.getGameState());
-		png.GameModelWindowMade(map, player, gameModel);	
+//		png.GameModelWindowMade(map, player, gameModel);	
 	
 		
 	}

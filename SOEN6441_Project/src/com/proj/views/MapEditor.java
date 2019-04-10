@@ -7,6 +7,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +35,7 @@ import com.proj.utilites.Constants;
  * @since 7 Feb 2019
  * @version 1.0
  */
-public class MapEditor extends JFrame {
+public class MapEditor extends JFrame implements Serializable {
 	private JLabel countriesLabel;
 	private JLabel continentLabel;
 	private ToolBar toolBar;

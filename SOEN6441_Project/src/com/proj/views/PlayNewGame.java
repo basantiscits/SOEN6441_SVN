@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.Serializable;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -29,7 +30,7 @@ import com.proj.utilites.Constants;
  * @since 1- Feb 2019
  * @version 1.0
  */
-public class PlayNewGame extends JFrame implements ActionListener {
+public class PlayNewGame extends JFrame implements ActionListener, Serializable {
 	private PlayNewGame playNewGame;
 	private String sFileName = "";
 	private String sLocationWhereFileisKept = "";
