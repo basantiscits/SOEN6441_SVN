@@ -28,17 +28,35 @@ public class RandomPlayer implements BehaviorStrategies, Serializable {
 	@Override
 	public void startUpPhase(GameModelCreation gameModel) {
 		System.out.println("Name in Random startUp: "+gameModel.getCurrPlayer().getPlayerName());
-		int limit = random.nextInt(gameModel.getCurrPlayer().getCountriesOwned().size());
-		if (limit == gameModel.getCurrPlayer().getCountriesOwned().size()) {
-			limit = limit - 1;
-		}
- 
-		Country country = gameModel.getCurrPlayer().getCountriesOwned().get(limit);
+		Country country = gameModel.getCurrPlayer().getCountriesOwned().get(0);
+		int countOfArmies = country.getNoOfArmiesPresent();
+		for (Country c : gameModel.getCurrPlayer().getCountriesOwned()) {
+			if (countOfArmies >= c.getNoOfArmiesPresent()) {
+				country = c;
+				countOfArmies = country.getNoOfArmiesPresent();
+			}
 
+		}
 		if (gameModel.getCurrPlayer().getNoOfArmiesOwned() > 0) {
 			country.addNoOfArmiesCountry();
 			gameModel.getCurrPlayer().reduceArmyInPlayer();
 		}
+		
+		
+		
+		
+		
+//		int limit = random.nextInt(gameModel.getCurrPlayer().getCountriesOwned().size());
+//		if (limit == gameModel.getCurrPlayer().getCountriesOwned().size()) {
+//			limit = limit - 1;
+//		}
+// 
+//		Country country = gameModel.getCurrPlayer().getCountriesOwned().get(limit);
+//
+//		if (gameModel.getCurrPlayer().getNoOfArmiesOwned() > 0) {
+//			country.addNoOfArmiesCountry();
+//			gameModel.getCurrPlayer().reduceArmyInPlayer();
+//		}
 		System.out.println("StartUp phase done for Random");
 		 
 	}
