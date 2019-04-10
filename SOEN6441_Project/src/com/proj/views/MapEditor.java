@@ -228,7 +228,7 @@ public class MapEditor extends JFrame implements Serializable {
 	}
 	
 	/**
-	 * This method create Tree with all the continents and countries
+	 * This method creates Tree with all the continents and countries
 	 */
 	public void createTree() {
 		DefaultMutableTreeNode top = new DefaultMutableTreeNode("Map - " + gameMap.getName() + "");

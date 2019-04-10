@@ -263,7 +263,7 @@ public class TournamentView  extends JFrame implements ActionListener, Serializa
 
 	/**
 	 * setter for button browse2
-	 * @param buttonbrowse1 Object of JButton class 
+	 * @param buttonbrowse2 Object of JButton class 
 	 */
 	public void setbuttonbrowse2(JButton buttonbrowse2) {
 		this.buttonbrowse2 = buttonbrowse2;
@@ -279,7 +279,7 @@ public class TournamentView  extends JFrame implements ActionListener, Serializa
 
 	/**
 	 * setter for button browse3
-	 * @param buttonbrowse1 Object of JButton class 
+	 * @param buttonbrowse3 Object of JButton class 
 	 */
 	public void setbuttonbrowse3(JButton buttonbrowse3) {
 		this.buttonbrowse3 = buttonbrowse3;
@@ -295,7 +295,7 @@ public class TournamentView  extends JFrame implements ActionListener, Serializa
 
 	/**
 	 * setter for button browse4
-	 * @param buttonbrowse1 Object of JButton class 
+	 * @param buttonbrowse4 Object of JButton class 
 	 */
 	public void setbuttonbrowse4(JButton buttonbrowse4) {
 		this.buttonbrowse4 = buttonbrowse4;
@@ -311,7 +311,7 @@ public class TournamentView  extends JFrame implements ActionListener, Serializa
 
 	/**
 	 * setter for button browse5
-	 * @param buttonbrowse1 Object of JButton class 
+	 * @param buttonbrowse5 Object of JButton class 
 	 */
 	public void setbuttonbrowse5(JButton buttonbrowse5) {
 		this.buttonbrowse5 = buttonbrowse5;

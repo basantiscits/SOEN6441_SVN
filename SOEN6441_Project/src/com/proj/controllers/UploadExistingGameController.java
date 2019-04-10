@@ -29,6 +29,9 @@ public class UploadExistingGameController implements ActionListener, Serializabl
 	public UploadExistingGameController(UploadExistingGame uploadExistingGame) {
 		this.uploadExistingGame = uploadExistingGame;
 	}
+	public UploadExistingGameController(String sPathFileName) {
+		this.sPathFileName = sPathFileName;
+	}
 	
 	/**
 	 * Action performed
@@ -83,5 +86,12 @@ public class UploadExistingGameController implements ActionListener, Serializabl
 //		png.GameModelWindowMade(map, player, gameModel);	
 	
 		
+	}
+	
+	public GameModelCreation loadSavedGame(String sName) throws IOException, ClassNotFoundException {
+		FileInputStream fs = new FileInputStream(sName);
+		ObjectInputStream os = new ObjectInputStream(fs);
+		GameModelCreation gameModel = (GameModelCreation)os.readObject();
+		return gameModel;
 	}
 }

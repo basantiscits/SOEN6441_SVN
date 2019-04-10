@@ -440,10 +440,7 @@ public class AttackView extends JFrame implements ActionListener,Serializable {
 	
 	/**
 	 * Constructor of AttackView class
-	 * @param gameMap Object of Map class
-	 * @param playersArry Array object of Player class
-	 * @param currentPlayer current player
-	 * @param gameWindowScreen Object of GameWindowScreen class
+	 * @param gameModel Object of GameModelCreation class
 	 */
 	public AttackView(GameModelCreation gameModel) {
 

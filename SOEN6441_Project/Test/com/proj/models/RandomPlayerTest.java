@@ -7,6 +7,12 @@ import org.junit.Before;
 import org.junit.Test;
 import com.proj.views.GameWindowScreen;
 
+/**
+ * RandomPlayerTest class
+ * @author Aman
+ * @since 28/03/2019
+ * @version 1.2
+ */
 public class RandomPlayerTest {
 	
 	public Player defender;
@@ -97,6 +103,9 @@ public class RandomPlayerTest {
 		gameModel.setCurrPlayer(player[0]);
 	}
 	
+	/*
+	 * start up phase test
+	 */
 	@Test
 	public void startUpPhaseTest(){
 		player[0].addArmyInPlayer();
@@ -109,6 +118,9 @@ public class RandomPlayerTest {
 		
 	}
 	
+	/**
+	 * reinforcement phase test
+	 */
 	@Test
 	public void reinforcementPhaseTest(){
 		gameModel.getCurrPlayer().addArmyInPlayer();
@@ -117,12 +129,18 @@ public class RandomPlayerTest {
 		assertEquals(0,player[0].getNoOfArmiesOwned());
 	}
 	
+	/**
+	 * attack phase test
+	 */
 	@Test
 	public void attackPhaseTest(){
 		gameModel.getCurrPlayer().getStrategy().attackPhase(gameModel);
 		assertEquals(player[1],gameModel.getCurrPlayer());
 	}
 	
+	/**
+	 * fortification phase test
+	 */
 	@Test
 	public void fortificationPhaseTest(){
 		gameModel.getCurrPlayer().getStrategy().fortificationPhase(gameModel);

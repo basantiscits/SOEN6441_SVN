@@ -6,6 +6,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * PlayerTypeTest class
+ * @author Aman
+ * @since 28/03/2019
+ * @version 1.2
+ */
 public class PlayerTypeTest {
 	
 	@Before

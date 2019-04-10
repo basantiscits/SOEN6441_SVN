@@ -41,6 +41,7 @@ public class Player extends Observable implements Serializable{
 	/**
 	 * constructor for Player class
 	 * @param string name of player
+	 * @param playerType Object of PlayerType class
 	 */
 	public Player(String string, PlayerType playerType) {
 		this.playerName = string;
@@ -300,8 +301,7 @@ public class Player extends Observable implements Serializable{
 
 	/**
 	 * initializes reinforcement armies
-	 * @param gameMap Object of Map class
-	 * @param gameWindowScreen Object of GameWindowScreen class
+	 * @param gameModel Object of GameModelCreation class
 	 */
 	public void intializeReinforcementArmies(GameModelCreation gameModel) {
 		
@@ -322,8 +322,7 @@ public class Player extends Observable implements Serializable{
 	/**
 	 * updates continents owned by player
 	 * 
-	 * @param gameWindowScreen Object of GameWindowScreen class
-	 * @param gameMap Object of Map class
+	 * @param gameModel Object of GameModelCreation class
 	 */
 	public void updateContinentsOwned(GameModelCreation gameModel) {
 		
@@ -334,8 +333,7 @@ public class Player extends Observable implements Serializable{
 	
 	/**
 	 * Attack phase implementation
-	 * @param gameMap Object of Map class
-	 * @param playersArray Array object of Player class
+	 * @param gameModel Object of GameModelCreation class
 	 * @param gameWindowScreen Object of GameWindowScreen class
 	 */
 	public void attackPhaseImplementation(GameModelCreation gameModel, GameWindowScreen gameWindowScreen) {
@@ -394,9 +392,7 @@ public class Player extends Observable implements Serializable{
 	
 	/**
 	 * Fortification phase Implementation
-	 * @param map Object of Map class
-	 * @param player Array Object of Player class
-	 * @param gameScreen Object of GameWindowScreen class
+	 * @param gameModel Object of GameModelCreation class
 	 * @param flag set to 1 if only 1 army present in country
 	 */
 	public void fortificationPhaseImplementation(GameModelCreation gameModel, int flag) {

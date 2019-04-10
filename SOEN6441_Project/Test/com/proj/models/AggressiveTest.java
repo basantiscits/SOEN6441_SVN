@@ -12,6 +12,12 @@ import com.proj.controllers.GameController;
 import com.proj.views.AttackView;
 import com.proj.views.GameWindowScreen;
 
+/**
+ * AggressiveTest class
+ * @author Aman
+ * @since 28/03/2019
+ * @version 1.2
+ */
 public class AggressiveTest {
 	public Player defender;
 	public Player attacker;
@@ -116,7 +122,9 @@ public class AggressiveTest {
 	}
 	
 	
-	
+	/**
+	 * start up phase test
+	 */
 	@Test
 	public void startUpPhaseTest(){
 		player[0].addArmyInPlayer();
@@ -132,7 +140,9 @@ public class AggressiveTest {
 		
 	}
 	
-	
+	/**
+	 * reinforcement phase test
+	 */
 	@Test
 	public void reinforcementPhaseTest(){
 		gameModel.getCurrPlayer().addArmyInPlayer();
@@ -141,7 +151,9 @@ public class AggressiveTest {
 		assertEquals(0,player[0].getNoOfArmiesOwned());
 	}
 
-	
+	/**
+	 * attack phase test
+	 */
 	@Test
 	public void attackPhaseTest(){
 		gameModel.getCurrPlayer().getStrategy().attackPhase(gameModel);
@@ -150,7 +162,9 @@ public class AggressiveTest {
 	}
 	
 	
-
+	/**
+	 * fortification phase test
+	 */
 	@Test
 	public void fortificationPhaseTest(){
 		Bangladesh.addNoOfArmiesCountry();

@@ -15,6 +15,12 @@ import com.proj.controllers.GameController;
 import com.proj.views.AttackView;
 import com.proj.views.GameWindowScreen;
 
+/**
+ * CheaterTest class
+ * @author Aman
+ * @since 28/03/2019
+ * @version 1.2
+ */
 public class CheaterTest {
 	
 	public Player defender;
@@ -119,6 +125,9 @@ public class CheaterTest {
 		gameModel.setCurrPlayer(player[0]);
 	}
 	
+	/**
+	 * start up phase test
+	 */
 	@Test
 	public void startUpPhaseTest(){
 		player[0].addArmyInPlayer();
@@ -134,6 +143,9 @@ public class CheaterTest {
 		
 	}
 	
+	/**
+	 * reinforcement phase test
+	 */
 	@Test
 	public void reinforcementPhaseTest(){
 		gameModel.getCurrPlayer().getStrategy().reinforcementPhase(gameModel);
@@ -141,6 +153,9 @@ public class CheaterTest {
 		assertEquals(10,India.getNoOfArmiesPresent());
 	}
 	
+	/**
+	 * attack phase test
+	 */
 	@Test
 	public void attackPhaseTest(){
 		assertTrue(player[1].getCountriesOwned().contains(Pakistan));
@@ -155,6 +170,9 @@ public class CheaterTest {
 		assertTrue(player[0].getCountriesOwned().contains(Nepal));
 	}
 	
+	/**
+	 * fortification phase test
+	 */
 	@Test
 	public void fortificationPhaseTest(){
 		assertEquals(5,India.getNoOfArmiesPresent());

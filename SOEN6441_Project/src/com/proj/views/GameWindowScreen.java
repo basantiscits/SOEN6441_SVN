@@ -125,8 +125,6 @@ public class GameWindowScreen extends JFrame implements ActionListener, Observer
 	/**
 	 * Game Window Screen constructor
 	 * 
-	 * @param gameMap   Object of Map class
-	 * @param player    Array object of Player class
 	 * @param gameModel Object of GameModelCreation class
 	 */
 	public GameWindowScreen(GameModelCreation gameModel) {
@@ -1433,6 +1431,8 @@ public class GameWindowScreen extends JFrame implements ActionListener, Observer
 
 		noOfCardsLabel.setText("No of Cards Available: " + gameModel.getCurrPlayer().getNoOfCardsOwned());
 		progressBarPanel.removeAll();
+		progressBarPanel.revalidate();
+		progressBarPanel.repaint();
 		Color color1 = new Color(23, 54, 135);
 		Color color2 = new Color(32, 198, 42);
 		Color color3 = new Color(88, 43, 97);
@@ -1445,8 +1445,7 @@ public class GameWindowScreen extends JFrame implements ActionListener, Observer
 		Player[] players = gameModel.getPlayer();
 		for (int i = 0; i < players.length; i++) {
 			progressBar = new JProgressBar();
-			int value = (int) (((double) players[i].getCountriesOwned().size()
-					/ gameModel.getMapDetails().listOfCountryNames().size()) * 100);
+			int value = (int) (((double) players[i].getCountriesOwned().size()/gameModel.getMapDetails().listOfCountryNames().size()) * 100);
 
 			progressBar.setValue(value);
 
@@ -1548,8 +1547,8 @@ public class GameWindowScreen extends JFrame implements ActionListener, Observer
 	 * 
 	 * @param gameModel2    Object of GameModelCreation class
 	 * @param sSaveFileName name of file to be saved
-	 * @throws FileNotFoundException
-	 * @throws IOException
+	 * @throws FileNotFoundException file not found
+	 * @throws IOException input output exception
 	 */
 	public void saveExistingGame(GameModelCreation gameModel2, String sSaveFileName)
 			throws FileNotFoundException, IOException {

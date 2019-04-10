@@ -476,7 +476,7 @@ public class PlayNewGame extends JFrame implements ActionListener, Serializable 
 	
 	/**
 	 * setter for player label 2
-	 * @param labelPlayer1 player label 2
+	 * @param labelPlayer2 player label 2
 	 */
 	public void setPlayerLable2(JLabel labelPlayer2) {
 		this.labelPlayer2 = labelPlayer2;
@@ -492,7 +492,7 @@ public class PlayNewGame extends JFrame implements ActionListener, Serializable 
 	
 	/**
 	 * setter for player label 3
-	 * @param labelPlayer1 player label 3
+	 * @param labelPlayer3 player label 3
 	 */
 	public void setPlayerLable3(JLabel labelPlayer3) {
 		this.labelPlayer3 = labelPlayer3;
@@ -508,7 +508,7 @@ public class PlayNewGame extends JFrame implements ActionListener, Serializable 
 	
 	/**
 	 * setter for player label 4
-	 * @param labelPlayer1 player label 4
+	 * @param labelPlayer4 player label 4
 	 */
 	public void setPlayerLable4(JLabel labelPlayer4) {
 		this.labelPlayer4 = labelPlayer4;
@@ -524,7 +524,7 @@ public class PlayNewGame extends JFrame implements ActionListener, Serializable 
 	
 	/**
 	 * setter for player label 5
-	 * @param labelPlayer1 player label 5
+	 * @param labelPlayer5 player label 5
 	 */
 	public void setPlayerLable5(JLabel labelPlayer5) {
 		this.labelPlayer5 = labelPlayer5;
@@ -540,7 +540,7 @@ public class PlayNewGame extends JFrame implements ActionListener, Serializable 
 	
 	/**
 	 * setter for player label 6
-	 * @param labelPlayer1 player label 6
+	 * @param labelPlayer6 player label 6
 	 */
 	public void setPlayerLable6(JLabel labelPlayer6) {
 		this.labelPlayer6 = labelPlayer6;

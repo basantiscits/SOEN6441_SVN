@@ -12,6 +12,12 @@ import com.proj.controllers.GameController;
 import com.proj.views.GameWindowScreen;
 import com.proj.models.PlayerType;
 
+/**
+ * BenevolentTest class
+ * @author Aman
+ * @since 28/03/2019
+ * @version 1.2
+ */
 public class BenevolentTest {
 
 	
@@ -117,12 +123,13 @@ public class BenevolentTest {
 			gameModel.setCurrPlayer(player[0]);
 		}
 
+		/**
+		 * start up phase test
+		 */
 		@Test
 		public void startUpPhaseTest() {
 			player[0].addArmyInPlayer();
-			//System.out.println("zdzfknskdfn"+player[0].getNoOfArmiesOwned());
 			gameModel.getCurrPlayer().getStrategy().startUpPhase(gameModel);
-		//	player[0].getStrategy().startUpPhase(gameModel);
 			assertEquals(5, India.getNoOfArmiesPresent());
 			assertEquals(1, Bangladesh.getNoOfArmiesPresent());
 			assertEquals(1, Italy.getNoOfArmiesPresent());
@@ -135,6 +142,9 @@ public class BenevolentTest {
 
 		}
 
+		/**
+		 * reinforcement phase test
+		 */
 		@Test
 		public void reinforcementPhase() {
 			gameModel.getCurrPlayer().addArmyInPlayer();
@@ -144,11 +154,13 @@ public class BenevolentTest {
 			assertEquals(0, player[0].getNoOfArmiesOwned());
 		}
 
+		/**
+		 * attack phase test
+		 */
 		@Test
 		public void attackPhaseTest() {
 
 			gameModel.getCurrPlayer().getStrategy().attackPhase(gameModel);
-	//		gameModel.getCurrPlayer().getStrategy().reinforcementPhase(gameModel);
 			assertEquals(2, India.getNoOfArmiesPresent());
 			assertEquals(3, Italy.getNoOfArmiesPresent());
 
@@ -157,6 +169,9 @@ public class BenevolentTest {
 			assertEquals(0, player[0].getNoOfCardsOwned());
 		}
 
+		/**
+		 * cards after attack phase test
+		 */
 		@Test
 		public void cardsAfterAttackPhaseTest() {
 
@@ -164,6 +179,9 @@ public class BenevolentTest {
 			assertEquals(0, player[0].getNoOfCardsOwned());
 		}
 
+		/**
+		 * fortification phase test for Benevolent player
+		 */
 		@Test
 		public void fortificationPhaseTest() {
 			Bangladesh.addNoOfArmiesCountry();

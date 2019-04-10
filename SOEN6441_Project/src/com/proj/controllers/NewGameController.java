@@ -267,6 +267,7 @@ public class NewGameController implements ActionListener, Serializable {
 	 * 
 	 * @param players Array object of Player class
 	 * @param noOfPlayers number of players
+	 * @param playerTypes Array object of PlayerType class
 	 */
 	public void initializeNumberOfArmies(PlayerType[] playerTypes, Player[] players, int noOfPlayers) {
 		for(int i=0;i<playerTypes.length;i++) {

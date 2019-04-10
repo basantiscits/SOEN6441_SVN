@@ -3,7 +3,12 @@ package com.proj.utilites;
 import static org.junit.Assert.*;
 import org.junit.*;
 
-
+/**
+ * MapTest class
+ * @author Basant
+ * @since 02/03/2019
+ * @version 1.0
+ */
 public class ConstantsTest {
 	
 	@Before
