@@ -4,8 +4,17 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+/**
+ * CardsTest class
+ * @author Aman
+ * @since 28/03/2019
+ * @version 1.2
+ */
 public class CardsTest {
 	
+	/**
+	 * get new card test
+	 */
 	@Test
 	public void getNewCardTest() {
 		

@@ -13,6 +13,12 @@ import com.proj.models.Map;
 import com.proj.utilites.MapTools;
 import com.proj.controllers.TournamentController;
 
+/**
+ * NewGameControllerTest class
+ * @author Aman
+ * @since 28/03/2019
+ * @version 1.2
+ */
 public class TournamentControllerTest {
 	
 	private String noOfMaps;

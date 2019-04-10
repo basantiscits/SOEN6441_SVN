@@ -20,6 +20,12 @@ import com.proj.models.Player;
 import com.proj.models.PlayerType;
 import com.proj.views.GameWindowScreen;
 
+/**
+ * NewGameControllerTest class
+ * @author Aman
+ * @since 28/03/2019
+ * @version 1.2
+ */
 public class UploadExistingGameControllerTest {
 
 	private Player[] player;
@@ -35,7 +41,9 @@ public class UploadExistingGameControllerTest {
 	private String SFileName="E:\\SOEN_6441\\SOEN6441_SVN\\SOEN6441_Project\\Saved Games";
 	private String sName ="E:\\SOEN_6441\\SOEN6441_SVN\\SOEN6441_Project\\Saved Games\\newFileCreation.bin";
 	
-	
+	/**
+	 * This method initializes all the required data to complete the test
+	 */
 	@Before
 	public void before() {
 		player = new Player[3];
@@ -106,6 +114,10 @@ public class UploadExistingGameControllerTest {
 	@After
 	public void after() {}
 	
+	/**
+	 * This method tests if file is being saved properly
+	 * @throws ClassNotFoundException
+	 */
 	@Test
 	public void saveExistingGameTest() throws ClassNotFoundException{
 		 try {
@@ -123,6 +135,11 @@ public class UploadExistingGameControllerTest {
 		}
 	}
 	
+	/**
+	 * This method tests if game is being loaded properly
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 */
 	@Test
 	public void loadSavedGameTest() throws ClassNotFoundException, IOException{
 		GameModelCreation gameModelLoaded = controller.loadSavedGame(sName);
