@@ -119,7 +119,7 @@ public class UploadExistingGameControllerTest {
 	 * @throws ClassNotFoundException class not found
 	 */
 	@Test
-	public void saveExistingGameTest() throws ClassNotFoundException{
+	public void saveAndLoadExistingGameTest() throws ClassNotFoundException{
 		 try {
 			 
 			gameScreen.saveExistingGame(gameModel, sSaveFileName);
@@ -128,6 +128,17 @@ public class UploadExistingGameControllerTest {
 			ObjectInputStream os = new ObjectInputStream(fs);
 			
 			assertEquals(os.readObject().getClass(),gameModel.getClass());
+			
+			GameModelCreation gameModelLoaded = controller.loadSavedGame(sName);
+			
+			assertEquals(gameModelLoaded.getMapDetails().getClass(),gameMap.getClass());
+			assertEquals(gameModelLoaded.getMapDetails().getContinents().size(),gameMap.getContinents().size());
+			assertEquals(gameModelLoaded.getMapDetails().getAuthorName(),gameMap.getAuthorName());
+			assertEquals(gameModelLoaded.getMapDetails().getName(),gameMap.getName());
+			
+			
+			assertEquals(gameModelLoaded.getPlayer().getClass(),player.getClass());
+			assertEquals(gameModelLoaded.getPlayer().length,player.length);
 
 			
 		} catch (IOException e) {
@@ -135,23 +146,5 @@ public class UploadExistingGameControllerTest {
 		}
 	}
 	
-	/**
-	 * This method tests if game is being loaded properly
-	 * @throws ClassNotFoundException class not found
-	 * @throws IOException input output exception
-	 */
-	@Test
-	public void loadSavedGameTest() throws ClassNotFoundException, IOException{
-		GameModelCreation gameModelLoaded = controller.loadSavedGame(sName);
-		
-		assertEquals(gameModelLoaded.getMapDetails().getClass(),gameMap.getClass());
-		assertEquals(gameModelLoaded.getMapDetails().getContinents().size(),gameMap.getContinents().size());
-		assertEquals(gameModelLoaded.getMapDetails().getAuthorName(),gameMap.getAuthorName());
-		assertEquals(gameModelLoaded.getMapDetails().getName(),gameMap.getName());
-		
-		
-		assertEquals(gameModelLoaded.getPlayer().getClass(),player.getClass());
-		assertEquals(gameModelLoaded.getPlayer().length,player.length);
-		
-	}
+
 }
