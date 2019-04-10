@@ -18,7 +18,8 @@ import com.proj.controllers.AttackController;
 public class RandomPlayer implements BehaviorStrategies, Serializable {
 
 	private Random random = new Random();
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 45443434343L;
+
 	
 	/**
 	 * start up phase

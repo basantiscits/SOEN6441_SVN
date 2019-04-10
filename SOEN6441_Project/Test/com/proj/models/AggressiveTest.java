@@ -115,6 +115,8 @@ public class AggressiveTest {
 		gameModel.setCurrPlayer(player[0]);
 	}
 	
+	
+	
 	@Test
 	public void startUpPhaseTest(){
 		player[0].addArmyInPlayer();

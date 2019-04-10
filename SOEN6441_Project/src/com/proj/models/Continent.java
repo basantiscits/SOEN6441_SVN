@@ -16,7 +16,8 @@ public class Continent extends Observable implements Serializable{
 	private String continentName;
 	private List<Country> countriesPresent;
 	private int controlValue;
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 45443434343L;
+
 
 	/**
 	 * Continent constructor

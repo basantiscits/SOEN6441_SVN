@@ -21,7 +21,8 @@ import com.proj.views.MainMenuScreen;
 public class FortificationController implements ActionListener, Serializable {
 
 	
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 45443434343L;
+
 	private FortificationView fortifyView;
 
 	/**

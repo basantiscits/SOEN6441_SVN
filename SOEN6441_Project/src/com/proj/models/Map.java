@@ -17,7 +17,8 @@ public class Map extends Observable implements Serializable{
 	private boolean errorOccurred;
 	private String errorMessage;
 	private List<Continent> continents;	
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 45443434343L;
+
 	
 	/**
 	 * constructor of Map class

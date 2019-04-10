@@ -9,7 +9,8 @@ import java.io.Serializable;
  * @version 1.2
  */
 public class Human implements BehaviorStrategies, Serializable {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 45443434343L;
+
 
 	/**
 	 * start up phase

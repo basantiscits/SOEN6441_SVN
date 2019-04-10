@@ -14,6 +14,7 @@ import java.awt.event.WindowListener;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.NotSerializableException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -106,14 +107,19 @@ public class GameWindowScreen extends JFrame implements ActionListener, Observer
 
 	private JPanel progressBarPanel;
 	private JProgressBar progressBar;
-	private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = 45443434343L;
+
+	
 
 	private JOptionPane exchangePane;
 	private GameModelCreation gameModel;
 	private JButton exchangeButt;
 	private JFrame viewCardFrame;
 	private JLabel noOfCardsLabel;
-	private JButton SaveButton;
+
+	private JButton SaveButton; 
+
 
 	/**
 	 * Game Window Screen constructor
@@ -147,6 +153,19 @@ public class GameWindowScreen extends JFrame implements ActionListener, Observer
 				dispose();
 			}
 		});
+	}
+	
+	public void addObserverWhenLoading() {
+		
+		for (Player p : gameModel.getPlayer()) {
+			p.addObserver(this);
+			for(Country c :p.getCountriesOwned()) {
+				c.addObserver(this);
+			}
+		}
+		
+		gameController = new GameController(this, gameModel);
+		gameController.getGameModel().addObserver(this);
 	}
 
 	/**
@@ -362,8 +381,10 @@ public class GameWindowScreen extends JFrame implements ActionListener, Observer
 			dispose();
 		}
 
+
 		else if ((gameModel.getGameState() == 0) && (gameModel.getCurrPlayer().getPlayerType() != PlayerType.Human)) {
 			if (gameModel.getCurrPlayer().getNoOfArmiesOwned() > 0) {
+
 				gameModel.getCurrPlayer().initialArmyAllocation(gameModel);
 			}
 
@@ -1412,6 +1433,8 @@ public class GameWindowScreen extends JFrame implements ActionListener, Observer
 
 		noOfCardsLabel.setText("No of Cards Available: " + gameModel.getCurrPlayer().getNoOfCardsOwned());
 		progressBarPanel.removeAll();
+		progressBarPanel.revalidate();
+		progressBarPanel.repaint();
 		Color color1 = new Color(23, 54, 135);
 		Color color2 = new Color(32, 198, 42);
 		Color color3 = new Color(88, 43, 97);
@@ -1424,8 +1447,7 @@ public class GameWindowScreen extends JFrame implements ActionListener, Observer
 		Player[] players = gameModel.getPlayer();
 		for (int i = 0; i < players.length; i++) {
 			progressBar = new JProgressBar();
-			int value = (int) (((double) players[i].getCountriesOwned().size()
-					/ gameModel.getMapDetails().listOfCountryNames().size()) * 100);
+			int value = (int) (((double) players[i].getCountriesOwned().size()/gameModel.getMapDetails().listOfCountryNames().size()) * 100);
 
 			progressBar.setValue(value);
 
@@ -1521,6 +1543,7 @@ public class GameWindowScreen extends JFrame implements ActionListener, Observer
 
 	}
 
+
 	/**
 	 * save existing game
 	 * 
@@ -1536,10 +1559,16 @@ public class GameWindowScreen extends JFrame implements ActionListener, Observer
 		FileOutputStream fs = new FileOutputStream("./Saved Games/" + sSaveFileName + ".bin");
 		ObjectOutputStream os = new ObjectOutputStream(fs);
 
+		try {
 		os.writeObject(gameModel);
+		}
+		catch(NotSerializableException nse) {
+			System.out.println("Inside Catch");
+		}
+	
 		os.flush();
 		fs.close();
-
+		}
 	}
 
-}
+

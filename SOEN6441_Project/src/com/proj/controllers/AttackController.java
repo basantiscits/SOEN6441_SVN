@@ -45,7 +45,7 @@ public class AttackController implements ActionListener, Serializable{
 	private Country sourCountry, destCountry;
 	public boolean countryWon;
 	private GameModelCreation gameModel;
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 45443434343L;
 	/** 
 	 * attackView class constructor
 	 * @param attackView attack view object
@@ -145,7 +145,7 @@ public class AttackController implements ActionListener, Serializable{
 						battleLost();
 					}
 				}
-				else{
+				else {
 					battleLost();
 					attackerDiceValues.remove(Collections.max(attackerDiceValues));
 					defenderDiceValues.remove(Collections.max(defenderDiceValues));
@@ -199,7 +199,7 @@ public class AttackController implements ActionListener, Serializable{
 					}
 				}
 			}
-			else{
+			else {
 				rollDice(defenderDiceValues);
 				storeDiceValues();
 				if(Collections.max(attackerDiceValues) > Collections.max(defenderDiceValues)) {
@@ -346,10 +346,10 @@ public class AttackController implements ActionListener, Serializable{
 					}
 				}
 				if(players!=null) {
-					gameModel.setPlayer(players); ///??
+					gameModel.setPlayer(players);
 				}
 				else {
-					System.out.println("Null si");
+					System.out.println("Null");
 				}
 				if(val2<val1) {
 					gameModel.setTurn(gameModel.getTurn()-1);

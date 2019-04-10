@@ -27,7 +27,8 @@ public class TournamentView  extends JFrame implements ActionListener {
 	private JComboBox<String> comboBoxBehaviourplayer2;
 	private JComboBox<String> comboBoxBehaviourplayer3;
 	private JComboBox<String> comboBoxBehaviourplayer4;
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 45443434343L;
+
 	
 	private JComboBox<String> comboBoxSelectNoOfGames;
 	private JComboBox<String> comboBoxSelectNoOfTurns;
