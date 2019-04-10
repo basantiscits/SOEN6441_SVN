@@ -1447,8 +1447,7 @@ public class GameWindowScreen extends JFrame implements ActionListener, Observer
 		Player[] players = gameModel.getPlayer();
 		for (int i = 0; i < players.length; i++) {
 			progressBar = new JProgressBar();
-			int value = (int) (((double) players[i].getCountriesOwned().size()
-					/ gameModel.getMapDetails().listOfCountryNames().size()) * 100);
+			int value = (int) (((double) players[i].getCountriesOwned().size()/gameModel.getMapDetails().listOfCountryNames().size()) * 100);
 
 			progressBar.setValue(value);
 

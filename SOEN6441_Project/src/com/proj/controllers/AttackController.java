@@ -145,7 +145,7 @@ public class AttackController implements ActionListener, Serializable{
 						battleLost();
 					}
 				}
-				else{
+				else {
 					battleLost();
 					attackerDiceValues.remove(Collections.max(attackerDiceValues));
 					defenderDiceValues.remove(Collections.max(defenderDiceValues));
@@ -199,7 +199,7 @@ public class AttackController implements ActionListener, Serializable{
 					}
 				}
 			}
-			else{
+			else {
 				rollDice(defenderDiceValues);
 				storeDiceValues();
 				if(Collections.max(attackerDiceValues) > Collections.max(defenderDiceValues)) {
@@ -346,10 +346,10 @@ public class AttackController implements ActionListener, Serializable{
 					}
 				}
 				if(players!=null) {
-					gameModel.setPlayer(players); ///??
+					gameModel.setPlayer(players);
 				}
 				else {
-					System.out.println("Null si");
+					System.out.println("Null");
 				}
 				if(val2<val1) {
 					gameModel.setTurn(gameModel.getTurn()-1);
