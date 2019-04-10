@@ -284,7 +284,7 @@ public class AttackController implements ActionListener, Serializable{
 	 * Battle won so removes armies from defending country
 	 * 
 	 */
-	public void battleWon(){
+	public void battleWon() {
 		System.out.println("BattleWon");
 		countryDefending.removeNoOfArmiesCountry();
 		noOfDefendingArmies=countryDefending.getNoOfArmiesPresent();
@@ -449,7 +449,7 @@ public class AttackController implements ActionListener, Serializable{
 
 					String destinationSelected = (String) attackView.getDestinationCountry().getSelectedItem();
 					destCountry = attackView.getGameModel().getMapDetails().searchCountry(destinationSelected);
-					System.out.println("AGGGGG :"+destCountry.getCountryName()+" String: "+destinationSelected);
+					System.out.println(destCountry.getCountryName()+" String: "+destinationSelected);
 					attackView.getArmiesInDestination().setText(String.valueOf(destCountry.getNoOfArmiesPresent()));
 					attackView.selectDices();
 					attackView.selectDefenderDice();
@@ -512,16 +512,14 @@ public class AttackController implements ActionListener, Serializable{
 						}
 					}
 					if(over != 1) {
-						JOptionPane.showMessageDialog(null,"All Human Lost!!! \n Game Over");
-						attackView.dispose();
-						attackView.getGameModel().getGameScreen().dispose();
-						System.exit(0);
+						System.out.println("All Humans Lost!!!");
 					}
 					if(attackView.getGameModel().getCurrPlayer().getCountriesOwned().size()==attackView.getGameModel().getMapDetails().listOfCountryNames().size()) {
+						attackView.getGameModel().setGameState(10);
 						JOptionPane.showMessageDialog(null, attackView.getGameModel().getCurrPlayer().getPlayerName()+" has won the game\n CONGRATULATIONS");
 						attackView.dispose();
 						attackView.getGameModel().getGameScreen().dispose();
-						return;
+						System.exit(0);
 					}
 
 					if(attackView.getGameModel().getPlayer()[1].getPlayerName().equals("Neutral")) {
@@ -584,24 +582,27 @@ public class AttackController implements ActionListener, Serializable{
 					attackView.getNoOfDiceDefender().removeAllItems();
 					transferArmy(attackerDiceCount);	
 					attackView.addCountryToBox(attackView.getSourceCountry());
-					System.out.println("chl pya");
+	
 					int over = 0;
 					for(Player p : attackView.getGameModel().getPlayer()) {
 						if(p.getPlayerType()==PlayerType.Human) {
 							over = 1;
+							
 						}
 					}
 					if(over != 1) {
-						JOptionPane.showMessageDialog(null,"All Human Lost!!! \n Game Over");
+						System.out.println("All Humans Lost!!!");
+						/*JOptionPane.showMessageDialog(null,"All Human Lost!!! \n Game Over");
 						attackView.dispose();
 						attackView.getGameModel().getGameScreen().dispose();
-						System.exit(0);
+						System.exit(0);*/
 					}
 					if(attackView.getGameModel().getCurrPlayer().getCountriesOwned().size()==attackView.getGameModel().getMapDetails().listOfCountryNames().size()) {
+						attackView.getGameModel().setGameState(10);
 						JOptionPane.showMessageDialog(null, attackView.getGameModel().getCurrPlayer().getPlayerName()+" has won the game\n CONGRATULATIONS");
 						attackView.dispose();
 						attackView.getGameModel().getGameScreen().dispose();
-						return;
+						System.exit(0);
 					}
 					if(attackView.getGameModel().getPlayer()[1].getPlayerName().equals("Neutral")) {
 						JOptionPane.showMessageDialog(null, attackView.getGameModel().getPlayer()[0].getPlayerName()+" has won the game\n CONGRATULATIONS");

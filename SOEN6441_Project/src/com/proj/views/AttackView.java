@@ -26,7 +26,9 @@ import com.proj.utilites.Constants;
  * @since 12 Mar 2019
  * @version 1.1
  */
-public class AttackView extends JFrame implements ActionListener,Serializable {
+
+public class AttackView extends JFrame implements ActionListener, Serializable {
+
 	private JLabel noOfArmies;
 	private JLabel playerDiceStrLbl;
 	private JLabel defendersDiceStrLbl;

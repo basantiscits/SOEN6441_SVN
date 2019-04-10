@@ -29,6 +29,7 @@ public class UploadExistingGameController implements ActionListener, Serializabl
 	public UploadExistingGameController(UploadExistingGame uploadExistingGame) {
 		this.uploadExistingGame = uploadExistingGame;
 	}
+	
 	public UploadExistingGameController(String sPathFileName) {
 		this.sPathFileName = sPathFileName;
 	}

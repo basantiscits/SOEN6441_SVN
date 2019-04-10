@@ -24,6 +24,7 @@ import com.proj.utilites.Constants;
  * @version 1.0
  */
 public class FortificationView extends JFrame implements ActionListener, Serializable {
+
 	private JLabel source;
 	private JLabel destination;
 	private JLabel noOfArmies;

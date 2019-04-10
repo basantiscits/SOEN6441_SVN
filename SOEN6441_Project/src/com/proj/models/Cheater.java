@@ -142,15 +142,10 @@ public class Cheater implements BehaviorStrategies, Serializable {
 		attacker.getCardsOwned().add(Card.getNewCard());   
 		attacker.setNoOfCardsOwned(attacker.getNoOfCardsOwned()+1);
 		
+		
 		if(gameModel.getGameScreen()!=null) {
-			int over = 0;
-			for(Player p : gameModel.getPlayer()) {
-				if(p.getPlayerType()==PlayerType.Human) {
-					over = 1;
-				}
-			}
-			if(over != 1) {
-				JOptionPane.showMessageDialog(null,"All Human Lost!!! \n Game Over");
+			if(gameModel.getPlayer().length==1){
+				gameModel.setGameState(10);
 				gameModel.getGameScreen().dispose();
 				System.exit(0);
 			}
@@ -162,8 +157,7 @@ public class Cheater implements BehaviorStrategies, Serializable {
 			Card initialCard=attacker.getCardsOwned().get(0);
 			int count=0;
 			List<Card> cards=new ArrayList<Card>();
-			for(Card card: attacker.getCardsOwned())
-			{
+			for(Card card: attacker.getCardsOwned()) {
 				if(initialCard==card){
 					cards.add(card);
 					count++;

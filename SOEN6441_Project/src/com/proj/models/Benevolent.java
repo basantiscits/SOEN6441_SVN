@@ -80,10 +80,9 @@ public class Benevolent implements BehaviorStrategies, Serializable {
 		Player attacker=gameModel.getCurrPlayer();
 		if(gameModel.getGameScreen()!=null) {
 			if(gameModel.getPlayer().length==1){
-				System.out.println("Game Won by "+attacker.getPlayerName()+" "+attacker.getStrategy().getClass());
+				gameModel.setGameState(10);
 				gameModel.getGameScreen().dispose();
-				JOptionPane.showMessageDialog(null, attacker.getPlayerName()+" won the game!!! CONGRATULATION!!!");
-				return;
+				System.exit(0);
 			}
 		}
 		
@@ -135,7 +134,7 @@ public class Benevolent implements BehaviorStrategies, Serializable {
 	 */
 	@Override
 	public void fortificationPhase(GameModelCreation gameModel) {
-		System.out.println("armies1 in fortify: "+gameModel.getCurrPlayer().getNoOfArmiesOwned());
+		System.out.println("Armies in fortify: "+gameModel.getCurrPlayer().getNoOfArmiesOwned());
 		Country minCountry = minArmiesInCountry(gameModel.getCurrPlayer());
 		Country maxCountry=null;
 		int maxCountryCount=0;

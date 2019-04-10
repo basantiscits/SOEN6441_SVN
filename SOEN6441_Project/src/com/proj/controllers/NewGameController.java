@@ -230,18 +230,12 @@ public class NewGameController implements ActionListener, Serializable {
 							comboSelectedPlayers[5] = (String) playNewGame.getComboBoxSelectPlayer6().getSelectedItem();
 							System.out.println("Andar a gya: "+(String) playNewGame.getComboBoxSelectPlayer6().getSelectedItem());
 						}
-						List<String> list = Arrays.asList(comboSelectedPlayers);
-						if(list.contains("Human")) {
-							System.out.println("Player Conatains Human Behaviour");
-							player = initializingPlayerModels(Integer.parseInt(noOfPlayers), sCarryMapForward, comboSelectedPlayers);
-							this.gameModel = new GameModelCreation(sCarryMapForward, player);
-							providingGameModelToPlayer();
-							playNewGame.GameModelWindowMade(sCarryMapForward, player, gameModel);
-						}
-						else {
-							JOptionPane.showMessageDialog(null, "Please select one player as human");
-							System.out.println("Player does not Conatains Human Behaviour");
-						}
+						
+						player = initializingPlayerModels(Integer.parseInt(noOfPlayers), sCarryMapForward, comboSelectedPlayers);
+						this.gameModel = new GameModelCreation(sCarryMapForward, player);
+						providingGameModelToPlayer();
+						playNewGame.GameModelWindowMade(sCarryMapForward, player, gameModel);
+
 					}
 				}
 			} else {

@@ -13,5 +13,5 @@ import com.proj.views.*;
  * Main test suite of all test classes
  */
 @RunWith(Suite.class)
-@SuiteClasses({ TournamentControllerTest.class, RandomPlayerTest.class, CheaterTest.class, BenevolentTest.class,CardsTest.class, AggressiveTest.class,MapTest.class, MapToolsTest.class, NewGameControllerTest.class, GameControllerTest.class, AttackControllerTest.class, FortificationControllerTest.class, UploadExistingGameControllerTest.class})
+@SuiteClasses({ TournamentControllerTest.class, MapTest.class, MapToolsTest.class, NewGameControllerTest.class, GameControllerTest.class, AttackControllerTest.class, FortificationControllerTest.class, UploadExistingGameControllerTest.class})
 public class AppTestSuite {}

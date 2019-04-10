@@ -315,16 +315,10 @@ public class TournamentController  implements ActionListener, Serializable {
 	/**
 	 * initiate tournament
 	 */
-	public void intitiateTournament() {
-		System.out.println("*********************OFREISH*******************************");		
+	public void intitiateTournament() {		
 		String strategies[]=addPlayerBehaviourName.toArray(new String[0]);
-		System.out.println("Strategies Names: ");
 		for(String s : strategies) {
 			System.out.println(s);
-		}
-		System.out.println("Map Names: ");
-		for(Map m : maps) {
-			System.out.println(m.getName());
 		}
 		System.out.println("No of players: "+noOfPlayer);
 		System.out.println("No of Games: "+noOfGames);
@@ -337,18 +331,12 @@ public class TournamentController  implements ActionListener, Serializable {
 			duplicateMap.add(m);
 		}
 		for(Map m: maps){
+			System.out.println("Map name: "+m.getName()+" started");
 			for (int i=0;i<Integer.parseInt(noOfGames);i++){
+				System.out.println("Game "+(i+1)+" started for map "+m.getName());
 				players=new Player[Integer.parseInt(noOfPlayer)];
 				newGameController=new NewGameController();
-				players=newGameController.initializingPlayerModels(Integer.parseInt(noOfPlayer), m , strategies );
-				System.out.println("*********************************Player Details****************************************************");
-				for(Player p : players) {
-					System.out.print("Player: "+p.getPlayerName()+" , "+p.getPlayerType()+" , "+p.getNoOfArmiesOwned()+" , ");
-					for(Country c : p.getCountriesOwned()) {
-						System.out.print(c.getCountryName()+"("+c.getNoOfArmiesPresent()+"),");
-					}
-					System.out.println();
-				}
+				players=newGameController.initializingPlayerModels(Integer.parseInt(noOfPlayer), m, strategies);
 				GameModelCreation gameModelCreation =new GameModelCreation(m,players);
 				providingGameModelToPlayer(players, gameModelCreation);
 				gameModelCreation.incrementTurn();
@@ -358,35 +346,15 @@ public class TournamentController  implements ActionListener, Serializable {
 						P.initialArmyAllocation(gameModelCreation);
 					}
 				}
-				System.out.println("*******************************************************************************************************");
-				for(Player p : players) {
-					System.out.print("Player: "+p.getPlayerName()+" , "+p.getPlayerType()+" , "+p.getNoOfArmiesOwned()+" , ");
-					for(Country c : p.getCountriesOwned()) {
-						System.out.print(c.getCountryName()+"["+c.getNoOfArmiesPresent()+"]");
-					}
-					System.out.println();
-				}
+				
 				int turns = Integer.parseInt(noOfTurns);
 				while(gameModelCreation.getPlayer().length>1 && turns*gameModelCreation.getPlayer().length>0 ) {
 					gameModelCreation.getCurrPlayer().intializeReinforcementArmies(gameModelCreation);
-					System.out.println("Main Turn : "+turns);
 					turns--;
 					if(turns==0) {
 						break;
 					}
 				}
-
-				
-				System.out.println("*******************************************************************************************************");
-				for(Player p : gameModelCreation.getPlayer()) {
-
-					System.out.print("Player: "+p.getPlayerName()+" , "+p.getPlayerType()+" , "+p.getNoOfArmiesOwned()+" , "+p.getCountriesOwned().size());
-					for(Country c : p.getCountriesOwned()) {
-						System.out.print(c.getCountryName()+"["+c.getNoOfArmiesPresent()+"]");
-					}
-					System.out.println();
-				}
-				
 
 				if(gameModelCreation.getPlayer().length == 1) {
 					result.add("For Map: "+m.getName()+",Game no.: "+(i+1)+" is won by "+gameModelCreation.getPlayer()[0].getPlayerType().toString());
@@ -405,13 +373,32 @@ public class TournamentController  implements ActionListener, Serializable {
 						country.setOwnedBy(null);
 					}
 				}
-				
-				System.out.println("******************************************NEXT GAME******************************************************************");
-				
 			}
-			System.out.println("******************************************NEXT MAP******************************************************************");
 		}
 		System.out.println("Results: ");
+		System.out.print("M: ");
+		for(int i = 0; i<maps.size(); i++) {
+			if(i == maps.size()-1) {
+				System.out.print(maps.get(i).getName());
+			}
+			else {
+				System.out.print(maps.get(i).getName()+", ");
+			}
+		}
+		System.out.println();
+		System.out.print("P: ");
+		for(int i = 0; i<addPlayerBehaviourName.size(); i++) {
+			if(i == addPlayerBehaviourName.size()-1) {
+				System.out.print(addPlayerBehaviourName.get(i));
+			}
+			else {
+				System.out.print(addPlayerBehaviourName.get(i)+", ");
+			}
+		}
+		System.out.println();
+		System.out.println("G: "+noOfGames);
+		System.out.println("D: "+noOfTurns);
+		
 		for(String s : result) {
 			System.out.println(s);
 		}
@@ -426,7 +413,7 @@ public class TournamentController  implements ActionListener, Serializable {
 	 * check parameters
 	 * @return false if no parameters are selected and true otherwise
 	 */
-	public boolean checkParameters(){
+	public boolean checkParameters() {
 		if (noOfMaps.equals("  --Select--  ")) {
 			JOptionPane.showMessageDialog(null, "Please select no. of Map to play game");
 			return false;
@@ -479,20 +466,16 @@ public class TournamentController  implements ActionListener, Serializable {
 	private void fncCheckPlayerBehaviour() {
 		boolean isReturnBehaviour;
 		addPlayerBehaviourName.clear();
-		if(sPlayerBehaviour1!=("  --Select--  "))
-		{
+		if(sPlayerBehaviour1!=("  --Select--  ")) {
 			addPlayerBehaviourName.add(sPlayerBehaviour1);
 		}
-		if(sPlayerBehaviour2!=("  --Select--  "))
-		{
+		if(sPlayerBehaviour2!=("  --Select--  ")) {
 			addPlayerBehaviourName.add(sPlayerBehaviour2);
 		}
-		if(sPlayerBehaviour3!=("  --Select--  "))
-		{
+		if(sPlayerBehaviour3!=("  --Select--  ")) {
 			addPlayerBehaviourName.add(sPlayerBehaviour3);
 		}
-		if(sPlayerBehaviour4!=("  --Select--  "))
-		{
+		if(sPlayerBehaviour4!=("  --Select--  ")) {
 			addPlayerBehaviourName.add(sPlayerBehaviour4);
 		}
 		
@@ -506,12 +489,10 @@ public class TournamentController  implements ActionListener, Serializable {
 	private boolean fncCheckFileUploaded(String noOfMapsSelected) {
 		boolean isReturn=false;
 		System.out.println("No of File added to browse button : " +addFileName.size());
-		if(noOfMapsSelected.equals(String.valueOf(addFileName.size())))
-		{
+		if(noOfMapsSelected.equals(String.valueOf(addFileName.size()))) {
 			isReturn=true;
 		}
-		else
-		{
+		else {
 			isReturn=false;
 		}
 		return isReturn;

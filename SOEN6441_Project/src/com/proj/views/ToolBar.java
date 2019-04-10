@@ -16,7 +16,8 @@ import com.proj.models.Country;
  * @since 5 Feb 2019
  * @version 1.0
  */
-public class ToolBar extends JPanel implements Serializable{
+public class ToolBar extends JPanel implements Serializable {
+
 	private JButton addContinent;
 	private JButton removeContinent;
 	private JButton addCountries;

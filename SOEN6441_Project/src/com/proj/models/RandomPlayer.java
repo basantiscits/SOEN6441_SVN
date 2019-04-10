@@ -186,12 +186,12 @@ public class RandomPlayer implements BehaviorStrategies, Serializable {
 		}
 		if(gameModel.getGameScreen()!=null) {
 			if(gameModel.getPlayer().length==1){
-				System.out.println("Game Won by "+attacker.getPlayerName()+" "+attacker.getStrategy().getClass());
+				gameModel.setGameState(10);
 				gameModel.getGameScreen().dispose();
-				JOptionPane.showMessageDialog(null, attacker.getPlayerName()+" won the game!!! CONGRATULATION!!!");
-				return;
+				System.exit(0);
 			}
 		}
+		
 		if(attacker.getNoOfCardsOwned()>4){
 			attacker.setCardsForArmies(attacker.getCardsForArmies() + 5);
 			attacker.setNoOfArmiesOwned(attacker.getNoOfArmiesOwned() + gameModel.getCurrPlayer().getCardsForArmies());

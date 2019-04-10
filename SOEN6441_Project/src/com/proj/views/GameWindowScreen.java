@@ -61,6 +61,7 @@ import com.proj.utilites.Constants;
  * @version 1.0
  */
 public class GameWindowScreen extends JFrame implements ActionListener, Observer, WindowListener, Serializable {
+
 	private int currentPlayer = 0;
 	public Player[] player;
 	private JLabel countriesLabel;
@@ -360,7 +361,7 @@ public class GameWindowScreen extends JFrame implements ActionListener, Observer
 	 * Displays number of armies available
 	 */
 	public void displayPlayer() {
-
+/*
 		int over = 0;
 		for (Player p : gameModel.getPlayer()) {
 			if (p.getPlayerType() == PlayerType.Human) {
@@ -368,22 +369,37 @@ public class GameWindowScreen extends JFrame implements ActionListener, Observer
 			}
 		}
 		if (over != 1) {
+			System.out.println("ALL Human Lost");
 			JOptionPane.showMessageDialog(null, "All Human Lost!!! \n Game Over");
 			dispose();
 			System.exit(0);
-		}
+		}*/
 
 		if (gameModel.getGameState() == 10) {
-			JOptionPane.showMessageDialog(null,
-					gameModel.getCurrPlayer().getPlayerName() + " has Won the Game !! Congratulations !!!");
+			JOptionPane.showMessageDialog(null,gameModel.getCurrPlayer().getPlayerName() + " has Won the Game !! Congratulations !!!");
 			dispose();
 		}
-
-
+		
 		else if ((gameModel.getGameState() == 0) && (gameModel.getCurrPlayer().getPlayerType() != PlayerType.Human)) {
-			if (gameModel.getCurrPlayer().getNoOfArmiesOwned() > 0) {
-
+			int flag = 0;
+			for(Player p : gameModel.getPlayer() ) {
+				if(p.getNoOfArmiesOwned()>0) {
+					flag = 1;
+				}
+			}
+			if (flag==1) {
 				gameModel.getCurrPlayer().initialArmyAllocation(gameModel);
+			}
+			
+			int val = 0;
+			for(Player p : gameModel.getPlayer() ) {
+				if(p.getNoOfArmiesOwned()>0) {
+					val = 1;
+				}
+			}
+			
+			if(val != 1) {
+				gameModel.setGameState(1);
 			}
 
 		}

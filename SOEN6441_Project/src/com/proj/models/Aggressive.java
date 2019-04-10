@@ -126,6 +126,14 @@ public class Aggressive implements BehaviorStrategies, Serializable {
 			}
 		}		
 
+		if(gameModel.getGameScreen()!=null) {
+			if(gameModel.getPlayer().length==1){
+				gameModel.setGameState(10);
+				gameModel.getGameScreen().dispose();
+				System.exit(0);
+			}
+		}
+		
 		if(attacker.getNoOfCardsOwned()>4){
 			attacker.setCardsForArmies(attacker.getCardsForArmies() + 5);
 			attacker.setNoOfArmiesOwned(attacker.getNoOfArmiesOwned() + gameModel.getCurrPlayer().getCardsForArmies());

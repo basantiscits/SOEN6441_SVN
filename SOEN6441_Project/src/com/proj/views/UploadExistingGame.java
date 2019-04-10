@@ -23,8 +23,8 @@ import com.proj.utilites.Constants;
  * @since 28 Mar 2019
  * @version 1.2
  */
-public class UploadExistingGame extends JFrame implements ActionListener, Serializable {
-
+public class UploadExistingGame extends JFrame implements ActionListener , Serializable {
+	
 	private JTextField textFieldMap;
 	private JButton buttonPlayGame;
 	private JButton buttonbrowse;
@@ -35,8 +35,7 @@ public class UploadExistingGame extends JFrame implements ActionListener, Serial
 	/**
 	 * UploadExistingGame constructor
 	 */
-	public UploadExistingGame()
-	{
+	public UploadExistingGame() {
 
 		uploadExistingGameController = new UploadExistingGameController(this);
 		JLabel labelHeading = new JLabel();
@@ -89,9 +88,7 @@ public class UploadExistingGame extends JFrame implements ActionListener, Serial
 	 * @param e Object of ActionEvent class
 	 */
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		
-	}
+	public void actionPerformed(ActionEvent e) {}
 	
 	/**
 	 * getter for upload existing game controller
