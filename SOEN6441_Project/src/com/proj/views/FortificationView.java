@@ -270,10 +270,7 @@ public class FortificationView extends JFrame implements ActionListener {
 	
 	/**
 	 * Fortification View constructor
-	 * @param map Object of Map class
-	 * @param player Array Object of Player class
-	 * @param currentPlayer current player
-	 * @param gameWindow Object of GameWindowScreen class
+	 * @param gameModel Object of GameModelCreation class
 	 */
 	public FortificationView(GameModelCreation gameModel) {
 		this.map = gameModel.getMapDetails();

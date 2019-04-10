@@ -124,8 +124,6 @@ public class GameWindowScreen extends JFrame implements ActionListener, Observer
 	/**
 	 * Game Window Screen constructor
 	 * 
-	 * @param gameMap   Object of Map class
-	 * @param player    Array object of Player class
 	 * @param gameModel Object of GameModelCreation class
 	 */
 	public GameWindowScreen(GameModelCreation gameModel) {
@@ -1549,8 +1547,8 @@ public class GameWindowScreen extends JFrame implements ActionListener, Observer
 	 * 
 	 * @param gameModel2    Object of GameModelCreation class
 	 * @param sSaveFileName name of file to be saved
-	 * @throws FileNotFoundException
-	 * @throws IOException
+	 * @throws FileNotFoundException file not found
+	 * @throws IOException input output exception
 	 */
 	public void saveExistingGame(GameModelCreation gameModel2, String sSaveFileName)
 			throws FileNotFoundException, IOException {

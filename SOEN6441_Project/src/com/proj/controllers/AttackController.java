@@ -236,9 +236,7 @@ public class AttackController implements ActionListener, Serializable{
 	 * All Out Attack
 	 * @param attackingCountryName name of attacking country
 	 * @param defendingCountryName name of defending country
-	 * @param noOfDefendingDicesSelected number of defending armies selected
-	 * @param noOfAttackerDicesSelected number of attacker dices selected
-	 * @return true if all out attack was successful else false
+	 * @return true if battle won by attacker else false
 	 */
 	public boolean allOutAttack(String attackingCountryName,String defendingCountryName) {
 		for(Player p:players) {

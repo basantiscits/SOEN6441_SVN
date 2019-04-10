@@ -35,8 +35,7 @@ public class GameController implements ActionListener, Serializable {
 	 * constructor for Game Controller
 	 * 
 	 * @param gameWindowScreen the game window screen
-	 * @param player Array object of Player class
-	 * @param gameMap the map of continents and countries
+	 * @param gameModel Object of GameModelCreation class
 	 */
 	public GameController(GameWindowScreen gameWindowScreen, GameModelCreation gameModel) {
 		this.gameWindowScreen = gameWindowScreen;

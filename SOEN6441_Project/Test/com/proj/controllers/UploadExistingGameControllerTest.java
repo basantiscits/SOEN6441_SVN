@@ -116,7 +116,7 @@ public class UploadExistingGameControllerTest {
 	
 	/**
 	 * This method tests if file is being saved properly
-	 * @throws ClassNotFoundException
+	 * @throws ClassNotFoundException class not found
 	 */
 	@Test
 	public void saveExistingGameTest() throws ClassNotFoundException{
@@ -137,8 +137,8 @@ public class UploadExistingGameControllerTest {
 	
 	/**
 	 * This method tests if game is being loaded properly
-	 * @throws ClassNotFoundException
-	 * @throws IOException
+	 * @throws ClassNotFoundException class not found
+	 * @throws IOException input output exception
 	 */
 	@Test
 	public void loadSavedGameTest() throws ClassNotFoundException, IOException{
