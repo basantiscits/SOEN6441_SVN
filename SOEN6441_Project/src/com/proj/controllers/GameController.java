@@ -27,7 +27,8 @@ public class GameController implements ActionListener, Serializable {
 	private GameWindowScreen gameWindowScreen;
 	private GameModelCreation gameModel;
 	private String sSaveFileName="";
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 45443434343L;
+
 
 
 	/**

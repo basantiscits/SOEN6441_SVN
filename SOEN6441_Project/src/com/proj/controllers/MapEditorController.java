@@ -27,7 +27,8 @@ public class MapEditorController implements ActionListener, Serializable {
 	private Continent continent;
 	private com.proj.views.MapEditor mapEditorView;
 	private Map gameMap;
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 45443434343L;
+
 
 	/**
 	 * constructor for map editor controller

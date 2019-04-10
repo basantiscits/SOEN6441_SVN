@@ -53,7 +53,8 @@ public class PlayNewGame extends JFrame implements ActionListener {
 	private JComboBox<String> comboBoxPlayer4;
 	private JComboBox<String> comboBoxPlayer5;
 	private JComboBox<String> comboBoxPlayer6;
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 45443434343L;
+
 	
 	
 
@@ -447,6 +448,8 @@ public class PlayNewGame extends JFrame implements ActionListener {
 		GameWindowScreen GameWindowScreen = new GameWindowScreen(gameModel);
 		GameWindowScreen.setVisible(true);
 	}
+	
+	
 	
 	public JLabel getPlayerLable1() {
 		return labelPlayer1;

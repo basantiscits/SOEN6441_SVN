@@ -17,7 +17,8 @@ import com.proj.controllers.AttackController;
 public class Benevolent implements BehaviorStrategies, Serializable {
 
 	
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 45443434343L;
+
 	
 	
 	

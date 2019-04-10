@@ -26,7 +26,8 @@ import com.proj.utilites.MapTools;
  * @version 1.0
  */
 public class MainMenuScreen extends JFrame {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 45443434343L;
+
 	private MapTools mapTool;
 	private JButton btnLoadExisitingMaps;
 	private JLabel RiskImage;

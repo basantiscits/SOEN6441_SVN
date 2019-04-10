@@ -20,7 +20,8 @@ public class UploadExistingGame extends JFrame implements ActionListener {
 	private JButton buttonPlayGame;
 	private JButton buttonbrowse;
 	private UploadExistingGameController uploadExistingGameController;
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 45443434343L;
+
 	
 	public UploadExistingGame()
 	{

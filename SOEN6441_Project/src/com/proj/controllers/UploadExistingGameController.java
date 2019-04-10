@@ -23,7 +23,8 @@ import com.proj.views.UploadExistingGame;
 public class UploadExistingGameController implements ActionListener, Serializable {
 	UploadExistingGame uploadExistingGame;
 	private String sPathFileName = "";
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 45443434343L;
+
 
 	public UploadExistingGameController(UploadExistingGame uploadExistingGame) {
 		this.uploadExistingGame = uploadExistingGame;
@@ -74,9 +75,13 @@ public class UploadExistingGameController implements ActionListener, Serializabl
 		GameModelCreation gameModel = (GameModelCreation)os.readObject();
 		Map map = gameModel.getMapDetails();
 		Player player[] = gameModel.getPlayer();
-		
 		PlayNewGame png = new PlayNewGame();
+	//	gameModel.getGameScreen().addObserverWhenLoading();
+	//	gameModel.getGameScreen().setVisible(true);
+		
+		System.out.println("Game Model State: " + gameModel.getGameState());
 		png.GameModelWindowMade(map, player, gameModel);	
+	
 		
 	}
 }

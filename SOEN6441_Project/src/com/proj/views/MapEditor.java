@@ -49,7 +49,8 @@ public class MapEditor extends JFrame {
 	private String countryColumn[];
 	private JTable tableMatrix;
 	private JScrollPane scrollPane;
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 45443434343L;
+
 	
 	/**
 	 * map editor constructor

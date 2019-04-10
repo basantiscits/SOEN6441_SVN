@@ -28,7 +28,8 @@ import com.proj.models.Map;
  */
 public class MapTools implements Serializable {
 	
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 45443434343L;
+
 	
 	/**
 	 * This map checks the .map extension of given map file

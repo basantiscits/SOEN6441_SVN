@@ -33,7 +33,8 @@ public class Player extends Observable implements Serializable{
 	private PlayerType playerType;
 	private GameModelCreation gameModel;
 	private GameWindowScreen gameScreen;
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 45443434343L;
+
 	
 	
 	

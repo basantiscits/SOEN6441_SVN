@@ -3,7 +3,8 @@ package com.proj.models;
 import java.io.Serializable;
 
 public class Human implements BehaviorStrategies, Serializable {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 45443434343L;
+
 
 	@Override
 	public void startUpPhase(GameModelCreation gameModel) {

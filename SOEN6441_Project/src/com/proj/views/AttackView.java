@@ -57,7 +57,8 @@ public class AttackView extends JFrame implements ActionListener {
 	private JLabel attackDice3;
 	private JLabel defendDice1;
 	private JLabel defendDice2;
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 45443434343L;
+
 	
 	/**
 	 * getter for attack dice

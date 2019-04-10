@@ -14,6 +14,7 @@ import java.awt.event.WindowListener;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.NotSerializableException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -105,7 +106,8 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 	
 	private JPanel progressBarPanel;
 	private JProgressBar progressBar;
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 45443434343L;
+
 	
 	
 	private JOptionPane exchangePane;
@@ -114,6 +116,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 	private JFrame viewCardFrame;
 	private JLabel noOfCardsLabel;
 	private JButton SaveButton; 
+	
 	/**
 	 * Game Window Screen constructor
 	 * @param gameMap Object of Map class
@@ -145,6 +148,19 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 				dispose();
 			}
 		});
+	}
+	
+	public void addObserverWhenLoading() {
+		
+		for (Player p : gameModel.getPlayer()) {
+			p.addObserver(this);
+			for(Country c :p.getCountriesOwned()) {
+				c.addObserver(this);
+			}
+		}
+		
+		gameController = new GameController(this, gameModel);
+		gameController.getGameModel().addObserver(this);
 	}
 
 	/**
@@ -352,6 +368,7 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		
 		else if ((gameModel.getGameState() == 0) && (gameModel.getCurrPlayer().getPlayerType()!=PlayerType.Human)) {
 			//System.out.println("Before if ");
+			System.out.println("startup phase ke andr aaya");
 			if ( gameModel.getCurrPlayer().getNoOfArmiesOwned() > 0) {
 				//System.out.println("Inside if ");
 				gameModel.getCurrPlayer().initialArmyAllocation(gameModel);
@@ -1448,9 +1465,27 @@ public class GameWindowScreen extends JFrame implements ActionListener,Observer,
 		System.out.println("Hi Basant  : " +sSaveFileName);
 		
 		FileOutputStream fs = new FileOutputStream("./Saved Games/"+sSaveFileName+".bin");
+	
+		gameController = new GameController(this, gameModel);
+	
+		gameController.getGameModel().deleteObserver(this);
+		
 		ObjectOutputStream os = new ObjectOutputStream(fs);
 		
+		
+		try {
+		
+		
+		
 		os.writeObject(gameModel);
+		}
+		catch(NotSerializableException nse) {
+			
+			System.out.println("Inside Catch");
+			
+			
+		}
+		
 		os.flush();
 		fs.close();
 		
