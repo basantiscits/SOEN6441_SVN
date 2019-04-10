@@ -1433,6 +1433,8 @@ public class GameWindowScreen extends JFrame implements ActionListener, Observer
 
 		noOfCardsLabel.setText("No of Cards Available: " + gameModel.getCurrPlayer().getNoOfCardsOwned());
 		progressBarPanel.removeAll();
+		progressBarPanel.revalidate();
+		progressBarPanel.repaint();
 		Color color1 = new Color(23, 54, 135);
 		Color color2 = new Color(32, 198, 42);
 		Color color3 = new Color(88, 43, 97);
