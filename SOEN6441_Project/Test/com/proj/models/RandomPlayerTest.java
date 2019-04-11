@@ -15,16 +15,8 @@ import com.proj.views.GameWindowScreen;
  */
 public class RandomPlayerTest {
 	
-	public Player defender;
-	public Player attacker;
-	public int noOfAttackingArmies;
-	public int noOfDefendingArmies;
-	public String diceValues;
-	boolean boolAttackAllout;
-	boolean boolAttack;
 	private Player[] player;
 	private Map gameMap;
-	private GameWindowScreen screen;
 	private Continent Asia,Europe,Africa;
 	private Country India,Pakistan,Nepal,Bangladesh,Spain,France,Italy,England,SouthAfrica,Nigeria;
 	private ArrayList<Continent> continentList;
@@ -36,15 +28,14 @@ public class RandomPlayerTest {
 	@Before
 	public void before() {
 		player = new Player[3];
-		player[0] = new Player("Player1",PlayerType.Aggressive);
+		player[0] = new Player("Player1",PlayerType.Random);
 		player[1] = new Player("Player2",PlayerType.Human);
 		player[2] = new Player("Player3",PlayerType.Human);
-		player[0].setStrategy(new Aggressive());
+		player[0].setStrategy(new RandomPlayer());
 		player[1].setStrategy(new Human());
 		player[2].setStrategy(new Human());
 		gameMap = new Map();
 		gameModel = new GameModelCreation(gameMap,player);
-		screen = new GameWindowScreen(gameModel);
 		Asia = new Continent();
 		Asia.setContinentName("Asia");
 		India = new Country("India",Asia);
@@ -103,7 +94,7 @@ public class RandomPlayerTest {
 		gameModel.setCurrPlayer(player[0]);
 	}
 	
-	/*
+	/**
 	 * start up phase test
 	 */
 	@Test
@@ -125,7 +116,7 @@ public class RandomPlayerTest {
 	public void reinforcementPhaseTest(){
 		gameModel.getCurrPlayer().addArmyInPlayer();
 		gameModel.getCurrPlayer().getStrategy().reinforcementPhase(gameModel);
-		assertEquals(gameModel.getCurrPlayer(),player[1]);
+		assertEquals(player[0],gameModel.getCurrPlayer());
 		assertEquals(0,player[0].getNoOfArmiesOwned());
 	}
 	
@@ -135,7 +126,7 @@ public class RandomPlayerTest {
 	@Test
 	public void attackPhaseTest(){
 		gameModel.getCurrPlayer().getStrategy().attackPhase(gameModel);
-		assertEquals(player[1],gameModel.getCurrPlayer());
+		assertEquals(player[0],gameModel.getCurrPlayer());
 	}
 	
 	/**
@@ -144,7 +135,7 @@ public class RandomPlayerTest {
 	@Test
 	public void fortificationPhaseTest(){
 		gameModel.getCurrPlayer().getStrategy().fortificationPhase(gameModel);
-		assertEquals(player[1],gameModel.getCurrPlayer());
+		assertEquals(player[0],gameModel.getCurrPlayer());
 	}
 	
 

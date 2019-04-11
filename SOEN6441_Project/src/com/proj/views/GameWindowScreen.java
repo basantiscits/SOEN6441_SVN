@@ -112,8 +112,6 @@ public class GameWindowScreen extends JFrame implements ActionListener, Observer
 
 	private static final long serialVersionUID = 45443434343L;
 
-	
-
 	private transient JOptionPane exchangePane;
 	private GameModelCreation gameModel;
 	private JButton exchangeButt;
@@ -193,9 +191,7 @@ public class GameWindowScreen extends JFrame implements ActionListener, Observer
 		Dimension countriesSize = countriesLabel.getPreferredSize();
 		countriesLabel.setFont(new Font("TimesRoman", Font.BOLD, 20));
 		countriesLabel.setBounds(240, 50, countriesSize.width + 500, countriesSize.height);
-		countryLabelViewPanel.setBounds(
-				contientLabelViewPanel.getBounds().x + (int) (contientLabelViewPanel.getBounds().getWidth()), 35,
-				frameSize.width - 300, 35);
+		countryLabelViewPanel.setBounds(contientLabelViewPanel.getBounds().x + (int) (contientLabelViewPanel.getBounds().getWidth()), 35, frameSize.width - 300, 35);
 		add(countryLabelViewPanel);
 		countryLabelViewPanel.setBackground(Color.lightGray);
 		countryLabelViewPanel.setLayout(new FlowLayout());
@@ -203,13 +199,10 @@ public class GameWindowScreen extends JFrame implements ActionListener, Observer
 		countryLabelViewPanel.setBorder(blackline);
 		countryLabelViewPanel.add(countriesLabel);
 		scrollPane = new JScrollPane(tableMatrix);
-		scrollPane.setBounds(treeScrollPane.getBounds().x + (int) (treeScrollPane.getBounds().getWidth()), 70,
-				frameSize.width - 300, frameSize.height - 800);
+		scrollPane.setBounds(treeScrollPane.getBounds().x + (int) (treeScrollPane.getBounds().getWidth()), 70, frameSize.width - 300, frameSize.height - 800);
 
 		startPhaseViewPanel = new JPanel();
-		startPhaseViewPanel.setBounds(10,
-				treeScrollPane.getBounds().y + (int) (treeScrollPane.getBounds().getHeight() + 10),
-				frameSize.width - 50, 35);
+		startPhaseViewPanel.setBounds(10, treeScrollPane.getBounds().y + (int) (treeScrollPane.getBounds().getHeight() + 10), frameSize.width - 50, 35); 
 		add(startPhaseViewPanel);
 		startPhaseViewPanel.setBackground(Color.lightGray);
 		startPhaseViewPanel.setLayout(new FlowLayout());
@@ -220,15 +213,10 @@ public class GameWindowScreen extends JFrame implements ActionListener, Observer
 		startPhaseViewPanel.add(startPhaseDefinedLabel);
 
 		startUpScrollPane = new JScrollPane(startUpTree);
-		startUpScrollPane.setBounds(10,
-				startPhaseViewPanel.getBounds().y + (int) (startPhaseViewPanel.getBounds().getHeight()) + 5, 400,
-				frameSize.height - 900);
+		startUpScrollPane.setBounds(10, startPhaseViewPanel.getBounds().y + (int) (startPhaseViewPanel.getBounds().getHeight()) + 5, 400, frameSize.height - 900);
 
 		playerDominationPanel = new JPanel();
-		playerDominationPanel.setBounds(
-				startUpScrollPane.getBounds().x + (int) (startUpScrollPane.getBounds().getWidth()),
-				startPhaseViewPanel.getBounds().y + (int) (startPhaseViewPanel.getBounds().getHeight()) + 5,
-				frameSize.width - 450, 25);
+		playerDominationPanel.setBounds(startUpScrollPane.getBounds().x + (int) (startUpScrollPane.getBounds().getWidth()), startPhaseViewPanel.getBounds().y + (int) (startPhaseViewPanel.getBounds().getHeight()) + 5, frameSize.width - 450, 25);
 		add(playerDominationPanel);
 		playerDominationPanel.setBackground(Color.lightGray);
 		playerDominationPanel.setLayout(new FlowLayout());
@@ -239,12 +227,9 @@ public class GameWindowScreen extends JFrame implements ActionListener, Observer
 		playerDominationPanel.add(playerDominationLabel);
 
 		tableHeader = new JPanel();
-		tableHeader.setBounds(startUpScrollPane.getBounds().x + (int) (startUpScrollPane.getBounds().getWidth()),
-				playerDominationPanel.getBounds().y + (int) (playerDominationPanel.getBounds().getHeight()) + 5, 320,
-				25);
+		tableHeader.setBounds(startUpScrollPane.getBounds().x + (int) (startUpScrollPane.getBounds().getWidth()), playerDominationPanel.getBounds().y + (int) (playerDominationPanel.getBounds().getHeight()) + 5, 320, 25);
 
-		tableHeaderLabel = new JLabel("Map contains " + gameModel.getMapDetails().listOfContinentNames().size()
-				+ " Continents and  " + gameModel.getMapDetails().listOfCountryNames().size() + " Countries");
+		tableHeaderLabel = new JLabel("Map contains " + gameModel.getMapDetails().listOfContinentNames().size() + " Continents and  " + gameModel.getMapDetails().listOfCountryNames().size() + " Countries");
 		tableHeaderLabel.setFont(new Font("dialog", 1, 15));
 		tableHeader.add(tableHeaderLabel);
 
@@ -254,23 +239,17 @@ public class GameWindowScreen extends JFrame implements ActionListener, Observer
 		tableHeader.add(tableHeaderLabel);
 
 		strengthPane = new JScrollPane(playerStrength);
-		strengthPane.setBounds(startUpScrollPane.getBounds().x + (int) (startUpScrollPane.getBounds().getWidth()),
-				tableHeader.getBounds().y + (int) (tableHeader.getBounds().getHeight()), (int) (500),
-				frameSize.height - 955);
+		strengthPane.setBounds(startUpScrollPane.getBounds().x + (int) (startUpScrollPane.getBounds().getWidth()), tableHeader.getBounds().y + (int) (tableHeader.getBounds().getHeight()), (int) (500), frameSize.height - 955);
 
 		progressBarPanel = new JPanel();
-		progressBarPanel.setBounds((strengthPane.getBounds().x + (int) (strengthPane.getBounds().getWidth())),
-				tableHeader.getBounds().y + (int) (tableHeader.getBounds().getHeight()), (int) (200),
-				frameSize.height - 500);
+		progressBarPanel.setBounds((strengthPane.getBounds().x + (int) (strengthPane.getBounds().getWidth())), tableHeader.getBounds().y + (int) (tableHeader.getBounds().getHeight()), (int) (200), frameSize.height - 500);
 
 		currentPlayerName = new JLabel(gameModel.getCurrPlayer().getPlayerName());
-		currentPlayerName.setBounds(50, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 20,
-				100, 30);
+		currentPlayerName.setBounds(50, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 20, 100, 30);
 		add(currentPlayerName);
 
 		countriesComboBox = new JComboBox();
-		countriesComboBox.setBounds(150, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 20,
-				150, 30);
+		countriesComboBox.setBounds(150, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 20, 150, 30);
 		add(countriesComboBox);
 		addCountriesToBox(gameModel.getCurrPlayer());
 
@@ -294,8 +273,7 @@ public class GameWindowScreen extends JFrame implements ActionListener, Observer
 		exchangeButton = new JButton("Exchange");
 		exchangeButton.setBounds(200, 150, 100, 50);
 		exchangeButt = new JButton("Cards");
-		exchangeButt.setBounds(400, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 80, 100,
-				30);
+		exchangeButt.setBounds(400, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 80, 100, 30);
 		exchangeButt.addActionListener(gameController);
 		add(exchangeButt);
 
@@ -307,24 +285,19 @@ public class GameWindowScreen extends JFrame implements ActionListener, Observer
 		exchangeButton.addActionListener(this);
 
 		armyAllocation = new JButton("Place Army");
-		armyAllocation.setBounds(400, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 20,
-				100, 30);
+		armyAllocation.setBounds(400, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 20, 100, 30);
 		armyAllocation.addActionListener(gameController);
 		add(armyAllocation);
 
-		armiesAvailable = new JLabel(
-				"Number of Armies Available:" + String.valueOf(gameModel.getCurrPlayer().getNoOfArmiesOwned()));
-		armiesAvailable.setBounds(600, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 20,
-				200, 30);
+		armiesAvailable = new JLabel("Number of Armies Available:" + String.valueOf(gameModel.getCurrPlayer().getNoOfArmiesOwned()));
+		armiesAvailable.setBounds(600, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 20, 200, 30);
 
 		noOfCardsLabel = new JLabel("No of Cards Available: " + gameModel.getCurrPlayer().getNoOfCardsOwned());
-		noOfCardsLabel.setBounds(600, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 80,
-				200, 30);
+		noOfCardsLabel.setBounds(600, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 80, 200, 30);
 		add(noOfCardsLabel);
 
 		SaveButton = new JButton("Save Button");
-		SaveButton.setBounds(150, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 80, 130,
-				30);
+		SaveButton.setBounds(150, strengthPane.getBounds().y + (int) (strengthPane.getBounds().getHeight()) + 80, 130, 30);
 		SaveButton.addActionListener(gameController);
 		add(SaveButton);
 
@@ -349,8 +322,7 @@ public class GameWindowScreen extends JFrame implements ActionListener, Observer
 	 * Reinforcement phase
 	 */
 	public void reinforce() {
-		if (gameModel.getCurrPlayer().getNoOfArmiesOwned() == 0
-				&& !gameModel.getCurrPlayer().getPlayerName().equals("Neutral")) {
+		if (gameModel.getCurrPlayer().getNoOfArmiesOwned() == 0 && !gameModel.getCurrPlayer().getPlayerName().equals("Neutral")) {
 			displayPlayer();
 			System.out.println("Aaya bhai me dekhya");
 			gameModel.getCurrPlayer().attackPhaseImplementation(gameModel, this);
@@ -361,19 +333,6 @@ public class GameWindowScreen extends JFrame implements ActionListener, Observer
 	 * Displays number of armies available
 	 */
 	public void displayPlayer() {
-/*
-		int over = 0;
-		for (Player p : gameModel.getPlayer()) {
-			if (p.getPlayerType() == PlayerType.Human) {
-				over = 1;
-			}
-		}
-		if (over != 1) {
-			System.out.println("ALL Human Lost");
-			JOptionPane.showMessageDialog(null, "All Human Lost!!! \n Game Over");
-			dispose();
-			System.exit(0);
-		}*/
 
 		if (gameModel.getGameState() == 10) {
 			JOptionPane.showMessageDialog(null,gameModel.getCurrPlayer().getPlayerName() + " has Won the Game !! Congratulations !!!");
@@ -404,16 +363,14 @@ public class GameWindowScreen extends JFrame implements ActionListener, Observer
 
 		}
 
-		else if ((gameModel.getGameState() == 1) && (gameModel.getCurrPlayer().getPlayerType() != PlayerType.Human)
-				&& !gameModel.getCurrPlayer().getPlayerName().equals("Neutral")) {
+		else if ((gameModel.getGameState() == 1) && (gameModel.getCurrPlayer().getPlayerType() != PlayerType.Human) && !gameModel.getCurrPlayer().getPlayerName().equals("Neutral")) {
 			gameModel.getCurrPlayer().intializeReinforcementArmies(gameModel);
 		}
 
 		if (gameModel.getCurrPlayer().getPlayerType() == PlayerType.Human) {
 			addPlayerName(gameModel.getCurrPlayer().getPlayerName());
 			addCountriesToBox(gameModel.getCurrPlayer());
-			armiesAvailable.setText(
-					"Number of Armies Available:" + String.valueOf(gameModel.getCurrPlayer().getNoOfArmiesOwned()));
+			armiesAvailable.setText("Number of Armies Available:" + String.valueOf(gameModel.getCurrPlayer().getNoOfArmiesOwned()));
 			noOfCardsLabel.setText("No of Cards Available: " + gameModel.getCurrPlayer().getNoOfCardsOwned());
 		}
 
@@ -1176,8 +1133,7 @@ public class GameWindowScreen extends JFrame implements ActionListener, Observer
 	}
 
 	/**
-	 * This method create table which displays the number of countries owned by
-	 * players
+	 * This method create table which displays the number of countries owned by players
 	 * 
 	 * @param gameModel Object of GameModelCreation class
 	 */
@@ -1326,9 +1282,10 @@ public class GameWindowScreen extends JFrame implements ActionListener, Observer
 
 		System.out.println("Again action performed");
 
-		if (gameModel.getCurrPlayer().getNoOfCardsOwned() < 5)
+		if (gameModel.getCurrPlayer().getNoOfCardsOwned() < 5) {
 			cardExchangeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
+		}
+			
 		System.out.println("Before Cards:- " + gameModel.getCurrPlayer().getNoOfCardsOwned());
 		System.out.println("Before Armies:- " + gameModel.getCurrPlayer().getNoOfArmiesOwned());
 
@@ -1338,16 +1295,14 @@ public class GameWindowScreen extends JFrame implements ActionListener, Observer
 			Set<String> setOfCards = new HashSet<String>(cardsSelected);
 			if (setOfCards.size() == 1 || setOfCards.size() == cardsSelected.size()) {
 				gameModel.getCurrPlayer().setCardsForArmies(gameModel.getCurrPlayer().getCardsForArmies() + 5);
-				gameModel.getCurrPlayer().setNoOfArmiesOwned(
-						gameModel.getCurrPlayer().getNoOfArmiesOwned() + gameModel.getCurrPlayer().getCardsForArmies());
+				gameModel.getCurrPlayer().setNoOfArmiesOwned(gameModel.getCurrPlayer().getNoOfArmiesOwned() + gameModel.getCurrPlayer().getCardsForArmies());
 
 				for (String cardType : cardsSelected) {
 
 					for (Card card : gameModel.getCurrPlayer().getCardsOwned()) {
 						if (card.getTypeOfCard().toString().equals(cardType)) {
 							gameModel.getCurrPlayer().getCardsOwned().remove(card);
-							gameModel.getCurrPlayer()
-									.setNoOfCardsOwned(gameModel.getCurrPlayer().getNoOfCardsOwned() - 1);
+							gameModel.getCurrPlayer().setNoOfCardsOwned(gameModel.getCurrPlayer().getNoOfCardsOwned() - 1);
 							break;
 						}
 					}
@@ -1579,24 +1534,7 @@ public class GameWindowScreen extends JFrame implements ActionListener, Observer
 		catch(NotSerializableException nse) {
 			System.out.println(nse.toString());
 		}
-//		catch(NotSerializableException nse) {
-//			System.out.println("Inside Catch");
-//			
-//			for (Player p : gameModel.getPlayer()) {
-//				p.deleteObserver(this);
-//				for(Country c :p.getCountriesOwned()) {
-//					c.deleteObserver(this);
-//				}
-//			}
-//			
-//		
-//			gameController.getGameModel().deleteObserver(this);
-//			
-//			
-//			
-//			
-//		}
-//	
+
 		os.flush();
 		fs.close();
 		}

@@ -38,8 +38,8 @@ public class UploadExistingGameControllerTest {
 	private ArrayList<Continent> continentList;
 	private GameModelCreation gameModel;
 	private String sSaveFileName="newFileCreation";
-	private String SFileName="E:\\SOEN_6441\\SOEN6441_SVN\\SOEN6441_Project\\Saved Games";
-	private String sName ="E:\\SOEN_6441\\SOEN6441_SVN\\SOEN6441_Project\\Saved Games\\newFileCreation.bin";
+	private String SFileName="C:\\Project\\SOEN6441_SVN\\SOEN6441_Project\\Saved Games";
+	private String sName ="C:\\Project\\SOEN6441_SVN\\SOEN6441_Project\\Saved Games\\newFileCreation.bin";
 	
 	/**
 	 * This method initializes all the required data to complete the test

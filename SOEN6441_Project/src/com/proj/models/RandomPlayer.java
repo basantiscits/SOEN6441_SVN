@@ -42,21 +42,6 @@ public class RandomPlayer implements BehaviorStrategies, Serializable {
 			gameModel.getCurrPlayer().reduceArmyInPlayer();
 		}
 		
-		
-		
-		
-		
-//		int limit = random.nextInt(gameModel.getCurrPlayer().getCountriesOwned().size());
-//		if (limit == gameModel.getCurrPlayer().getCountriesOwned().size()) {
-//			limit = limit - 1;
-//		}
-// 
-//		Country country = gameModel.getCurrPlayer().getCountriesOwned().get(limit);
-//
-//		if (gameModel.getCurrPlayer().getNoOfArmiesOwned() > 0) {
-//			country.addNoOfArmiesCountry();
-//			gameModel.getCurrPlayer().reduceArmyInPlayer();
-//		}
 		System.out.println("StartUp phase done for Random");
 		 
 	}

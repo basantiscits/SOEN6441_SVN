@@ -26,7 +26,6 @@ import com.proj.views.GameWindowScreen;
  */
 public class FortificationControllerTest {
 	
-	
 	private Player[] player;
 	private Map gameMap;
 	private GameWindowScreen screen ;

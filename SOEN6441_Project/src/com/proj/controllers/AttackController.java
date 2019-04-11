@@ -46,8 +46,9 @@ public class AttackController implements ActionListener, Serializable{
 	public boolean countryWon;
 	private GameModelCreation gameModel;
 	private static final long serialVersionUID = 45443434343L;
+	
 	/** 
-	 * attackView class constructor
+	 * AttackController class constructor
 	 * @param attackView attack view object
 	 */
 	public AttackController(AttackView attackView) {
@@ -68,6 +69,10 @@ public class AttackController implements ActionListener, Serializable{
 		attackerDiceCount=0;
 	}
 	
+	/**
+	 * AttackController class constructor 
+	 * @param gameModel Object of GameModelCreation class
+	 */
 	public AttackController(GameModelCreation gameModel){
 		diceRoll=new Random();
 		defender=null;
@@ -592,10 +597,7 @@ public class AttackController implements ActionListener, Serializable{
 					}
 					if(over != 1) {
 						System.out.println("All Humans Lost!!!");
-						/*JOptionPane.showMessageDialog(null,"All Human Lost!!! \n Game Over");
-						attackView.dispose();
-						attackView.getGameModel().getGameScreen().dispose();
-						System.exit(0);*/
+			
 					}
 					if(attackView.getGameModel().getCurrPlayer().getCountriesOwned().size()==attackView.getGameModel().getMapDetails().listOfCountryNames().size()) {
 						attackView.getGameModel().setGameState(10);

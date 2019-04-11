@@ -159,7 +159,7 @@ public class Country extends Observable implements Serializable{
 	}
 	
 	/**
-	 * Update changes.
+	 * Update changes
 	 */
 	public void updateChanges() {
 		setChanged();

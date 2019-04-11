@@ -628,7 +628,7 @@ public class AttackView extends JFrame implements ActionListener, Serializable {
 	}
 		
 	/**
-	 * select dices
+	 * select attacker dices
 	 */
 	public void selectDices() {
 		selectNoOfDice.removeAllItems();
@@ -643,7 +643,7 @@ public class AttackView extends JFrame implements ActionListener, Serializable {
 	}
 	
 	/**
-	 * select dices
+	 * select defender dices
 	 */
 	public void selectDefenderDice() {
 		selectNoOfDiceDefender.removeAllItems();

@@ -29,7 +29,6 @@ import com.proj.models.Map;
 public class MapTools implements Serializable {
 	
 	private static final long serialVersionUID = 45443434343L;
-
 	
 	/**
 	 * This map checks the .map extension of given map file
@@ -95,8 +94,7 @@ public class MapTools implements Serializable {
 					Data += line + "\n";
 				}
 			}
-			if (Data.toLowerCase().indexOf("[continents]") >= 0 && Data.toLowerCase().indexOf("[territories]") >= 0
-					&& Data.toLowerCase().indexOf("author") >= 0 && Data.toLowerCase().indexOf("[map]") >= 0) {
+			if (Data.toLowerCase().indexOf("[continents]") >= 0 && Data.toLowerCase().indexOf("[territories]") >= 0 && Data.toLowerCase().indexOf("author") >= 0 && Data.toLowerCase().indexOf("[map]") >= 0) {
 				isMapValid = true;
 				gameMap.setErrorOccurred(false);
 				gameMap.setErrorMessage("No Errors");
@@ -107,20 +105,16 @@ public class MapTools implements Serializable {
 				gameMap.setErrorMessage("Information missing");
 				return isMapValid;
 			}
-			String authorData = Data.substring(Data.toLowerCase().indexOf("[map]"),
-					Data.toLowerCase().indexOf("[continents]"));
-			String continentData = Data.substring(Data.toLowerCase().indexOf("[continents]"),
-					Data.toLowerCase().indexOf("[territories]"));
+			String authorData = Data.substring(Data.toLowerCase().indexOf("[map]"), Data.toLowerCase().indexOf("[continents]"));
+			String continentData = Data.substring(Data.toLowerCase().indexOf("[continents]"), Data.toLowerCase().indexOf("[territories]"));
 			String countryData = Data.substring(Data.toLowerCase().indexOf("[territories]"));
 			String[] countryDataArray = countryData.split("\n");
 			String[] continentDataArray = continentData.split("\n");
 			for (String stringManipulation : continentDataArray) {
 				if (!stringManipulation.equalsIgnoreCase("[continents]") && stringManipulation.length() >= 3) {
 					Continent newContinent = new Continent();
-					newContinent.setContinentName(
-							stringManipulation.substring(0, stringManipulation.indexOf("=")).toUpperCase());
-					newContinent.setControlValue(
-							Integer.parseInt(stringManipulation.substring(stringManipulation.indexOf("=") + 1)));
+					newContinent.setContinentName(stringManipulation.substring(0, stringManipulation.indexOf("=")).toUpperCase());
+					newContinent.setControlValue(Integer.parseInt(stringManipulation.substring(stringManipulation.indexOf("=") + 1)));
 					gameMap.getContinents().add(newContinent);
 				}
 			}
@@ -136,8 +130,7 @@ public class MapTools implements Serializable {
 							newCountry.getListOfNeighbours().add(stringManipulationArray[i]);
 						}
 						for (Continent currentContinent : gameMap.getContinents()) {
-							if (currentContinent.getContinentName().toLowerCase()
-									.indexOf(stringManipulationArray[3].trim().toLowerCase()) >= 0) {
+							if (currentContinent.getContinentName().toLowerCase().indexOf(stringManipulationArray[3].trim().toLowerCase()) >= 0) {
 								currentContinent.getCountriesPresent().add(newCountry);
 							}
 						}
@@ -312,7 +305,7 @@ public class MapTools implements Serializable {
 	}
 	
 	/**
-	 * The class for Graph conectivity
+	 * The class for Graph connectivity
 	 * @author Arpit
 	 * @since 30 Jan 2019
 	 * @version 1.0
@@ -321,6 +314,10 @@ public class MapTools implements Serializable {
 		private int Value; 
 		private ArrayList<Integer> adj[]; 
 		
+		/**
+		 * Graph constructor
+		 * @param val graph values
+		 */
 		Graph(int val) {
 			this.Value = val;
 			adj = new ArrayList[val];
@@ -329,10 +326,20 @@ public class MapTools implements Serializable {
 			}
 		}
 
+		/**
+		 * Add edge in graph
+		 * @param edge1 edge 1
+		 * @param edge2 edge 2
+		 */
 		void addEdge(int edge1, int edge2) {
 			adj[edge1].add(edge2);
 		}
 
+		/**
+		 * Depth First Utility
+		 * @param val Graph values
+		 * @param visited true if visited else false
+		 */
 		void dfsUtil(int val, Boolean visited[]) {
 			visited[val] = true;
 			Iterator<Integer> i = adj[val].listIterator();
@@ -345,6 +352,10 @@ public class MapTools implements Serializable {
 			}
 		}
 		
+		/**
+		 * get transpose
+		 * @return graph
+		 */
 		Graph getTranspose() {
 			Graph graph = new Graph(Value);
 			for (int v = 0; v < Value; v++) {
@@ -356,6 +367,10 @@ public class MapTools implements Serializable {
 			return graph;
 		}
 
+		/**
+		 * is strongly connected
+		 * @return true if graph is strongly connected else false
+		 */
 		Boolean isStronglyConnected() {
 			Boolean visited[] = new Boolean[Value];
 			for (int i = 0; i < Value; i++) {
@@ -442,8 +457,7 @@ public class MapTools implements Serializable {
 				data += "[Territories]\n";
 				for (Continent c : gameMap.getContinents()) {
 					for (Country country : c.getCountriesPresent()) {
-						data += country.getCountryName() + "," + country.getLatitude() + "," + country.getLongitude() + ","
-								+ c.getContinentName() + "," + String.join(",", country.getListOfNeighbours()) + "\n";
+						data += country.getCountryName() + "," + country.getLatitude() + "," + country.getLongitude() + "," + c.getContinentName() + "," + String.join(",", country.getListOfNeighbours()) + "\n";
 					}
 				}
 				PrintWriter writeData = null;

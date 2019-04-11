@@ -32,8 +32,6 @@ public class TournamentControllerTest {
 	TournamentController tournamentController;
 	GameModelCreation gameModel;
 	
-	
-	
 	/**
 	 * This method initializes all the required data to complete the test
 	 */

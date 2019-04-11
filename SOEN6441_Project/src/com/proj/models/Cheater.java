@@ -14,10 +14,8 @@ import javax.swing.JOptionPane;
  * @version 1.2
  */
 public class Cheater implements BehaviorStrategies, Serializable {
-
 	
 	private static final long serialVersionUID = 45443434343L;
-
 	
 	/**
 	 * start up phase

@@ -33,10 +33,7 @@ public class Player extends Observable implements Serializable{
 	private PlayerType playerType;
 	private GameModelCreation gameModel;
 	private GameWindowScreen gameScreen;
-	private static final long serialVersionUID = 45443434343L;
-
-	
-	
+	private static final long serialVersionUID = 45443434343L;	
 	
 	/**
 	 * constructor for Player class
@@ -86,8 +83,6 @@ public class Player extends Observable implements Serializable{
 	public void setPlayerType(PlayerType playerType) {
 		this.playerType = playerType;
 	}
-
-
 
 	/**
 	 * getter for status
@@ -321,11 +316,9 @@ public class Player extends Observable implements Serializable{
 	
 	/**
 	 * updates continents owned by player
-	 * 
 	 * @param gameModel Object of GameModelCreation class
 	 */
-	public void updateContinentsOwned(GameModelCreation gameModel) {
-		
+	public void updateContinentsOwned(GameModelCreation gameModel) {	
 		for(Continent cont:continentsOwned) {
 			incrementNoOfArmiesOwned(cont.getControlValue());
 		}
@@ -396,7 +389,7 @@ public class Player extends Observable implements Serializable{
 	 * @param flag set to 1 if only 1 army present in country
 	 */
 	public void fortificationPhaseImplementation(GameModelCreation gameModel, int flag) {
-		int index = 0 ;
+		int index = 0;
 		for(int i=0; i < gameModel.getPlayer().length;i++) {
 			if(this == gameModel.getPlayer()[i]) {
 				index = i;

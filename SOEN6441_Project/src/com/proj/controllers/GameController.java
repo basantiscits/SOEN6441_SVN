@@ -29,8 +29,6 @@ public class GameController implements ActionListener, Serializable {
 	private String sSaveFileName="";
 	private static final long serialVersionUID = 45443434343L;
 
-
-
 	/**
 	 * constructor for Game Controller
 	 * 
@@ -121,7 +119,6 @@ public class GameController implements ActionListener, Serializable {
 			try {
 				gameWindowScreen.saveExistingGame(gameModel,sSaveFileName);
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			break;

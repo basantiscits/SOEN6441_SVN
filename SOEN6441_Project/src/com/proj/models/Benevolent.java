@@ -14,13 +14,9 @@ import com.proj.controllers.AttackController;
  * @since 23 Mar 2019
  * @version 1.2
  */
-public class Benevolent implements BehaviorStrategies, Serializable {
-
+public class Benevolent implements BehaviorStrategies, Serializable {	
 	
-	private static final long serialVersionUID = 45443434343L;
-
-	
-	
+	private static final long serialVersionUID = 45443434343L;	
 	
 	/**
 	 * start up phase
@@ -124,8 +120,7 @@ public class Benevolent implements BehaviorStrategies, Serializable {
 				noOfArmies = c.getNoOfArmiesPresent();
 			}
 		}
-		return country;
-		
+		return country;		
 	}
 
 	/**

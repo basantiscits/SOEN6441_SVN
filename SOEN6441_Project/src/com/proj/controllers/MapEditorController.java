@@ -32,7 +32,6 @@ public class MapEditorController implements ActionListener, Serializable {
 
 	/**
 	 * constructor for map editor controller
-	 * 
 	 * @param mapEditorView setter for map editor, game map view
 	 */
 	public MapEditorController(MapEditor mapEditorView) {

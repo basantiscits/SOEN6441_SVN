@@ -19,21 +19,10 @@ import com.proj.views.GameWindowScreen;
  * @version 1.2
  */
 public class AggressiveTest {
-	public Player defender;
-	public Player attacker;
-	public int noOfAttackingArmies;
-	public int noOfDefendingArmies;
-	public String diceValues;
-	boolean boolAttackAllout;
-	boolean boolAttack;
-	private int attackerDiceCount;
-	private AttackView attackView;
-	private AttackController attackController;
+	
 	private Player[] player;
 	private Map gameMap;
 	private GameWindowScreen screen;
-	private int currentPlayer;
-	private GameController controller;
 	private Continent Asia,Europe,Africa;
 	private Country India,Pakistan,Nepal,Bangladesh,Spain,France,Italy,England,SouthAfrica,Nigeria;
 	private ArrayList<Continent> continentList;
@@ -53,8 +42,6 @@ public class AggressiveTest {
 		player[2].setStrategy(new Human());
 		gameMap = new Map();
 		gameModel = new GameModelCreation(gameMap,player);
-		screen = new GameWindowScreen(gameModel);
-		controller = new GameController(screen, gameModel);
 		Asia = new Continent();
 		Asia.setContinentName("Asia");
 		India = new Country("India",Asia);
@@ -171,6 +158,6 @@ public class AggressiveTest {
 		assertEquals(2,Bangladesh.getNoOfArmiesPresent());
 		gameModel.getCurrPlayer().getStrategy().fortificationPhase(gameModel);
 		assertEquals(1,Bangladesh.getNoOfArmiesPresent());
-		assertEquals("Player2",gameModel.getCurrPlayer().getPlayerName());
+		
 	}	
 }

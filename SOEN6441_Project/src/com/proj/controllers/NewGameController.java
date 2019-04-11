@@ -111,8 +111,7 @@ public class NewGameController implements ActionListener, Serializable {
 			playNewGame.getComboBoxSelectPlayer5().setVisible(false);
 			playNewGame.getComboBoxSelectPlayer6().setVisible(false);
 		}
-		else if(noOfPlayers.trim().equalsIgnoreCase("3"))
-		{
+		else if(noOfPlayers.trim().equalsIgnoreCase("3")) {
 			playNewGame.getPlayerLable1().setVisible(true);
 			playNewGame.getPlayerLable2().setVisible(true);
 			playNewGame.getPlayerLable3().setVisible(true);
@@ -126,8 +125,7 @@ public class NewGameController implements ActionListener, Serializable {
 			playNewGame.getComboBoxSelectPlayer5().setVisible(false);
 			playNewGame.getComboBoxSelectPlayer6().setVisible(false);
 		}
-		else if(noOfPlayers.trim().equalsIgnoreCase("4"))
-		{
+		else if(noOfPlayers.trim().equalsIgnoreCase("4")) {
 			playNewGame.getPlayerLable1().setVisible(true);
 			playNewGame.getPlayerLable2().setVisible(true);
 			playNewGame.getPlayerLable3().setVisible(true);
@@ -141,10 +139,8 @@ public class NewGameController implements ActionListener, Serializable {
 			playNewGame.getComboBoxSelectPlayer5().setVisible(false);
 			playNewGame.getComboBoxSelectPlayer6().setVisible(false);
 			
-			
 		}
-		else if(noOfPlayers.trim().equalsIgnoreCase("5"))
-		{
+		else if(noOfPlayers.trim().equalsIgnoreCase("5")) {
 			playNewGame.getPlayerLable1().setVisible(true);
 			playNewGame.getPlayerLable2().setVisible(true);
 			playNewGame.getPlayerLable3().setVisible(true);
@@ -159,8 +155,7 @@ public class NewGameController implements ActionListener, Serializable {
 			playNewGame.getComboBoxSelectPlayer6().setVisible(false);
 			
 		}
-		else if(noOfPlayers.trim().equalsIgnoreCase("6"))
-		{
+		else if(noOfPlayers.trim().equalsIgnoreCase("6")) {
 			playNewGame.getPlayerLable1().setVisible(true);
 			playNewGame.getPlayerLable2().setVisible(true);
 			playNewGame.getPlayerLable3().setVisible(true);
@@ -176,9 +171,6 @@ public class NewGameController implements ActionListener, Serializable {
 			
 		}
 
-		
-			
-
 		if (event.getSource().equals(playNewGame.getButtonbrowse())) {
 			if (noOfPlayers.equals("  --Select--  ")) {
 				System.out.println("Select is pressed");
@@ -187,13 +179,14 @@ public class NewGameController implements ActionListener, Serializable {
 				PlayNewGame objPlayNewGame = new PlayNewGame();
 				MapTools sFunctions = new MapTools();
 				sPathFileName = sFunctions.pickMapFile(existingMap);
-				if (sPathFileName == null) {
-				} else {
+				if (sPathFileName == null) {}
+				else {
 					isMapValid = sFunctions.parseAndValidateMap(existingMap, Integer.parseInt(noOfPlayers));
 					sCopyisMapValid = isMapValid;
 					if (isMapValid) {
 						JOptionPane.showMessageDialog(null, "Map successfully loaded");
-					} else {
+					}
+					else {
 						JOptionPane.showMessageDialog(null, "Invalid Map selected");
 						System.out.println(existingMap.getErrorMessage());
 					}
@@ -201,17 +194,20 @@ public class NewGameController implements ActionListener, Serializable {
 					playNewGame.getTextFieldMap().setText(sPathFileName);
 				}
 			} 
-		} else if ((event.getSource()).equals(playNewGame.getButtonPlayGame())) {
+		} 
+		else if ((event.getSource()).equals(playNewGame.getButtonPlayGame())) {
 			System.out.println("Play Game Button");
 			noOfPlayers = (String) playNewGame.getComboBoxSelectPlayer().getSelectedItem();
 			if (sCopyisMapValid) {
 				if (noOfPlayers.equals("  --Select--  ")) {
 					System.out.println("Select is pressed");
 					JOptionPane.showMessageDialog(null, "Please select no. of Players to play game");
-				} else {
+				} 
+				else {
 					if (sPathFileName.equals(null) || (sPathFileName).equals("")) {
 						JOptionPane.showMessageDialog(null, "Please upload the . map file");
-					} else {
+					}
+					else {
 						String[] comboSelectedPlayers = new String[Integer.parseInt(noOfPlayers)];
 						if (Integer.parseInt(noOfPlayers) >= 2) {
 							comboSelectedPlayers[0] = (String) playNewGame.getComboBoxSelectPlayer1().getSelectedItem();
@@ -238,7 +234,8 @@ public class NewGameController implements ActionListener, Serializable {
 
 					}
 				}
-			} else {
+			} 
+			else {
 				JOptionPane.showMessageDialog(null, "Invalid Map selected");
 				System.out.println(existingMap.getErrorMessage());
 			}

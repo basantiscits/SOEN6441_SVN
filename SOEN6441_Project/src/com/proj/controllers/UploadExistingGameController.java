@@ -25,11 +25,18 @@ public class UploadExistingGameController implements ActionListener, Serializabl
 	private String sPathFileName = "";
 	private static final long serialVersionUID = 45443434343L;
 
-
+	/**
+	 * UploadExistingGameController constructor
+	 * @param uploadExistingGame Object of UploadExistingGame class
+	 */
 	public UploadExistingGameController(UploadExistingGame uploadExistingGame) {
 		this.uploadExistingGame = uploadExistingGame;
 	}
 	
+	/**
+	 * UploadExistingGameController constructor
+	 * @param sPathFileName File path name
+	 */
 	public UploadExistingGameController(String sPathFileName) {
 		this.sPathFileName = sPathFileName;
 	}
@@ -68,8 +75,8 @@ public class UploadExistingGameController implements ActionListener, Serializabl
 
 	/**
 	 * Load saved game
-	 * @throws IOException
-	 * @throws ClassNotFoundException
+	 * @throws IOException input output exception
+	 * @throws ClassNotFoundException class not found
 	 */
 	private void loadSavedGame() throws IOException, ClassNotFoundException {
 		
@@ -77,18 +84,19 @@ public class UploadExistingGameController implements ActionListener, Serializabl
 		FileInputStream fs = new FileInputStream(sPathFileName);
 		ObjectInputStream os = new ObjectInputStream(fs);
 		GameModelCreation gameModel = (GameModelCreation)os.readObject();
-//		Map map = gameModel.getMapDetails();
-//		Player player[] = gameModel.getPlayer();
-//		PlayNewGame png = new PlayNewGame();
 		gameModel.getGameScreen().addObserverWhenLoading();
 		gameModel.getGameScreen().setVisible(true);
 		
 		System.out.println("Game Model State: " + gameModel.getGameState());
-//		png.GameModelWindowMade(map, player, gameModel);	
-	
-		
 	}
 	
+	/**
+	 * 
+	 * @param sName file name
+	 * @return game model
+	 * @throws IOException input output exception
+	 * @throws ClassNotFoundException class not found
+	 */
 	public GameModelCreation loadSavedGame(String sName) throws IOException, ClassNotFoundException {
 		FileInputStream fs = new FileInputStream(sName);
 		ObjectInputStream os = new ObjectInputStream(fs);

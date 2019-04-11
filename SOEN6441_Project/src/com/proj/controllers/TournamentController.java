@@ -33,7 +33,6 @@ public class TournamentController  implements ActionListener, Serializable {
 	private String sPathFileName3 = "";
 	private String sPathFileName4 = "";
 	private String sPathFileName5 = "";	
-
 	
 	public String sPlayerBehaviour1="";
 	public String sPlayerBehaviour2="";

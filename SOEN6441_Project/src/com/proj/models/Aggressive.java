@@ -15,12 +15,9 @@ import com.proj.controllers.AttackController;
  * @version 1.2
  */
 public class Aggressive implements BehaviorStrategies, Serializable {
-
-	
 	
 	private static final long serialVersionUID = 45443434343L;
 
-	
 	/**
 	 * start up phase
 	 * @param gameModel Object of GameModelCreation class

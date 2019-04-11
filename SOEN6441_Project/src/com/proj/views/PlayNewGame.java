@@ -55,9 +55,6 @@ public class PlayNewGame extends JFrame implements ActionListener, Serializable 
 	private JComboBox<String> comboBoxPlayer6;
 	private static final long serialVersionUID = 45443434343L;
 
-	
-	
-
 	/**
 	 * Play New Game constructor
 	 */
@@ -644,9 +641,8 @@ public class PlayNewGame extends JFrame implements ActionListener, Serializable 
 	
 	/**
 	 * Overridden method listening events not used
+	 * @param e Object of ActionEvent class
 	 */
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		
-	}
+	public void actionPerformed(ActionEvent e) {}
 }

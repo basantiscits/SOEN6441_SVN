@@ -22,24 +22,11 @@ public class CardsTest {
 		Card card2 = Card.getNewCard();
 		Card card3 = Card.getNewCard();
 		
-		assertTrue(card1.getTypeOfCard().equals(Card.Type.ARTILLERY) || 
-				card1.getTypeOfCard().equals(Card.Type.CAVALRY) || card1.getTypeOfCard().equals(Card.Type.INFANTRY));
+		assertTrue(card1.getTypeOfCard().equals(Card.Type.ARTILLERY) || card1.getTypeOfCard().equals(Card.Type.CAVALRY) || card1.getTypeOfCard().equals(Card.Type.INFANTRY));	
 		
+		assertTrue(card3.getTypeOfCard().equals(Card.Type.ARTILLERY) || card3.getTypeOfCard().equals(Card.Type.CAVALRY) || card3.getTypeOfCard().equals(Card.Type.INFANTRY));
 		
-		assertTrue(card3.getTypeOfCard().equals(Card.Type.ARTILLERY) || 
-				card3.getTypeOfCard().equals(Card.Type.CAVALRY) || card3.getTypeOfCard().equals(Card.Type.INFANTRY));
-		
-		assertTrue(card2.getTypeOfCard().equals(Card.Type.ARTILLERY) || 
-				card2.getTypeOfCard().equals(Card.Type.CAVALRY) || card2.getTypeOfCard().equals(Card.Type.INFANTRY));
-		
-		
+		assertTrue(card2.getTypeOfCard().equals(Card.Type.ARTILLERY) || card2.getTypeOfCard().equals(Card.Type.CAVALRY) || card2.getTypeOfCard().equals(Card.Type.INFANTRY));
+			
 	}
-	
-	
-	
-	
-	
-	
-	
-
 }

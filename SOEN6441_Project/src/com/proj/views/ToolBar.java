@@ -28,7 +28,6 @@ public class ToolBar extends JPanel implements Serializable {
 	
 	private static final long serialVersionUID = 45443434343L;
 
-
 	/**
 	 * constructor of tool bar class
 	 * @param mapEditorController object of MapEditorController class
